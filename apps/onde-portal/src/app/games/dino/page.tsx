@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -288,7 +290,8 @@ const drawStars = (ctx: CanvasRenderingContext2D, stars: Star[], frame: number) 
   })
 }
 
-export default function DinoRunnerGame() {
+function DinoRunnerGameInner() {
+  const rewards = useGameContext()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [gameState, setGameState] = useState<GameState>('idle')
   const [score, setScore] = useState(0)
@@ -574,6 +577,7 @@ export default function DinoRunnerGame() {
       saveHighScore(Math.floor(game.score))
       setScore(Math.floor(game.score))
       setGameState('gameover')
+      rewards.trackWin()
       return
     }
 
@@ -854,5 +858,17 @@ export default function DinoRunnerGame() {
         <p className="mt-1">🦅 Birds appear after 200 points - duck under low ones, jump over high ones!</p>
       </div>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function DinoRunnerGame() {
+  return (
+    <GameWrapper gameName="Dino Runner" gameId="dino" emoji={"🦕"}>
+      <DinoRunnerGameInner />
+    </GameWrapper>
   )
 }

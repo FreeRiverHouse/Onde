@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -77,7 +79,7 @@ interface HistoryState {
   layers: { id: string; dataUrl: string }[]
 }
 
-export default function DrawingPad() {
+function DrawingPadInner() {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasContainerRef = useRef<HTMLDivElement>(null)
   const templateCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -1252,5 +1254,17 @@ export default function DrawingPad() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function DrawingPad() {
+  return (
+    <GameWrapper gameName="Draw" gameId="draw" emoji={"✏️"}>
+      <DrawingPadInner />
+    </GameWrapper>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -349,7 +351,8 @@ const generateBricks = (level: number): Brick[] => {
 }
 
 // Main game component
-export default function BreakoutGame() {
+function BreakoutGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -919,6 +922,7 @@ export default function BreakoutGame() {
     if (remainingBricks.length === 0) {
       if (levelRef.current >= MAX_LEVEL) {
         setGameState('victory')
+        rewards.trackWin()
         saveHighScore(scoreRef.current, levelRef.current)
         setShowConfetti(true)
         if (soundEnabled) playSound('levelup')
@@ -1641,5 +1645,17 @@ export default function BreakoutGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function BreakoutGame() {
+  return (
+    <GameWrapper gameName="Breakout" gameId="breakout" emoji={"🧱"}>
+      <BreakoutGameInner />
+    </GameWrapper>
   )
 }

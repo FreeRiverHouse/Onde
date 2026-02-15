@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -329,7 +331,8 @@ const ImageButton = ({
 }
 
 // Main game component
-export default function SlidingPuzzle() {
+function SlidingPuzzleInner() {
+  const rewards = useGameContext()
   const [tiles, setTiles] = useState<Tile[]>([])
   const [gridSize, setGridSize] = useState<GridSize>(3)
   const [selectedPuzzle, setSelectedPuzzle] = useState(PUZZLES[0])
@@ -488,6 +491,7 @@ export default function SlidingPuzzle() {
     // Check for win
     if (isSolved(newTiles)) {
       setGameWon(true)
+      rewards.trackWin()
       setIsPlaying(false)
       setShowConfetti(true)
 
@@ -888,5 +892,17 @@ export default function SlidingPuzzle() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SlidingPuzzle() {
+  return (
+    <GameWrapper gameName="Sliding Puzzle" gameId="puzzle" emoji={"🧩"}>
+      <SlidingPuzzleInner />
+    </GameWrapper>
   )
 }

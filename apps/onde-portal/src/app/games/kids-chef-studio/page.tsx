@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link'
 
@@ -516,6 +518,7 @@ function CookingTimer({
     
     if (secondsLeft <= 0) {
       setCompleted(true)
+    rewards.trackWin()
       playDing()
       onComplete()
       return
@@ -1031,7 +1034,8 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
   )
 }
 
-export default function KidsChefStudio() {
+function KidsChefStudioInner() {
+  const rewards = useGameContext()
   const [selectedRecipe, setSelectedRecipe] = useState<typeof recipes[0] | null>(null)
   const [unlockedRecipes] = useState(13) // All unlocked!
   const [showRecipeBook, setShowRecipeBook] = useState(false)
@@ -1127,5 +1131,17 @@ export default function KidsChefStudio() {
         <span className="text-5xl animate-bounce delay-600">🥬</span>
       </div>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function KidsChefStudio() {
+  return (
+    <GameWrapper gameName="Kids Chef Studio" gameId="kids-chef-studio" emoji={"👨‍🍳"}>
+      <KidsChefStudioInner />
+    </GameWrapper>
   )
 }

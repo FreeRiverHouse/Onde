@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useRef, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 
@@ -89,7 +91,7 @@ interface LoopLayer {
   volume: number
 }
 
-export default function MusicMaker() {
+function MusicMakerInner() {
   const [activeNotes, setActiveNotes] = useState<Set<string>>(new Set())
   const [activeDrums, setActiveDrums] = useState<Set<string>>(new Set())
   const [activeGuitar, setActiveGuitar] = useState<Set<string>>(new Set())
@@ -1440,5 +1442,17 @@ export default function MusicMaker() {
         .animate-bounce-in { animation: bounce-in 0.3s ease-out forwards; }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MusicMaker() {
+  return (
+    <GameWrapper gameName="Music Maker" gameId="music" emoji={"🎵"}>
+      <MusicMakerInner />
+    </GameWrapper>
   )
 }

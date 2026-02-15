@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -164,7 +166,8 @@ const formatTime = (seconds: number): string => {
 }
 
 // Main game component
-export default function MinesweeperGame() {
+function MinesweeperGameInner() {
+  const rewards = useGameContext()
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
   const [board, setBoard] = useState<Cell[][]>([])
   const [gameState, setGameState] = useState<GameState>('idle')
@@ -442,6 +445,7 @@ export default function MinesweeperGame() {
 
         if (checkWin(newBoard, newRevealed)) {
           setGameState('won')
+          rewards.trackWin()
           if (timerRef.current) clearInterval(timerRef.current)
           saveHighScore(timer)
         }
@@ -910,5 +914,17 @@ export default function MinesweeperGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MinesweeperGame() {
+  return (
+    <GameWrapper gameName="Minesweeper" gameId="minesweeper" emoji={"💣"}>
+      <MinesweeperGameInner />
+    </GameWrapper>
   )
 }

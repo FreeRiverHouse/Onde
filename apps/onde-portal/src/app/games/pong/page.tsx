@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -168,7 +170,8 @@ function useGameSounds() {
   return { playSound, toggleSound, isSoundEnabled: () => soundEnabledRef.current }
 }
 
-export default function PongPage() {
+function PongPageInner() {
+  const rewards = useGameContext()
   // Game state
   const [gameState, setGameState] = useState<GameState>('menu')
   const [gameMode, setGameMode] = useState<GameMode>('1p')
@@ -423,6 +426,7 @@ export default function PongPage() {
           const newScore = prev.score + 1
           if (newScore >= WINNING_SCORE) {
             setWinner(1)
+            rewards.trackWin()
             setGameState('gameover')
             playSound('win')
           }
@@ -867,5 +871,17 @@ export default function PongPage() {
         Touch left side for Player 1{gameMode === '2p' && ', right side for Player 2'}
       </div>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function PongPage() {
+  return (
+    <GameWrapper gameName="Pong" gameId="pong" emoji={"🏓"}>
+      <PongPageInner />
+    </GameWrapper>
   )
 }

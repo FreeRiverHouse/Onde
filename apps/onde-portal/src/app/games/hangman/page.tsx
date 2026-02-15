@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -261,7 +263,8 @@ const Keyboard = ({
   )
 }
 
-export default function HangmanGame() {
+function HangmanGameInner() {
+  const rewards = useGameContext()
   // Game state
   const [gameState, setGameState] = useState<GameState>('menu')
   const [language, setLanguage] = useState<Language>('en')
@@ -334,6 +337,7 @@ export default function HangmanGame() {
     if (isWordComplete && currentWord) {
       // Win!
       setGameState('won')
+      rewards.trackWin()
       setShowConfetti(true)
       if (soundEnabled) playSound('win')
       
@@ -712,5 +716,17 @@ export default function HangmanGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function HangmanGame() {
+  return (
+    <GameWrapper gameName="Hangman" gameId="hangman" emoji={"🪢"}>
+      <HangmanGameInner />
+    </GameWrapper>
   )
 }

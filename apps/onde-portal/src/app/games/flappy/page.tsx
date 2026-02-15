@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -396,7 +398,8 @@ const ThemeSelector = ({
   </div>
 )
 
-export default function FlappyGame() {
+function FlappyGameInner() {
+  const rewards = useGameContext()
   // Game state
   const [gameState, setGameState] = useState<GameState>('idle')
   const [countdown, setCountdown] = useState(3)
@@ -580,6 +583,7 @@ export default function FlappyGame() {
         if (newY < 0 || newY > GAME_HEIGHT - 60 - BIRD_SIZE) {
           if (soundEnabled) playSound('hit')
           setGameState('gameover')
+          rewards.trackWin()
           saveHighScore(score)
           return prevY
         }
@@ -919,5 +923,17 @@ export default function FlappyGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function FlappyGame() {
+  return (
+    <GameWrapper gameName="Flappy Bird" gameId="flappy" emoji={"🐦"}>
+      <FlappyGameInner />
+    </GameWrapper>
   )
 }

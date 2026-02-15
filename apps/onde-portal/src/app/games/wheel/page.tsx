@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -57,7 +59,8 @@ const getDateString = (date: Date = new Date()) => {
   return date.toISOString().split('T')[0]
 }
 
-export default function SpinWheel() {
+function SpinWheelInner() {
+  const rewards = useGameContext()
   const [isSpinning, setIsSpinning] = useState(false)
   const [rotation, setRotation] = useState(0)
   const [wonPrize, setWonPrize] = useState<Prize | null>(null)
@@ -253,6 +256,7 @@ export default function SpinWheel() {
     setTimeout(() => {
       clearInterval(tickInterval)
       setIsSpinning(false)
+    rewards.trackWin()
       setWonPrize(selectedPrize)
       setShowCelebration(true)
       
@@ -625,5 +629,17 @@ export default function SpinWheel() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SpinWheel() {
+  return (
+    <GameWrapper gameName="Spin the Wheel" gameId="wheel" emoji={"🎡"}>
+      <SpinWheelInner />
+    </GameWrapper>
   )
 }

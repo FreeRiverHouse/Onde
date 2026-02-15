@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -363,7 +365,8 @@ function LevelProgress({ level, questionsInLevel, maxQuestions }: { level: numbe
 }
 
 // Main component
-export default function MathGame() {
+function MathGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [operation, setOperation] = useState<Operation>('addition')
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
@@ -685,6 +688,7 @@ export default function MathGame() {
       stars: prev.stars + levelStars,
     }))
     setGameState('results')
+        rewards.trackWin()
     if (soundEnabled) playVictory()
     setShowConfetti(true)
     setTimeout(() => setShowConfetti(false), 5000)
@@ -1147,5 +1151,17 @@ export default function MathGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MathGame() {
+  return (
+    <GameWrapper gameName="Math Quest" gameId="math" emoji={"🔢"}>
+      <MathGameInner />
+    </GameWrapper>
   )
 }

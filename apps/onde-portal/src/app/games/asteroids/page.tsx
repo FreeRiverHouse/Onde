@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -253,7 +255,8 @@ const createAsteroid = (
 }
 
 // Main game component
-export default function AsteroidsGame() {
+function AsteroidsGameInner() {
+  const rewards = useGameContext()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   
@@ -602,6 +605,7 @@ export default function AsteroidsGame() {
             
             if (livesRef.current <= 0) {
               setGameState('gameover')
+              rewards.trackWin()
               saveHighScore(scoreRef.current, levelRef.current)
               return
             }
@@ -1223,5 +1227,17 @@ export default function AsteroidsGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function AsteroidsGame() {
+  return (
+    <GameWrapper gameName="Asteroids" gameId="asteroids" emoji={"☄️"}>
+      <AsteroidsGameInner />
+    </GameWrapper>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -253,7 +255,8 @@ class SoundEffects {
   }
 }
 
-export default function ScratchCardGame() {
+function ScratchCardGameInner() {
+  const rewards = useGameContext()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [card, setCard] = useState<ScratchCard | null>(null)
   const [selectedTier, setSelectedTier] = useState<CardTier>('bronze')
@@ -464,6 +467,7 @@ export default function ScratchCardGame() {
       }
       
       setShowResult(true)
+      rewards.trackWin()
     }
   }, [card, revealedPrizes, showResult])
 
@@ -760,5 +764,17 @@ export default function ScratchCardGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function ScratchCardGame() {
+  return (
+    <GameWrapper gameName="Scratch Card" gameId="scratch" emoji={"🎰"}>
+      <ScratchCardGameInner />
+    </GameWrapper>
   )
 }

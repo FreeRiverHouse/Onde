@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -340,7 +342,8 @@ const Confetti = ({ active }: { active: boolean }) => {
   )
 }
 
-export default function WordleGame() {
+function WordleGameInner() {
+  const rewards = useGameContext()
   const [gameMode, setGameMode] = useState<GameMode>('menu')
   const [targetWord, setTargetWord] = useState<string>('')
   const [guesses, setGuesses] = useState<GuessResult[][]>([])
@@ -378,6 +381,7 @@ export default function WordleGame() {
           setTargetWord(getDailyWord())
           if (won) {
             setGameMode('won')
+        rewards.trackWin()
           } else if (savedGuesses.length >= 6) {
             setGameMode('lost')
           }
@@ -474,6 +478,7 @@ export default function WordleGame() {
         setShowConfetti(true)
         playSound('win')
         setGameMode('won')
+        rewards.trackWin()
         setMessage(['Geniale! 🧠', 'Magnifico! ✨', 'Impressionante! 🌟', 'Splendido! 💫', 'Grandioso! 🎯', 'Perfetto! 🎉'][newGuesses.length - 1])
 
         // Update stats
@@ -857,5 +862,17 @@ export default function WordleGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function WordleGame() {
+  return (
+    <GameWrapper gameName="Wordle" gameId="wordle" emoji={"📗"}>
+      <WordleGameInner />
+    </GameWrapper>
   )
 }

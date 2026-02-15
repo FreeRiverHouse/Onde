@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -224,7 +226,8 @@ const WinLineOverlay = ({ winLine }: { winLine: WinLine }) => {
 }
 
 // Main Game Component
-export default function TicTacToe() {
+function TicTacToeInner() {
+  const rewards = useGameContext()
   const [board, setBoard] = useState<Board>(Array(9).fill(null))
   const [currentPlayer, setCurrentPlayer] = useState<'X' | 'O'>('X')
   const [winner, setWinner] = useState<Player>(null)
@@ -382,6 +385,7 @@ export default function TicTacToe() {
     const { winner: gameWinner, line } = checkWinner(newBoard)
     if (gameWinner) {
       setWinner(gameWinner)
+      if (gameWinner === 'X') rewards.trackWin() // Player wins
       setWinLine(line)
       setShowConfetti(true)
       setScores((prev) => ({ ...prev, [gameWinner]: prev[gameWinner] + 1 }))
@@ -779,5 +783,17 @@ export default function TicTacToe() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function TicTacToe() {
+  return (
+    <GameWrapper gameName="Tic Tac Toe" gameId="tictactoe" emoji={"❌"}>
+      <TicTacToeInner />
+    </GameWrapper>
   )
 }

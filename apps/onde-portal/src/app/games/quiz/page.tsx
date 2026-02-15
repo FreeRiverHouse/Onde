@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -561,7 +563,8 @@ function HintPopup({ hint, onClose }: { hint: string, onClose: () => void }) {
   )
 }
 
-export default function QuizGame() {
+function QuizGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [selectedCategories, setSelectedCategories] = useState<Category[]>(['books', 'science', 'geography', 'animals', 'history', 'movies'])
   const [questions, setQuestions] = useState<Question[]>([])
@@ -713,6 +716,7 @@ export default function QuizGame() {
           setConfettiType('standard')
         }
         setGameState('results')
+      rewards.trackWin()
         setShowConfetti(true)
         setTimeout(() => setShowConfetti(false), 6000)
         setShowNameInput(true)
@@ -1349,5 +1353,17 @@ export default function QuizGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function QuizGame() {
+  return (
+    <GameWrapper gameName="Quiz Challenge" gameId="quiz" emoji={"❓"}>
+      <QuizGameInner />
+    </GameWrapper>
   )
 }

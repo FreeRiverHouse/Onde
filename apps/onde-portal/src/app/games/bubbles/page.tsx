@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -305,7 +307,8 @@ const BubbleComponent = ({
 // Game duration
 const GAME_DURATION = 60
 
-export default function BubblePop() {
+function BubblePopInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [bubbles, setBubbles] = useState<Bubble[]>([])
   const [score, setScore] = useState(0)
@@ -480,6 +483,7 @@ export default function BubblePop() {
   // End game
   const endGame = useCallback(() => {
     setGameState('gameover')
+    rewards.trackWin()
     if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current)
     if (timerRef.current) clearInterval(timerRef.current)
     if (spawnRef.current) clearInterval(spawnRef.current)
@@ -875,5 +879,17 @@ export default function BubblePop() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function BubblePop() {
+  return (
+    <GameWrapper gameName="Bubbles" gameId="bubbles" emoji={"🫧"}>
+      <BubblePopInner />
+    </GameWrapper>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -260,7 +262,8 @@ const createBoard = (puzzle: number[][], solution: number[][]): Cell[][] => {
 }
 
 // Main game component
-export default function SudokuGame() {
+function SudokuGameInner() {
+  const rewards = useGameContext()
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
   const [board, setBoard] = useState<Cell[][]>([])
   const [gameState, setGameState] = useState<GameState>('playing')
@@ -439,6 +442,7 @@ export default function SudokuGame() {
       // Check win
       if (!noteMode && checkWin(newBoard)) {
         setGameState('won')
+        rewards.trackWin()
         if (timerRef.current) clearInterval(timerRef.current)
         saveHighScore(timer)
       }
@@ -501,6 +505,7 @@ export default function SudokuGame() {
     // Check win
     if (checkWin(newBoard)) {
       setGameState('won')
+      rewards.trackWin()
       if (timerRef.current) clearInterval(timerRef.current)
       saveHighScore(timer)
     }
@@ -1043,5 +1048,17 @@ export default function SudokuGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SudokuGame() {
+  return (
+    <GameWrapper gameName="Sudoku" gameId="sudoku" emoji={"🔢"}>
+      <SudokuGameInner />
+    </GameWrapper>
   )
 }

@@ -1,4 +1,6 @@
-'use client';
+'use client'
+
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper';
 
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
@@ -52,7 +54,7 @@ const structuredData = {
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "1250", "bestRating": "5", "worstRating": "1" },
 };
 
-export default function SkinCreator() {
+function SkinCreatorInner() {
   const s = useSkinCreator();
 
   return (
@@ -347,4 +349,16 @@ export default function SkinCreator() {
       </div>
     </div>
   );
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SkinCreator() {
+  return (
+    <GameWrapper gameName="Skin Creator" gameId="skin-creator" emoji={"🎭"}>
+      <SkinCreatorInner />
+    </GameWrapper>
+  )
 }

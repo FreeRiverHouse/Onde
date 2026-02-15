@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -388,7 +390,8 @@ const Confetti = ({ show }: { show: boolean }) => {
   )
 }
 
-export default function CrosswordPuzzle() {
+function CrosswordPuzzleInner() {
+  const rewards = useGameContext()
   // Game state
   const [gameMode, setGameMode] = useState<'menu' | 'playing' | 'result'>('menu')
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
@@ -521,6 +524,7 @@ export default function CrosswordPuzzle() {
       
       const newPuzzles = puzzlesCompleted + 1
       setPuzzlesCompleted(newPuzzles)
+      rewards.trackWin()
       localStorage.setItem('crossword-puzzles-completed', newPuzzles.toString())
       
       setShowConfetti(true)
@@ -1140,5 +1144,17 @@ export default function CrosswordPuzzle() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function CrosswordPuzzle() {
+  return (
+    <GameWrapper gameName="Crossword" gameId="crossword" emoji={"📝"}>
+      <CrosswordPuzzleInner />
+    </GameWrapper>
   )
 }

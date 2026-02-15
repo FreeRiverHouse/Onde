@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 
@@ -502,7 +504,7 @@ const Gallery = ({
 }
 
 // Main coloring page
-export default function ColoringBook() {
+function ColoringBookInner() {
   const [currentTemplate, setCurrentTemplate] = useState<Template | null>(null)
   const [selectedColor, setSelectedColor] = useState(COLOR_PALETTE[0].color)
   const [colors, setColors] = useState<Record<string, string>>({})
@@ -851,5 +853,17 @@ export default function ColoringBook() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function ColoringBook() {
+  return (
+    <GameWrapper gameName="Coloring Book" gameId="coloring" emoji={"🎨"}>
+      <ColoringBookInner />
+    </GameWrapper>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -155,7 +157,8 @@ const getSpeedRating = (ms: number): { label: string, emoji: string, color: stri
 
 const TOTAL_ROUNDS = 5
 
-export default function ReactionGame() {
+function ReactionGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [currentRound, setCurrentRound] = useState(0)
   const [roundTimes, setRoundTimes] = useState<number[]>([])
@@ -249,6 +252,7 @@ export default function ReactionGame() {
       const reactionTime = Math.round(performance.now() - startTimeRef.current)
       setCurrentTime(reactionTime)
       setGameState('roundComplete')
+      rewards.trackWin()
       
       if (soundEnabled) playSound('success')
 
@@ -660,5 +664,17 @@ export default function ReactionGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function ReactionGame() {
+  return (
+    <GameWrapper gameName="Reaction Time" gameId="reaction" emoji={"⚡"}>
+      <ReactionGameInner />
+    </GameWrapper>
   )
 }

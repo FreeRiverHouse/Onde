@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
@@ -63,7 +65,7 @@ const areConsecutiveDays = (date1: string, date2: string): boolean => {
   return diffDays === 1
 }
 
-export default function FortuneCookie() {
+function FortuneCookieInner() {
   const [isOpen, setIsOpen] = useState(false)
   const [fortune, setFortune] = useState<typeof fortunes[0] | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -424,5 +426,17 @@ export default function FortuneCookie() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function FortuneCookie() {
+  return (
+    <GameWrapper gameName="Fortune Cookie" gameId="fortune-cookie" emoji={"🥠"}>
+      <FortuneCookieInner />
+    </GameWrapper>
   )
 }

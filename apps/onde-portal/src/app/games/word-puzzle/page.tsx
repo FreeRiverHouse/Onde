@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -124,7 +126,8 @@ const Confetti = ({ show }: { show: boolean }) => {
   )
 }
 
-export default function WordPuzzle() {
+function WordPuzzleInner() {
+  const rewards = useGameContext()
   // Game state
   const [gameMode, setGameMode] = useState<'menu' | 'playing' | 'daily' | 'result'>('menu')
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
@@ -180,6 +183,7 @@ export default function WordPuzzle() {
     const dailyDate = localStorage.getItem('word-puzzle-daily-date')
     if (dailyDate === today) {
       setDailyCompleted(true)
+    rewards.trackWin()
     }
   }, [])
 
@@ -771,5 +775,17 @@ export default function WordPuzzle() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function WordPuzzle() {
+  return (
+    <GameWrapper gameName="Word Puzzle" gameId="word-puzzle" emoji={"📖"}>
+      <WordPuzzleInner />
+    </GameWrapper>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -511,7 +513,8 @@ const StarsBackground = () => {
 }
 
 // Main game component
-export default function SpaceInvaders() {
+function SpaceInvadersInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -1025,6 +1028,7 @@ export default function SpaceInvaders() {
             const newLives = prev - 1
             if (newLives <= 0) {
               setGameState('gameover')
+              rewards.trackWin()
               saveHighScore(scoreRef.current)
             }
             return newLives
@@ -1477,5 +1481,17 @@ export default function SpaceInvaders() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SpaceInvaders() {
+  return (
+    <GameWrapper gameName="Space Invaders" gameId="invaders" emoji={"👾"}>
+      <SpaceInvadersInner />
+    </GameWrapper>
   )
 }

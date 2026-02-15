@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -428,6 +430,7 @@ function LetterTracingCanvas({
     setIsDrawing(false)
     if (progress > 60) {
       onComplete()
+      rewards.trackWin()
     }
   }
 
@@ -495,7 +498,8 @@ function AnimatedLetter({ letter, size = 'lg', animate = true }: { letter: strin
 }
 
 // Main game component
-export default function AlphabetGame() {
+function AlphabetGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [gameMode, setGameMode] = useState<GameMode>('letterMatch')
   const [language, setLanguage] = useState<Language>('en')
@@ -1373,5 +1377,17 @@ export default function AlphabetGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function AlphabetGame() {
+  return (
+    <GameWrapper gameName="ABC Fun" gameId="alphabet" emoji={"🔤"}>
+      <AlphabetGameInner />
+    </GameWrapper>
   )
 }

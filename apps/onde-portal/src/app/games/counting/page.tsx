@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import Link from 'next/link'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { 
@@ -357,7 +359,8 @@ function StickerCollection({ stickers }: { stickers: string[] }) {
 }
 
 // Main game component
-export default function CountingGame() {
+function CountingGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
   const [theme, setTheme] = useState<ObjectTheme>('animals')
@@ -525,6 +528,7 @@ export default function CountingGame() {
     setTimeout(() => {
       if (round >= totalRounds) {
         setGameState('results')
+      rewards.trackWin()
         setShowConfetti(true)
         if (soundEnabled) playVictory()
         setTimeout(() => setShowConfetti(false), 5000)
@@ -932,5 +936,17 @@ export default function CountingGame() {
         }
       `}</style>
     </GameLayout>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function CountingGame() {
+  return (
+    <GameWrapper gameName="Counting Fun" gameId="counting" emoji={"🔢"}>
+      <CountingGameInner />
+    </GameWrapper>
   )
 }

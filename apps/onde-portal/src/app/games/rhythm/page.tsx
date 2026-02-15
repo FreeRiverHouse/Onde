@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -416,7 +418,8 @@ const SongCard = ({ song, onSelect, highScore }: { song: Song; onSelect: () => v
   )
 }
 
-export default function RhythmGame() {
+function RhythmGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [selectedSong, setSelectedSong] = useState<Song | null>(null)
   const [notes, setNotes] = useState<Note[]>([])
@@ -627,6 +630,7 @@ export default function RhythmGame() {
       // Check if song ended
       if (currentTime > selectedSong.duration) {
         setGameState('results')
+        rewards.trackWin()
         saveHighScore(selectedSong.id, score)
         if (perfectCount > notes.length * 0.8) {
           setShowConfetti(true)
@@ -921,5 +925,17 @@ export default function RhythmGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function RhythmGame() {
+  return (
+    <GameWrapper gameName="Rhythm Game" gameId="rhythm" emoji={"🎶"}>
+      <RhythmGameInner />
+    </GameWrapper>
   )
 }

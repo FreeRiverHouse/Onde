@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -341,7 +343,8 @@ const move = (
 }
 
 // Main game component
-export default function Game2048() {
+function Game2048Inner() {
+  const rewards = useGameContext()
   const [grid, setGrid] = useState<Grid>(createEmptyGrid())
   const [score, setScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
@@ -494,6 +497,7 @@ export default function Game2048() {
       const maxTile = getMaxTile(gridWithNewTile)
       if (maxTile >= WINNING_TILE && gameState !== 'won' && !continueAfterWin) {
         setGameState('won')
+        rewards.trackWin()
         setShowConfetti(true)
         if (soundEnabled) playSound('win')
         setTimeout(() => setShowConfetti(false), 3000)
@@ -924,5 +928,17 @@ export default function Game2048() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function Game2048() {
+  return (
+    <GameWrapper gameName="2048" gameId="2048" emoji={"🔢"}>
+      <Game2048Inner />
+    </GameWrapper>
   )
 }

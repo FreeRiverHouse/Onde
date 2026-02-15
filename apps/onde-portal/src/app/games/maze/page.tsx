@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -388,7 +390,8 @@ const DifficultySelector = ({
 }
 
 // Main component
-export default function MazeGame() {
+function MazeGameInner() {
+  const rewards = useGameContext()
   const [maze, setMaze] = useState<Cell[][]>([])
   const [playerPos, setPlayerPos] = useState<Position>({ x: 1, y: 1 })
   const [collectibles, setCollectibles] = useState<Collectible[]>([])
@@ -624,6 +627,7 @@ export default function MazeGame() {
         
         setScore(finalScore)
         setGameState('won')
+        rewards.trackWin()
         setShowConfetti(true)
         saveHighScore(finalScore, elapsedTime, collectedCount)
         if (soundEnabled) playSound('win')
@@ -1300,5 +1304,17 @@ export default function MazeGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MazeGame() {
+  return (
+    <GameWrapper gameName="Maze Runner" gameId="maze" emoji={"🏃"}>
+      <MazeGameInner />
+    </GameWrapper>
   )
 }

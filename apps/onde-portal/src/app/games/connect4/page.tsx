@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -235,7 +237,8 @@ const PreviewPiece = ({ player, visible }: { player: Player; visible: boolean })
 }
 
 // Main Game Component
-export default function ConnectFour() {
+function ConnectFourInner() {
+  const rewards = useGameContext()
   const [board, setBoard] = useState<Board>(createEmptyBoard)
   const [currentPlayer, setCurrentPlayer] = useState<'red' | 'yellow'>('red')
   const [winner, setWinner] = useState<Player>(null)
@@ -538,6 +541,7 @@ export default function ConnectFour() {
       const { winner: gameWinner, cells } = checkWinner(newBoard)
       if (gameWinner) {
         setWinner(gameWinner)
+        if (gameWinner === 'R') rewards.trackWin() // Player wins
         setWinCells(cells)
         setShowConfetti(true)
         setScores(prev => ({ ...prev, [gameWinner]: prev[gameWinner] + 1 }))
@@ -972,5 +976,17 @@ export default function ConnectFour() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function ConnectFour() {
+  return (
+    <GameWrapper gameName="Connect 4" gameId="connect4" emoji={"🔴"}>
+      <ConnectFourInner />
+    </GameWrapper>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import Link from 'next/link'
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import {
@@ -340,7 +342,8 @@ function Preview({ image, gridSize, show, onClose }: PreviewProps) {
 // MAIN GAME COMPONENT
 // =============================================================================
 
-export default function JigsawPuzzle() {
+function JigsawPuzzleInner() {
+  const rewards = useGameContext()
   const [pieces, setPieces] = useState<PuzzlePiece[]>([])
   const [pieceCount, setPieceCount] = useState<PieceCount>(9)
   const [selectedImage, setSelectedImage] = useState<PuzzleImage>(PUZZLE_IMAGES[0])
@@ -531,6 +534,7 @@ export default function JigsawPuzzle() {
   useEffect(() => {
     if (pieces.length > 0 && pieces.every((p) => p.isPlaced)) {
       setGameWon(true)
+      rewards.trackWin()
       setIsPlaying(false)
       setShowConfetti(true)
       if (soundEnabled) playWin()
@@ -764,5 +768,17 @@ export default function JigsawPuzzle() {
         }
       `}</style>
     </GameLayout>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function JigsawPuzzle() {
+  return (
+    <GameWrapper gameName="Jigsaw Puzzle" gameId="jigsaw" emoji={"🧩"}>
+      <JigsawPuzzleInner />
+    </GameWrapper>
   )
 }

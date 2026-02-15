@@ -1,6 +1,8 @@
 'use client'
 
-export default function MoonlightMagicHouse() {
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
+function MoonlightMagicHouseInner() {
   return (
     <div className="w-full h-screen">
       <iframe 
@@ -10,5 +12,17 @@ export default function MoonlightMagicHouse() {
         allow="fullscreen"
       />
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MoonlightMagicHouse() {
+  return (
+    <GameWrapper gameName="Moonlight Magic House" gameId="moonlight-magic-house" emoji={"🏠"}>
+      <MoonlightMagicHouseInner />
+    </GameWrapper>
   )
 }

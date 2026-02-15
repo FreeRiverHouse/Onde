@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -240,7 +242,8 @@ const MemoryCard = ({
 }
 
 // Main game component
-export default function MemoryGame() {
+function MemoryGameInner() {
+  const rewards = useGameContext()
   const [cards, setCards] = useState<Card[]>([])
   const [flippedCards, setFlippedCards] = useState<number[]>([])
   const [moves, setMoves] = useState(0)
@@ -344,6 +347,7 @@ export default function MemoryGame() {
   useEffect(() => {
     if (cards.length > 0 && cards.every((card) => card.isMatched)) {
       setGameOver(true)
+      rewards.trackWin()
       setIsPlaying(false)
       setShowConfetti(true)
       
@@ -853,5 +857,17 @@ export default function MemoryGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MemoryGame() {
+  return (
+    <GameWrapper gameName="Memory" gameId="memory" emoji={"🧠"}>
+      <MemoryGameInner />
+    </GameWrapper>
   )
 }

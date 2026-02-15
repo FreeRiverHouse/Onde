@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -251,7 +253,8 @@ const Hearts = ({ lives, maxLives }: { lives: number; maxLives: number }) => {
 }
 
 // Main game component
-export default function TypingGame() {
+function TypingGameInner() {
+  const rewards = useGameContext()
   // Game state
   const [gameState, setGameState] = useState<'menu' | 'playing' | 'paused' | 'gameover'>('menu')
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
@@ -420,6 +423,7 @@ export default function TypingGame() {
   // End the game
   const endGame = useCallback(() => {
     setGameState('gameover')
+    rewards.trackWin()
     
     // Stop all timers
     if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current)
@@ -890,5 +894,17 @@ export default function TypingGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function TypingGame() {
+  return (
+    <GameWrapper gameName="Typing Practice" gameId="typing" emoji={"⌨️"}>
+      <TypingGameInner />
+    </GameWrapper>
   )
 }

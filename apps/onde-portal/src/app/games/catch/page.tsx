@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -110,7 +112,8 @@ const itemPoints: Record<ItemType, number> = {
   bomb: -100,
 }
 
-export default function CatchGame() {
+function CatchGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [score, setScore] = useState(0)
   const [lives, setLives] = useState(3)
@@ -165,6 +168,7 @@ export default function CatchGame() {
     if (gameState !== 'playing') return
     if (timeLeft === 0 || lives === 0) {
       setGameState('gameover')
+      rewards.trackWin()
       playSound('gameOver')
       saveScore(score)
       return
@@ -428,5 +432,17 @@ export default function CatchGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function CatchGame() {
+  return (
+    <GameWrapper gameName="Catch" gameId="catch" emoji={"🧺"}>
+      <CatchGameInner />
+    </GameWrapper>
   )
 }

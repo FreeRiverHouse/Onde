@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import Link from 'next/link'
 
@@ -304,7 +306,8 @@ const ParticleSystem = ({ particles }: { particles: Particle[] }) => (
 )
 
 // Main game component
-export default function BubblePopGame() {
+function BubblePopGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -549,6 +552,7 @@ export default function BubblePopGame() {
       // Check for level complete
       if (updatedBubbles.length === 0) {
         setGameState('levelComplete')
+        rewards.trackWin()
         setShowConfetti(true)
         if (soundEnabledRef.current) playSound('levelup')
         setTimeout(() => setShowConfetti(false), 2000)
@@ -1211,5 +1215,17 @@ export default function BubblePopGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function BubblePopGame() {
+  return (
+    <GameWrapper gameName="Bubble Pop" gameId="bubble-pop" emoji={"🫧"}>
+      <BubblePopGameInner />
+    </GameWrapper>
   )
 }

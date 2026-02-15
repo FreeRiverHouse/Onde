@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -721,7 +723,8 @@ const createScenes = (): Scene[] => [
 ]
 
 // Main game component
-export default function SpotDifferenceGame() {
+function SpotDifferenceGameInner() {
+  const rewards = useGameContext()
   const [scenes] = useState<Scene[]>(createScenes)
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0)
   const [differences, setDifferences] = useState<Difference[]>([])
@@ -775,6 +778,7 @@ export default function SpotDifferenceGame() {
             if (t <= 1) {
               // Time's up!
               setGameOver(true)
+              rewards.trackWin()
               setIsPlaying(false)
               return 0
             }
@@ -1279,5 +1283,17 @@ export default function SpotDifferenceGame() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SpotDifferenceGame() {
+  return (
+    <GameWrapper gameName="Spot Difference" gameId="spot-difference" emoji={"🔍"}>
+      <SpotDifferenceGameInner />
+    </GameWrapper>
   )
 }

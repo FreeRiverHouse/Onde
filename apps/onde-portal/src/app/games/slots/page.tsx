@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -257,7 +259,8 @@ const WinIndicator = ({ prize, symbol }: { prize: number; symbol: string }) => {
   )
 }
 
-export default function SlotMachine() {
+function SlotMachineInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [coins, setCoins] = useState(100)
   const [bet, setBet] = useState(5)
@@ -437,6 +440,7 @@ export default function SlotMachine() {
             }
 
             setGameState('result')
+            rewards.trackWin()
 
             // Clear message after delay
             setTimeout(() => {
@@ -747,5 +751,17 @@ export default function SlotMachine() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SlotMachine() {
+  return (
+    <GameWrapper gameName="Lucky Slots" gameId="slots" emoji={"🎰"}>
+      <SlotMachineInner />
+    </GameWrapper>
   )
 }

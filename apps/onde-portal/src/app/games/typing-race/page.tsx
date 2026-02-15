@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -348,7 +350,8 @@ const TextDisplay = ({
 }
 
 // Main component
-export default function TypingRace() {
+function TypingRaceInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [difficulty, setDifficulty] = useState<Difficulty>('medium')
   const [text, setText] = useState('')
@@ -560,6 +563,7 @@ export default function TypingRace() {
     if (gameState !== 'racing') return
     
     setGameState('finished')
+    rewards.trackWin()
     if (timerRef.current) clearInterval(timerRef.current)
     if (aiTimerRef.current) clearInterval(aiTimerRef.current)
     
@@ -1039,4 +1043,16 @@ export default function TypingRace() {
   }
 
   return null
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function TypingRace() {
+  return (
+    <GameWrapper gameName="Typing Race" gameId="typing-race" emoji={"🏎️"}>
+      <TypingRaceInner />
+    </GameWrapper>
+  )
 }

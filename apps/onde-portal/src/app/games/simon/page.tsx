@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -207,7 +209,8 @@ const LevelIndicator = ({ level }: { level: number }) => {
 }
 
 // Main game component
-export default function SimonSays() {
+function SimonSaysInner() {
+  const rewards = useGameContext()
   const [pattern, setPattern] = useState<ColorButton[]>([])
   const [playerPattern, setPlayerPattern] = useState<ColorButton[]>([])
   const [gameState, setGameState] = useState<GameState>('idle')
@@ -355,6 +358,7 @@ export default function SimonSays() {
     if (color !== pattern[currentIndex]) {
       // Wrong!
       setGameState('gameover')
+      rewards.trackWin()
       if (soundEnabled) {
         playErrorSound()
       }
@@ -703,5 +707,17 @@ export default function SimonSays() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function SimonSays() {
+  return (
+    <GameWrapper gameName="Simon Says" gameId="simon" emoji={"🔴"}>
+      <SimonSaysInner />
+    </GameWrapper>
   )
 }

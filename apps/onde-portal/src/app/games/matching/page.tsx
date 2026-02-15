@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { 
@@ -426,7 +428,8 @@ function TimerBar({ timeLeft, totalTime }: { timeLeft: number, totalTime: number
 }
 
 // Main game component
-export default function MatchingGame() {
+function MatchingGameInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('menu')
   const [currentLevel, setCurrentLevel] = useState(1)
   const [items, setItems] = useState<MatchItem[]>([])
@@ -558,6 +561,7 @@ export default function MatchingGame() {
     }
 
     setGameState('levelComplete')
+      rewards.trackWin()
 
     // Save high score
     if (levelScore > (highScores[currentLevel - 1] || 0)) {
@@ -1026,5 +1030,17 @@ export default function MatchingGame() {
         }
       `}</style>
     </>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function MatchingGame() {
+  return (
+    <GameWrapper gameName="Matching Game" gameId="matching" emoji={"🃏"}>
+      <MatchingGameInner />
+    </GameWrapper>
   )
 }

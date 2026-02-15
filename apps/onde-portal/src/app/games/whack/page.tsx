@@ -1,5 +1,7 @@
 'use client'
 
+import GameWrapper, { useGameContext } from '@/app/games/components/GameWrapper'
+
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
@@ -244,7 +246,8 @@ const Mole = ({
 // Game duration
 const GAME_DURATION = 60
 
-export default function WhackAMole() {
+function WhackAMoleInner() {
+  const rewards = useGameContext()
   const [gameState, setGameState] = useState<GameState>('idle')
   const [holes, setHoles] = useState<Hole[]>(
     Array.from({ length: 9 }, (_, i) => ({
@@ -408,6 +411,7 @@ export default function WhackAMole() {
   // End game
   const endGame = useCallback(() => {
     setGameState('gameover')
+    rewards.trackWin()
     if (gameLoopRef.current) clearInterval(gameLoopRef.current)
     if (timerRef.current) clearInterval(timerRef.current)
     moleTimersRef.current.forEach((timer) => clearTimeout(timer))
@@ -815,5 +819,17 @@ export default function WhackAMole() {
         }
       `}</style>
     </div>
+  )
+}
+
+
+// ============================================
+// Game Wrapper with XP + Coins tracking
+// ============================================
+export default function WhackAMole() {
+  return (
+    <GameWrapper gameName="Whack-a-Mole" gameId="whack" emoji={"🔨"}>
+      <WhackAMoleInner />
+    </GameWrapper>
   )
 }
