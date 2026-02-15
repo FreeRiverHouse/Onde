@@ -28,6 +28,7 @@ export default function Navigation() {
     { href: '/', label: t.navigation.home },
     { href: '/libri', label: t.navigation.books },
     { href: '/games', label: t.navigation.games },
+    { href: '/blog', label: 'Blog' },
     { href: '/about', label: t.navigation.about },
   ]
 
