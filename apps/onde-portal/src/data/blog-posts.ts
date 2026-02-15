@@ -36,6 +36,24 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'how-we-built-onde-la',
+    title: 'How We Built onde.la — A Free Kids\' Site, Mostly by AI',
+    subtitle: 'Two Weeks, Two AI Agents, Zero Ads',
+    description:
+      'The full technical story behind onde.la: Next.js 14, Tailwind, Cloudflare Pages, 50+ browser games, an ePub reader, a Minecraft skin creator, and two AI agents that wrote 90% of the code in two weeks.',
+    date: 'February 2026',
+    dateISO: '2026-02-28T00:00:00Z',
+    readTime: '11 min read',
+    category: 'Tech',
+    tags: ['Next.js', 'Tailwind', 'Cloudflare', 'Three.js', 'AI', 'Games', 'PWA', 'i18n'],
+    emoji: '🌊',
+    gradient: 'from-teal-400 via-cyan-500 to-blue-500',
+    excerpt:
+      'A free kids\' site with 50+ games, illustrated books, and a Minecraft skin creator — built in two weeks, mostly by AI agents. Here\'s the full technical story.',
+    lang: 'en',
+    contentHtml: `<p>onde.la is a free website for kids — no ads, no tracking, no paywalls. It has 50+ browser games, free illustrated books with an ePub reader, and a Minecraft skin creator with real-time 3D preview. The whole thing runs on Next.js 14 + Tailwind CSS + Cloudflare Pages, costs essentially nothing to host, and was built in about two weeks — with ~90% of the code written by AI agents.</p><p>This post covers the full technical story: stack decisions, game architecture, Three.js skin creator, multi-agent AI workflow, real analytics, and honest costs.</p><p><a href="https://onde.la/blog/how-we-built-onde-la/">Read the full article →</a></p>`,
+  },
+  {
     slug: 'multi-agent-setup',
     title: 'Multi-Agent Setup: 2 Macs, 5 Bots, Zero Humans',
     subtitle: 'Running a 24/7 AI Workforce on ~$200/month',
