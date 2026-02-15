@@ -377,3 +377,25 @@
 | 161 | BLOG-010 | Scrivere blog post "How We Built onde.la" - tech stack, design decisions, CF deployment | ⭐ Content | TODO | - | Next.js + CF Pages + Tailwind + Framer Motion |
 | 162 | SEO-023 | Aggiungere structured data (JSON-LD) alle pagine games per rich snippets | ⭐ SEO | DONE | @clawdinho | SoftwareApplication JSON-LD on all 48 game pages + games hub | SoftwareApplication schema per games, AggregateRating |
 | 163 | PERF-001 | Lighthouse audit onde.la e fixare performance issues (LCP, CLS, FID) | ⭐ Performance | DONE | @clawdinho | Score 78→84, FCP 32% faster, TBT 88% reduction, WebP images, dynamic imports | Target: 90+ performance su mobile |
+
+---
+
+## 🎰 POLYMARKET TRADING
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 23 | PM-001 | Polymarket: Piazza prima bet via phone mirror | 🚨 BLOCCANTE | 🔄 IN_PROGRESS | @clawdinho |
+| 24 | PM-002 | Polymarket: Aggiorna GOLDEN-CONFIG su GitHub | 🔥 Alta | 🔄 IN_PROGRESS | @clawdinho |
+| 25 | PM-003 | Polymarket: Sub-agent scanner mercati sport | ⭐ Media | TODO | @clawdinho |
+| 26 | PM-004 | Polymarket: Collegare dashboard PolyRoborto a dati reali | ⭐ Media | TODO | @clawdinho |
+
+### PM-001: Prima bet Polymarket
+- **Cosa:** Navigare phone mirror, trovare sport opportunity con edge >10%, piazzare bet
+- **Come:** polymarket-navigator.py → screenshot → trova match → bet → swipe to confirm
+- **Vincoli:** Solo phone mirror, NO API, NO browser. Micro-bet $1-2
+- **ETA:** 15 minuti
+
+### PM-002: Aggiorna GOLDEN-CONFIG
+- **Cosa:** Commit e push POLYMARKET-GOLDEN-CONFIG.md su GitHub
+- **Come:** git add/commit/push
+- **ETA:** 2 minuti
