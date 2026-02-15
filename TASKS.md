@@ -244,7 +244,7 @@
 | 35 | GAME-001 | Multi-tenancy giocatori - sistema username leggero senza login | 🔥 Games | ✅ DONE | @clawdinho | usePlayerName hook globale + usePlayerLevel XP + useCoins. Tutti 44 giochi integrati (2026-02-14) |
 | 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | DONE | @clawdinho | useGameTracking hook + gtag events + localStorage return tracking | Dipende da GAME-001 (DONE). Serve analytics su quanti usano il sistema |
 | 37 | GAME-003 | Sistema sblocchi/progressione funzionante | ⭐ Games | ✅ DONE | @clawdinho | usePlayerLevel con 100 livelli, milestones, badges. useCoins per negozio. Integrato in tutti i giochi (2026-02-14) |
-| 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | TODO | - | Grafici PnL cumulativo, win rate evolution |
+| 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | DONE | @clawdinho | Real win rate trend from v2 trades, replaced mock data, 7 days of real PnL |
 
 ## BUG-001: onde.surf "Cannot access uninitialized variable" crash
 - **Status:** ✅ DONE (resolved - stale chunk cache, fixed by redeploy 2026-02-15)
