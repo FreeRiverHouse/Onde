@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T10:00:03.097028+00:00",
+  "timestamp": "2026-02-15T10:30:03.395010+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Mirae Asset agrees to buy 92% stake in Korean exchange Korbit for $93M",
+      "url": "https://cointelegraph.com/news/mirae-asset-buy-92-percent-korbit-korea-crypto-exchange?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Mirae Asset Consulting agreed to acquire a 92.06% controlling stake in South Korean crypto exchange Korbit for about $93 million in cash.",
+      "published": "2026-02-15T10:04:27+00:00"
+    },
     {
       "title": "Senators ask Bessent to probe $500M UAE stake in Trump-linked WLFI",
       "url": "https://cointelegraph.com/news/senators-urge-cfius-probe-uae-stake-trump-linked-wlfi?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -93,13 +100,6 @@
       "source": "cointelegraph",
       "description": "Cathie Wood\u2019s ARK Invest added nearly $15.2 million in Coinbase stock across three ETFs, reversing course days after offloading more than $39 million in shares.",
       "published": "2026-02-14T10:19:56+00:00"
-    },
-    {
-      "title": "Trump Media files for two new crypto ETFs tied to Bitcoin, Ether, Cronos",
-      "url": "https://cointelegraph.com/news/trump-media-files-crypto-etfs-bitcoin-ether-cronos-sec?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "US spot Bitcoin ETFs recorded four straight weeks of net outflows, with about $360 million withdrawn in the latest week.",
-      "published": "2026-02-14T07:47:53+00:00"
     },
     {
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
