@@ -351,7 +351,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 147 | TECH-004 | Creare thread X dal post Kalshi trading bot (come SOC-002 per Radeon) | 🔥 Social | DONE | @clawdinho | Draft in content/drafts/x-thread-ai-trading-bot.md, no Typefully API key |
-| 148 | TECH-005 | Aggiungere grafici/chart interattivi ai post Tech (equity curve, regime chart) | ⭐ UX | TODO | - |
+| 148 | TECH-005 | Aggiungere grafici/chart interattivi ai post Tech (equity curve, regime chart) | ⭐ UX | DONE | @clawdinho | MiniChart + MiniBarChart components (SVG, no deps), added to trading bot post |
 | 149 | TECH-006 | Aggiungere comments/reactions ai post Tech (lightweight, no login required) | ⭐ Engagement | TODO | - |
 
 ### 🔥 NUOVI (da BLOG-003 RSS + TRADE-006 param sweep)

@@ -8,6 +8,7 @@ import TableOfContents, { type TocItem } from '@/components/blog/TableOfContents
 import ShareButtons from '@/components/ShareButtons'
 import RelatedPosts from '@/components/blog/RelatedPosts'
 import BlogReactions from '@/components/ui/BlogReactions'
+import MiniChart, { MiniBarChart } from '@/components/ui/MiniChart'
 
 /* ─── Table of contents items ─── */
 const tocItems: TocItem[] = [
@@ -590,6 +591,35 @@ def compute_kelly(true_prob, market_price):
               </tbody>
             </table>
           </div>
+
+          <MiniBarChart
+            title="Win Rate by Market Category"
+            data={[
+              { label: 'Crypto', value: 44 },
+              { label: 'Economics', value: 58 },
+              { label: 'Fed Policy', value: 62 },
+              { label: 'Politics', value: 55 },
+            ]}
+            color="#06b6d4"
+            suffix="%"
+          />
+
+          <MiniChart
+            title="Cumulative PnL (Real Money)"
+            data={[
+              { label: 'Jan 29', value: -6.50 },
+              { label: 'Feb 3', value: -10.50 },
+              { label: 'Feb 5', value: -10.50 },
+              { label: 'Feb 6', value: -12.50 },
+              { label: 'Feb 8', value: -11.00 },
+              { label: 'Feb 9', value: -10.50 },
+              { label: 'Feb 13', value: -11.50 },
+              { label: 'Feb 15', value: -9.28 },
+            ]}
+            color="#f59e0b"
+            suffix="$"
+            height={220}
+          />
 
           <p>
             The sample sizes are small — we&apos;re talking dozens of trades, not thousands. But
