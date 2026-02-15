@@ -167,7 +167,7 @@ export default function RadeonTinygradArticle() {
             <span className="text-gradient-fire">Then Stopped Using It</span>
           </h1>
 
-          <p className="text-xl text-white/50 font-medium mb-6">
+          <p className="text-xl text-white/60 font-medium mb-6 leading-relaxed">
             A technical experiment in doing what everyone said was impossible — and learning why they had a point.
           </p>
 

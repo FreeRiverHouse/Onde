@@ -122,10 +122,10 @@ export default function GamingIsland() {
       <div className="md:hidden min-h-screen bg-gradient-to-b from-sky-100 via-green-50 to-green-100">
         {/* Mobile Header */}
         <div className="bg-gradient-to-r from-green-400 to-emerald-500 pt-6 pb-8 px-4 text-center shadow-lg">
-          <Link href="/" className="absolute top-4 left-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-green-600 shadow">
+          <Link href="/" className="absolute top-4 left-4 bg-white/90 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-bold text-green-600 shadow flex items-center">
             ← Home
           </Link>
-          <Link href="/games/leaderboard" className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-amber-600 shadow flex items-center gap-1">
+          <Link href="/games/leaderboard" className="absolute top-4 right-4 bg-white/90 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-bold text-amber-600 shadow flex items-center gap-1">
             🏆 <span>Top</span>
           </Link>
           <h1 className="text-3xl font-black text-white drop-shadow-md mt-4">🎮 {t.gamesPage?.title || 'Free Online Games for Kids'}</h1>
@@ -146,7 +146,7 @@ export default function GamingIsland() {
               <Link 
                 key={game.href}
                 href={game.href}
-                className={`bg-gradient-to-br ${game.color} rounded-2xl p-4 text-center shadow-lg active:scale-95 transition-transform`}
+                className={`bg-gradient-to-br ${game.color} rounded-2xl p-4 min-h-[80px] text-center shadow-lg active:scale-95 transition-transform flex flex-col items-center justify-center`}
               >
                 <div className="text-4xl mb-2">{game.emoji}</div>
                 <div className="text-white font-bold text-sm">{game.title}</div>
@@ -164,10 +164,10 @@ export default function GamingIsland() {
               <Link
                 key={game.id}
                 href={game.href}
-                className="bg-white rounded-xl p-3 text-center shadow-md active:scale-95 transition-transform border border-gray-100"
+                className="bg-white rounded-xl p-3 min-h-[64px] text-center shadow-md active:scale-95 transition-transform border border-gray-100 flex flex-col items-center justify-center"
               >
                 <div className="text-2xl mb-1">{game.emoji}</div>
-                <div className="text-[10px] font-medium text-gray-600 truncate">{game.title}</div>
+                <div className="text-xs font-medium text-gray-600 truncate">{game.title}</div>
               </Link>
             ))}
           </div>

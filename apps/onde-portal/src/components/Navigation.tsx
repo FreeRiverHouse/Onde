@@ -134,7 +134,7 @@ export default function Navigation() {
               {/* Mobile Search Button */}
               <motion.button
                 onClick={openSearch}
-                className="p-2 text-onde-ocean/60 hover:text-onde-ocean"
+                className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-onde-ocean/60 hover:text-onde-ocean"
                 whileTap={{ scale: 0.95 }}
                 aria-label="Search"
               >
@@ -146,7 +146,7 @@ export default function Navigation() {
               <LanguageSwitcher />
               <NotificationCenter />
               <motion.button
-                className="p-2 text-onde-ocean"
+                className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-onde-ocean"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -202,7 +202,7 @@ export default function Navigation() {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-4 py-3 rounded-xl font-medium transition-colors
+                      className={`block px-4 py-4 min-h-[48px] rounded-xl font-medium text-base transition-colors
                         ${isActive(item.href)
                           ? 'bg-onde-coral/10 text-onde-coral'
                           : 'text-onde-ocean/70 hover:bg-onde-cream'

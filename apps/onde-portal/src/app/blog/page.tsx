@@ -77,7 +77,7 @@ export default function BlogPage() {
           </motion.h1>
 
           <motion.p
-            className="text-lg text-white/60 max-w-2xl mx-auto"
+            className="text-lg text-white/70 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -111,7 +111,7 @@ export default function BlogPage() {
                 key={cat.value}
                 onClick={() => setActiveCategory(cat.value)}
                 className={`
-                  group relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                  group relative flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium
                   border transition-all duration-300 cursor-pointer
                   ${
                     isActive
@@ -214,7 +214,7 @@ export default function BlogPage() {
                           <p className="text-onde-teal/80 font-medium mb-3">{post.subtitle}</p>
 
                           {/* Excerpt */}
-                          <p className="text-white/60 leading-relaxed mb-4 line-clamp-2">
+                          <p className="text-white/70 text-base leading-relaxed mb-4 line-clamp-2">
                             {post.excerpt}
                           </p>
 
@@ -272,32 +272,32 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
               href="/libri/"
-              className="group flex items-center gap-3 p-5 card-3d hover:border-white/20 transition-all"
+              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-white/20 transition-all active:scale-[0.98]"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">📚</span>
               <div>
                 <p className="font-bold text-white">Books</p>
-                <p className="text-sm text-white/50">Free illustrated classics</p>
+                <p className="text-sm text-white/60">Free illustrated classics</p>
               </div>
             </Link>
             <Link
               href="/games/"
-              className="group flex items-center gap-3 p-5 card-3d hover:border-white/20 transition-all"
+              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-white/20 transition-all active:scale-[0.98]"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🎮</span>
               <div>
                 <p className="font-bold text-white">Games</p>
-                <p className="text-sm text-white/50">50+ free browser games</p>
+                <p className="text-sm text-white/60">50+ free browser games</p>
               </div>
             </Link>
             <Link
               href="/about/"
-              className="group flex items-center gap-3 p-5 card-3d hover:border-white/20 transition-all"
+              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-white/20 transition-all active:scale-[0.98]"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🌊</span>
               <div>
                 <p className="font-bold text-white">About</p>
-                <p className="text-sm text-white/50">Our story & mission</p>
+                <p className="text-sm text-white/60">Our story & mission</p>
               </div>
             </Link>
           </div>

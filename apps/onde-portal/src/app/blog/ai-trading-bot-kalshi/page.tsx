@@ -146,7 +146,7 @@ export default function AiTradingBotKalshiArticle() {
             <span className="text-gradient-neon">(And What We Learned)</span>
           </h1>
 
-          <p className="text-xl text-white/50 font-medium mb-6">
+          <p className="text-xl text-white/60 font-medium mb-6 leading-relaxed">
             From a 44% win rate with crypto feeds to discovering LLMs as surprisingly good forecasters.
             Real code, real numbers, honest lessons.
           </p>

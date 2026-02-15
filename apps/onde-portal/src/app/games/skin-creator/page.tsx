@@ -131,9 +131,9 @@ function SkinCreatorInner() {
         </div>
 
         {/* Game Selector */}
-        <div className="flex gap-2 mt-3">
+        <div className="flex gap-2 mt-3 flex-wrap justify-center">
           {(Object.entries(GAME_CONFIGS) as [GameType, GameConfig][]).map(([key, config]) => (
-            <button key={key} onClick={() => s.setSelectedGame(key)} className={`px-4 py-2 rounded-full font-bold transition-all ${s.selectedGame === key ? 'bg-white text-purple-600 scale-105 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+            <button key={key} onClick={() => s.setSelectedGame(key)} className={`px-4 py-2 min-h-[44px] rounded-full font-bold transition-all ${s.selectedGame === key ? 'bg-white text-purple-600 scale-105 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>
               {config.emoji} {config.name}
             </button>
           ))}
@@ -149,8 +149,8 @@ function SkinCreatorInner() {
 
         {/* View Mode Tabs */}
         <div className="flex gap-2 mt-4">
-          <button onClick={() => s.setViewMode('editor')} className={`px-6 py-2 rounded-full font-bold transition-all ${s.viewMode === 'editor' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>🎨 Editor</button>
-          <button onClick={() => s.setViewMode('gallery')} className={`px-6 py-2 rounded-full font-bold transition-all ${s.viewMode === 'gallery' ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white scale-105 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>🖼️ Gallery</button>
+          <button onClick={() => s.setViewMode('editor')} className={`px-6 py-2 min-h-[44px] rounded-full font-bold transition-all ${s.viewMode === 'editor' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>🎨 Editor</button>
+          <button onClick={() => s.setViewMode('gallery')} className={`px-6 py-2 min-h-[44px] rounded-full font-bold transition-all ${s.viewMode === 'gallery' ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white scale-105 shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`}>🖼️ Gallery</button>
         </div>
       </div>
 
@@ -284,14 +284,14 @@ function SkinCreatorInner() {
 
           {/* Mobile templates */}
           <div className="md:hidden mt-3 px-2">
-            <p className="text-xs font-semibold text-gray-600 mb-2 text-center">✨ Start from:</p>
-            <div className="flex flex-wrap gap-1 justify-center">
+            <p className="text-sm font-semibold text-gray-600 mb-2 text-center">✨ Start from:</p>
+            <div className="flex flex-wrap gap-2 justify-center">
               {Object.entries(TEMPLATES).slice(0, 6).map(([key, template]) => (
-                <button key={key} onClick={() => s.loadTemplate(key)} className="px-2 py-1 bg-blue-500 text-white rounded-lg text-xs font-bold hover:bg-blue-600 active:scale-95 transition-all">
+                <button key={key} onClick={() => s.loadTemplate(key)} className="px-3 py-2 min-h-[40px] bg-blue-500 text-white rounded-lg text-sm font-bold hover:bg-blue-600 active:scale-95 transition-all">
                   {template.name}
                 </button>
               ))}
-              <button onClick={() => { s.setIsWiggling(true); s.generateRandomSkin(); setTimeout(() => s.setIsWiggling(false), 500); }} className="px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold active:scale-95 transition-all">
+              <button onClick={() => { s.setIsWiggling(true); s.generateRandomSkin(); setTimeout(() => s.setIsWiggling(false), 500); }} className="px-3 py-2 min-h-[40px] bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-sm font-bold active:scale-95 transition-all">
                 🎲 Random!
               </button>
             </div>

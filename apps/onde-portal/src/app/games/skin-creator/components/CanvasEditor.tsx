@@ -182,6 +182,7 @@ export default function CanvasEditor({
                 height: SKIN_HEIGHT * zoomLevel,
                 imageRendering: 'pixelated',
                 transition: 'all 0.2s ease',
+                touchAction: 'none',
               }}
               onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
               onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}

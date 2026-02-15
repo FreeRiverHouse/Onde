@@ -227,7 +227,7 @@ export default function Home() {
           >
             <Link 
               href="#books"
-              className="group px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-bold text-lg rounded-full shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 hover:scale-105 transition-all flex items-center gap-2"
+              className="group px-8 py-4 min-h-[48px] bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-bold text-lg rounded-full shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <span>{t.home.hero.exploreBooks}</span>
               <span className="text-xl group-hover:rotate-12 transition-transform">📚</span>
@@ -235,7 +235,7 @@ export default function Home() {
             
             <Link 
               href="/games/"
-              className="group px-8 py-4 bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 transition-all flex items-center gap-2"
+              className="group px-8 py-4 min-h-[48px] bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <span>{t.home.hero.playGames}</span>
               <span className="text-xl group-hover:animate-bounce">🎮</span>
@@ -243,7 +243,7 @@ export default function Home() {
 
             <Link 
               href="/games/skin-creator"
-              className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105 transition-all flex items-center gap-2"
+              className="group relative px-8 py-4 min-h-[48px] bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               {/* NEW Badge */}
               <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-black rounded-full shadow-lg animate-pulse border-2 border-white">
@@ -292,7 +292,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold text-teal-800 mt-4 mb-6">
               {t.home.whyOnde.title}
             </h2>
-            <p className="text-teal-600/70 max-w-xl mx-auto">
+            <p className="text-teal-600/70 max-w-xl mx-auto text-base">
               {t.home.whyOnde.subtitle}
             </p>
           </motion.div>
@@ -378,16 +378,16 @@ export default function Home() {
                       {/* Info */}
                       <div className="p-8">
                         <h3 className="text-2xl font-bold text-teal-800 mb-1">{book.title}</h3>
-                        <p className="text-amber-600 text-sm mb-1">{book.subtitle}</p>
-                        <p className="text-teal-500 text-xs mb-4">by {book.author}</p>
-                        <p className="text-teal-600/70 text-sm leading-relaxed mb-8">
+                        <p className="text-amber-600 text-base md:text-sm mb-1">{book.subtitle}</p>
+                        <p className="text-teal-500 text-sm md:text-xs mb-4">by {book.author}</p>
+                        <p className="text-teal-600/70 text-base md:text-sm leading-relaxed mb-8">
                           {book.description}
                         </p>
 
                         <a
                           href={book.pdfUrl}
                           download
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/30 transition-all hover:scale-105"
+                          className="inline-flex items-center gap-2 px-6 py-3 min-h-[44px] bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/30 transition-all hover:scale-105 active:scale-95"
                         >
                           <span>📥</span>
                           {t.home.library.downloadPdf}
@@ -475,7 +475,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="relative py-16 border-t border-teal-200">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-teal-500 text-sm flex items-center justify-center gap-2">
+          <p className="text-teal-500 text-base md:text-sm flex items-center justify-center gap-2">
             <span>🌊</span>
             {t.home.footerNew.copyright}
             <span>☀️</span>
