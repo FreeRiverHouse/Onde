@@ -310,7 +310,7 @@
 | 129 | SOC-003 | Configurare Typefully API key per posting automatico su X | 🔥 Social | TODO | @mattia | https://typefully.com/?settings=api → ~/.clawdbot/.env.typefully |
 | 130 | SOC-004 | Creare thread X su AI agents + prediction markets (dietro le quinte Kalshi bot) | ⭐ Content | DONE | @clawdinho | Draft in content/drafts/x-thread-ai-trading-bot.md, serve review Mattia |
 | 131 | SOC-005 | Creare thread X su setup multi-agent (Clawdinho M1 + Ondinho M4) | ⭐ Content | DONE | @clawdinho | Draft in content/drafts/x-thread-multi-agent-setup.md |
-| 132 | SEO-020 | Deploy onde.la con sitemap fix + blog section e verificare indicizzazione | 🔥 SEO | IN_PROGRESS | @clawdinho |
+| 132 | SEO-020 | Deploy onde.la con sitemap fix + blog section e verificare indicizzazione | 🔥 SEO | ✅ DONE | @clawdinho | Deployed 2026-02-15, all 4 blog posts live, how-we-built verified 200 |
 | 133 | SEO-021 | Submit nuova sitemap a Google Search Console dopo deploy | ⭐ SEO | DONE | @clawdinho | IndexNow submitted for new blog posts (202 accepted). Google ping deprecated. |
 | 134 | SEO-022 | Monitorare crawl stats in GSC dopo fix trailing slash (baseline → after) | ⭐ SEO | DONE | @clawdinho | Requires manual GSC access - no API key configured. Trailing slash already fixed. |
 
@@ -374,7 +374,7 @@
 | 158 | DASH-005 | Integrare CF Analytics nella dashboard onde.surf (widget pageviews/referrer) | ⭐ Dashboard | DONE | @clawdinho | Already done by DASH-004 - /api/analytics route fetches CF GraphQL, EnhancedStats shows real data |
 | 159 | MOBILE-001 | Ottimizzare onde.la per mobile (72% traffico è mobile) | 🔥 UX | DONE | @clawdinho | 9 files, 44px touch targets, 16px min text, skin creator touch-action, deployed | CF Analytics mostra 72% mobile, iOS dominante |
 | 160 | TRADE-007 | Tracking forecast accuracy: confrontare mie previsioni vs risultati reali | ⭐ Trading | DONE | @clawdinho | kalshi-forecast-tracker.py, reads opus-forecasts.jsonl, checks settled markets | opus-forecasts.jsonl creato, serve script di analisi accuracy |
-| 161 | BLOG-010 | Scrivere blog post "How We Built onde.la" - tech stack, design decisions, CF deployment | ⭐ Content | TODO | - | Next.js + CF Pages + Tailwind + Framer Motion |
+| 161 | BLOG-010 | Scrivere blog post "How We Built onde.la" - tech stack, design decisions, CF deployment | ⭐ Content | ✅ DONE | @clawdinho | Post exists at /blog/how-we-built-onde-la, deployed |
 | 162 | SEO-023 | Aggiungere structured data (JSON-LD) alle pagine games per rich snippets | ⭐ SEO | DONE | @clawdinho | SoftwareApplication JSON-LD on all 48 game pages + games hub | SoftwareApplication schema per games, AggregateRating |
 | 163 | PERF-001 | Lighthouse audit onde.la e fixare performance issues (LCP, CLS, FID) | ⭐ Performance | DONE | @clawdinho | Score 78→84, FCP 32% faster, TBT 88% reduction, WebP images, dynamic imports | Target: 90+ performance su mobile |
 
