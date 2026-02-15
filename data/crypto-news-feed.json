@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T20:00:04.264164+00:00",
+  "timestamp": "2026-02-15T22:00:04.735229+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "CZ says lack of onchain privacy is holding back crypto payments",
+      "url": "https://cointelegraph.com/news/cz-privacy-holding-back-crypto-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Transparency, which is a hallmark feature of most cryptocurrencies, is likely one of the biggest hurdles to mass adoption, the Binance founder said.",
+      "published": "2026-02-15T21:33:36+00:00"
+    },
+    {
+      "title": "OpenClaw Creator Gets Big Offers to Acquire AI Sensation\u2014Will It Stay Open Source?",
+      "url": "https://decrypt.co/358129/openclaw-creator-offers-acquire-ai-sensation-stay-open-source",
+      "source": "decrypt",
+      "description": "Peter Steinberger's open-source AI agent OpenClaw hit 180,000 GitHub stars and spawned MoltBook chaos. Now Meta and OpenAI want to buy it, but he's determined to keep it free.",
+      "published": "2026-02-15T20:01:03+00:00"
+    },
     {
       "title": "Michael Saylor signals another Bitcoin buy amid market rout",
       "url": "https://cointelegraph.com/news/michael-saylor-signals-strategy-buy-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -95,13 +109,6 @@
       "published": "2026-02-14T21:00:30+00:00"
     },
     {
-      "title": "All social program benefits can be distributed onchain: Compliance exec",
-      "url": "https://cointelegraph.com/news/all-social-benefit-programs-onchain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Hong Kong, Thailand, and the Marshall Islands are exploring tokenized debt instruments and administering social benefit programs onchain.",
-      "published": "2026-02-14T18:20:21+00:00"
-    },
-    {
       "title": "Can Meme Coins Power a Senate Bid? Virginia\u2019s Mark Moran Says Yes",
       "url": "https://decrypt.co/358070/can-meme-coins-power-senate-bid-virginia-mark-moran-says-yes",
       "source": "decrypt",
@@ -170,13 +177,6 @@
       "source": "decrypt",
       "description": "The CEO of Binance France was targeted in a recent home invasion attempt, but the executive was unharmed and the criminals were arrested.",
       "published": "2026-02-13T18:12:35+00:00"
-    },
-    {
-      "title": "$3.85 Million in Ethereum From Mixin Network Hack Sent to Tornado Cash",
-      "url": "https://decrypt.co/358032/3-million-ethereum-mixin-network-hack-tornado-cash",
-      "source": "decrypt",
-      "description": "Wallets linked to the $200 million exploit of Mixin in 2023 woke after nearly two years and moved funds to coin mixer Tornado Cash.",
-      "published": "2026-02-13T17:50:53+00:00"
     },
     {
       "title": "Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years",
