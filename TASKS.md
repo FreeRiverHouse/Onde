@@ -247,7 +247,7 @@
 | 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | TODO | - | Grafici PnL cumulativo, win rate evolution |
 
 ## BUG-001: onde.surf "Cannot access uninitialized variable" crash
-- **Status:** TODO
+- **Status:** ✅ DONE (resolved - stale chunk cache, fixed by redeploy 2026-02-15)
 - **Priority:** HIGH
 - **Reporter:** Mattia (screenshot 2026-02-14)
 - **Description:** onde.surf shows error page "Something went wrong - Cannot access uninitialized variable" after login

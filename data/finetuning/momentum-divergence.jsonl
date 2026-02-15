@@ -1259,4 +1259,454 @@
     }
   ],
   "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udfe2 BTC: BULLISH DIVERGENCE\n   Price lower low + RSI higher low\n   RSI: 40.2 | Price: $88,308\n   Price drop: 0.63% | RSI rise: +6.9\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider YES bets on upside recovery\n\nTime: 2026-01-31 00:53 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:14:03.630410+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:14 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:17:49.003486+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:17 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:22:49.571051+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:22 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:27:49.376142+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:27 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:29:04.055289+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:29 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:34:03.168116+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:34 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:39:03.798019+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:39 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:44:03.965853+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:44 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:49:03.900625+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:49 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:54:02.989169+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:54 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T04:59:01.766852+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 04:59 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:04:04.025595+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:04 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:09:06.383822+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:09 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:10:21.697858+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:10 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:15:23.857681+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:15 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:20:25.704084+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:20 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:25:27.056907+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:25 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:30:29.822396+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:30 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:35:32.448918+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:35 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:40:33.930445+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:40 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:45:35.699826+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:45 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:50:37.865877+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:50 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T05:55:41.857037+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 05:55 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T06:00:47.884688+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 06:00 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-02-15T06:02:04.914323+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bearish",
+      "emoji": "\ud83d\udd34",
+      "signal": "Price higher high + RSI lower high",
+      "action": "Consider NO bets on continued upside",
+      "confidence": "medium",
+      "price_rise": 0.001165567432340232,
+      "rsi_drop": 12.295019319569178,
+      "current_price": 69907.0,
+      "current_rsi": 68.21765158823983
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 68.2 | Price: $69,907\n   Price rise: 0.12% | RSI drop: -12.3\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-02-15 06:02 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
 }
