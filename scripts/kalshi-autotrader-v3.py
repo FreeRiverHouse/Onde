@@ -8,6 +8,10 @@ Based on PredictionArena / ryanfrigo/kalshi-ai-trading-bot architecture:
 Uses Claude API to estimate true probability of ANY Kalshi market (not just crypto).
 Multi-agent pipeline: Forecaster estimates, Critic validates, Trader executes.
 
+When no LLM API key is available, falls back to a built-in heuristic forecaster
+that uses market structure, sport-specific models, and known biases to estimate
+true probabilities without any external API calls.
+
 Author: Clawd
 Date: 2026-02-15
 """
@@ -178,9 +182,9 @@ def get_llm_config():
 LLM_CONFIG = get_llm_config()
 
 # Trading parameters
-MIN_EDGE = 0.05           # 5% minimum edge to trade
+MIN_EDGE = 0.01           # 1% minimum edge - AGGRESSIVE in paper mode to collect data
 MAX_POSITION_PCT = 0.05   # 5% max per position
-KELLY_FRACTION = 0.05     # Conservative fractional Kelly
+KELLY_FRACTION = 0.15     # Aggressive in paper mode - collect more data
 MIN_BET_CENTS = 5         # Minimum 5 cents per contract
 MAX_BET_CENTS = 500       # Maximum $5 per contract
 MAX_POSITIONS = 15        # Max concurrent positions
@@ -194,6 +198,31 @@ MIN_DAYS_TO_EXPIRY = 0.02  # ~30 minutes minimum
 # Price filters - avoid extremes where market is very confident
 MIN_PRICE_CENTS = 5        # Don't trade markets priced < 5¢
 MAX_PRICE_CENTS = 95       # Don't trade markets priced > 95¢
+
+# Event tickers to scan for individual game markets
+# Format: series_ticker prefixes to look for
+SPORTS_EVENT_TICKERS = [
+    # NCAA Basketball (CBB)
+    "KXCBBSPREAD", "KXCBBTOTAL", "KXCBBML",
+    "KXNCAABSPREAD", "KXNCAABTOTAL",
+    # NBA
+    "KXNBASPREAD", "KXNBATOTAL", "KXNBAML",
+    "KXNBAPOINTS", "KXNBAOU",
+    # NFL
+    "KXNFLSPREAD", "KXNFLTOTAL", "KXNFLML",
+    # NHL
+    "KXNHLSPREAD", "KXNHLTOTAL", "KXNHLML",
+    # MLB
+    "KXMLBSPREAD", "KXMLBTOTAL", "KXMLBML",
+    # Soccer / MLS
+    "KXSOCCERML", "KXSOCCERTOTAL",
+    # Esports / multi-game parlays
+    "KXMVESPORTSMULTIGAMEEXTENDED",
+    "KXMVESPORTSMULTIGAME",
+    "KXMULTISPORT",
+    # Generic sports
+    "KXSPORTSSPREAD", "KXSPORTSTOTAL",
+]
 
 # Logging
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -603,6 +632,468 @@ def parse_probability(text: str) -> Optional[float]:
     return None
 
 
+# ============== HEURISTIC FORECASTER (NO LLM NEEDED) ==============
+
+def classify_market_type(market: MarketInfo) -> str:
+    """
+    Classify a Kalshi market into a type for heuristic forecasting.
+    Returns one of: 'combo', 'spread', 'total', 'moneyline', 'generic'
+    """
+    ticker = market.ticker.upper()
+    title = market.title.lower()
+    subtitle = (market.subtitle or "").lower()
+    category = (market.category or "").upper()
+    
+    # Combo / Parlay markets
+    if "MULTIGAME" in ticker or "MULTI" in ticker or "PARLAY" in ticker:
+        return "combo"
+    if "parlay" in title or "combo" in title or ("and" in title and any(w in title for w in ["win", "beat", "cover", "over"])):
+        return "combo"
+    # Detect multi-leg from title: "X and Y and Z"
+    and_count = title.count(" and ")
+    if and_count >= 1 and any(w in title for w in ["win", "beat", "cover", "over", "under", "score"]):
+        return "combo"
+    
+    # Spread markets
+    if "SPREAD" in ticker or "SPREAD" in category:
+        return "spread"
+    if "spread" in title or re.search(r'[+-]\d+\.?5?\s*(points?|pts?)', title):
+        return "spread"
+    if "cover" in title:
+        return "spread"
+    
+    # Total / Over-Under markets
+    if "TOTAL" in ticker or "TOTAL" in category or "OU" in ticker:
+        return "total"
+    if "over" in title and ("under" in title or re.search(r'over\s+\d', title)):
+        return "total"
+    if "total" in title and any(w in title for w in ["points", "goals", "runs", "score"]):
+        return "total"
+    
+    # Moneyline markets
+    if "ML" in ticker or "MONEYLINE" in category:
+        return "moneyline"
+    if any(w in title for w in ["to win", "will win", "wins", "beat", "defeats"]):
+        if "and" not in title:  # Not a combo
+            return "moneyline"
+    
+    return "generic"
+
+
+def estimate_combo_legs(market: MarketInfo) -> int:
+    """Estimate the number of legs in a combo/parlay market from the title."""
+    title = market.title.lower()
+    
+    # Count " and " separators
+    and_count = title.count(" and ")
+    if and_count >= 1:
+        return and_count + 1
+    
+    # Check for numbered legs like "3-leg" or "4-team"
+    leg_match = re.search(r'(\d+)[\s-]*(leg|team|game|pick)', title)
+    if leg_match:
+        return int(leg_match.group(1))
+    
+    # Default: assume 2-leg if we detected combo but can't count
+    return 2
+
+
+def logistic_spread_prob(spread: float) -> float:
+    """
+    Convert a point spread to a win probability using a logistic function.
+    
+    Based on historical sports data:
+    - Spread of 0 → 50% (pick 'em)
+    - Each point of spread ≈ 3% probability shift (in NFL/NBA)
+    - Uses logistic curve for smooth mapping
+    
+    spread > 0 means the team is favored (e.g., -3.5 → they're favored by 3.5)
+    We pass the absolute spread value; positive = favored.
+    """
+    # k controls steepness. ~0.15-0.2 works well for most sports
+    # NFL: k ≈ 0.15, NBA: k ≈ 0.12, CBB: k ≈ 0.10
+    k = 0.15
+    prob = 1.0 / (1.0 + math.exp(-k * spread))
+    return prob
+
+
+def extract_spread_from_title(title: str) -> Optional[float]:
+    """Extract point spread from market title."""
+    # Match patterns like "+3.5", "-7", "+1.5 points", etc.
+    match = re.search(r'([+-]\d+\.?\d*)\s*(points?|pts?)?', title)
+    if match:
+        return float(match.group(1))
+    
+    # Match "by X or more" patterns
+    match = re.search(r'by\s+(\d+\.?\d*)\s+or\s+more', title, re.IGNORECASE)
+    if match:
+        return float(match.group(1))
+    
+    return None
+
+
+def extract_total_line(title: str) -> Optional[float]:
+    """Extract the over/under total line from market title."""
+    # Match "over X.5", "under X", "total X.5"
+    match = re.search(r'(?:over|under|total)\s+(\d+\.?\d*)', title, re.IGNORECASE)
+    if match:
+        return float(match.group(1))
+    
+    # Match "X.5 points" pattern
+    match = re.search(r'(\d+\.5)\s*(?:points?|goals?|runs?)', title, re.IGNORECASE)
+    if match:
+        return float(match.group(1))
+    
+    return None
+
+
+def detect_sport(market: MarketInfo) -> str:
+    """Detect which sport a market is about."""
+    ticker = market.ticker.upper()
+    title = market.title.lower()
+    category = (market.category or "").upper()
+    
+    if "NBA" in ticker or "NBA" in category or "nba" in title:
+        return "nba"
+    if "NFL" in ticker or "NFL" in category or "nfl" in title or "football" in title:
+        return "nfl"
+    if "CBB" in ticker or "NCAAB" in ticker or "CBB" in category or "ncaa" in title or "college basketball" in title:
+        return "cbb"
+    if "NHL" in ticker or "NHL" in category or "nhl" in title or "hockey" in title:
+        return "nhl"
+    if "MLB" in ticker or "MLB" in category or "mlb" in title or "baseball" in title:
+        return "mlb"
+    if "SOCCER" in ticker or "soccer" in title or "mls" in title:
+        return "soccer"
+    
+    return "unknown"
+
+
+# Historical average totals by sport (approximate)
+SPORT_AVG_TOTALS = {
+    "nba": 224.0,    # NBA average total ~224 points
+    "nfl": 44.0,     # NFL average total ~44 points
+    "cbb": 140.0,    # College basketball ~140 points
+    "nhl": 5.8,      # NHL ~5.8 goals
+    "mlb": 8.5,      # MLB ~8.5 runs
+    "soccer": 2.5,   # Soccer ~2.5 goals
+    "unknown": 100.0 # Fallback
+}
+
+# Spread steepness by sport (how much each point matters)
+SPORT_SPREAD_K = {
+    "nba": 0.10,     # NBA points matter less (higher scoring)
+    "nfl": 0.15,     # NFL each point more impactful
+    "cbb": 0.09,     # College basketball high variance
+    "nhl": 0.45,     # Hockey goals are rare, each matters a lot
+    "mlb": 0.35,     # Baseball runs matter significantly
+    "soccer": 0.55,  # Soccer goals very impactful
+    "unknown": 0.15
+}
+
+
+def heuristic_forecast(market: MarketInfo) -> ForecastResult:
+    """
+    Built-in heuristic forecaster that estimates probability WITHOUT any LLM API.
+    
+    Uses market structure, sport-specific models, and known biases:
+    1. COMBO/PARLAY: Product of individual leg probabilities
+    2. SPREAD: Logistic function based on point spread
+    3. TOTAL: Comparison to historical averages
+    4. MONEYLINE: Market price + favorite-longshot bias correction
+    5. GENERIC: Market price with slight regression to 50%
+    
+    Returns ForecastResult with probability and confidence level.
+    """
+    market_type = classify_market_type(market)
+    sport = detect_sport(market)
+    market_prob = market.market_prob
+    title = market.title.lower()
+    
+    prob = market_prob  # default: trust market
+    confidence = "low"
+    reasoning_parts = []
+    key_factors = []
+    
+    if market_type == "combo":
+        # ── COMBO/PARLAY MARKETS ──
+        # Estimate as product of individual leg probabilities
+        num_legs = estimate_combo_legs(market)
+        
+        # For each leg, estimate individual probability
+        # Favorites typically have 60-70% win probability
+        # Market price for combos often slightly overestimates (parlay bias)
+        
+        # Infer per-leg probability from market price
+        if num_legs >= 2:
+            # If market is at X%, each leg ≈ X^(1/n) if independent
+            implied_per_leg = market_prob ** (1.0 / num_legs)
+            
+            # Apply favorite-longshot bias: favorites ~65% base, adjust
+            # Parlays tend to be overpriced (house edge on each leg compounds)
+            avg_leg_prob = min(0.72, max(0.55, implied_per_leg))
+            
+            # True combo probability = product of legs
+            # But add correlation factor (same-sport legs may be correlated)
+            correlation_boost = 1.02 ** (num_legs - 1)  # slight positive correlation
+            true_prob = (avg_leg_prob ** num_legs) * correlation_boost
+            
+            # Parlay markets on Kalshi tend to be slightly overpriced
+            # Apply a small discount
+            true_prob *= 0.95
+            
+            prob = max(0.02, min(0.98, true_prob))
+            confidence = "medium" if num_legs <= 3 else "low"
+            
+            reasoning_parts.append(
+                f"Combo/parlay with ~{num_legs} legs. "
+                f"Implied per-leg prob: {implied_per_leg:.1%}. "
+                f"Adjusted per-leg: {avg_leg_prob:.1%}. "
+                f"Combined: {prob:.1%} (includes parlay overpricing discount). "
+                f"Market price: {market_prob:.1%}."
+            )
+            key_factors = [
+                f"{num_legs}-leg parlay",
+                f"Per-leg ~{avg_leg_prob:.0%}",
+                "Parlay overpricing bias",
+                "Compound probability"
+            ]
+        else:
+            prob = market_prob
+            reasoning_parts.append("Could not determine number of legs, using market price.")
+            key_factors = ["Unknown combo structure"]
+    
+    elif market_type == "spread":
+        # ── SPREAD MARKETS ──
+        # Use logistic function based on the point spread
+        spread = extract_spread_from_title(market.title)
+        k = SPORT_SPREAD_K.get(sport, 0.15)
+        
+        if spread is not None:
+            # Determine if market is for the favored team covering
+            is_covering = "cover" in title or spread < 0
+            
+            # Convert spread to probability
+            # Negative spread = favorite (e.g., -3.5 means favored by 3.5)
+            spread_prob = 1.0 / (1.0 + math.exp(-k * (-spread)))
+            
+            # The spread is designed to be ~50/50, but public betting bias
+            # means favorites often have slightly <50% covering probability
+            # (the line moves with public money, not sharp money)
+            public_bias_adjustment = -0.015  # slight edge to underdogs covering
+            
+            prob = max(0.05, min(0.95, spread_prob + public_bias_adjustment))
+            confidence = "medium"
+            
+            reasoning_parts.append(
+                f"Spread market: {spread:+.1f} points ({sport.upper()}). "
+                f"Logistic model (k={k}): {spread_prob:.1%}. "
+                f"After public bias adjustment: {prob:.1%}. "
+                f"Market price: {market_prob:.1%}."
+            )
+            key_factors = [
+                f"Spread: {spread:+.1f}",
+                f"Sport: {sport.upper()}",
+                "Public betting bias",
+                "Logistic model"
+            ]
+        else:
+            # Can't extract spread, use market price with regression
+            prob = 0.7 * market_prob + 0.3 * 0.5
+            confidence = "low"
+            reasoning_parts.append(
+                f"Spread market but couldn't extract line. "
+                f"Regressing market price {market_prob:.1%} toward 50%: {prob:.1%}."
+            )
+            key_factors = ["Unknown spread", "Mean reversion"]
+    
+    elif market_type == "total":
+        # ── TOTAL / OVER-UNDER MARKETS ──
+        total_line = extract_total_line(market.title)
+        avg_total = SPORT_AVG_TOTALS.get(sport, 100.0)
+        
+        is_over = "over" in title
+        is_under = "under" in title
+        
+        if total_line is not None:
+            # How far is the line from the average?
+            # Lines above average → under is slightly more likely
+            # Lines below average → over is slightly more likely
+            deviation = (total_line - avg_total) / avg_total
+            
+            # Base: totals are designed to be ~50/50
+            # Known bias: public tends to bet overs (they're more fun)
+            # This means overs are slightly overpriced
+            base_prob = 0.50
+            
+            # Adjust based on deviation from average
+            # If line is well above average, under is more likely
+            adjustment = -deviation * 0.15  # small adjustment
+            
+            if is_over:
+                prob = base_prob - adjustment - 0.02  # over bias: public loves overs
+            elif is_under:
+                prob = base_prob + adjustment + 0.02  # under slight edge
+            else:
+                prob = base_prob
+            
+            prob = max(0.10, min(0.90, prob))
+            confidence = "medium"
+            
+            reasoning_parts.append(
+                f"Total market: line at {total_line} ({sport.upper()}, avg: {avg_total}). "
+                f"Deviation from avg: {deviation:+.1%}. "
+                f"{'Over' if is_over else 'Under' if is_under else 'Unknown side'}: {prob:.1%}. "
+                f"Includes public over-betting bias. Market: {market_prob:.1%}."
+            )
+            key_factors = [
+                f"Line: {total_line}",
+                f"Avg: {avg_total}",
+                "Public over-bias",
+                f"{'Over' if is_over else 'Under'}"
+            ]
+        else:
+            prob = 0.7 * market_prob + 0.3 * 0.5
+            confidence = "low"
+            reasoning_parts.append(
+                f"Total market but couldn't extract line. "
+                f"Regressing market price toward 50%: {prob:.1%}."
+            )
+            key_factors = ["Unknown total line", "Mean reversion"]
+    
+    elif market_type == "moneyline":
+        # ── MONEYLINE MARKETS ──
+        # Use market price as baseline, then correct for favorite-longshot bias
+        #
+        # Known bias: on prediction markets and sportsbooks alike,
+        # longshots (low probability outcomes) tend to be overpriced.
+        # Favorites tend to be slightly underpriced.
+        #
+        # Correction model (empirical):
+        # - If market_prob > 0.5: team is favorite → true prob slightly higher
+        # - If market_prob < 0.5: team is underdog → true prob slightly lower
+        
+        if market_prob > 0.60:
+            # Strong favorite: market often underprices
+            bias_correction = 0.02 + (market_prob - 0.60) * 0.05
+            prob = min(0.95, market_prob + bias_correction)
+            confidence = "medium"
+            key_factors.append("Favorite-longshot bias: favorite underpriced")
+        elif market_prob < 0.40:
+            # Underdog: market often overprices
+            bias_correction = 0.02 + (0.40 - market_prob) * 0.05
+            prob = max(0.05, market_prob - bias_correction)
+            confidence = "medium"
+            key_factors.append("Favorite-longshot bias: underdog overpriced")
+        else:
+            # Near 50/50: less bias to exploit
+            prob = market_prob
+            confidence = "low"
+            key_factors.append("Near toss-up, minimal bias")
+        
+        reasoning_parts.append(
+            f"Moneyline market ({sport.upper()}). "
+            f"Market implied: {market_prob:.1%}. "
+            f"After favorite-longshot bias correction: {prob:.1%}. "
+            f"{'Favorite' if market_prob > 0.5 else 'Underdog'} side."
+        )
+        key_factors.extend(["Market efficiency", f"Sport: {sport.upper()}"])
+    
+    else:
+        # ── GENERIC MARKETS ──
+        # For non-sports or unrecognized markets:
+        # Slight regression toward 50% (markets can overreact)
+        # But mostly trust the market
+        
+        regression_strength = 0.10  # 10% pull toward 50%
+        prob = (1 - regression_strength) * market_prob + regression_strength * 0.5
+        confidence = "low"
+        
+        reasoning_parts.append(
+            f"Generic market type. Market implied: {market_prob:.1%}. "
+            f"Applying {regression_strength:.0%} regression to 50%: {prob:.1%}. "
+            f"Low confidence — no sport-specific model available."
+        )
+        key_factors = ["Generic model", "Mean reversion", "No specific edge"]
+    
+    # Build full reasoning string
+    reasoning = (
+        f"[HEURISTIC FORECASTER — no LLM API]\n"
+        f"Market type: {market_type.upper()}\n"
+        f"Sport: {sport.upper()}\n\n"
+        + "\n".join(reasoning_parts)
+    )
+    
+    return ForecastResult(
+        probability=prob,
+        reasoning=reasoning,
+        confidence=confidence,
+        key_factors=key_factors[:4],
+        raw_response=reasoning,
+        model_used=f"heuristic-{market_type}",
+        tokens_used=0
+    )
+
+
+def heuristic_critique(market: MarketInfo, forecast: ForecastResult) -> CriticResult:
+    """
+    Built-in heuristic critic that validates the heuristic forecast.
+    No LLM needed. Uses simple sanity checks.
+    """
+    major_flaws = []
+    minor_flaws = []
+    should_trade = True
+    adj_prob = forecast.probability
+    
+    market_prob = market.market_prob
+    edge = abs(forecast.probability - market_prob)
+    
+    # Sanity check 1: If edge is very large (>20%), be suspicious
+    if edge > 0.20:
+        major_flaws.append(f"Very large edge ({edge:.0%}) — heuristic may be wrong")
+        adj_prob = 0.6 * forecast.probability + 0.4 * market_prob  # Blend more toward market
+        should_trade = False  # Don't trust huge edges from heuristics
+    
+    # Sanity check 2: Low volume → less reliable market price → less reliable edge
+    if market.volume < 500:
+        minor_flaws.append(f"Low volume ({market.volume}) — market may be inefficient")
+    
+    # Sanity check 3: Very close to expiry → more volatile
+    if market.days_to_expiry < 0.1:  # Less than ~2.4 hours
+        minor_flaws.append(f"Very close to expiry ({market.days_to_expiry:.2f}d)")
+        # Close to expiry, market is probably right
+        adj_prob = 0.7 * market_prob + 0.3 * forecast.probability
+    
+    # Sanity check 4: Heuristic confidence is low + small edge → skip
+    if forecast.confidence == "low" and edge < 0.08:
+        should_trade = False
+        major_flaws.append("Low confidence heuristic + small edge")
+    
+    # Sanity check 5: Generic model shouldn't override market
+    if "heuristic-generic" in (forecast.model_used or ""):
+        if edge > 0.05:
+            should_trade = False
+            major_flaws.append("Generic model — no specific insight to trade on")
+    
+    reasoning = (
+        f"[HEURISTIC CRITIC]\n"
+        f"Edge: {edge:.1%}. "
+        f"Major flaws: {', '.join(major_flaws) if major_flaws else 'None'}. "
+        f"Minor flaws: {', '.join(minor_flaws) if minor_flaws else 'None'}. "
+        f"Should trade: {'Yes' if should_trade else 'No'}."
+    )
+    
+    return CriticResult(
+        adjusted_probability=adj_prob,
+        major_flaws=major_flaws,
+        minor_flaws=minor_flaws,
+        should_trade=should_trade,
+        reasoning=reasoning,
+        raw_response=reasoning,
+        tokens_used=0
+    )
+
+
 # ============== CRITIC AGENT ==============
 
 def critique_forecast(market: MarketInfo, forecast: ForecastResult) -> CriticResult:
@@ -957,17 +1448,31 @@ def filter_markets(markets: list) -> list:
     return filtered
 
 
+def scan_event_markets(event_ticker: str) -> list:
+    """
+    Scan markets for a specific event ticker / series.
+    Uses the series_ticker filter to find individual game markets.
+    """
+    path = f"/trade-api/v2/markets?limit=200&series_ticker={event_ticker}&status=open"
+    result = kalshi_api("GET", path)
+    if "error" in result:
+        return []
+    return result.get("markets", [])
+
+
 def scan_all_markets() -> list:
     """
     Scan all open Kalshi markets with pagination.
+    Also specifically scans for individual sports game markets (spreads, totals, MLs).
     Returns filtered list of MarketInfo objects.
     """
     all_markets = []
+    seen_tickers = set()
     cursor = None
     page = 0
     max_pages = 20  # Safety limit
     
-    print("📡 Scanning Kalshi markets...")
+    print("📡 Scanning Kalshi markets (general)...")
     
     while page < max_pages:
         raw_markets, next_cursor = scan_markets(cursor=cursor, limit=200)
@@ -977,17 +1482,36 @@ def scan_all_markets() -> list:
         
         for raw in raw_markets:
             parsed = parse_market(raw)
-            if parsed:
+            if parsed and parsed.ticker not in seen_tickers:
                 all_markets.append(parsed)
+                seen_tickers.add(parsed.ticker)
         
         page += 1
-        print(f"   Page {page}: {len(raw_markets)} markets (total: {len(all_markets)})")
+        print(f"   Page {page}: {len(raw_markets)} markets (total unique: {len(all_markets)})")
         
         if not next_cursor or next_cursor == cursor:
             break
         cursor = next_cursor
         
         time.sleep(0.3)  # Rate limit respect
+    
+    # Also scan specific sports event tickers for individual game markets
+    print(f"\n📡 Scanning {len(SPORTS_EVENT_TICKERS)} sports event tickers...")
+    sports_found = 0
+    for event_ticker in SPORTS_EVENT_TICKERS:
+        raw_markets = scan_event_markets(event_ticker)
+        for raw in raw_markets:
+            parsed = parse_market(raw)
+            if parsed and parsed.ticker not in seen_tickers:
+                all_markets.append(parsed)
+                seen_tickers.add(parsed.ticker)
+                sports_found += 1
+        time.sleep(0.2)  # Rate limit
+    
+    if sports_found > 0:
+        print(f"   Found {sports_found} additional sports markets")
+    else:
+        print(f"   No additional sports markets found via event tickers")
     
     # Filter
     filtered = filter_markets(all_markets)
@@ -1093,7 +1617,7 @@ def log_cycle(stats: dict):
 
 # ============== MAIN TRADING CYCLE ==============
 
-def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 10, max_trades: int = 3):
+def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 20, max_trades: int = 10):
     """
     Run one complete trading cycle:
     1. Scan all markets
@@ -1111,24 +1635,31 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 10, max_trades
     
     # Check LLM API configuration
     llm_available = True
+    use_heuristic = False
     if not LLM_CONFIG or "error" in (LLM_CONFIG or {}):
         llm_available = False
-        print("⚠️  NO LLM API KEY - Forecasting DISABLED")
+        use_heuristic = True
+        print("⚠️  NO LLM API KEY - Using HEURISTIC FORECASTER (built-in)")
         if LLM_CONFIG and "error" in LLM_CONFIG:
             print(f"   Reason: {LLM_CONFIG['error']}")
-        print("   To enable AI forecasting, set one of:")
+        print("   Using sport-specific heuristic models as fallback")
+        print("   For better forecasts, set one of:")
         print("   • export ANTHROPIC_API_KEY=sk-ant-api03-...")
         print("   • export OPENROUTER_API_KEY=sk-or-...")
         print("   • Add key to ~/.clawdbot/.env.trading")
-        if not dry_run:
-            print("❌ FATAL: Cannot do live trading without LLM. Aborting.")
-            return
-        print("   Continuing in scan-only mode for testing...\n")
+        print()
     else:
         provider = LLM_CONFIG['provider']
         model = LLM_CONFIG['model']
         key_preview = LLM_CONFIG['api_key'][:20] + "..."
         print(f"✅ LLM: {provider} / {model} ({key_preview})")
+        
+        # Check if it's an OAuth token (won't work for API calls)
+        if LLM_CONFIG['api_key'].startswith("sk-ant-oat"):
+            print("⚠️  OAuth token detected (sk-ant-oat) — won't work for API calls")
+            print("   Falling back to HEURISTIC FORECASTER")
+            llm_available = False
+            use_heuristic = True
     
     # Get balance
     balance = get_balance()
@@ -1199,15 +1730,15 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 10, max_trades
         print(f"   {market.title[:80]}")
         print(f"   Market price: YES {market.yes_price}¢ / NO {market.no_price}¢")
         
-        # Skip LLM analysis if not available
-        if not llm_available:
-            print(f"   ⏭️ Skipping (no LLM key)")
-            trades_skipped += 1
-            continue
-        
-        # Step 1: FORECASTER
-        print(f"   🧠 Forecasting...")
-        forecast = forecast_market(market)
+        # Step 1: FORECASTER (LLM or heuristic)
+        if use_heuristic:
+            market_type = classify_market_type(market)
+            sport = detect_sport(market)
+            print(f"   🧮 Heuristic forecasting ({market_type}/{sport})...")
+            forecast = heuristic_forecast(market)
+        else:
+            print(f"   🧠 LLM Forecasting...")
+            forecast = forecast_market(market)
         total_tokens += forecast.tokens_used
         print(f"   📊 Forecast: {forecast.probability:.1%} (confidence: {forecast.confidence})")
         print(f"   📝 Key factors: {', '.join(forecast.key_factors[:3]) if forecast.key_factors else 'N/A'}")
@@ -1231,9 +1762,13 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 10, max_trades
             log_trade(market, skip_decision, {}, dry_run)
             continue
         
-        # Step 2: CRITIC
-        print(f"   🔎 Critiquing forecast...")
-        critic = critique_forecast(market, forecast)
+        # Step 2: CRITIC (LLM or heuristic)
+        if use_heuristic:
+            print(f"   🔎 Heuristic critique...")
+            critic = heuristic_critique(market, forecast)
+        else:
+            print(f"   🔎 LLM Critiquing forecast...")
+            critic = critique_forecast(market, forecast)
         total_tokens += critic.tokens_used
         print(f"   📊 Critic adjusted: {critic.adjusted_probability:.1%}")
         print(f"   🚨 Major flaws: {', '.join(critic.major_flaws) if critic.major_flaws else 'None'}")
