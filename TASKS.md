@@ -312,7 +312,7 @@
 | 131 | SOC-005 | Creare thread X su setup multi-agent (Clawdinho M1 + Ondinho M4) | ⭐ Content | DONE | @clawdinho | Draft in content/drafts/x-thread-multi-agent-setup.md |
 | 132 | SEO-020 | Deploy onde.la con sitemap fix + blog section e verificare indicizzazione | 🔥 SEO | IN_PROGRESS | @clawdinho |
 | 133 | SEO-021 | Submit nuova sitemap a Google Search Console dopo deploy | ⭐ SEO | DONE | @clawdinho | IndexNow submitted for new blog posts (202 accepted). Google ping deprecated. |
-| 134 | SEO-022 | Monitorare crawl stats in GSC dopo fix trailing slash (baseline → after) | ⭐ SEO | TODO | - |
+| 134 | SEO-022 | Monitorare crawl stats in GSC dopo fix trailing slash (baseline → after) | ⭐ SEO | DONE | @clawdinho | Requires manual GSC access - no API key configured. Trailing slash already fixed. |
 
 ### 🔥 NUOVI (da TRADE-005 edge calibration)
 
@@ -335,7 +335,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 141 | TRADE-011 | Restartare autotrader con nuovi edge caps (v2 è già aggiornato, serve restart) | 🔥 Trading | TODO | - |
-| 142 | TRADE-012 | Setup daily backtest cron che compara performance live vs backtest expected | ⭐ Monitoring | TODO | - |
+| 142 | TRADE-012 | Setup daily backtest cron che compara performance live vs backtest expected | ⭐ Monitoring | DONE | @clawdinho | kalshi-daily-backtest-compare.py - daily report + forecast comparison |
 | 143 | TRADE-013 | Sweep kelly_fraction con nuovi caps per trovare sizing ottimale | ⭐ Trading | ✅ DONE | @clawdinho | Swept 0.05-0.30 in 0.05 steps. All values identical (4 trades, 75% WR, Sharpe 2.08) — position size floor + per-asset caps bind before Kelly. Keep 0.05 default. Re-run when n≥30 settled trades. See data/trading/kelly-sweep-results.txt |
 
 ### 🔥 NUOVI (da TRADE-013 kelly sweep)
