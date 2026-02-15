@@ -36,6 +36,24 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'multi-agent-setup',
+    title: 'Multi-Agent Setup: 2 Macs, 5 Bots, Zero Humans',
+    subtitle: 'Running a 24/7 AI Workforce on ~$200/month',
+    description:
+      'How we run a 24/7 AI workforce with 2 Mac Minis, 5 Claude-powered agents, a shared task system on git, and persistent memory — for about $200/month.',
+    date: 'February 2026',
+    dateISO: '2026-02-16T00:00:00Z',
+    readTime: '10 min read',
+    category: 'AI',
+    tags: ['AI Agents', 'Multi-Agent', 'Claude', 'Automation', 'Mac Mini', 'Clawdbot'],
+    emoji: '🤖',
+    gradient: 'from-cyan-500 via-blue-500 to-indigo-500',
+    excerpt:
+      'We run 5 Claude-powered agents across 2 Mac Minis, coordinated through git, with persistent memory and shared tasks. Here\'s how it actually works — and what breaks.',
+    lang: 'en',
+    contentHtml: `<p>We run a 24/7 AI workforce with 2 Mac Minis, 5 Claude-powered agents, a shared task system on git, and persistent memory — for about $200/month. This post covers the real architecture, the honest failures, and what we'd change.</p><p><a href="https://onde.la/blog/multi-agent-setup/">Read the full article →</a></p>`,
+  },
+  {
     slug: 'ai-trading-bot-kalshi',
     title: 'How We Built an AI Trading Bot for Kalshi (And What We Learned)',
     subtitle: 'From 44% Win Rate to AI Forecasting',
