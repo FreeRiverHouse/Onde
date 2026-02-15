@@ -12,15 +12,15 @@ const tocItems: TocItem[] = [
   { id: 'hardware', label: 'Hardware Setup', emoji: '🔧' },
   { id: 'patch', label: 'The Patch', emoji: '🩹' },
   { id: 'running', label: 'Running Models', emoji: '🚀' },
-  { id: 'performance', label: 'Performance', emoji: '📊' },
+  { id: 'performance', label: 'Performance (Honest Numbers)', emoji: '📊' },
   { id: 'failures', label: 'What Failed', emoji: '💀' },
   { id: 'reproduce', label: 'How to Reproduce', emoji: '🔬' },
-  { id: 'why', label: 'Why This Matters', emoji: '🌊' },
+  { id: 'moved-on', label: 'Why We Moved On', emoji: '🪦' },
   { id: 'patch-diff', label: 'The Full Patch', emoji: '📄' },
 ]
 
 /* ─── Article word count (pre-calculated for reading time) ─── */
-const ARTICLE_WORD_COUNT = 1420
+const ARTICLE_WORD_COUNT = 1650
 const READING_TIME = Math.max(1, Math.ceil(ARTICLE_WORD_COUNT / 200))
 
 /* ─── helper: code block ─── */
@@ -154,19 +154,19 @@ export default function RadeonTinygradArticle() {
         >
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-6">
-            {['GPU', 'TinyGrad', 'macOS', 'AMD', 'ML', 'eGPU'].map((t) => (
+            {['GPU', 'TinyGrad', 'macOS', 'AMD', 'ML', 'eGPU', 'Experiment'].map((t) => (
               <Tag key={t}>{t}</Tag>
             ))}
           </div>
 
           {/* Title */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4">
-            Running AMD Radeon RX 7900 XTX on macOS{' '}
-            <span className="text-gradient-fire">with TinyGrad</span>
+            We Got a Radeon RX 7900 XTX Running on macOS{' '}
+            <span className="text-gradient-fire">Then Stopped Using It</span>
           </h1>
 
-          <p className="text-xl text-onde-teal font-medium mb-6">
-            The &ldquo;Impossible&rdquo; Setup
+          <p className="text-xl text-white/50 font-medium mb-6">
+            A technical experiment in doing what everyone said was impossible — and learning why they had a point.
           </p>
 
           {/* Meta line */}
@@ -201,13 +201,18 @@ export default function RadeonTinygradArticle() {
             <strong className="text-white">MacBook Pro M1</strong> via
             Thunderbolt eGPU, using{' '}
             <strong className="text-white">TinyGrad</strong> with a small
-            patch. Everyone said it was impossible. Here&apos;s how we did it.
+            patch. Everyone said it was impossible.{' '}
+            <strong className="text-white/90">
+              It technically works — but it&apos;s slow, impractical, and we ended up
+              switching to MLX on Apple Silicon for actual production use.
+            </strong>{' '}
+            This post documents the experiment for anyone curious about the technical details.
           </p>
           <div className="flex flex-wrap gap-2">
             <ResultBadge ok>GPT-2 inference (~3.6 tok/s)</ResultBadge>
-            <ResultBadge ok>GPT-2 XL (1.5B params)</ResultBadge>
-            <ResultBadge ok>LLaMA 3.1 8B (Q4_K_M)</ResultBadge>
-            <ResultBadge ok>Translation models</ResultBadge>
+            <ResultBadge ok>LLaMA 3.1 8B (works, barely)</ResultBadge>
+            <ResultBadge ok={false}>Slower than native Apple Silicon</ResultBadge>
+            <ResultBadge ok={false}>Not practical for daily use</ResultBadge>
           </div>
         </motion.div>
 
@@ -256,8 +261,9 @@ export default function RadeonTinygradArticle() {
             </div>
           </div>
 
-          <p className="text-onde-teal font-semibold text-lg">
-            We proved them wrong.
+          <p>
+            We&apos;re stubborn, so we tried anyway. Spoiler: they were <em>mostly</em> right — not
+            about whether it&apos;s possible, but about whether it&apos;s practical.
           </p>
 
           {/* HARDWARE SETUP */}
@@ -296,6 +302,11 @@ export default function RadeonTinygradArticle() {
           </div>
 
           <CodeBlock lang="bash">{`system_profiler SPDisplaysDataType | grep -i AMD`}</CodeBlock>
+
+          <p className="text-white/50 text-sm italic">
+            Yes, just getting the GPU recognized is already an achievement. That should tell you
+            something about how &ldquo;supported&rdquo; this setup is.
+          </p>
 
           {/* THE PATCH */}
           <SectionHeading emoji="🩹" id="patch">
@@ -346,7 +357,7 @@ if ggml_type == 2:
           <p className="text-white/50 text-sm italic">
             The patch is ~20 lines changed in{' '}
             <code className="text-white/60 font-mono">tinygrad/nn/state.py</code>. Small
-            change, big impact.
+            change, big impact — at least for getting it to run at all.
           </p>
 
           {/* RUNNING MODELS */}
@@ -371,7 +382,7 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/gpt2.py \\
 # ~3.6 tokens/second`}</CodeBlock>
 
           <h3 className="text-xl font-display font-bold text-white mt-8 mb-3">
-            LLaMA 3.1 8B (The Real Deal)
+            LLaMA 3.1 8B (The &ldquo;Real&rdquo; Test)
           </h3>
 
           <CodeBlock lang="bash">{`PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/llama3.py \\
@@ -380,12 +391,13 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/gpt2.py \\
 
           {/* PERFORMANCE */}
           <SectionHeading emoji="📊" id="performance">
-            Performance
+            Performance (The Honest Numbers)
           </SectionHeading>
 
           <p>
-            Let&apos;s be honest: it&apos;s not fast. Thunderbolt bandwidth is
-            the bottleneck.
+            Here&apos;s where the dream meets reality. Thunderbolt bandwidth is a
+            severe bottleneck, and TinyGrad&apos;s AMD LLVM backend on macOS is
+            not optimized for this kind of setup.
           </p>
 
           <div className="card-3d p-6 overflow-x-auto">
@@ -395,7 +407,7 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/gpt2.py \\
                   <th className="text-left py-2 text-white/50 font-medium">Model</th>
                   <th className="text-right py-2 text-white/50 font-medium">Tokens/sec</th>
                   <th className="text-right py-2 text-white/50 font-medium">VRAM</th>
-                  <th className="text-right py-2 text-white/50 font-medium hidden sm:table-cell">Notes</th>
+                  <th className="text-right py-2 text-white/50 font-medium hidden sm:table-cell">Verdict</th>
                 </tr>
               </thead>
               <tbody>
@@ -403,40 +415,52 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/gpt2.py \\
                   <td className="py-2.5 text-white/80">GPT-2 (124M)</td>
                   <td className="py-2.5 text-right text-onde-teal font-semibold">~3.6</td>
                   <td className="py-2.5 text-right text-white/60">~500MB</td>
-                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Good for testing</td>
+                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Proof it works</td>
                 </tr>
                 <tr className="border-b border-white/5">
                   <td className="py-2.5 text-white/80">GPT-2 XL (1.5B)</td>
                   <td className="py-2.5 text-right text-onde-teal font-semibold">~1.5</td>
                   <td className="py-2.5 text-right text-white/60">~3GB</td>
-                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Usable</td>
+                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Painfully slow</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 text-white/80">LLaMA 3.1 8B Q4</td>
                   <td className="py-2.5 text-right text-onde-teal font-semibold">~0.8</td>
                   <td className="py-2.5 text-right text-white/60">~5GB</td>
-                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Slow but works!</td>
+                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Basically unusable</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p>
-            For comparison, the same LLaMA 3.1 8B runs at ~15 tok/s on the
-            M1&apos;s integrated GPU via llama.cpp. So why bother?
+            Now here&apos;s the uncomfortable comparison:
           </p>
 
-          <div className="card-3d p-6 border-l-4 border-onde-teal/50">
-            <p className="text-white/80 font-semibold mb-2">
-              Because 24GB VRAM opens doors:
+          <div className="card-3d p-6 border-l-4 border-red-500/50">
+            <p className="text-white/80 font-semibold mb-3">
+              The same models on native Apple Silicon:
             </p>
-            <ul className="list-disc list-inside space-y-1 text-white/70">
-              <li>Run models that don&apos;t fit in 16GB unified memory</li>
-              <li>Run multiple models simultaneously</li>
-              <li>Experiment with SDXL, larger LLMs, etc.</li>
-              <li>Prove the concept for future, faster Thunderbolt versions</li>
+            <ul className="list-disc list-inside space-y-2 text-white/70">
+              <li>
+                LLaMA 3.1 8B via <strong className="text-white">llama.cpp on M1</strong>: ~15 tok/s
+                — that&apos;s <strong className="text-red-400">nearly 20x faster</strong> than our eGPU setup
+              </li>
+              <li>
+                LLaMA 3.1 8B via <strong className="text-white">MLX on M4 Pro</strong>: ~30+ tok/s
+                — in a different universe entirely
+              </li>
+              <li>
+                No special drivers, no TinyGPU.app, no correct-port-guessing, no patching source code
+              </li>
             </ul>
           </div>
+
+          <p>
+            The 24GB VRAM argument sounds good on paper: &ldquo;run models that don&apos;t fit in 16GB!&rdquo;
+            In practice, even a base M1 can run 8B models just fine via quantization, and Apple Silicon machines
+            with 32GB+ unified memory are common now. The VRAM advantage doesn&apos;t compensate for being 20x slower.
+          </p>
 
           {/* WHAT FAILED */}
           <SectionHeading emoji="💀" id="failures">
@@ -468,6 +492,11 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
           <SectionHeading emoji="🔬" id="reproduce">
             How to Reproduce
           </SectionHeading>
+
+          <p className="text-white/50 italic">
+            We&apos;re documenting this for the technically curious — not because we recommend it.
+            If you want to run LLMs on a Mac, just use MLX or llama.cpp. Seriously.
+          </p>
 
           <div className="card-3d p-6 space-y-4">
             <div className="flex items-start gap-3">
@@ -535,43 +564,77 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
             </li>
           </ul>
 
-          {/* WHY THIS MATTERS */}
-          <SectionHeading emoji="🌊" id="why">
-            Why This Matters
+          {/* WHY WE MOVED ON */}
+          <SectionHeading emoji="🪦" id="moved-on">
+            Why We Moved On
           </SectionHeading>
 
           <p>
-            The ML community on Mac has been stuck with two options:
+            After the initial excitement of &ldquo;holy shit, it actually works,&rdquo; we had to be honest
+            with ourselves. This setup is:
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-4 my-6">
-            <div className="card-3d p-5 text-center">
-              <p className="text-lg font-bold text-white mb-1">Apple&apos;s MLX</p>
-              <p className="text-sm text-white/50">
-                Limited to Apple Silicon&apos;s unified memory
+          <div className="card-3d p-6 space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="text-red-400 text-lg">❌</span>
+              <p className="text-white/70">
+                <strong className="text-white">Slow</strong> — 0.8 tok/s for LLaMA 8B vs ~15 tok/s
+                on the same machine&apos;s native GPU via llama.cpp
               </p>
             </div>
-            <div className="card-3d p-5 text-center">
-              <p className="text-lg font-bold text-white mb-1">llama.cpp</p>
-              <p className="text-sm text-white/50">
-                CPU/Metal only, no external GPU support
+            <div className="flex items-start gap-3">
+              <span className="text-red-400 text-lg">❌</span>
+              <p className="text-white/70">
+                <strong className="text-white">Fragile</strong> — wrong Thunderbolt port? Doesn&apos;t work.
+                TinyGPU.app not running? Doesn&apos;t work. macOS update? Might break everything.
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-red-400 text-lg">❌</span>
+              <p className="text-white/70">
+                <strong className="text-white">Expensive</strong> — a 7900 XTX + eGPU enclosure costs more
+                than upgrading to a Mac with more unified memory
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-red-400 text-lg">❌</span>
+              <p className="text-white/70">
+                <strong className="text-white">Unnecessary</strong> — MLX on Apple Silicon is genuinely
+                excellent now, well-supported, and getting better fast
               </p>
             </div>
           </div>
 
           <p>
-            Our setup adds a third option:{' '}
-            <strong className="text-onde-teal">
-              use an external AMD GPU for ML on Mac
-            </strong>
-            . It&apos;s not perfect, it&apos;s not fast, but it works. And as
-            Thunderbolt 5 (80 Gbps) rolls out, the bandwidth bottleneck will
-            shrink.
+            We switched to <strong className="text-white">MLX on an M4 Pro</strong> for all our
+            production ML workloads. It&apos;s faster, simpler, and doesn&apos;t require praying
+            to the Thunderbolt gods every time you plug in a cable. The eGPU now collects dust.
           </p>
 
+          <div className="card-3d p-6 border-l-4 border-onde-teal/50">
+            <p className="text-white/80 font-semibold mb-2">
+              So why publish this?
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-white/70">
+              <li>
+                <strong className="text-white">The technical details are real</strong> — the float16
+                patch, the TinyGPU.app approach, the GGML buffer alignment issue. Someone might find this useful.
+              </li>
+              <li>
+                <strong className="text-white">The NVIDIA failure data is valuable</strong> — if you&apos;re
+                considering an RTX card via Thunderbolt, don&apos;t waste your money.
+              </li>
+              <li>
+                <strong className="text-white">Honest experiment logs matter</strong> — too many blog posts
+                only share successes. We tried something ambitious, it worked technically,
+                but it wasn&apos;t worth using. That&apos;s a valid outcome.
+              </li>
+            </ul>
+          </div>
+
           <p>
-            If you&apos;re interested in the patch, we&apos;d love to see this
-            upstreamed into TinyGrad.
+            If Thunderbolt 5 (80 Gbps) and better AMD drivers ever materialize on macOS,
+            this approach might become practical. But we&apos;re not holding our breath.
           </p>
 
           {/* THE FULL PATCH */}
@@ -603,7 +666,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
             >
               FreeRiverHouse
             </Link>{' '}
-            — where impossible things happen before breakfast.
+            — sometimes you learn more from the experiments that don&apos;t stick.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
