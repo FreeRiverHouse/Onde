@@ -213,12 +213,37 @@ def _get_window_via_applescript():
 
 
 def activate_iphone_mirroring():
-    """Bring iPhone Mirroring window to front."""
+    """Bring iPhone Mirroring window to front and pin to fixed position."""
     subprocess.run(
         ["osascript", "-e", 'tell application "iPhone Mirroring" to activate'],
         capture_output=True,
     )
     time.sleep(ACTIVATE_DELAY)
+    # Always pin to fixed position (0, 0) so coordinates never drift
+    pin_window_position()
+
+
+# Fixed window position — all UI_ELEMENTS coords are calibrated to this
+FIXED_WINDOW_X = 0
+FIXED_WINDOW_Y = 25  # Below macOS menu bar
+
+
+def pin_window_position():
+    """
+    Move iPhone Mirroring window to a fixed screen position so that
+    hardcoded UI coordinates always match. Called before every interaction.
+    """
+    script = f'''
+    tell application "System Events"
+        tell process "iPhone Mirroring"
+            try
+                set position of window 1 to {{{FIXED_WINDOW_X}, {FIXED_WINDOW_Y}}}
+            end try
+        end tell
+    end tell
+    '''
+    subprocess.run(["osascript", "-e", script], capture_output=True, timeout=3)
+    time.sleep(0.1)
 
 
 def phone_to_screen(rel_x, rel_y, window=None):
