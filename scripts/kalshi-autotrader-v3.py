@@ -1322,10 +1322,12 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
     
     contracts = max(1, bet_cents // cost_per_contract)
     
-    # Don't exceed max bet
+    # Don't exceed max bet — HARD CAP: 5% of bankroll (dynamic) or MAX_BET_CENTS (flat), whichever is lower
+    max_bet_dynamic = int(balance * MAX_POSITION_PCT * 100)  # 5% of bankroll in cents
+    effective_max = min(MAX_BET_CENTS, max_bet_dynamic)
     total_cost_cents = contracts * cost_per_contract
-    if total_cost_cents > MAX_BET_CENTS:
-        contracts = MAX_BET_CENTS // cost_per_contract
+    if total_cost_cents > effective_max:
+        contracts = effective_max // cost_per_contract
     
     if contracts <= 0:
         return TradeDecision(
