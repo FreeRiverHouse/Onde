@@ -1054,12 +1054,30 @@ def heuristic_critique(market: MarketInfo, forecast: ForecastResult) -> CriticRe
     
     market_prob = market.market_prob
     edge = abs(forecast.probability - market_prob)
+    market_type = classify_market_type(market)
     
-    # Sanity check 1: If edge is very large (>20%), be suspicious
-    if edge > 0.20:
-        major_flaws.append(f"Very large edge ({edge:.0%}) — heuristic may be wrong")
-        adj_prob = 0.6 * forecast.probability + 0.4 * market_prob  # Blend more toward market
-        should_trade = False  # Don't trust huge edges from heuristics
+    # Sanity check 1: Very large edge — threshold depends on market type
+    # Combo/parlay markets: large edges are EXPECTED (parlays are systematically
+    # overpriced due to compounding house edge on each leg). Don't veto these.
+    # Non-parlay markets: be suspicious of very large edges (>40%).
+    if market_type == "combo":
+        # Parlays: edges of 20-30% are normal and expected.
+        # Only flag truly extreme edges (>50%) as suspicious.
+        if edge > 0.50:
+            minor_flaws.append(f"Very large parlay edge ({edge:.0%}) — double check")
+            adj_prob = 0.7 * forecast.probability + 0.3 * market_prob
+        # Otherwise: trust the heuristic, parlays ARE overpriced
+    else:
+        # Non-parlay: be more cautious, but 20% was too aggressive a threshold.
+        # Raise to 40% — edges of 20-40% can happen on spreads/totals with
+        # public betting bias.
+        if edge > 0.40:
+            major_flaws.append(f"Very large edge ({edge:.0%}) — heuristic may be wrong")
+            adj_prob = 0.6 * forecast.probability + 0.4 * market_prob
+            should_trade = False
+        elif edge > 0.25:
+            minor_flaws.append(f"Large edge ({edge:.0%}) — proceed with caution")
+            adj_prob = 0.8 * forecast.probability + 0.2 * market_prob
     
     # Sanity check 2: Low volume → less reliable market price → less reliable edge
     if market.volume < 500:
@@ -1084,7 +1102,7 @@ def heuristic_critique(market: MarketInfo, forecast: ForecastResult) -> CriticRe
     
     reasoning = (
         f"[HEURISTIC CRITIC]\n"
-        f"Edge: {edge:.1%}. "
+        f"Market type: {market_type}. Edge: {edge:.1%}. "
         f"Major flaws: {', '.join(major_flaws) if major_flaws else 'None'}. "
         f"Minor flaws: {', '.join(minor_flaws) if minor_flaws else 'None'}. "
         f"Should trade: {'Yes' if should_trade else 'No'}."
@@ -1356,6 +1374,12 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
     if total_cost_cents > effective_max:
         contracts = effective_max // cost_per_contract
     
+    # Ensure at least 1 contract if the cost per contract is affordable
+    # (within 10% of bankroll — generous for paper trading / data collection)
+    max_single_contract_cents = int(balance * 0.10 * 100)  # 10% of bankroll
+    if contracts <= 0 and cost_per_contract <= max_single_contract_cents and cost_per_contract >= MIN_BET_CENTS:
+        contracts = 1
+    
     if contracts <= 0:
         return TradeDecision(
             action="SKIP",
@@ -1363,7 +1387,7 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
             kelly_size=kelly_frac,
             contracts=0,
             price_cents=side_price,
-            reason="Position too small",
+            reason=f"Position too small (cost/contract={cost_per_contract}¢, max={effective_max}¢, bankroll=${balance:.2f})",
             forecast=forecast,
             critic=critic
         )
