@@ -28,3 +28,30 @@ Auto-generated index of archived memory files.
 
 ---
 *Last updated: 2026-02-01 03:00*
+
+### 2025-02-02
+- 2025-02-02 22:27 - Saluto serale
+
+### 2025-02-05
+- 2025-02-05 17:35 - Vercel AI Accelerator Application Submitted! 🎉
+- 2025-02-05 18:28 - Startup Perks & Cloudflare Credits
+- 2025-02-05 18:46 - TTS Preference + Check-in
+- 2025-02-05 18:53 - Voice: Deploy onde.surf ADESSO
+- 2025-02-05 18:56 - ERRORE MIO: Confusione onde.la/onde.surf deploy
+
+### 2025-02-06
+- 2025-02-06 10:43 - Mattia conferma architettura onde.la
+- 2025-02-06 12:26 - Correzione Deploy Target
+
+### 2025-02-14
+- 2025-02-14 17:56 - BUG-001 fix + deploy onde.la
+- 2025-02-14 18:45 - Sistema punti non solo Skin Creator
+- 2025-02-14 19:15 - Deploy onde.la + test XP system
+- 2025-02-14 19:23 - Task vecchi ritrovati
+- 2025-02-14 19:25 - Domande su sistema punti + crescita
+
+### 2025-07-18
+- 2025-07-18 - Onde Arcade Games iPad App
+
+---
+*Last updated: 2026-02-15 03:00*
