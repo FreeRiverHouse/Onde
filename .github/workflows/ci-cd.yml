@@ -1,13 +1,16 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  schedule:
-    # Run nightly at 4 AM UTC (8 PM PST) for auto-improvement cycles
-    - cron: '0 4 * * *'
+  # DISABLED 2026-02-15: All runs failing due to GitHub Actions billing issue.
+  # Commenting out auto-triggers to stop failure email spam.
+  # Re-enable once billing is fixed.
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
+  # schedule:
+  #   # Run nightly at 4 AM UTC (8 PM PST) for auto-improvement cycles
+  #   - cron: '0 4 * * *'
   workflow_dispatch:
     inputs:
       deploy:

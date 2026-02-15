@@ -1,9 +1,12 @@
 name: Site Health Check
 
+# DISABLED 2026-02-15: All runs failing due to GitHub Actions billing issue.
+# Was running every 15 minutes and spamming failure emails.
+# Re-enable once billing is fixed.
 on:
-  schedule:
-    # Run every 15 minutes
-    - cron: '*/15 * * * *'
+  # schedule:
+  #   # Run every 15 minutes
+  #   - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
