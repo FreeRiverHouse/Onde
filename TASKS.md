@@ -239,7 +239,7 @@
 | 30 | TRADE-001 | Riavviare autotrader con fix algoritmo (paper mode) | 🔥 Trading | TODO | - |
 | 31 | TRADE-002 | Dashboard autotrader su onde.surf funzionante con grafici trend | 🔥 Trading | IN_PROGRESS | @clawdinho | Dashboard locale su :8888 funziona, deploy su onde.surf fatto ma serve connessione al backend |
 | 32 | TRADE-003 | Implementare backtesting framework per autotrader | ⭐ Trading | ✅ DONE | @clawdinho | scripts/kalshi-backtest.py - Replay historical data, param sweep, Monte Carlo CI, strategy comparison |
-| 33 | TRADE-004 | Phase 2: LLM-based probability assessment per Kalshi | ⭐ Trading | TODO | - | Ispirato a Grok 4.2 results |
+| 33 | TRADE-004 | Phase 2: LLM-based probability assessment per Kalshi | ⭐ Trading | DONE | @clawdinho | Opus IS the forecaster - no external API needed. kalshi-opus-trader.py + v3 script done. 2 real CPI trades placed. |
 | 34 | ANAL-001 | Analytics dettagliate onde.la - referrer, geo, device | 🔥 Growth | TODO | - | CF Web Analytics attive, servono analytics più dettagliate |
 | 35 | GAME-001 | Multi-tenancy giocatori - sistema username leggero senza login | 🔥 Games | ✅ DONE | @clawdinho | usePlayerName hook globale + usePlayerLevel XP + useCoins. Tutti 44 giochi integrati (2026-02-14) |
 | 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | TODO | - | Dipende da GAME-001 (DONE). Serve analytics su quanti usano il sistema |
