@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getRequestContext } from '@cloudflare/next-on-pages'
 
 export const runtime = 'edge'
 
@@ -51,8 +52,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // @ts-expect-error - Cloudflare context
-    const env = (request as { env?: { DB: D1Database } }).env || (globalThis as { env?: { DB: D1Database } }).env
+    const { env } = getRequestContext()
     
     if (!env?.DB) {
       return NextResponse.json({ error: 'Database not configured' }, { status: 500 })
@@ -61,8 +61,8 @@ export async function POST(request: NextRequest) {
     const results: string[] = []
     for (const sql of MIGRATIONS) {
       try {
-        await env.DB.exec(sql)
-        results.push(`✅ ${sql.substring(0, 60)}...`)
+        const result = await env.DB.prepare(sql).run()
+        results.push(`✅ ${sql.substring(0, 60)}... success=${result.success}`)
       } catch (e) {
         results.push(`⚠️ ${sql.substring(0, 60)}... — ${e instanceof Error ? e.message : 'error'}`)
       }
