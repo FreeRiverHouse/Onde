@@ -1,0 +1,247 @@
+========================================================================
+⚔️  BACKTEST COMPARISON: New Edge Caps vs Old Parameters
+========================================================================
+
+🔄 Loading historical trade data...
+  📄 Live trades: 115
+  📄 Dry-run trades: 184
+  📄 Daily snapshot trades: 574
+  📄 ML training data: 114
+  ✅ Total unique trades: 340
+     Settled: 68 (7W / 61L)
+     Pending: 179
+  📊 Signal events loaded: 2 total
+     regime_changes: 1
+     momentum_changes: 1
+
+========================================================================
+📊 CONFIG A: NEW EDGE CAPS (TRADE-005)
+   max_edge=0.2, per-asset caps (weather=0.15, etc.)
+========================================================================
+======================================================================
+📊 KALSHI AUTOTRADER - BACKTEST REPORT
+======================================================================
+
+⚙️  Parameters:
+     min_edge: 0.04
+     kelly_fraction: 0.05
+     fat_tail_multiplier: 1.4
+     min_time_to_expiry_minutes: 45
+     momentum_conflict_threshold: 0.3
+
+📈 SUMMARY:
+     Total trades evaluated: 340
+     Included trades:        4
+     Excluded trades:        64
+     Pending (no result):    272
+
+     Wins:     3
+     Losses:   1
+     Win Rate: 75.0%
+
+     Total PnL:      $+0.56
+     Total Cost:     $14.44
+     ROI:            +3.9%
+     Expectation:    $+0.1400 per trade
+
+     Profit Factor:  1.14
+     Sharpe Ratio:   2.08
+     Max Drawdown:   $3.96 (3.9%)
+
+     Avg Edge:       64.85%
+     Avg Win:        $1.51
+     Avg Loss:       $3.96
+     Best Trade:     $+2.64
+     Worst Trade:    $-3.96
+
+🔍 BY ASSET:
+     Asset       Trades      WR        PnL      ROI
+     ────────── ─────── ─────── ────────── ────────
+     ETH              4    75% $    +0.56    +3.9%
+
+🌊 BY REGIME:
+     Regime                Trades      WR        PnL      ROI
+     ──────────────────── ─────── ─────── ────────── ────────
+     choppy                     3   100% $    +4.52   +43.1%
+     sideways                   1     0% $    -3.96  -100.0%
+
+↕️  BY SIDE:
+     Side        Trades      WR        PnL      ROI
+     ────────── ─────── ─────── ────────── ────────
+     YES              1   100% $    +1.40   +38.9%
+     NO               3    67% $    -0.84    -7.7%
+
+🚫 EXCLUSION REASONS:
+         8x  edge_0.430_above_max_0.150_weather
+         6x  edge_0.440_above_max_0.150_weather
+         6x  edge_0.731_above_max_0.150_weather
+         5x  edge_0.760_above_max_0.150_weather
+         5x  edge_0.721_above_max_0.150_weather
+         5x  edge_0.903_above_max_0.150_weather
+         3x  edge_0.420_above_max_0.150_weather
+         2x  edge_0.750_above_max_0.150_weather
+         2x  edge_0.711_above_max_0.150_weather
+         1x  edge_0.606_above_max_0.150_weather
+         1x  edge_0.845_above_max_0.150_weather
+         1x  edge_0.759_above_max_0.150_weather
+         1x  edge_0.690_above_max_0.150_weather
+         1x  edge_0.783_above_max_0.150_weather
+         1x  edge_0.813_above_max_0.150_weather
+         1x  edge_0.727_above_max_0.150_weather
+         1x  edge_0.833_above_max_0.150_weather
+         1x  edge_0.793_above_max_0.150_weather
+         1x  edge_0.790_above_max_0.150_weather
+         1x  edge_0.800_above_max_0.150_weather
+         1x  edge_0.840_above_max_0.150_weather
+         1x  edge_0.880_above_max_0.150_weather
+         1x  edge_0.870_above_max_0.150_weather
+         1x  edge_0.692_above_max_0.150_weather
+         1x  edge_0.691_above_max_0.150_weather
+         1x  edge_0.751_above_max_0.150_weather
+         1x  edge_0.913_above_max_0.150_weather
+         1x  edge_0.937_above_max_0.150_weather
+         1x  edge_0.920_above_max_0.150_weather
+         1x  edge_0.917_above_max_0.150_weather
+         1x  edge_0.230_above_max_0.200_eth
+
+📡 SIGNAL CONTEXT (finetuning data):
+     regime_changes: 1 events
+     momentum_changes: 1 events
+
+======================================================================
+
+========================================================================
+📊 CONFIG B: OLD PARAMETERS (pre-TRADE-005)
+   max_edge=0.25, NO per-asset edge caps
+========================================================================
+======================================================================
+📊 KALSHI AUTOTRADER - BACKTEST REPORT
+======================================================================
+
+⚙️  Parameters:
+     min_edge: 0.04
+     kelly_fraction: 0.05
+     fat_tail_multiplier: 1.4
+     min_time_to_expiry_minutes: 45
+     momentum_conflict_threshold: 0.3
+
+📈 SUMMARY:
+     Total trades evaluated: 340
+     Included trades:        5
+     Excluded trades:        63
+     Pending (no result):    272
+
+     Wins:     3
+     Losses:   2
+     Win Rate: 60.0%
+
+     Total PnL:      $-3.07
+     Total Cost:     $18.07
+     ROI:            -17.0%
+     Expectation:    $-0.6140 per trade
+
+     Profit Factor:  0.60
+     Sharpe Ratio:   -8.73
+     Max Drawdown:   $7.59 (7.6%)
+
+     Avg Edge:       64.85%
+     Avg Win:        $1.51
+     Avg Loss:       $3.79
+     Best Trade:     $+2.64
+     Worst Trade:    $-3.96
+
+🔍 BY ASSET:
+     Asset       Trades      WR        PnL      ROI
+     ────────── ─────── ─────── ────────── ────────
+     ETH              5    60% $    -3.07   -17.0%
+
+🌊 BY REGIME:
+     Regime                Trades      WR        PnL      ROI
+     ──────────────────── ─────── ─────── ────────── ────────
+     choppy                     3   100% $    +4.52   +43.1%
+     sideways                   2     0% $    -7.59  -100.0%
+
+↕️  BY SIDE:
+     Side        Trades      WR        PnL      ROI
+     ────────── ─────── ─────── ────────── ────────
+     YES              1   100% $    +1.40   +38.9%
+     NO               4    50% $    -4.47   -30.9%
+
+🚫 EXCLUSION REASONS:
+         8x  edge_0.430_above_max_0.250
+         6x  edge_0.440_above_max_0.250
+         6x  edge_0.731_above_max_0.250
+         5x  edge_0.760_above_max_0.250
+         5x  edge_0.721_above_max_0.250
+         5x  edge_0.903_above_max_0.250
+         3x  edge_0.420_above_max_0.250
+         2x  edge_0.750_above_max_0.250
+         2x  edge_0.711_above_max_0.250
+         1x  edge_0.606_above_max_0.250
+         1x  edge_0.845_above_max_0.250
+         1x  edge_0.759_above_max_0.250
+         1x  edge_0.690_above_max_0.250
+         1x  edge_0.783_above_max_0.250
+         1x  edge_0.813_above_max_0.250
+         1x  edge_0.727_above_max_0.250
+         1x  edge_0.833_above_max_0.250
+         1x  edge_0.793_above_max_0.250
+         1x  edge_0.790_above_max_0.250
+         1x  edge_0.800_above_max_0.250
+         1x  edge_0.840_above_max_0.250
+         1x  edge_0.880_above_max_0.250
+         1x  edge_0.870_above_max_0.250
+         1x  edge_0.692_above_max_0.250
+         1x  edge_0.691_above_max_0.250
+         1x  edge_0.751_above_max_0.250
+         1x  edge_0.913_above_max_0.250
+         1x  edge_0.937_above_max_0.250
+         1x  edge_0.920_above_max_0.250
+         1x  edge_0.917_above_max_0.250
+
+📡 SIGNAL CONTEXT (finetuning data):
+     regime_changes: 1 events
+     momentum_changes: 1 events
+
+======================================================================
+
+========================================================================
+⚔️  HEAD-TO-HEAD COMPARISON
+========================================================================
+
+Metric                            NEW (caps)   OLD (no caps)           Delta
+──────────────────────────── ─────────────── ─────────────── ───────────────
+Included Trades                           4              5             +1
+Excluded Trades                          64             63             -1
+Wins                                      3              3             +0
+Losses                                    1              2             +1
+Win Rate                              75.0%          60.0%         -15.0%
+Total PnL                    $         0.56 $        -3.07 $        -3.63
+Total Cost                   $        14.44 $        18.07 $        +3.63
+ROI %                                  3.9%         -17.0%         -20.9%
+Sharpe Ratio                          2.082         -8.727        -10.809
+Max Drawdown %                         3.9%           7.6%          +3.7%
+Profit Factor                         1.141          0.596         -0.546
+Avg Edge                              64.9%          64.9%          +0.0%
+Avg Win $                    $         1.51 $         1.51 $        +0.00
+Avg Loss $                   $         3.96 $         3.79 $        -0.17
+Best Trade                   $         2.64 $         2.64 $        +0.00
+Worst Trade                  $        -3.96 $        -3.96 $        +0.00
+
+────────────────────────────────────────────────────────────────────────
+📊 PER-ASSET COMPARISON:
+Asset      NEW Trades OLD Trades   NEW WR   OLD WR    NEW PnL    OLD PnL
+────────── ────────── ────────── ──────── ──────── ────────── ──────────
+ETH                 4          5     75%     60% $    +0.56 $    -3.07
+
+========================================================================
+🏆 VERDICT:
+   NEW CAPS WIN by $+3.63
+   The per-asset edge caps successfully filter out false positive trades.
+
+📋 TRADES ONLY IN OLD (filtered by new caps):
+   1 additional trades in old config
+
+========================================================================
+Generated: 2026-02-15T07:44:15.575580+00:00
+========================================================================

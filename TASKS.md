@@ -318,7 +318,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 135 | TRADE-008 | Run backtest con nuovi edge caps e confrontare performance vs vecchi parametri | 🔥 Validation | TODO | - |
+| 135 | TRADE-008 | Run backtest con nuovi edge caps e confrontare performance vs vecchi parametri | 🔥 Validation | DONE | @clawdbot | Results: NEW caps +$0.56 PnL, 75% WR, Sharpe 2.08 vs OLD -$3.07 PnL, 60% WR, Sharpe -8.73. New caps filter 1 false-positive ETH trade (edge 0.23). See data/trading/backtest-comparison-edge-caps.txt |
 | 136 | TRADE-009 | Aggiungere edge distribution histogram al backtest output per spotare outlier | ⭐ Analytics | TODO | - |
 | 137 | TRADE-010 | A/B test live: autotrader v2 con nuovi caps vs paper mode vecchi caps per 1 settimana | ⭐ Trading | TODO | - |
 
