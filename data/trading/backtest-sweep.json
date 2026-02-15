@@ -1,94 +1,82 @@
 {
-  "timestamp": "2026-02-15T07:36:43.606649+00:00",
+  "timestamp": "2026-02-15T07:46:15.744349+00:00",
   "sweep_results": [
     {
-      "param": "min_edge",
-      "value": 0.02,
-      "trades": 5,
-      "win_rate": 0.6,
-      "pnl_cents": -307,
-      "roi_pct": -16.99,
-      "sharpe": -8.727,
-      "max_dd_pct": 7.59,
-      "profit_factor": 0.596,
-      "expectation": -61.4
+      "param": "kelly_fraction",
+      "value": 0.05,
+      "trades": 4,
+      "win_rate": 0.75,
+      "pnl_cents": 56,
+      "roi_pct": 3.88,
+      "sharpe": 2.082,
+      "max_dd_pct": 3.94,
+      "profit_factor": 1.141,
+      "expectation": 14.0
     },
     {
-      "param": "min_edge",
-      "value": 0.04,
-      "trades": 5,
-      "win_rate": 0.6,
-      "pnl_cents": -307,
-      "roi_pct": -16.99,
-      "sharpe": -8.727,
-      "max_dd_pct": 7.59,
-      "profit_factor": 0.596,
-      "expectation": -61.4
-    },
-    {
-      "param": "min_edge",
-      "value": 0.06,
-      "trades": 5,
-      "win_rate": 0.6,
-      "pnl_cents": -307,
-      "roi_pct": -16.99,
-      "sharpe": -8.727,
-      "max_dd_pct": 7.59,
-      "profit_factor": 0.596,
-      "expectation": -61.4
-    },
-    {
-      "param": "min_edge",
-      "value": 0.08,
-      "trades": 2,
-      "win_rate": 0.0,
-      "pnl_cents": -759,
-      "roi_pct": -100.0,
-      "sharpe": -694.775,
-      "max_dd_pct": 7.59,
-      "profit_factor": 0.0,
-      "expectation": -379.5
-    },
-    {
-      "param": "min_edge",
+      "param": "kelly_fraction",
       "value": 0.1,
-      "trades": 2,
-      "win_rate": 0.0,
-      "pnl_cents": -759,
-      "roi_pct": -100.0,
-      "sharpe": -694.775,
-      "max_dd_pct": 7.59,
-      "profit_factor": 0.0,
-      "expectation": -379.5
+      "trades": 4,
+      "win_rate": 0.75,
+      "pnl_cents": 56,
+      "roi_pct": 3.88,
+      "sharpe": 2.082,
+      "max_dd_pct": 3.94,
+      "profit_factor": 1.141,
+      "expectation": 14.0
     },
     {
-      "param": "min_edge",
-      "value": 0.12,
-      "trades": 2,
-      "win_rate": 0.0,
-      "pnl_cents": -759,
-      "roi_pct": -100.0,
-      "sharpe": -694.775,
-      "max_dd_pct": 7.59,
-      "profit_factor": 0.0,
-      "expectation": -379.5
-    },
-    {
-      "param": "min_edge",
+      "param": "kelly_fraction",
       "value": 0.15,
-      "trades": 1,
-      "win_rate": 0.0,
-      "pnl_cents": -396,
-      "roi_pct": -100.0,
-      "sharpe": 0.0,
-      "max_dd_pct": 3.96,
-      "profit_factor": 0.0,
-      "expectation": -396.0
+      "trades": 4,
+      "win_rate": 0.75,
+      "pnl_cents": 56,
+      "roi_pct": 3.88,
+      "sharpe": 2.082,
+      "max_dd_pct": 3.94,
+      "profit_factor": 1.141,
+      "expectation": 14.0
+    },
+    {
+      "param": "kelly_fraction",
+      "value": 0.2,
+      "trades": 4,
+      "win_rate": 0.75,
+      "pnl_cents": 56,
+      "roi_pct": 3.88,
+      "sharpe": 2.082,
+      "max_dd_pct": 3.94,
+      "profit_factor": 1.141,
+      "expectation": 14.0
+    },
+    {
+      "param": "kelly_fraction",
+      "value": 0.25,
+      "trades": 4,
+      "win_rate": 0.75,
+      "pnl_cents": 56,
+      "roi_pct": 3.88,
+      "sharpe": 2.082,
+      "max_dd_pct": 3.94,
+      "profit_factor": 1.141,
+      "expectation": 14.0
+    },
+    {
+      "param": "kelly_fraction",
+      "value": 0.3,
+      "trades": 4,
+      "win_rate": 0.75,
+      "pnl_cents": 56,
+      "roi_pct": 3.88,
+      "sharpe": 2.082,
+      "max_dd_pct": 3.94,
+      "profit_factor": 1.141,
+      "expectation": 14.0
     }
   ],
   "base_params": {
     "min_edge": 0.04,
-    "max_edge": 0.25,
+    "max_edge": 0.2,
     "kelly_fraction": 0.05,
     "max_position_pct": 0.03,
     "min_time_to_expiry_minutes": 45,
@@ -120,7 +108,6 @@
   },
   "recommendations": [
     "\u2705 Win rate above 55%. Model has predictive edge. Consider slightly increasing Kelly fraction.",
-    "\ud83d\udd34 Negative PnL. Key focus: reduce losses. Try: higher MIN_EDGE, smaller position sizes, or avoiding choppy regime trades.",
-    "\ud83d\udd34 Profit factor < 1.0 (losing money). Average loss > average win. Need tighter stop-losses or better entry criteria."
+    "\ud83d\udfe1 Low ROI. Consider: concentrating on highest-edge trades only, or increasing position size on winning setups."
   ]
 }

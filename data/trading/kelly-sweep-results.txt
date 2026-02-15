@@ -1,0 +1,107 @@
+======================================================================
+KELLY FRACTION SWEEP RESULTS — TRADE-013
+======================================================================
+Date: 2026-02-16
+Script: scripts/kalshi-backtest.py --sweep-param kelly_fraction
+Values tested: 0.05, 0.10, 0.15, 0.20, 0.25, 0.30
+
+Data summary:
+  Total unique trades: 340
+  Settled: 68 (7W / 61L)
+  Pending: 179
+  Trades passing filters: 4 (all ETH)
+
+======================================================================
+SWEEP RESULTS
+======================================================================
+
+Kelly    Trades   WR      PnL       ROI    Sharpe  MaxDD%  PF
+------   ------  -----  --------  ------  ------  ------  -----
+0.05        4    75.0%  $+0.56    +3.9%    2.08    3.9%   1.14
+0.10        4    75.0%  $+0.56    +3.9%    2.08    3.9%   1.14
+0.15        4    75.0%  $+0.56    +3.9%    2.08    3.9%   1.14
+0.20        4    75.0%  $+0.56    +3.9%    2.08    3.9%   1.14
+0.25        4    75.0%  $+0.56    +3.9%    2.08    3.9%   1.14
+0.30        4    75.0%  $+0.56    +3.9%    2.08    3.9%   1.14
+
+Best by Sharpe: ALL EQUAL (2.08)
+Best by PnL:    ALL EQUAL ($+0.56)
+
+======================================================================
+ANALYSIS: WHY ALL KELLY VALUES ARE IDENTICAL
+======================================================================
+
+Root cause: Position sizing hits the FLOOR (1 contract minimum) for all
+Kelly fractions tested. The effective Kelly is capped by:
+
+1. Per-asset max_position_pct (ETH: 0.04 = 4% of bankroll)
+   → With $100 bankroll, max ETH bet = $4.00
+   → All Kelly values from 0.05-0.30 get capped at 0.04
+
+2. Regime multiplier (choppy = 0.5x)
+   → 3 of 4 trades in choppy regime → effective size halved
+
+3. Contract minimum floor
+   → cost = max(5 cents, contracts * price)
+   → With prices of ~360-400 cents, 1 contract is the minimum
+
+Net effect: Kelly fraction from 0.05 to 0.30 produces identical
+sizing because the per-asset position cap (4%) binds before Kelly
+does. All 4 trades execute at 1 contract regardless of Kelly.
+
+======================================================================
+QUALIFYING TRADES DETAIL
+======================================================================
+
+All 4 qualifying trades are ETH:
+  - 3 wins in "choppy" regime (100% WR in choppy)
+  - 1 loss in "sideways" regime (0% WR in sideways)
+  - Total PnL: +$0.56 (3 wins: +$4.52, 1 loss: -$3.96)
+  - Average edge: 64.85%
+
+Exclusion breakdown (64 trades filtered out):
+  - 63x weather trades with edge >15% cap (false positives)
+  - 1x ETH trade with edge 23% above 20% max cap
+
+======================================================================
+RECOMMENDATIONS
+======================================================================
+
+1. KEEP kelly_fraction = 0.05 (conservative default)
+   → No differentiation at current trade volume/sizes
+   → Lower Kelly = less risk when sample size grows
+
+2. The REAL bottleneck is not Kelly — it's TRADE VOLUME
+   → Only 4/68 settled trades pass filters
+   → 93% of settled trades are weather with inflated edges
+   → Need more crypto trades to make Kelly sweep meaningful
+
+3. INCREASE max_position_pct to see Kelly impact:
+   → Current ETH cap: 4% → try 8-10% to let Kelly differentiate
+   → Only do this with proven edge (75% WR is promising but n=4)
+
+4. FOCUS AREAS (higher impact than Kelly tuning):
+   → Fix weather edge model (63 trades excluded as false positives)
+   → Accumulate more settled crypto trades (need n≥20 for stats)
+   → Re-run this sweep after 50+ settled crypto trades
+
+5. THEORETICAL OPTIMAL KELLY (for reference):
+   → With 75% WR and avg payout 1.14:1, full Kelly ≈ 0.63
+   → Half-Kelly (safer) ≈ 0.31
+   → But sample size (n=4) makes this unreliable
+   → Stick with 0.05 until n≥30 settled trades
+
+======================================================================
+CONCLUSION
+======================================================================
+
+Kelly fraction sweep is INCONCLUSIVE at current data volume.
+All values 0.05-0.30 produce identical results due to position
+size floor and per-asset caps binding before Kelly.
+
+Recommended action: Keep kelly_fraction=0.05, focus on:
+  a) Growing trade count (more crypto, fix weather model)
+  b) Re-run sweep when n≥30 settled trades available
+  c) Consider raising max_position_pct if edge holds at scale
+
+======================================================================

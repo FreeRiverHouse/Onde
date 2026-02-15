@@ -86,7 +86,7 @@ DEFAULT_PARAMS = {
 # Parameter sweep ranges
 SWEEP_RANGES = {
     "min_edge": [0.02, 0.04, 0.06, 0.08, 0.10, 0.12, 0.15],
-    "kelly_fraction": [0.03, 0.05, 0.08, 0.10, 0.15],
+    "kelly_fraction": [0.03, 0.05, 0.08, 0.10, 0.15, 0.20, 0.25, 0.30],
     "fat_tail_multiplier": [1.0, 1.2, 1.4, 1.6, 1.8],
     "momentum_conflict_threshold": [0.2, 0.3, 0.4, 0.5],
     "min_time_to_expiry_minutes": [30, 45, 60, 90],

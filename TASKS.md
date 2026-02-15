@@ -336,4 +336,4 @@
 |---|----|----- |--------|--------|-------|
 | 141 | TRADE-011 | Restartare autotrader con nuovi edge caps (v2 è già aggiornato, serve restart) | 🔥 Trading | TODO | - |
 | 142 | TRADE-012 | Setup daily backtest cron che compara performance live vs backtest expected | ⭐ Monitoring | TODO | - |
-| 143 | TRADE-013 | Sweep kelly_fraction con nuovi caps per trovare sizing ottimale | ⭐ Trading | TODO | - |
+| 143 | TRADE-013 | Sweep kelly_fraction con nuovi caps per trovare sizing ottimale | ⭐ Trading | ✅ DONE | @clawdinho | Swept 0.05-0.30 in 0.05 steps. All values identical (4 trades, 75% WR, Sharpe 2.08) — position size floor + per-asset caps bind before Kelly. Keep 0.05 default. Re-run when n≥30 settled trades. See data/trading/kelly-sweep-results.txt |
