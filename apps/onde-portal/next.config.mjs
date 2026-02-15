@@ -19,6 +19,10 @@ const nextConfig = {
   },
   // Trailing slash for consistent URLs
   trailingSlash: true,
+  // Performance: optimize package imports (tree-shake heavy packages)
+  experimental: {
+    optimizePackageImports: ['framer-motion', '@/components/ui/aceternity'],
+  },
 }
 
 export default nextConfig

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+// Skin Creator premium styles — loaded only on this route (not globally)
+import './skin-creator-premium.css';
 
 const gameJsonLd = {
   '@context': 'https://schema.org',

@@ -1,57 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
-interface WatercolorBlobProps {
-  color: 'coral' | 'teal' | 'gold' | 'blue'
-  size: number
-  mobileSize: number
-  x: string
-  y: string
-}
-
-const colorMap = {
-  coral: 'rgba(255, 127, 127, 0.35)',
-  teal: 'rgba(72, 201, 176, 0.3)',
-  gold: 'rgba(244, 208, 63, 0.3)',
-  blue: 'rgba(93, 173, 226, 0.25)',
-}
-
-function WatercolorBlob({ color, size, mobileSize, x, y }: WatercolorBlobProps) {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  const actualSize = isMobile ? mobileSize : size
-
-  return (
-    <div
-      className="absolute rounded-full pointer-events-none"
-      style={{
-        width: actualSize,
-        height: actualSize,
-        left: x,
-        top: y,
-        background: colorMap[color],
-        filter: 'blur(60px)',
-        opacity: 0.4,
-        transform: 'translate3d(0,0,0)', /* Force GPU layer */
-      }}
-    />
-  )
-}
-
+/**
+ * WatercolorBackground - Pure CSS ambient blobs (no JS resize listeners)
+ * Uses CSS clamp() for responsive sizing instead of useState/useEffect
+ */
 export default function WatercolorBackground() {
   return (
     <div
       className="fixed inset-0 overflow-hidden pointer-events-none z-0"
       style={{
-        contain: 'strict', /* CSS containment for performance */
+        contain: 'strict',
         willChange: 'auto',
       }}
       aria-hidden="true"
@@ -70,13 +28,13 @@ export default function WatercolorBackground() {
         }}
       />
 
-      {/* Static watercolor blobs - no animation for mobile stability */}
-      <WatercolorBlob color="coral" size={400} mobileSize={200} x="5%" y="10%" />
-      <WatercolorBlob color="teal" size={350} mobileSize={180} x="70%" y="60%" />
-      <WatercolorBlob color="gold" size={300} mobileSize={150} x="50%" y="30%" />
-      <WatercolorBlob color="blue" size={280} mobileSize={140} x="75%" y="10%" />
-      <WatercolorBlob color="coral" size={250} mobileSize={120} x="20%" y="70%" />
-      <WatercolorBlob color="teal" size={200} mobileSize={100} x="10%" y="50%" />
+      {/* Static watercolor blobs - pure CSS, no JS resize */}
+      <div className="absolute rounded-full" style={{ width: 'clamp(200px, 30vw, 400px)', height: 'clamp(200px, 30vw, 400px)', left: '5%', top: '10%', background: 'rgba(255, 127, 127, 0.35)', filter: 'blur(60px)', opacity: 0.4, transform: 'translate3d(0,0,0)' }} />
+      <div className="absolute rounded-full" style={{ width: 'clamp(180px, 26vw, 350px)', height: 'clamp(180px, 26vw, 350px)', left: '70%', top: '60%', background: 'rgba(72, 201, 176, 0.3)', filter: 'blur(60px)', opacity: 0.4, transform: 'translate3d(0,0,0)' }} />
+      <div className="absolute rounded-full" style={{ width: 'clamp(150px, 22vw, 300px)', height: 'clamp(150px, 22vw, 300px)', left: '50%', top: '30%', background: 'rgba(244, 208, 63, 0.3)', filter: 'blur(60px)', opacity: 0.4, transform: 'translate3d(0,0,0)' }} />
+      <div className="absolute rounded-full" style={{ width: 'clamp(140px, 20vw, 280px)', height: 'clamp(140px, 20vw, 280px)', left: '75%', top: '10%', background: 'rgba(93, 173, 226, 0.25)', filter: 'blur(60px)', opacity: 0.4, transform: 'translate3d(0,0,0)' }} />
+      <div className="absolute rounded-full" style={{ width: 'clamp(120px, 18vw, 250px)', height: 'clamp(120px, 18vw, 250px)', left: '20%', top: '70%', background: 'rgba(255, 127, 127, 0.35)', filter: 'blur(60px)', opacity: 0.4, transform: 'translate3d(0,0,0)' }} />
+      <div className="absolute rounded-full" style={{ width: 'clamp(100px, 15vw, 200px)', height: 'clamp(100px, 15vw, 200px)', left: '10%', top: '50%', background: 'rgba(72, 201, 176, 0.3)', filter: 'blur(60px)', opacity: 0.4, transform: 'translate3d(0,0,0)' }} />
 
       {/* Subtle grain texture overlay */}
       <div

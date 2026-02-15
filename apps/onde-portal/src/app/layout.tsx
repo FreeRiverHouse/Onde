@@ -165,7 +165,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="alternate" type="application/rss+xml" title="Onde Books RSS Feed" href="/feed.xml" />
         <link rel="alternate" type="application/atom+xml" title="Onde Books Atom Feed" href="/feed.atom" />
-        {/* Resource hints for faster loading */}
+        {/* Preload LCP image for homepage */}
+        <link rel="preload" href="/books/meditations-cover.webp" as="image" type="image/webp" />
         {/* Prefetch critical navigation paths */}
         <link rel="prefetch" href="/libri/" as="document" />
         <link rel="prefetch" href="/games/" as="document" />

@@ -3,20 +3,21 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useMemo, useState, useEffect } from 'react'
+import { useRef, useMemo, useState, useEffect, lazy, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { 
   GradientText, 
-  Card3D, 
-  GlowingCard, 
   BentoGrid, 
   BentoGridItem, 
-  FloatingDock,
   SpotlightBeam,
-  MovingBorder,
-  InfiniteMovingCards,
-  WavyBackground
 } from '@/components/ui/aceternity'
 import { useTranslations } from '@/i18n'
+
+// Dynamically import heavy components that aren't needed for initial render
+const Card3D = dynamic(() => import('@/components/ui/aceternity').then(m => ({ default: m.Card3D })), { ssr: false })
+const GlowingCard = dynamic(() => import('@/components/ui/aceternity').then(m => ({ default: m.GlowingCard })), { ssr: false })
+const FloatingDock = dynamic(() => import('@/components/ui/aceternity').then(m => ({ default: m.FloatingDock })), { ssr: false })
+const InfiniteMovingCards = dynamic(() => import('@/components/ui/aceternity').then(m => ({ default: m.InfiniteMovingCards })), { ssr: false })
 
 // Particle for ambient background - Ocean bubbles
 function Particle({ index }: { index: number }) {
@@ -66,7 +67,7 @@ const books = [
     description: 'The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.',
     category: 'Philosophy',
     gradient: 'from-amber-500 via-orange-500 to-red-500',
-    cover: '/books/meditations-cover.jpg',
+    cover: '/books/meditations-cover.webp',
     pdfUrl: '/books/meditations-en.pdf',
   },
   {
@@ -77,7 +78,7 @@ const books = [
     description: 'The most beloved Psalm, beautifully illustrated for young readers.',
     category: 'Spirituality',
     gradient: 'from-emerald-400 via-green-500 to-teal-600',
-    cover: '/books/shepherds-promise-cover.jpg',
+    cover: '/books/shepherds-promise-cover.webp',
     pdfUrl: '/books/the-shepherds-promise.pdf',
   },
 ]
@@ -103,7 +104,7 @@ export default function Home() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.9])
   const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -150])
-  const particles = useMemo(() => Array.from({ length: 50 }, (_, i) => i), [])
+  const particles = useMemo(() => Array.from({ length: 15 }, (_, i) => i), [])
   
   // Features with translations
   const features = [
@@ -361,7 +362,10 @@ export default function Home() {
                           src={book.cover}
                           alt={book.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-contain p-8 drop-shadow-2xl"
+                          loading={index === 0 ? undefined : 'lazy'}
+                          priority={index === 0}
                         />
                         
                         {/* Category badge */}
