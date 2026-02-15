@@ -313,3 +313,11 @@
 | 132 | SEO-020 | Deploy onde.la con sitemap fix + blog section e verificare indicizzazione | 🔥 SEO | TODO | - |
 | 133 | SEO-021 | Submit nuova sitemap a Google Search Console dopo deploy | ⭐ SEO | TODO | - |
 | 134 | SEO-022 | Monitorare crawl stats in GSC dopo fix trailing slash (baseline → after) | ⭐ SEO | TODO | - |
+
+### 🔥 NUOVI (da TRADE-005 edge calibration)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 135 | TRADE-008 | Run backtest con nuovi edge caps e confrontare performance vs vecchi parametri | 🔥 Validation | TODO | - |
+| 136 | TRADE-009 | Aggiungere edge distribution histogram al backtest output per spotare outlier | ⭐ Analytics | TODO | - |
+| 137 | TRADE-010 | A/B test live: autotrader v2 con nuovi caps vs paper mode vecchi caps per 1 settimana | ⭐ Trading | TODO | - |
