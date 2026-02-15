@@ -238,7 +238,7 @@
 |---|----|----- |--------|--------|-------|
 | 30 | TRADE-001 | Riavviare autotrader con fix algoritmo (paper mode) | 🔥 Trading | TODO | - |
 | 31 | TRADE-002 | Dashboard autotrader su onde.surf funzionante con grafici trend | 🔥 Trading | IN_PROGRESS | @clawdinho | Dashboard locale su :8888 funziona, deploy su onde.surf fatto ma serve connessione al backend |
-| 32 | TRADE-003 | Implementare backtesting framework per autotrader | ⭐ Trading | TODO | - |
+| 32 | TRADE-003 | Implementare backtesting framework per autotrader | ⭐ Trading | ✅ DONE | @clawdinho | scripts/kalshi-backtest.py - Replay historical data, param sweep, Monte Carlo CI, strategy comparison |
 | 33 | TRADE-004 | Phase 2: LLM-based probability assessment per Kalshi | ⭐ Trading | TODO | - | Ispirato a Grok 4.2 results |
 | 34 | ANAL-001 | Analytics dettagliate onde.la - referrer, geo, device | 🔥 Growth | TODO | - | CF Web Analytics attive, servono analytics più dettagliate |
 | 35 | GAME-001 | Multi-tenancy giocatori - sistema username leggero senza login | 🔥 Games | ✅ DONE | @clawdinho | usePlayerName hook globale + usePlayerLevel XP + useCoins. Tutti 44 giochi integrati (2026-02-14) |
@@ -272,3 +272,11 @@
 | 116 | GROWTH-001 | Implementare Google Analytics o CF Analytics dashboard | 🔥 Growth | TODO | - | Dati traffico reali sul sito |
 | 117 | MONEY-001 | Valutare e aggiungere ads kid-friendly su onde.la | ⭐ Revenue | TODO | - | Banner per prodotti bambini/videogiochi. Dopo che c'è traffico |
 | 118 | SEO-017 | Ottimizzare titoli/descrizioni giochi per search intent | 🔥 SEO | TODO | - | "skin creator online free", "games for kids" etc |
+
+### 🔥 NUOVI (da SEO-015 audit)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 120 | SEO-017 | Disabilitare CF AI Audit che blocca crawler AI (ClaudeBot, GPTBot, Google-Extended) | 🚨 BLOCCANTE | TODO | @mattia | Serve accesso CF Dashboard → AI → AI Audit |
+| 121 | SEO-018 | Fix trailing slashes in sitemap URLs (evitare 301 redirect chains) | ⭐ SEO | TODO | - | In next.config.mjs o sitemap.ts |
+| 122 | SEO-019 | Aggiungere hreflang tags a sub-pages (non solo root) | ⭐ International SEO | TODO | - | Bassa priorità se stessa URL serve EN+IT |
