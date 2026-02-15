@@ -321,3 +321,11 @@
 | 135 | TRADE-008 | Run backtest con nuovi edge caps e confrontare performance vs vecchi parametri | 🔥 Validation | TODO | - |
 | 136 | TRADE-009 | Aggiungere edge distribution histogram al backtest output per spotare outlier | ⭐ Analytics | TODO | - |
 | 137 | TRADE-010 | A/B test live: autotrader v2 con nuovi caps vs paper mode vecchi caps per 1 settimana | ⭐ Trading | TODO | - |
+
+### 🔥 NUOVI (da blog-to-tech)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 138 | TECH-001 | Scrivere post Tech: "Come funziona il nostro trading bot AI su Kalshi" | 🔥 Content | TODO | - |
+| 139 | TECH-002 | Scrivere post Tech: "Multi-agent setup: 2 Mac, 5 bot, 0 umani" | ⭐ Content | TODO | - |
+| 140 | TECH-003 | Aggiungere tag/categoria system ai post Tech (AI, Trading, Hardware, Infra) | ⭐ UX | TODO | - |
