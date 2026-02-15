@@ -46,10 +46,10 @@
     "pnl_cents": 0,
     "by_asset": {}
   },
-  "last_cycle": "2026-02-15T10:52:22.607164+00:00",
-  "cycle_count": 8,
-  "last_updated": "2026-02-15T10:57:00.770947+00:00",
-  "uptime_human": "0:41:25",
+  "last_cycle": "2026-02-15T11:08:01.731304+00:00",
+  "cycle_count": 11,
+  "last_updated": "2026-02-15T11:13:00.793539+00:00",
+  "uptime_human": "0:57:25",
   "circuit_breaker_active": false,
   "status": "\u2705 running"
 }
