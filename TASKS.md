@@ -293,7 +293,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 126 | BLOG-003 | Aggiungere RSS feed per /blog (SEO + aggregatori) | ⭐ SEO | TODO | - |
+| 126 | BLOG-003 | Aggiungere RSS feed per /blog (SEO + aggregatori) | ⭐ SEO | ✅ DONE | @clawdinho | /blog/feed.xml/ route, RSS 2.0 with content:encoded, autodiscovery link in layout |
 | 127 | BLOG-004 | Scrivere secondo blog post (topic TBD - trading, AI agents, Onde vision) | ⭐ Content | TODO | - |
 | 128 | BLOG-005 | Aggiungere reading time estimate e table of contents ai blog post | ⭐ UX | TODO | - |
 
