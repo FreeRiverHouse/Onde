@@ -373,4 +373,4 @@
 | 157 | TRADE-006 | Kalshi: deposit più fondi per tradare mercati grossi (GDP, BTC) | 🚨 BLOCCANTE | TODO | @mattia | Balance $0.03, serve capital per fare profitti reali |
 | 158 | DASH-005 | Integrare CF Analytics nella dashboard onde.surf (widget pageviews/referrer) | ⭐ Dashboard | TODO | - | Script fetch-cf-analytics.sh già creato, dati in data/analytics/ |
 | 159 | MOBILE-001 | Ottimizzare onde.la per mobile (72% traffico è mobile) | 🔥 UX | TODO | - | CF Analytics mostra 72% mobile, iOS dominante |
-| 160 | TRADE-007 | Tracking forecast accuracy: confrontare mie previsioni vs risultati reali | ⭐ Trading | TODO | - | opus-forecasts.jsonl creato, serve script di analisi accuracy |
+| 160 | TRADE-007 | Tracking forecast accuracy: confrontare mie previsioni vs risultati reali | ⭐ Trading | DONE | @clawdinho | kalshi-forecast-tracker.py, reads opus-forecasts.jsonl, checks settled markets | opus-forecasts.jsonl creato, serve script di analisi accuracy |
