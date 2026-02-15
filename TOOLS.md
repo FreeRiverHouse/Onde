@@ -9,10 +9,10 @@
 
 | Agente | Hardware | GPU | Note |
 |--------|----------|-----|------|
-| **Clawdinho (me)** | M1 | Radeon 7900 XTX (✅ FUNZIONA!) | Via Razer Core X V2 eGPU |
+| **Clawdinho (me)** | M1 | ❌ Nessuna (GPU resa) | eGPU restituita Feb 2026 |
 | **Onde-bot/Ondinho** | M4 Pro | Nessuna esterna | Standalone, più potente |
 
-**Stato:** Radeon 7900 XTX FUNZIONA con TinyGrad su macOS! Richiede TinyGPU.app + porta TB corretta.
+**Stato:** GPU resa. M1 solo Apple Silicon, M4 Pro standalone.
 
 ---
 
@@ -51,49 +51,10 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ## 🖥️ GPU Setup - Radeon 7900 XTX
 
-**Hardware:** Radeon 7900 XTX su Mac M1 via Razer Core X V2 eGPU
-**VRAM:** 24GB
-**Status:** ✅ FUNZIONANTE CON TINYGRAD
+**Status:** ❌ RESA/RESTITUITA (Feb 2026) — NON PIÙ DISPONIBILE
 
-### Requisiti per funzionare
-1. **TinyGPU.app** deve essere aperta (crea device USB virtuale)
-2. **eGPU** collegata alla **porta Thunderbolt corretta** (Port 2, Receptacle 2)
-3. **Variabili**: `AMD=1 AMD_LLVM=1`
-
-### Comandi che FUNZIONANO
-```bash
-cd ~/Projects/tinygrad-fix
-
-# Test base
-AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device; print(Device['AMD'])"
-
-# GPT-2 (~3.6 tok/s)
-PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 examples/gpt2.py --model_size gpt2 --prompt "Hello" --count 20
-
-# GPT-2 XL (1.5B)
-PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 examples/gpt2.py --model_size gpt2-xl --prompt "Hello" --count 30
-```
-
-### Capacità VERIFICATE
-- ✅ GPT-2 inference (~3.6 tok/s)
-- ✅ GPT-2 XL (1.5B)
-- ✅ LLaMA 3.1 8B (su SSD esterno)
-
-### ⚠️ PROCEDURE COMPLETE
-**LEGGI SEMPRE:** `tools/RADEON-TINYGRAD-PROCEDURES.md`
-**Modelli su SSD:** `/Volumes/DATI-SSD/llm-models/`
-- `Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf` (4.9 GB)
-- `tokenizer.model`
-
-**NON reinventare la ruota!** Tutto è già documentato!
-
-### ⚠️ PROCEDURA DI VERIFICA (PRIMA di dire "non funziona")
-1. `system_profiler SPThunderboltDataType | grep -A5 "Device Name"` → deve mostrare Core X V2
-2. `system_profiler SPDisplaysDataType | grep -i "vendor\|AMD"` → deve mostrare AMD
-3. `ps aux | grep -i tinygpu | grep -v grep` → TinyGPU.app deve girare
-4. Test finale con AMD=1
-
-**Il 99% dei problemi = cavo nella porta sbagliata o TinyGPU.app non aperta!**
+La Radeon 7900 XTX + Razer Core X V2 eGPU è stata restituita.
+Non menzionare nei report. Non cercare di usarla.
 
 ---
 

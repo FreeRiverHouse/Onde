@@ -69,7 +69,7 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 
 ```
 1. CHECK: Autotrader running? → pgrep -f kalshi-autotrader
-2. GPU/LOAD: python3 scripts/gpu-status.py → se action=stop, aspetta cooldown!
+2. LOAD: Verifica carico sistema (uptime / top) — NO GPU (resa!)
 3. ALERTS: Controlla tutti i file .alert in scripts/
 4. 💬 CHAT: Controlla messaggi da onde.surf dashboard (vedi sotto)
 5. READ: TASKS.md → prendi prossimo task non completato  
@@ -80,18 +80,15 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 10. Continua col prossimo task
 ```
 
-## 🖥️ GPU/LOAD CHECK (STEP 2)
+## 🖥️ LOAD CHECK (STEP 2)
 
-Prima di lavorare, verifica che il sistema non sia sotto stress:
+GPU resa — non c'è più. Controlla solo carico sistema:
 
 ```bash
-python3 scripts/gpu-status.py
+uptime  # load average
 ```
 
-Output contiene `system.health_status`:
-- **healthy** → procedi normalmente
-- **warning** → rallenta, un task alla volta, aspetta 2s tra task
-- **critical** → STOP! Non spawnare agenti, aspetta cooldown (max 60s)
+Se load > 8 → rallenta. Altrimenti procedi.
 
 ## 💬 AGENT CHAT (onde.surf dashboard)
 
