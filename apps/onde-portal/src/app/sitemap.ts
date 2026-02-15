@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     
     // Games - Featured
     '/games/skin-creator',
+    '/games/banner-maker',
     '/games/moonlight-magic-house',
     '/games/arcade',
     '/games/kids-chef-studio',

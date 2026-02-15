@@ -307,6 +307,14 @@ const gamesJsonLd = {
       audience: { '@type': 'PeopleAudience', suggestedMinAge: 6 },
     },
     {
+      '@type': 'WebApplication',
+      name: 'Banner Maker',
+      description: 'Design custom Minecraft banners with 40+ patterns and 16 colors',
+      url: 'https://onde.la/games/banner-maker/',
+      genre: ['Educational', 'Creative'],
+      audience: { '@type': 'PeopleAudience', suggestedMinAge: 6 },
+    },
+    {
       '@type': 'VideoGame',
       name: 'Lucky Slots',
       description: 'Spin the reels and match symbols',

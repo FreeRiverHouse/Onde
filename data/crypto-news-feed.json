@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T06:00:03.422536+00:00",
+  "timestamp": "2026-02-15T06:30:04.769621+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,6 +11,13 @@
   "article_count": 30,
   "results": [
     {
+      "title": "Institutions may get 'fed up' and fire Bitcoin devs over quantum: VC",
+      "url": "https://cointelegraph.com/news/bitcoin-quantum-computing-risk-institutions-developers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin developers must address the quantum risks to Bitcoin fast to avoid a successful \u201ccorporate takeover,\u201d according to venture capitalist Nic Carter.",
+      "published": "2026-02-15T06:17:48+00:00"
+    },
+    {
       "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
       "source": "bitcoinmagazine",
@@ -18,7 +25,7 @@
       "published": "2026-02-15T05:00:44+00:00"
     },
     {
-      "title": "Roundhill\u2019s election event contract ETFs \u2018potentially groundbreaking'",
+      "title": "Roundhill\u2019s election prediction ETFs are \u2018potentially groundbreaking': Analyst",
       "url": "https://cointelegraph.com/news/roundhill-investments-event-contracts-prediction-markets-etf-united-states-election?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "The ETF issuer warned that investors who pick the fund tied to the losing US presidential outcome could lose nearly all invested capital.",
@@ -93,13 +100,6 @@
       "source": "cointelegraph",
       "description": "The total memecoin market capitalization has dropped roughly 34% over the past month as the broader market sold off, but Santiment suggests the slump may not last long.",
       "published": "2026-02-14T06:24:14+00:00"
-    },
-    {
-      "title": "Bitcoin holders are being tested as inflation eases: Pompliano",
-      "url": "https://cointelegraph.com/news/bitcoin-holders-inflation-data-valuation-us-dollar-anthony-pompliano?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin will become \u201cmore valuable than ever\u201d after deflation stops covering \u201cup the impact\" on the US dollar, according to Bitcoin entrepreneur Anthony Pompliano.",
-      "published": "2026-02-14T03:38:20+00:00"
     },
     {
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
