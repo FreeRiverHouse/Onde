@@ -366,8 +366,8 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 153 | BLOG-008 | Aggiungere social share buttons ai post (X, LinkedIn, copy link) | ⭐ Distribution | TODO | - |
-| 154 | BLOG-009 | Aggiungere related posts / "Read next" in fondo ai post | ⭐ Engagement | TODO | - |
+| 153 | BLOG-008 | Aggiungere social share buttons ai post (X, LinkedIn, copy link) | ⭐ Distribution | DONE | @clawdinho | X, LinkedIn, Reddit, copy link - top+bottom of posts, deployed |
+| 154 | BLOG-009 | Aggiungere related posts / "Read next" in fondo ai post | ⭐ Engagement | DONE | @clawdinho | RelatedPosts component, 3 cards, same-category priority, deployed |
 | 155 | PM-001 | Creare script polymarket-navigator.py con funzioni navigate/scroll/bet/screenshot | 🔥 Trading | TODO | - | Unifica cliclick + CGEvent scroll + screenshot in un tool |
 | 156 | TRADE-005 | Opus Forecaster: automated market scanning + trading ogni heartbeat | 🔥 Trading | IN_PROGRESS | @clawdinho | kalshi-opus-trader.py creato, 202 mercati, serve loop automatico |
 | 157 | TRADE-006 | Kalshi: deposit più fondi per tradare mercati grossi (GDP, BTC) | 🚨 BLOCCANTE | TODO | @mattia | Balance $0.03, serve capital per fare profitti reali |
