@@ -35,6 +35,24 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'ai-trading-bot-kalshi',
+    title: 'How We Built an AI Trading Bot for Kalshi (And What We Learned)',
+    subtitle: 'From 44% Win Rate to AI Forecasting',
+    description:
+      'We built a trading bot for Kalshi prediction markets — starting with crypto price feeds, failing at 44% win rate, then discovering that LLMs like Claude are surprisingly good forecasters for non-crypto markets.',
+    date: 'June 2025',
+    dateISO: '2025-06-21T00:00:00Z',
+    readTime: '10 min read',
+    category: 'AI',
+    tags: ['Kalshi', 'Prediction Markets', 'Trading Bot', 'Claude', 'LLM', 'Python'],
+    emoji: '🎲',
+    gradient: 'from-purple-500 via-indigo-500 to-blue-500',
+    excerpt:
+      'We built a trading bot for Kalshi prediction markets. The crypto approach had a mediocre 44% win rate. Then we discovered LLMs are surprisingly good at forecasting non-crypto events like CPI, Fed rates, and politics.',
+    lang: 'en',
+    contentHtml: `<p>We built a trading bot for Kalshi prediction markets — starting with simple crypto price feeds, achieving a mediocre 44% win rate, then discovering that LLMs like Claude are surprisingly effective forecasters for non-crypto markets like CPI, GDP, and politics.</p><p>This post covers real numbers, real code, and honest lessons about why prediction markets are hard to beat — and where the actual edge might be.</p><p><a href="https://onde.la/blog/ai-trading-bot-kalshi/">Read the full article →</a></p>`,
+  },
+  {
     slug: 'radeon-7900-xtx-mac-tinygrad',
     title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad',
     subtitle: 'The "Impossible" Setup',
