@@ -288,3 +288,11 @@
 | 123 | TRADE-005 | Calibrare edge model — weather edges >25% erano falsi, servono cap/sanity check | 🔥 Trading accuracy | TODO | - |
 | 124 | TRADE-006 | Run parameter sweep con backtest e applicare parametri ottimali all'autotrader | 🔥 Trading performance | TODO | - |
 | 125 | TRADE-007 | Aggiungere per-regime strategy switching (ETH 60% WR in choppy, 0% in sideways) | ⭐ Trading | TODO | - |
+
+### 🔥 NUOVI (da BLOG-002 completato)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 126 | BLOG-003 | Aggiungere RSS feed per /blog (SEO + aggregatori) | ⭐ SEO | TODO | - |
+| 127 | BLOG-004 | Scrivere secondo blog post (topic TBD - trading, AI agents, Onde vision) | ⭐ Content | TODO | - |
+| 128 | BLOG-005 | Aggiungere reading time estimate e table of contents ai blog post | ⭐ UX | TODO | - |
