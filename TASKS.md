@@ -49,6 +49,7 @@
 | 20 | INF-005 | Procedure deploy: staging first | 🔧 Dev workflow | ✅ DONE | @clawdinho | Documented in STAGING-SETUP.md |
 | 21 | INF-006 | Script test automatici pre-deploy | 🔧 Dev workflow | ✅ DONE | @clawdinho | Already exists! |
 | 22 | AUTO-003 | Documentare stato Kalshi trading | 📝 Documentation | ✅ DONE | @clawdinho |
+| 23 | PROC-001 | Implementare keyword "sbrinchi sbronchi": prima di ogni azione cercare procedure esistenti, loggare msg su GitHub, creare task in TASKS.md | 🚨 Processo obbligatorio | ✅ DONE | @clawdinho | Keyword registrata in memory, MANDATORY-READS.md, AGENTS.md |
 
 ---
 
