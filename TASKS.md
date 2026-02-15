@@ -329,3 +329,11 @@
 | 138 | TECH-001 | Scrivere post Tech: "Come funziona il nostro trading bot AI su Kalshi" | 🔥 Content | TODO | - |
 | 139 | TECH-002 | Scrivere post Tech: "Multi-agent setup: 2 Mac, 5 bot, 0 umani" | ⭐ Content | TODO | - |
 | 140 | TECH-003 | Aggiungere tag/categoria system ai post Tech (AI, Trading, Hardware, Infra) | ⭐ UX | TODO | - |
+
+### 🔥 NUOVI (da TRADE-008 backtest validation)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 141 | TRADE-011 | Restartare autotrader con nuovi edge caps (v2 è già aggiornato, serve restart) | 🔥 Trading | TODO | - |
+| 142 | TRADE-012 | Setup daily backtest cron che compara performance live vs backtest expected | ⭐ Monitoring | TODO | - |
+| 143 | TRADE-013 | Sweep kelly_fraction con nuovi caps per trovare sizing ottimale | ⭐ Trading | TODO | - |
