@@ -127,31 +127,51 @@ def place_order(ticker, side, price_cents, count):
     result = api("POST", "/trade-api/v2/portfolio/orders", body)
     return result
 
-# Key event tickers to scan
-DEFAULT_EVENTS = [
+# Series tickers to scan (auto-discover active events)
+SERIES_TO_SCAN = [
+    # Crypto
+    'KXBTCD', 'KXBTC', 'KXETHD', 'KXETH', 'KXSOL',
     # Economics
-    'KXCPI-26FEB', 'KXCPI-26MAR', 'KXFED-26MAR', 'KXFED-26MAY',
-    'KXPPI-26FEB', 'KXNFP-26FEB', 'KXNFP-26MAR',
-    'KXRETAILSALES-26FEB', 'KXUMICH-26FEB', 'KXUMICH-26MAR',
-    'KXJOBLESS-26FEB20', 'KXJOBLESS-26FEB27',
-    'KXPCEPRICE-26JAN', 'KXGDP-26Q4',
-    # Crypto daily
-    'KXBTCD-26FEB16', 'KXBTCD-26FEB17', 'KXBTCD-26FEB18',
-    'KXETHD-26FEB16', 'KXETHD-26FEB17',
-    # Crypto range  
-    'KXBTC-26FEB28', 'KXETH-26FEB28',
+    'KXCPI', 'KXFED', 'KXPPI', 'KXNFP', 'KXRETAILSALES',
+    'KXUMICH', 'KXJOBLESS', 'KXPCEPRICE', 'KXGDP',
     # Weather
-    'HIGHNY-26FEB16', 'HIGHLA-26FEB16', 'HIGHCHI-26FEB16',
-    'RAINNYC-26FEB16', 'RAINLA-26FEB16',
+    'HIGHNY', 'HIGHLA', 'HIGHCHI', 'RAINNYC', 'RAINLA',
     # Politics/World
-    'KXNEWPOPE-70', 'KXNEWPOPE-35',
-    'KXTRUMPAPPROVAL-26FEB', 'KXGOVTSHUTDOWN-26',
+    'KXNEWPOPE', 'KXTRUMPAPPROVAL', 'KXGOVTSHUTDOWN',
     # Tech
     'KXDEEPSEEKR2RELEASE',
 ]
 
+# Static event tickers (don't use series lookup)
+STATIC_EVENTS = [
+    'KXNEWPOPE-70', 'KXNEWPOPE-35',
+    'KXCPI-26FEB', 'KXFED-26MAR',
+]
+
+def discover_events(series_list):
+    """Discover active events from series tickers"""
+    event_tickers = set()
+    for series in series_list:
+        try:
+            resp = requests.get(f'{BASE_URL}/trade-api/v2/events?limit=3&series_ticker={series}&with_nested_markets=false', timeout=5)
+            if resp.status_code == 200:
+                for e in resp.json().get('events', []):
+                    event_tickers.add(e['event_ticker'])
+        except:
+            pass
+    return list(event_tickers)
+
+DEFAULT_EVENTS = STATIC_EVENTS  # Will be extended by discover_events at runtime
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "scan"
+    
+    if cmd == "discover":
+        events = discover_events(SERIES_TO_SCAN)
+        print(f"Discovered {len(events)} active events:")
+        for e in sorted(events):
+            print(f"  {e}")
+        sys.exit(0)
     
     if cmd == "balance":
         bal, pv = get_balance()
@@ -166,7 +186,10 @@ if __name__ == "__main__":
             print(json.dumps(p, indent=2))
             
     elif cmd == "scan":
-        markets = scan_events(DEFAULT_EVENTS)
+        # Auto-discover active events then scan them
+        discovered = discover_events(SERIES_TO_SCAN)
+        all_events = list(set(STATIC_EVENTS + discovered))
+        markets = scan_events(all_events)
         print(f"Found {len(markets)} markets\n")
         for m in markets[:30]:
             spread = m['yes_ask'] - m['yes_bid']
