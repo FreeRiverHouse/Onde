@@ -316,6 +316,14 @@ const gamesJsonLd = {
     },
     {
       '@type': 'WebApplication',
+      name: 'Pixel Art Generator',
+      description: 'Convert any image to Minecraft block pixel art with wool, concrete and terracotta',
+      url: 'https://onde.la/games/pixel-art/',
+      genre: ['Educational', 'Creative'],
+      audience: { '@type': 'PeopleAudience', suggestedMinAge: 6 },
+    },
+    {
+      '@type': 'WebApplication',
       name: 'Enchantment Calculator',
       description: 'Calculate Minecraft enchantment costs and find the best enchantment combinations for every item',
       url: 'https://onde.la/games/enchant-calc/',
