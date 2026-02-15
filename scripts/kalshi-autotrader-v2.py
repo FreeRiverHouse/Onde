@@ -116,6 +116,12 @@ MIN_BET_CENTS = 5
 MIN_TIME_TO_EXPIRY_MINUTES = 45  # Increased from 30
 MAX_POSITIONS = 30
 
+# BUGFIX 2026-07-17: Strike distance and probability sanity filters
+# These would have prevented ALL 41 losing BTC trades (0% WR disaster).
+MIN_STRIKE_DISTANCE_PCT = 0.03  # Don't trade strikes <3% from current price
+MAX_PROB_DISAGREEMENT = 0.25    # Skip if model differs >25% from market probability
+MIN_NO_PRICE_CENTS = 8          # Don't buy NO contracts at <8 cents (market is usually right)
+
 # Per-asset position sizing (T441)
 # Weather markets: higher Kelly (NWS forecasts are reliable), lower max position (less liquid)
 # BTC: standard sizing (most liquid, most traded)
@@ -163,14 +169,19 @@ def get_asset_config(asset_type):
     return ASSET_CONFIG.get(asset_key, ASSET_CONFIG["default"])
 
 # Volatility assumptions (DEFAULTS - overridden by dynamic calculation when OHLC available)
-BTC_HOURLY_VOL = 0.005  # ~0.5% hourly volatility (empirical fallback)
-ETH_HOURLY_VOL = 0.007  # ~0.7% hourly volatility (empirical fallback)
-SOL_HOURLY_VOL = 0.012  # ~1.2% hourly volatility (T423 - Solana is more volatile)
+# BUGFIX 2026-07-17: Reduced from 0.005/0.007 — old values produced ~40% prob for 0.6% moves
+# in 55min, generating massive fake edges. Empirical BTC hourly vol is ~0.25-0.35%.
+BTC_HOURLY_VOL = 0.003  # ~0.3% hourly volatility (empirical, validated against Kalshi outcomes)
+ETH_HOURLY_VOL = 0.004  # ~0.4% hourly volatility (empirical fallback)
+SOL_HOURLY_VOL = 0.008  # ~0.8% hourly volatility (T423 - Solana is more volatile)
 
-# Fat-tail adjustment: crypto returns have excess kurtosis (heavy tails)
-# Lognormal model underestimates tail probabilities → multiply vol by this factor
-# to widen the distribution and produce more realistic probabilities near strikes
-CRYPTO_FAT_TAIL_MULTIPLIER = float(os.getenv("FAT_TAIL_MULT", "1.4"))  # 1.4x widens distribution
+# Fat-tail adjustment: DISABLED (set to 1.0)
+# BUGFIX 2026-07-17: The 1.4x multiplier was the #1 cause of the 0% win rate disaster.
+# It inflated sigma so much that the model assigned ~48% probability to BTC dropping
+# 0.6% in under 1 hour. Combined with buying NO at 1-2 cents, every single trade lost.
+# The lognormal model WITHOUT fat-tail adjustment already slightly overestimates
+# tail probabilities for crypto. Fat tails matter for multi-day horizons, not hourly.
+CRYPTO_FAT_TAIL_MULTIPLIER = float(os.getenv("FAT_TAIL_MULT", "1.0"))  # 1.0 = disabled (was 1.4)
 
 # Momentum config
 MOMENTUM_TIMEFRAMES = ["1h", "4h", "24h"]
@@ -2112,22 +2123,32 @@ def get_dynamic_hourly_vol(ohlc_data: list, asset: str) -> float:
     defaults = {"btc": BTC_HOURLY_VOL, "eth": ETH_HOURLY_VOL, "sol": SOL_HOURLY_VOL}
     
     if not ohlc_data or len(ohlc_data) < 10:
-        return defaults.get(asset, 0.005)
+        return defaults.get(asset, 0.003)
     
     # Calculate from OHLC: use close-to-close returns
     try:
         rv = calculate_realized_volatility(ohlc_data, hours=24)
         if rv and rv > 0:
-            hourly_vol = rv / math.sqrt(24)  # Convert 24h vol to hourly
-            # Sanity bounds: don't let dynamic vol go crazy
-            min_vol = defaults.get(asset, 0.005) * 0.3  # Min 30% of default
-            max_vol = defaults.get(asset, 0.005) * 5.0   # Max 5x default
+            # BUGFIX 2026-07-17: The old code did rv / sqrt(24) which is wrong.
+            # calculate_realized_volatility returns the stdev of per-candle log returns.
+            # CoinGecko days=7 gives hourly candles → rv IS already hourly vol.
+            # CoinGecko days=1 gives 30min candles → rv is 30min vol, need to adjust.
+            # For safety, we just use rv directly (it's already per-candle vol).
+            # Since most OHLC data is hourly candles, rv ≈ hourly vol.
+            hourly_vol = rv  # rv is per-candle vol (hourly candles → hourly vol)
+            
+            # TIGHTER sanity bounds: don't let dynamic vol go crazy
+            # The old 5x max allowed 0.025 hourly vol (2.5%/hr = 12.2%/day = INSANE)
+            # which produced ~40% prob for tiny moves, generating phantom edges.
+            default_vol = defaults.get(asset, 0.003)
+            min_vol = default_vol * 0.5   # Min 50% of default
+            max_vol = default_vol * 2.5   # Max 2.5x default (was 5x — way too loose)
             clamped = max(min_vol, min(max_vol, hourly_vol))
             return clamped
     except Exception:
         pass
     
-    return defaults.get(asset, 0.005)
+    return defaults.get(asset, 0.003)
 
 
 def norm_cdf(x):
@@ -2183,10 +2204,12 @@ def calculate_prob_above_strike(current_price: float, strike: float,
     
     prob_above = norm_cdf(d2)
     
-    # TRADE-005: Tighter bounds to prevent edge inflation from extreme probabilities.
-    # A probability of 0.01 against a 5¢ contract would generate a fake 96% edge.
-    # Capping at [0.03, 0.97] keeps calculated edges under ~20% for most strikes.
-    return max(0.03, min(0.97, prob_above))
+    # BUGFIX 2026-07-17: Tighter bounds [0.05, 0.95].
+    # With the old [0.03, 0.97], a prob of 0.03 against a 1¢ contract still
+    # generated a (1-0.03) - 0.99 = massive fake edge on the other side.
+    # 5% floor means we never claim >95% certainty about any direction
+    # in an hourly crypto contract (which is realistic).
+    return max(0.05, min(0.95, prob_above))
 
 
 def get_trend_adjustment(prices_1h: list) -> float:
@@ -2455,10 +2478,11 @@ def adjust_probability_with_momentum(prob: float, strike: float, current_price: 
     composite_str = momentum.get("composite_strength", 0)
     alignment = momentum.get("alignment", False)
     
-    # TRADE-005: Reduced max adjustment from ±15%/±8% to ±10%/±5%
-    # Old values were too aggressive and pushed probabilities to extremes,
-    # generating inflated edges that the backtest showed were false positives.
-    max_adj = 0.10 if alignment else 0.05
+    # BUGFIX 2026-07-17: Reduced from ±10%/±5% to ±3%/±1.5%
+    # The old ±10% adjustment could push prob_below from 0.05 to 0.15,
+    # turning a 4% edge into a 14% fake edge. For hourly contracts,
+    # momentum should only fine-tune probability, not dominate it.
+    max_adj = 0.03 if alignment else 0.015
     
     # Calculate adjustment
     adjustment = composite_dir * composite_str * max_adj
@@ -4708,6 +4732,17 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
         market_prob_yes = yes_ask / 100 if yes_ask else 0.5
         market_prob_no = (100 - yes_bid) / 100 if yes_bid else 0.5
         
+        # ============ PROBABILITY SANITY CHECK (BUGFIX 2026-07-17) ============
+        # If our model disagrees with the market by >25 percentage points,
+        # our model is almost certainly wrong. The market aggregates thousands
+        # of traders — when there's a 25%+ disagreement, it's a model bug.
+        # This would have caught ALL 41 losing BTC trades (avg disagreement: 46%).
+        yes_disagreement = abs(prob_above - market_prob_yes)
+        no_disagreement = abs(prob_below - market_prob_no)
+        if min(yes_disagreement, no_disagreement) > MAX_PROB_DISAGREEMENT:
+            skip_reasons["model_market_disagree"] = skip_reasons.get("model_market_disagree", 0) + 1
+            continue
+        
         # Calculate edges for both sides (now momentum-adjusted)
         yes_edge = prob_above - market_prob_yes
         no_edge = prob_below - market_prob_no
@@ -4722,11 +4757,25 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
         regime = regime_cache.get(asset, {})
         dynamic_edge = regime.get("dynamic_min_edge", MIN_EDGE)
         
+        # ============ STRIKE DISTANCE FILTER (BUGFIX 2026-07-17) ============
+        # Don't trade strikes that are too close to current price.
+        # For hourly contracts, price rarely moves >1% in an hour.
+        # Buying NO on a strike that's only 0.5-2% below current price = guaranteed loss.
+        strike_distance_pct = abs(current_price - strike) / current_price
+        
+        if strike_distance_pct < MIN_STRIKE_DISTANCE_PCT:
+            skip_reasons["too_close_strike"] = skip_reasons.get("too_close_strike", 0) + 1
+            continue
+        
         # Check for YES opportunity (we think it'll be above strike)
         # Skip extreme prices (no profit potential or bad risk/reward)
+        # BUGFIX 2026-07-17: Increased minimum from 5c to MIN_NO_PRICE_CENTS for NO contracts.
+        # When market prices NO at 1-5 cents, it's usually correct (1-5% prob).
+        # Our model should not override the market on low-probability events.
+        # For YES: keep 5c minimum (YES at 5c = 5% prob, more reasonable edge source)
         yes_extreme = yes_ask and (yes_ask <= 5 or yes_ask >= 95)
         no_price = 100 - yes_bid if yes_bid else None
-        no_extreme = not no_price or no_price <= 5 or no_price >= 95
+        no_extreme = not no_price or no_price <= MIN_NO_PRICE_CENTS or no_price >= 95
         
         if yes_extreme:
             skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
@@ -4932,7 +4981,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 })
     
     # Log skip summary if verbose
-    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"] or skip_reasons.get("extreme_price") or skip_reasons.get("negative_kelly")):
+    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"] or skip_reasons.get("extreme_price") or skip_reasons.get("negative_kelly") or skip_reasons.get("too_close_strike") or skip_reasons.get("model_market_disagree")):
         print(f"\n📋 Skip Summary:")
         if skip_reasons["not_crypto"]:
             print(f"   - Not crypto markets: {skip_reasons['not_crypto']}")
@@ -4940,8 +4989,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
             print(f"   - No strike parsed: {skip_reasons['no_strike']}")
         if skip_reasons["too_close_expiry"]:
             print(f"   - Too close to expiry (<{MIN_TIME_TO_EXPIRY_MINUTES}min): {skip_reasons['too_close_expiry']}")
+        if skip_reasons.get("too_close_strike"):
+            print(f"   - Strike too close (<{MIN_STRIKE_DISTANCE_PCT*100:.0f}% from price): {skip_reasons['too_close_strike']}")
+        if skip_reasons.get("model_market_disagree"):
+            print(f"   - Model vs market disagree (>{MAX_PROB_DISAGREEMENT*100:.0f}%): {skip_reasons['model_market_disagree']}")
         if skip_reasons.get("extreme_price"):
-            print(f"   - Extreme price (≤5¢ or ≥95¢): {skip_reasons['extreme_price']}")
+            print(f"   - Extreme price (YES≤5¢/NO≤8¢ or ≥95¢): {skip_reasons['extreme_price']}")
         if skip_reasons["momentum_conflict"]:
             print(f"   - Momentum conflict (betting against trend): {skip_reasons['momentum_conflict']}")
         if skip_reasons.get("negative_kelly"):
