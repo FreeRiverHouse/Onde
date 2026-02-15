@@ -18,6 +18,18 @@ interface BlogPost {
 
 const posts: BlogPost[] = [
   {
+    slug: 'kalshi-trading-bot-ai',
+    title: 'Come funziona il nostro trading bot AI su Kalshi',
+    subtitle: '7.000 righe di Python che tradano da sole',
+    date: 'February 2026',
+    readTime: '12 min read',
+    tags: ['Trading', 'AI', 'Kalshi', 'Kelly Criterion', 'Python', 'Prediction Markets'],
+    emoji: '🤖',
+    gradient: 'from-onde-teal via-cyan-500 to-blue-500',
+    excerpt:
+      'Dietro le quinte del nostro autotrader: architettura multi-agente (Forecaster, Critic, Trader), Kelly criterion, momentum detection e edge calibration su prediction markets.',
+  },
+  {
     slug: 'radeon-7900-xtx-mac-tinygrad',
     title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad',
     subtitle: 'The "Impossible" Setup',

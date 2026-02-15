@@ -326,7 +326,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 138 | TECH-001 | Scrivere post Tech: "Come funziona il nostro trading bot AI su Kalshi" | 🔥 Content | TODO | - |
+| 138 | TECH-001 | Scrivere post Tech: "Come funziona il nostro trading bot AI su Kalshi" | 🔥 Content | ✅ DONE | @clawdinho | /blog/kalshi-trading-bot-ai — 12min read, IT, multi-agent architecture, Kelly criterion, momentum/regime detection, edge calibration |
 | 139 | TECH-002 | Scrivere post Tech: "Multi-agent setup: 2 Mac, 5 bot, 0 umani" | ⭐ Content | TODO | - |
 | 140 | TECH-003 | Aggiungere tag/categoria system ai post Tech (AI, Trading, Hardware, Infra) | ⭐ UX | TODO | - |
 
