@@ -39,6 +39,24 @@ export const blogPosts: BlogPost[] = [
   // per Mattia's request (2026-02-16) — too many internal details.
   // Files kept as backup in src/app/blog/ directories.
   {
+    slug: 'free-minecraft-skin-creator-kids',
+    title: 'Free Minecraft Skin Creator for Kids — AI-Powered Online Editor',
+    subtitle: 'Kid-Friendly & Safe',
+    description:
+      'Create custom Minecraft skins for free! Our kid-friendly online editor features AI tools, 3D preview, and templates. Safe, no ads, no signup. Perfect for young gamers.',
+    date: 'February 2026',
+    dateISO: '2026-02-18T00:00:00Z',
+    readTime: '5 min read',
+    category: 'Design',
+    tags: ['Minecraft', 'Skin Creator', 'Kids', 'AI', 'Free Tool', 'Gaming'],
+    emoji: '🧒',
+    gradient: 'from-cyan-500 via-blue-500 to-violet-500',
+    excerpt:
+      'A safe, ad-free Minecraft skin creator built for kids. AI color suggestions, 3D preview, fun templates — no signup, no downloads, totally free.',
+    lang: 'en',
+    contentHtml: `<p>A free, kid-friendly Minecraft skin creator with AI-powered tools, 3D preview, and dozens of templates. Designed for young gamers — no ads, no signup, no data collection.</p><p>Kids can design custom skins in minutes using simple drawing tools and smart AI color suggestions. Works with Minecraft Java &amp; Bedrock editions.</p><p><a href="https://onde.la/blog/free-minecraft-skin-creator-kids/">Read more →</a></p><p><a href="https://onde.la/games/skin-creator/">🎨 Open Skin Creator</a></p>`,
+  },
+  {
     slug: 'skin-creator-minecraft',
     title: 'Free Minecraft Skin Creator — Design Your Perfect Skin Online',
     subtitle: 'Create, Preview & Download',
