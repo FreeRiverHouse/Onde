@@ -33,10 +33,10 @@ const SERVICES = [
     critical: true
   },
   {
-    name: 'Onde.la API',
-    url: 'https://onde.la/api/books',
+    name: 'Onde.la Health',
+    url: 'https://onde.la/api/health/cron',
     type: 'api',
-    critical: true
+    critical: false
   },
   {
     name: 'Onde.surf',

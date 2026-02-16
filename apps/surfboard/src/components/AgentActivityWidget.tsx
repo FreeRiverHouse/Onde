@@ -35,6 +35,7 @@ interface AgentStatusData {
     cycle_count: number;
     trades_today: number;
     last_cycle_time?: string;
+    status?: string;
   };
 }
 
@@ -122,8 +123,17 @@ export function AgentActivityWidget({ className = '' }: { className?: string }) 
           }));
           setData(mapped);
         } else {
-          // No historical data — show empty
-          setData([]);
+          // Build minimal data from current status
+          const hs = agentData?.healthStatus || (gistData as AgentStatusData | null)?.healthStatus;
+          if (hs && hs.cycle_count > 0) {
+            const now = new Date();
+            setData([
+              { label: 'Start', value: 0, value2: 0 },
+              { label: formatTime(hs.last_cycle_time || now.toISOString()), value: hs.cycle_count, value2: hs.trades_today },
+            ]);
+          } else {
+            setData([]);
+          }
         }
       } catch (err) {
         console.error('AgentActivityWidget: failed to fetch', err);
