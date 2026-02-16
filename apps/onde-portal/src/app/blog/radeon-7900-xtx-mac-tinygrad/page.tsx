@@ -106,6 +106,30 @@ function ResultBadge({
   )
 }
 
+/* ─── helper: photo with caption ─── */
+function BlogPhoto({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
+  return (
+    <figure className="my-8">
+      <div className="rounded-xl overflow-hidden border border-white/15">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={alt} className="w-full h-auto" loading="lazy" />
+      </div>
+      {caption && (
+        <figcaption className="text-center text-white/60 text-sm mt-3 italic">{caption}</figcaption>
+      )}
+    </figure>
+  )
+}
+
+/* ─── helper: photo grid (2 cols) ─── */
+function PhotoGrid({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+      {children}
+    </div>
+  )
+}
+
 /* ═══════════════════════════════════════════
    ARTICLE
    ═══════════════════════════════════════════ */
@@ -288,6 +312,19 @@ export default function RadeonTinygradArticle() {
             <InfoRow label="Connection" value="Thunderbolt 3/4" />
             <InfoRow label="Key Software" value="TinyGPU.app" />
           </div>
+
+          <PhotoGrid>
+            <BlogPhoto
+              src="/images/blog/radeon-egpu/radeon-7900xtx-corsair-psu.jpg"
+              alt="AMD Radeon RX 7900 XTX with Corsair PSU in eGPU enclosure"
+              caption="The Radeon RX 7900 XTX nestled next to the Corsair 750W PSU"
+            />
+            <BlogPhoto
+              src="/images/blog/radeon-egpu/radeon-7900xtx-power-connectors.jpg"
+              alt="Radeon 7900 XTX power connectors and cabling detail"
+              caption="Power delivery: dual 8-pin connectors feeding the beast"
+            />
+          </PhotoGrid>
 
           <h3 className="text-xl font-display font-bold text-white mt-8 mb-3">
             Critical Detail: TinyGPU.app
@@ -489,8 +526,46 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/gpt2.py \\
             initialization:
           </p>
 
+          <PhotoGrid>
+            <BlogPhoto
+              src="/images/blog/radeon-egpu/unboxing-5060ti-corsair-adtlink.jpg"
+              alt="Unboxing: PNY RTX 5060 Ti, Corsair RM750e PSU, and ADT-Link adapter"
+              caption="The NVIDIA attempt: RTX 5060 Ti + Corsair RM750e + ADT-Link USB4 adapter"
+            />
+            <BlogPhoto
+              src="/images/blog/radeon-egpu/nvidia-5060ti-usb4-pcie-adapter.jpg"
+              alt="PNY RTX 5060 Ti connected to ADT-Link T3G USB4 to PCIe x16 adapter"
+              caption="The T3G adapter board: USB4 to PCIe x16 — the bridge that didn't work"
+            />
+          </PhotoGrid>
+
+          <PhotoGrid>
+            <BlogPhoto
+              src="/images/blog/radeon-egpu/nvidia-5060ti-adtlink-front.jpg"
+              alt="PNY GeForce RTX 5060 Ti front view with ADT-Link adapter"
+              caption="PNY GeForce RTX 5060 Ti — fans spinning but no compute happening"
+            />
+            <BlogPhoto
+              src="/images/blog/radeon-egpu/nvidia-5060ti-testbench-overhead.jpg"
+              alt="NVIDIA RTX 5060 Ti on open test bench overhead view"
+              caption="The open test bench setup — as DIY as it gets"
+            />
+          </PhotoGrid>
+
+          <BlogPhoto
+            src="/images/blog/radeon-egpu/gpu-comparison-research.jpg"
+            alt="GPU comparison table showing options: RTX 4070 Ti Super, RTX 4080, RTX 3090, RX 7900 XTX"
+            caption="Our research notes: comparing GPU options for eGPU use on Mac"
+          />
+
           <CodeBlock lang="log">{`FBFLCN error: UNRECOGNIZED_CLIENT -> HUBCLIENT_CE0 -> HUBCLIENT_VIP
 GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
+
+          <BlogPhoto
+            src="/images/blog/radeon-egpu/boxes-5060ti-rm750e-closeup.jpg"
+            alt="PNY RTX 5060 Ti 16GB GDDR7 and Corsair RM750e boxes"
+            caption="Brand new hardware, zero compute: the RTX 5060 Ti (16GB GDDR7) and Corsair RM750e"
+          />
 
           <p>
             The 570.x firmware doesn&apos;t support Thunderbolt 4/USB4 bus
