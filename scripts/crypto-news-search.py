@@ -29,12 +29,13 @@ import sys
 import json
 import re
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
 from typing import Optional, Dict, List, Tuple
 import subprocess
 import hashlib
 
 # Cache to avoid repeated searches
-CACHE_FILE = "scripts/crypto-news-cache.json"
+CACHE_FILE = str(Path(__file__).parent / "crypto-news-cache.json")
 CACHE_TTL_MINUTES = 15  # Re-search every 15 minutes
 
 # Keywords that indicate sentiment
