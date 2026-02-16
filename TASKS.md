@@ -522,7 +522,7 @@
 | 183 | VIRAL-001 | Chiedere a Grok lista giochi virali/educativi per onde.la — SEO-driven, collegati a ricerche Google, da integrare nel portale esistente. Grok deve dare direzione editoriale giochi | 🔥🔥 CRESCITA | IN_PROGRESS | @clawdinho | Research completa. Built: Name Generator ✅, Crafting Guide ✅, Cookie Clicker ✅, Virtual Pet ✅. Next: Roblox Avatar Creator |
 | 184 | VIRAL-002 | Chiedere a Grok feedback sullo Skin Creator attuale — cosa migliorare, task per renderlo ancora più figo | 🔥 CRESCITA | TODO | @clawd | Skin Creator già funziona bene, ma Grok può suggerire miglioramenti per aumentare retention/viralità |
 | 185 | ADS-001 | Valutare e integrare banner ads kid-friendly nei giochi (Skin Creator + altri) — roba non invadente, pubblicità per bambini | ⭐ Revenue | TODO | @clawd | Iniziare a monetizzare anche con poco traffico. Banner carini, non invasivi. Chiedere consigli a Grok su network ads kid-safe (Google AdSense for kids? Superawesome?) |
-| 186 | BOOK-001 | Impaginazione professionale PDF "Il Saggio Imperatore" — chiedere a Grok librerie/tool, layout degno di Amazon | 🔥 Content | IN_PROGRESS | @clawd | Sub-agent spawned per layout professionale con fpdf2 |
+| 186 | BOOK-001 | Impaginazione professionale PDF "Il Saggio Imperatore" | 🔥 Content | ✅ DONE | @clawd | PDF 26pg, A4, cover+colophon+10 capitoli illustrati. fpdf2 layout professionale. |
 | 187 | BOOK-002 | Versione inglese "Il Saggio Imperatore" (traduzione + adattamento) | ⭐ Content | TODO | @clawd | Depends: BOOK-001 (impaginazione italiana prima). Poi tradurre testo + rigenerare PDF/EPUB in EN |
 
 ### 🆕 TASK AGGIUNTI (2026-02-16 02:20 PST)
