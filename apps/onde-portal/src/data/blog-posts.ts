@@ -39,6 +39,24 @@ export const blogPosts: BlogPost[] = [
   // per Mattia's request (2026-02-16) — too many internal details.
   // Files kept as backup in src/app/blog/ directories.
   {
+    slug: 'skin-creator-minecraft',
+    title: 'Free Minecraft Skin Creator — Design Your Perfect Skin Online',
+    subtitle: 'Create, Preview & Download',
+    description:
+      'Create custom Minecraft skins for free with our online Skin Creator. 3D preview, layer system, templates, and AI-powered tools. Works with Java & Bedrock editions.',
+    date: 'February 2026',
+    dateISO: '2026-02-16T00:00:00Z',
+    readTime: '4 min read',
+    category: 'Design',
+    tags: ['Minecraft', 'Skin Creator', 'Free Tool', 'Gaming', 'Kids'],
+    emoji: '🎨',
+    gradient: 'from-green-500 via-emerald-500 to-teal-500',
+    excerpt:
+      'Design unique Minecraft skins with our free browser-based creator. 3D preview, layers, templates, AI tools — no download, no signup.',
+    lang: 'en',
+    contentHtml: `<p>Create custom Minecraft skins for free with Onde's online Skin Creator. Features include a pixel canvas editor, real-time 3D preview, layer system, templates gallery, and AI-powered color suggestions.</p><p>Works with Minecraft Java &amp; Bedrock, plus Roblox, Fortnite, and Among Us. No download, no signup, 100% free.</p><p><a href="https://onde.la/blog/skin-creator-minecraft/">Read more →</a></p><p><a href="https://onde.la/games/skin-creator/">🎨 Open Skin Creator</a></p>`,
+  },
+  {
     slug: 'radeon-7900-xtx-mac-tinygrad',
     title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad',
     subtitle: 'The "Impossible" Setup',
