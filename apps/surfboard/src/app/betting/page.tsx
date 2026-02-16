@@ -1294,7 +1294,7 @@ export default function BettingDashboard() {
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
       if (inboxRes.ok) setInbox(await inboxRes.json());
       if (momentumRes.ok) setMomentum(await momentumRes.json());
-      // Only use mock trend API as fallback if gist didn't provide real data (DASH-001)
+      // Only use trend API as fallback if gist didn't provide real data (DASH-001)
       if (!statsData?.winRateTrend && trendRes.ok) setWinRateTrend(await trendRes.json());
       if (agentRes.ok) setAgentStatus(await agentRes.json());
 
@@ -1445,7 +1445,7 @@ export default function BettingDashboard() {
   const totalValue = (kalshiStatus?.cash || 0) + (kalshiStatus?.portfolioValue || 0);
   const positionsCount = kalshiStatus?.positions?.length || 0;
 
-  // Chart data - use real priceHistory from momentum API if available, otherwise fallback to mock
+  // Chart data - use real priceHistory from momentum API if available, otherwise empty
   const btcMomentumAsset = momentum?.data?.find(a => a.symbol === 'BTC');
   const ethMomentumAsset = momentum?.data?.find(a => a.symbol === 'ETH');
   const btcChartData = btcMomentumAsset?.priceHistory?.length ? btcMomentumAsset.priceHistory : [];

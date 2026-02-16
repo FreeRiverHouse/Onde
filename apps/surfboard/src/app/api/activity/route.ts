@@ -103,11 +103,11 @@ export async function POST(request: Request) {
         knownType: isKnownType,
       })
     } else {
-      // Dev mode: just acknowledge
+      // Dev mode: just acknowledge (no D1 database available)
       return NextResponse.json({
         ok: true,
         id: Date.now(),
-        source: 'mock',
+        source: 'no-db',
         knownType: isKnownType,
       })
     }

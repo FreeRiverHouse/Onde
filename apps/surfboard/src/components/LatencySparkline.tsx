@@ -158,43 +158,4 @@ export function LatencySparkline({
     </div>
   );
 }
-
-/**
- * Generate mock latency history data for testing/demo
- */
-export function generateMockLatencyHistory(): LatencyHistoryData {
-  const now = new Date();
-  const dataPoints: LatencyHistoryPoint[] = [];
-  
-  // Generate 48 data points (24h at 30min intervals)
-  for (let i = 47; i >= 0; i--) {
-    const timestamp = new Date(now.getTime() - i * 30 * 60 * 1000);
-    // Simulate varying latency with some spikes
-    const baseLatency = 200 + Math.random() * 150;
-    const spike = i % 12 === 0 ? Math.random() * 200 : 0; // Occasional spikes
-    const avgMs = Math.round(baseLatency + spike);
-    
-    dataPoints.push({
-      timestamp: timestamp.toISOString(),
-      avgMs,
-      p95Ms: Math.round(avgMs * 1.5 + Math.random() * 100),
-      count: Math.floor(50 + Math.random() * 100)
-    });
-  }
-  
-  const avgValues = dataPoints.map(d => d.avgMs);
-  const p95Values = dataPoints.map(d => d.p95Ms);
-  
-  return {
-    generated_at: now.toISOString(),
-    dataPoints,
-    summary: {
-      avgLatencyMs: Math.round(avgValues.reduce((a, b) => a + b, 0) / avgValues.length),
-      minLatencyMs: Math.min(...avgValues),
-      maxLatencyMs: Math.max(...avgValues),
-      avgP95Ms: Math.round(p95Values.reduce((a, b) => a + b, 0) / p95Values.length),
-      maxP95Ms: Math.max(...p95Values),
-      dataPointCount: dataPoints.length
-    }
-  };
-}
+// Mock data generators removed (DASH-001) - use real API data only

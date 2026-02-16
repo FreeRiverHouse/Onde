@@ -291,22 +291,4 @@ export function ReturnDistributionChart({
   );
 }
 
-// Generate mock data for demo
-export function generateMockTrades(count: number = 50): Trade[] {
-  const trades: Trade[] = [];
-  
-  for (let i = 0; i < count; i++) {
-    const isWin = Math.random() > 0.45; // Slight edge
-    const price = Math.floor(Math.random() * 60) + 20; // 20-80 cents
-    const contracts = Math.floor(Math.random() * 3) + 1;
-    
-    trades.push({
-      result_status: isWin ? 'won' : 'lost',
-      price_cents: price,
-      contracts: contracts,
-      side: Math.random() > 0.5 ? 'yes' : 'no'
-    });
-  }
-  
-  return trades;
-}
+// Mock data generators removed (DASH-001) - use real API data only

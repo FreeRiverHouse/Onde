@@ -205,19 +205,4 @@ export function EdgeDistributionChart({ data, className = '' }: EdgeDistribution
   );
 }
 
-// ============== MOCK DATA ==============
-export function generateMockEdgeDistribution(): EdgeDistributionData {
-  return {
-    buckets: [
-      { bucket: '0-5%', range: [0, 0.05], trades: 3, won: 1, lost: 2, winRate: 33.3, avgEdge: 3.2 },
-      { bucket: '5-10%', range: [0.05, 0.10], trades: 8, won: 3, lost: 5, winRate: 37.5, avgEdge: 7.8 },
-      { bucket: '10-15%', range: [0.10, 0.15], trades: 12, won: 5, lost: 7, winRate: 41.7, avgEdge: 12.4 },
-      { bucket: '15-20%', range: [0.15, 0.20], trades: 10, won: 5, lost: 5, winRate: 50.0, avgEdge: 17.2 },
-      { bucket: '20-30%', range: [0.20, 0.30], trades: 6, won: 4, lost: 2, winRate: 66.7, avgEdge: 24.1 },
-      { bucket: '30%+', range: [0.30, 1.00], trades: 2, won: 2, lost: 0, winRate: 100.0, avgEdge: 35.5 },
-    ],
-    totalSettled: 41,
-    tradesWithEdge: 45,
-    correlation: 'positive'
-  };
-}
+// Mock data generators removed (DASH-001) - use real API data only

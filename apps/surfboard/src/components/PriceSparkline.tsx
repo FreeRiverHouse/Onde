@@ -110,14 +110,4 @@ export function PriceSparkline({
   );
 }
 
-// Mock data generator for testing
-export function generateMockPriceData(basePrice: number, points: number = 24, volatility: number = 0.02): number[] {
-  const data: number[] = [basePrice];
-  
-  for (let i = 1; i < points; i++) {
-    const change = (Math.random() - 0.5) * 2 * volatility * basePrice;
-    data.push(data[i - 1] + change);
-  }
-  
-  return data;
-}
+// Mock data generators removed (DASH-001) - use real API data only

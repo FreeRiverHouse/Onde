@@ -173,26 +173,4 @@ export function WinRateTrendChart({
   );
 }
 
-// Helper to generate mock trend data for testing
-export function generateMockWinRateTrend(days: number = 30): DataPoint[] {
-  const data: DataPoint[] = [];
-  let winRate = 50;
-  
-  for (let i = days; i >= 0; i--) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    
-    // Random walk with mean reversion
-    winRate += (Math.random() - 0.5) * 10;
-    winRate = Math.max(20, Math.min(80, winRate));
-    winRate = winRate * 0.9 + 50 * 0.1; // Mean reversion to 50%
-    
-    data.push({
-      date: date.toISOString().slice(0, 10),
-      winRate: Math.round(winRate * 10) / 10,
-      trades: Math.floor(Math.random() * 10) + 1
-    });
-  }
-  
-  return data;
-}
+// Mock data generators removed (DASH-001) - use real API data only
