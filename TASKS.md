@@ -539,3 +539,14 @@
 |---|----|----- |--------|--------|-------|
 | 191 | UI-001 | Dark mode toggle in OGNI pagina di onde.la (non solo homepage — anche games, arcade, blog, libri, skin-creator, etc.) | 🔥🔥 UX | TODO | @clawdinho | Il toggle sole/pioggia esiste ma non è in tutte le pagine. Deve essere globale e persistente |
 | 192 | UI-002 | Audit lingua: controllare che inglese e italiano non siano mischiati nelle pagine di onde.la — tutto deve essere coerente (EN o IT, non mix) | 🔥 UX | TODO | @clawdinho | Alcune pagine potrebbero avere mix di lingue. Fare audit completo e fixare |
+
+### 🔥 GROK-VIRAL-002: Task Migliorativi Skin Creator (from Grok review)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 193 | SC-001 | Skin Creator: Add social sharing + "Share Your Skin" button with unique link/image for social media | 🔥🔥 CRESCITA | TODO | - | Grok says +20% session time and referrals. Priority #1 |
+| 194 | SC-002 | Skin Creator: Community gallery — users upload skins, browse, like, search | 🔥🔥 CRESCITA | TODO | - | Key feature missing vs Skindex. Grok priority #1 |
+| 195 | SC-003 | Skin Creator: Add image filters (brightness, contrast, saturation) like Nova Skin | ⭐ UX | TODO | - | Missing vs Nova Skin competitor |
+| 196 | SC-004 | SEO: Create 2-3 blog posts targeting long-tail keywords (free minecraft skin creator for kids, ai minecraft skin generator) | 🔥 SEO | TODO | @clawd | Grok says top 3 Google in 3 months with content strategy |
+| 197 | SC-005 | Skin Creator: Add pose and background customization to 3D preview | ⭐ UX | TODO | - | Missing vs Nova Skin |
+| 198 | SC-006 | Skin Creator: YouTube Shorts tutorials (5/week) + TikTok export | 🔥 CRESCITA | TODO | - | Grok viral loop strategy |
