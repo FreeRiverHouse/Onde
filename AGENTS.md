@@ -358,3 +358,15 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## 🎫 PROCESSO GROK-RECEIPTS (PERMANENTE - da msg 7404)
+
+**Per OGNI task che chiudi, OBBLIGATORIO:**
+
+1. **RECEIPT:** Documenta COSA hai fatto esattamente (file modificati, output, screenshot, test)
+2. **SPIEGA A GROK:** Manda a Grok la receipt e chiedi se la accetta
+3. **GROK VALIDA:** Se Grok dice OK → task è veramente chiuso
+4. **2 TASK MIGLIORATIVI:** Chiedi a Grok di suggerire 2 task migliorativi, aggiungili a TASKS.md
+5. **SE GROK RIFIUTA:** Il task NON è chiuso. Rifallo.
+
+**Mai più chiudere task senza questo processo. MAI.**
