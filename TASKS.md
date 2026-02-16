@@ -459,7 +459,7 @@
 | 168 | DASH-017 | Betting page: PnL by market type usa generateMockPnLData fallback → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real recentTrades with parsePnLByMarketType, no mock |
 | 169 | DASH-018 | Betting page: WinRate Sparkline usa generateMockSparklineData → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses parseWinRateTrendFromStats(winRateTrend), conditional render |
 | 170 | DASH-019 | Betting page: Latency Sparkline usa generateMockLatencyHistory → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses tradingStats.latencyHistory, conditional render |
-| 171 | DASH-020 | FRH page: verificare e fixare agent chat (invio/ricezione messaggi) | 🚨 CRITICO | 🔶 TODO | - |
+| 171 | DASH-020 | FRH page: verificare e fixare agent chat (invio/ricezione messaggi) | 🚨 CRITICO | IN_PROGRESS | @clawdinho |
 | 172 | DASH-021 | FRH page: verificare TaskManagementPanel legge/scrive task reali | 🔥 ALTA | 🔶 TODO | - |
 | 173 | DASH-022 | FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali | 🔥 ALTA | 🔶 TODO | - |
 | 174 | DASH-023 | FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali | 🔥 ALTA | 🔶 TODO | - |
