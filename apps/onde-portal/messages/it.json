@@ -11,7 +11,10 @@
     "read": "Leggi",
     "vr": "VR",
     "about": "Chi Siamo",
-    "explore": "Esplora"
+    "explore": "Esplora",
+    "blog": "Blog",
+    "search": "Cerca",
+    "tech": "Tech"
   },
   "footer": {
     "description": "Creiamo storie illustrate, app educative e giochi che fanno crescere immaginazione e curiosita.",
@@ -718,9 +721,11 @@
     "label": "Lingua"
   },
   "common": {
+    "new": "NUOVO!",
+    "playNow": "Gioca Ora",
+    "learnMore": "Scopri di più",
     "comingSoon": "Prossimamente",
-    "inDevelopment": "In sviluppo",
-    "inPlanning": "In progettazione"
+    "free": "Gratis"
   },
   "catalog": {
     "launchBanner": {
@@ -1155,13 +1160,6 @@
       "free": "Gratis",
       "noDownload": "Nessun download"
     }
-  },
-  "common": {
-    "new": "NUOVO!",
-    "playNow": "Gioca Ora",
-    "learnMore": "Scopri di più",
-    "comingSoon": "Prossimamente",
-    "free": "Gratis"
   },
   "gamesPage": {
     "title": "Gaming Island",

@@ -29,7 +29,7 @@ export default function Navigation() {
     { href: '/', label: t.navigation.home },
     { href: '/libri', label: t.navigation.books },
     { href: '/games', label: t.navigation.games },
-    { href: '/blog', label: 'Blog' },
+    { href: '/blog', label: t.navigation.blog },
     { href: '/about', label: t.navigation.about },
   ]
 
@@ -104,7 +104,7 @@ export default function Navigation() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <span className="text-sm font-medium">Search</span>
+                <span className="text-sm font-medium">{t.navigation.search}</span>
                 <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs 
                                 text-onde-ocean/40 bg-white rounded border border-onde-ocean/10">
                   ⌘K
