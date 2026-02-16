@@ -53,7 +53,7 @@
   "circuit_breaker_active": false,
   "status": "\u2705 running",
   "analysis": {
-    "last_tune": "2026-02-16T02:30:01.424038+00:00",
+    "last_tune": "2026-02-16T04:30:01.472629+00:00",
     "total_paper_trades": 306,
     "edge_stats": {
       "mean": 0.34163117252381964,

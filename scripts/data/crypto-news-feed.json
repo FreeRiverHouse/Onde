@@ -1,29 +1,14 @@
 {
-  "timestamp": "2026-02-16T04:30:02.722090+00:00",
+  "timestamp": "2026-02-16T04:13:01.893880+00:00",
   "sources": [
+    "coindesk",
     "cointelegraph",
     "bitcoinmagazine",
     "decrypt"
   ],
-  "failed_sources": [
-    "coindesk"
-  ],
-  "article_count": 30,
+  "failed_sources": [],
+  "article_count": 40,
   "results": [
-    {
-      "title": "Bitcoin Leverage Heats Up as Traders Bet on Price Rebound",
-      "url": "https://decrypt.co/358134/bitcoin-leverage-heats-up-as-traders-bet-on-price-rebound",
-      "source": "decrypt",
-      "description": "Bitcoin's futures basis has widened amid retail dip buying surges, but one expert warns the setup may end in an \"over-leveraged shakeout.\"",
-      "published": "2026-02-16T04:24:00+00:00"
-    },
-    {
-      "title": "Strategy to equitize convertible debt over 3-6 years: Saylor",
-      "url": "https://cointelegraph.com/news/strategy-plans-equitize-convertible-debt-over-next-3-6-years-saylor?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The world\u2019s largest DAT plans to convert $6 billion in bond debt to equity, claiming that it could survive an 88% Bitcoin crash.",
-      "published": "2026-02-16T04:14:47+00:00"
-    },
     {
       "title": "Hollywood\u2019s AI Crackdown Opens Door for Copyright Detection Startups",
       "url": "https://decrypt.co/358131/hollywoods-ai-crackdown-copyright-detection-startups",
@@ -60,11 +45,25 @@
       "published": "2026-02-15T21:33:36+00:00"
     },
     {
+      "title": "Wall Street giant Apollo deepens crypto push with Morpho token deal",
+      "url": "https://www.coindesk.com/business/2026/02/15/wall-street-giant-apollo-deepens-crypto-push-with-morpho-token-deal",
+      "source": "coindesk",
+      "description": "The asset manager overseeing more than $900 billion assets may buy up to 90 million MORPHO tokens as part of a partnership to support DeFi credit market, it said.",
+      "published": "2026-02-15T20:59:12+00:00"
+    },
+    {
       "title": "OpenClaw Creator Gets Big Offers to Acquire AI Sensation\u2014Will It Stay Open Source?",
       "url": "https://decrypt.co/358129/openclaw-creator-offers-acquire-ai-sensation-stay-open-source",
       "source": "decrypt",
       "description": "Peter Steinberger's open-source AI agent OpenClaw hit 180,000 GitHub stars and spawned MoltBook chaos. Now Meta and OpenAI want to buy it, but he's determined to keep it free.",
       "published": "2026-02-15T20:01:03+00:00"
+    },
+    {
+      "title": "Hong Kong is trying to build up its crypto regulations: State of Crypto",
+      "url": "https://www.coindesk.com/policy/2026/02/16/hong-kong-is-trying-to-build-up-its-crypto-regulations-state-of-crypto",
+      "source": "coindesk",
+      "description": "Several leaders in Hong Kong announced efforts to advance the region's regulatory environment.",
+      "published": "2026-02-15T19:00:00+00:00"
     },
     {
       "title": "Michael Saylor signals another Bitcoin buy amid market rout",
@@ -81,11 +80,32 @@
       "published": "2026-02-15T18:01:02+00:00"
     },
     {
+      "title": "Prediction markets vs. insider trading: Founders admit blockchain transparency is the only defense",
+      "url": "https://www.coindesk.com/business/2026/02/13/prediction-markets-vs-insider-trading-founders-admit-blockchain-transparency-is-the-only-defense",
+      "source": "coindesk",
+      "description": "Prediction markets are increasingly being framed not as gambling platforms but as vehicles for monetizing information, though founders acknowledged the line can blur.",
+      "published": "2026-02-15T18:00:00+00:00"
+    },
+    {
       "title": "Bitcoin Takes Step Towards Quantum Fix as Experts Diverge on Urgency of Threat",
       "url": "https://decrypt.co/358068/bitcoin-quantum-fix-experts-diverge-urgency-threat",
       "source": "decrypt",
       "description": "Bitcoin developers lay the groundwork for post-quantum upgrades, but experts vary on whether the threat is years or decades away.",
       "published": "2026-02-15T16:17:16+00:00"
+    },
+    {
+      "title": "BlackRock's digital assets head: Leverage-driven volatility threatens bitcoin\u2019s narrative",
+      "url": "https://www.coindesk.com/markets/2026/02/13/blackrock-s-head-of-digital-assets-warns-leverage-driven-volatility-risks-undermine-bitcoin-s-institutional-narrative",
+      "source": "coindesk",
+      "description": "Rampant speculation on crypto derivatives platforms is fueling volatility and risking bitcoin\u2019s image as a stable hedge, says BlackRock\u2019s digital assets chief.",
+      "published": "2026-02-15T14:00:00+00:00"
+    },
+    {
+      "title": "XRP outruns bitcoin, ether after investors piled into the recent crash",
+      "url": "https://www.coindesk.com/markets/2026/02/15/xrp-is-outrunning-bitcoin-and-ether-after-investors-piled-into-the-recent-crash",
+      "source": "coindesk",
+      "description": "XRP is outperforming bitcoin and ether following signs of dip buying during recent crash.",
+      "published": "2026-02-15T13:39:18+00:00"
     },
     {
       "title": "Here\u2019s what happened in crypto today",
@@ -102,6 +122,13 @@
       "published": "2026-02-15T13:04:28+00:00"
     },
     {
+      "title": "Wall Street remains bullish on bitcoin while offshore traders retreat",
+      "url": "https://www.coindesk.com/markets/2026/02/15/wall-street-remains-bullish-on-bitcoin-while-offshore-traders-retreat",
+      "source": "coindesk",
+      "description": "The difference in futures basis between CME and Deribit reflects varying risk appetite across regions.",
+      "published": "2026-02-15T12:00:00+00:00"
+    },
+    {
       "title": "Mirae Asset agrees to buy 92% stake in Korean exchange Korbit for $93M",
       "url": "https://cointelegraph.com/news/mirae-asset-buy-92-percent-korbit-korea-crypto-exchange?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -114,6 +141,13 @@
       "source": "cointelegraph",
       "description": "Elizabeth Warren and Andy Kim call on Treasury\u2019s Scott Bessent to review a UAE-backed investment in the Trump-linked crypto firm over national security concerns.",
       "published": "2026-02-15T07:15:57+00:00"
+    },
+    {
+      "title": "Institutions may get 'fed up' and fire Bitcoin devs over quantum: VC",
+      "url": "https://cointelegraph.com/news/bitcoin-quantum-computing-risk-institutions-developers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin developers must address the quantum risks to Bitcoin fast to avoid a successful \u201ccorporate takeover,\u201d according to venture capitalist Nic Carter.",
+      "published": "2026-02-15T06:17:48+00:00"
     },
     {
       "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
@@ -130,11 +164,39 @@
       "published": "2026-02-14T18:14:46+00:00"
     },
     {
+      "title": "The Genius Act ripple effect: Sui executives say institutional demand has never been higher",
+      "url": "https://www.coindesk.com/business/2026/02/13/the-genius-act-ripple-effect-sui-executives-say-institutional-demand-has-never-been-higher",
+      "source": "coindesk",
+      "description": "Evan Cheng and Stephen Mackintosh said 2025 marked a turning point for institutional adoption, with tokenization and agentic commerce emerging as the next frontier.",
+      "published": "2026-02-14T18:00:00+00:00"
+    },
+    {
+      "title": "Elon Musk's X to launch crypto and stock trading in \u2018couple weeks\u2019",
+      "url": "https://www.coindesk.com/business/2026/02/14/elon-musk-s-x-to-launch-crypto-and-stock-trading-in-couple-weeks",
+      "source": "coindesk",
+      "description": "Users will be able to interact with ticker symbols in posts and execute trades within the app, the company's head of product said.",
+      "published": "2026-02-14T17:33:54+00:00"
+    },
+    {
       "title": "Bitcoin Is Down Bad, But Hasn't Yet Hit Its 'Ultimate Bear Market Bottom': Analysts",
       "url": "https://decrypt.co/358083/bitcoin-down-bad-hasnt-hit-ultimate-bear-market-bottom",
       "source": "decrypt",
       "description": "Despite its 45% fall since its October peak, Bitcoin has not yet found its bear market bottom, according to a new report from CryptoQuant.",
       "published": "2026-02-14T16:11:05+00:00"
+    },
+    {
+      "title": "Galaxy\u2019s Steve Kurz sees \u2018great convergence\u2019 driving crypto\u2019s long-term outlook",
+      "url": "https://www.coindesk.com/business/2026/02/14/galaxy-s-steve-kurz-sees-great-convergence-driving-crypto-s-long-term-outlook",
+      "source": "coindesk",
+      "description": "The firm's asset-management chief says the recent crypto selloff reflects healthy deleveraging, while infrastructure growth and institutional adoption support a bullish outlook.",
+      "published": "2026-02-14T16:00:00+00:00"
+    },
+    {
+      "title": "Bitcoin claws back to $70,000 on cooling inflation after $8.7 billion wipeout",
+      "url": "https://www.coindesk.com/markets/2026/02/14/bitcoin-claws-back-to-usd70-000-on-cooling-inflation-after-usd8-7-billion-wipeout",
+      "source": "coindesk",
+      "description": "Despite the price recovery, the Crypto Fear & Greed Index remains in \u201cextreme fear,\u201d indicating underlying market anxiety.",
+      "published": "2026-02-14T12:04:00+00:00"
     },
     {
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
@@ -156,69 +218,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners Silent.Link eliminates SIM-swap attacks via eSIM backup codes and automates seamless roaming across 160+ countries, bypassing censorship like China's Great Firewall. This post How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners first appeared on Bitcoin Magazine and is written by Juan Galt.",
       "published": "2026-02-13T21:11:47+00:00"
-    },
-    {
-      "title": "Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump\u00a0",
-      "url": "https://bitcoinmagazine.com/markets/coinbase-surges-18-strategy-mstr-jumps",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump Crypto-linked stocks jumped as Coinbase (COIN) surged 18% and Strategy (MSTR) rose 10%, fueled by a rebound in Bitcoin and renewed investor interest in digital-asset exposure. This post Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T20:58:12+00:00"
-    },
-    {
-      "title": "Clarity Act Passage Would 'Comfort' Markets Amid Bitcoin Volatility: Treasury Secretary Bessent",
-      "url": "https://decrypt.co/358067/clarity-act-passage-comfort-markets-bitcoin-volatility-bessent",
-      "source": "decrypt",
-      "description": "U.S. Treasury Secretary Scott Bessent suggested that the crypto market would be calmed by the passage of the Clarity Act.",
-      "published": "2026-02-13T20:29:22+00:00"
-    },
-    {
-      "title": "White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill",
-      "url": "https://bitcoinmagazine.com/news/white-house-trillions-waiting-crypto",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill The White House executive director said trillions are poised to enter Bitcoin and crypto, emphasizing ongoing work on a market structure bill. This post White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T18:22:28+00:00"
-    },
-    {
-      "title": "Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years",
-      "url": "https://bitcoinmagazine.com/news/brazil-proposes-national-bitcoin-reserve",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years Brazilian lawmakers have reintroduced a bill proposing the creation of a Strategic Sovereign Bitcoin Reserve (RESBit) to acquire one million Bitcoin over five years. This post Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T16:58:53+00:00"
-    },
-    {
-      "title": "Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network",
-      "url": "https://bitcoinmagazine.com/news/lightning-labs-rolls-out-ai-agent-tools",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network Lightning Labs released a new toolkit that enables AI agents to operate directly on the Bitcoin Lightning Network. This post Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T16:49:58+00:00"
-    },
-    {
-      "title": "U.S. Treasury: Congress Needs to Pass Crypto Legislation This Spring\u00a0",
-      "url": "https://bitcoinmagazine.com/news/congress-needs-to-pass-crypto-legislation",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine U.S. Treasury: Congress Needs to Pass Crypto Legislation This Spring U.S. Treasury Secretary Scott Bessent is urging lawmakers to deliver crypto legislation to President Donald Trump\u2019s desk for signature this spring. This post U.S. Treasury: Congress Needs to Pass Crypto Legislation This Spring first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T14:35:55+00:00"
-    },
-    {
-      "title": "Binance France CEO Targeted in Failed Home Invasion Near Paris, Three Arrested",
-      "url": "https://bitcoinmagazine.com/news/binance-france-ceo-targeted-in-invasion",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Binance France CEO Targeted in Failed Home Invasion Near Paris, Three Arrested Binance France CEO David Prin\u00e7ay was targeted in a failed home invasion near Paris on Feb. 12. French police arrested three suspects. This post Binance France CEO Targeted in Failed Home Invasion Near Paris, Three Arrested first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T14:10:21+00:00"
-    },
-    {
-      "title": "Thailand Moves to Cement Bitcoin and Digital Assets in Regulated Derivatives Market",
-      "url": "https://bitcoinmagazine.com/news/thailand-moves-to-cement-bitcoin",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Thailand Moves to Cement Bitcoin and Digital Assets in Regulated Derivatives Market Thailand is moving to cement bitcoin and other digital assets as legitimate, regulated reference assets in its derivatives and capital markets. This post Thailand Moves to Cement Bitcoin and Digital Assets in Regulated Derivatives Market first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-12T20:07:39+00:00"
-    },
-    {
-      "title": "Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows",
-      "url": "https://bitcoinmagazine.com/news/strategy-mstr-accounted-corporate-bitcoin",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows The corporate adoption of bitcoin was dominated by a single player last month \u2014 Strategy. This post Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-12T18:52:50+00:00"
     }
   ]
 }

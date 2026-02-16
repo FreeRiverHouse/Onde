@@ -1,25 +1,17 @@
 {
   "sentiment_both": {
-<<<<<<< Updated upstream
-    "timestamp": "2026-02-16T01:55:06.735555",
-=======
-    "timestamp": "2026-02-15T23:11:21.112108",
->>>>>>> Stashed changes
+    "timestamp": "2026-02-16T03:20:18.972740",
     "result": {
-      "sentiment": "bullish",
+      "sentiment": "bearish",
       "confidence": 0.9,
       "reasons": [
-        "adoption"
+        "crackdown"
       ],
       "events": [],
       "event_warning": null,
-<<<<<<< Updated upstream
-      "timestamp": "2026-02-16T01:55:06.735530+00:00",
-=======
-      "timestamp": "2026-02-15T23:11:21.112091+00:00",
->>>>>>> Stashed changes
+      "timestamp": "2026-02-16T03:20:18.972721+00:00",
       "should_trade": true,
-      "edge_adjustment": 0.018,
+      "edge_adjustment": -0.018,
       "news_count": 9
     }
   }
