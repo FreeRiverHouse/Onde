@@ -29,9 +29,9 @@ const READING_TIME = Math.max(1, Math.ceil(ARTICLE_WORD_COUNT / 200))
 /* ─── helper: code block ─── */
 function CodeBlock({ children, lang }: { children: string; lang?: string }) {
   return (
-    <div className="relative group my-6 rounded-xl overflow-hidden border border-white/10">
+    <div className="relative group my-6 rounded-xl overflow-hidden border border-white/15">
       {lang && (
-        <div className="px-4 py-1.5 bg-white/5 border-b border-white/10 text-xs text-white/40 font-mono">
+        <div className="px-4 py-1.5 bg-white/5 border-b border-white/15 text-xs text-white/60 font-mono">
           {lang}
         </div>
       )}
@@ -46,7 +46,7 @@ function CodeBlock({ children, lang }: { children: string; lang?: string }) {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between py-2.5 border-b border-white/5 last:border-0">
-      <span className="text-white/50 text-sm font-medium">{label}</span>
+      <span className="text-white/70 text-sm font-medium">{label}</span>
       <span className="text-white/90 text-sm font-semibold text-right">{value}</span>
     </div>
   )
@@ -79,7 +79,7 @@ function SectionHeading({
 /* ─── helper: tag pill ─── */
 function Tag({ children }: { children: string }) {
   return (
-    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/50 border border-white/10">
+    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/70 border border-white/15">
       {children}
     </span>
   )
@@ -111,7 +111,7 @@ function ResultBadge({
    ═══════════════════════════════════════════ */
 export default function RadeonTinygradArticle() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-onde-dark">
       {/* ── Background orbs ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -168,12 +168,12 @@ export default function RadeonTinygradArticle() {
             <span className="text-gradient-fire">Then Stopped Using It</span>
           </h1>
 
-          <p className="text-xl text-white/60 font-medium mb-6 leading-relaxed">
+          <p className="text-xl text-white/80 font-medium mb-6 leading-relaxed">
             A technical experiment in doing what everyone said was impossible — and learning why they had a point.
           </p>
 
           {/* Meta line */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-white/40">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-white/60">
             <span>February 2026</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
             <span>FreeRiverHouse</span>
@@ -202,7 +202,7 @@ export default function RadeonTinygradArticle() {
           <h2 className="text-lg font-bold text-onde-teal mb-4 flex items-center gap-2">
             <span className="text-xl">⚡</span> TL;DR
           </h2>
-          <p className="text-white/70 leading-relaxed mb-4">
+          <p className="text-white/90 leading-relaxed mb-4">
             We got a{' '}
             <strong className="text-white">
               Radeon RX 7900 XTX (24GB VRAM)
@@ -227,7 +227,7 @@ export default function RadeonTinygradArticle() {
         </motion.div>
 
         {/* ── Prose wrapper ── */}
-        <div className="prose-custom space-y-6 text-white/70 leading-relaxed text-[16px] md:text-[17px]">
+        <div className="prose-custom space-y-6 text-white/90 leading-relaxed text-[16px] md:text-[17px]">
           {/* THE PROBLEM */}
           <SectionHeading emoji="🧩" id="problem">
             The Problem
@@ -313,7 +313,7 @@ export default function RadeonTinygradArticle() {
 
           <CodeBlock lang="bash">{`system_profiler SPDisplaysDataType | grep -i AMD`}</CodeBlock>
 
-          <p className="text-white/50 text-sm italic">
+          <p className="text-white/70 text-sm italic">
             Yes, just getting the GPU recognized is already an achievement. That should tell you
             something about how &ldquo;supported&rdquo; this setup is.
           </p>
@@ -364,9 +364,9 @@ if ggml_type == 2:
             alignment issues that the float16 cast resolves.
           </p>
 
-          <p className="text-white/50 text-sm italic">
+          <p className="text-white/70 text-sm italic">
             The patch is ~20 lines changed in{' '}
-            <code className="text-white/60 font-mono">tinygrad/nn/state.py</code>. Small
+            <code className="text-white/80 font-mono">tinygrad/nn/state.py</code>. Small
             change, big impact — at least for getting it to run at all.
           </p>
 
@@ -413,31 +413,31 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 python3 examples/gpt2.py \\
           <div className="card-3d p-6 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-2 text-white/50 font-medium">Model</th>
-                  <th className="text-right py-2 text-white/50 font-medium">Tokens/sec</th>
-                  <th className="text-right py-2 text-white/50 font-medium">VRAM</th>
-                  <th className="text-right py-2 text-white/50 font-medium hidden sm:table-cell">Verdict</th>
+                <tr className="border-b border-white/15">
+                  <th className="text-left py-2 text-white/70 font-medium">Model</th>
+                  <th className="text-right py-2 text-white/70 font-medium">Tokens/sec</th>
+                  <th className="text-right py-2 text-white/70 font-medium">VRAM</th>
+                  <th className="text-right py-2 text-white/70 font-medium hidden sm:table-cell">Verdict</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-white/5">
                   <td className="py-2.5 text-white/80">GPT-2 (124M)</td>
                   <td className="py-2.5 text-right text-onde-teal font-semibold">~3.6</td>
-                  <td className="py-2.5 text-right text-white/60">~500MB</td>
-                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Proof it works</td>
+                  <td className="py-2.5 text-right text-white/80">~500MB</td>
+                  <td className="py-2.5 text-right text-white/60 hidden sm:table-cell">Proof it works</td>
                 </tr>
                 <tr className="border-b border-white/5">
                   <td className="py-2.5 text-white/80">GPT-2 XL (1.5B)</td>
                   <td className="py-2.5 text-right text-onde-teal font-semibold">~1.5</td>
-                  <td className="py-2.5 text-right text-white/60">~3GB</td>
-                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Painfully slow</td>
+                  <td className="py-2.5 text-right text-white/80">~3GB</td>
+                  <td className="py-2.5 text-right text-white/60 hidden sm:table-cell">Painfully slow</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 text-white/80">LLaMA 3.1 8B Q4</td>
                   <td className="py-2.5 text-right text-onde-teal font-semibold">~0.8</td>
-                  <td className="py-2.5 text-right text-white/60">~5GB</td>
-                  <td className="py-2.5 text-right text-white/40 hidden sm:table-cell">Basically unusable</td>
+                  <td className="py-2.5 text-right text-white/80">~5GB</td>
+                  <td className="py-2.5 text-right text-white/60 hidden sm:table-cell">Basically unusable</td>
                 </tr>
               </tbody>
             </table>
@@ -503,7 +503,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
             How to Reproduce
           </SectionHeading>
 
-          <p className="text-white/50 italic">
+          <p className="text-white/70 italic">
             We&apos;re documenting this for the technically curious — not because we recommend it.
             If you want to run LLMs on a Mac, just use MLX or llama.cpp. Seriously.
           </p>
@@ -515,7 +515,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
               </span>
               <div>
                 <p className="text-white font-medium">Hardware</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Any AMD RDNA2/RDNA3 GPU + Thunderbolt eGPU enclosure + Apple
                   Silicon Mac
                 </p>
@@ -527,7 +527,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
               </span>
               <div>
                 <p className="text-white font-medium">Software</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   TinyGPU.app (contact us for access)
                 </p>
               </div>
@@ -538,7 +538,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
               </span>
               <div>
                 <p className="text-white font-medium">Clone &amp; patch</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Clone TinyGrad and apply the float16 patch to{' '}
                   <code className="text-green-300/80 font-mono">
                     tinygrad/nn/state.py
@@ -662,7 +662,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
         </div>
 
         {/* ── Share buttons — bottom ── */}
-        <div className="mt-16 pt-8 border-t border-white/10">
+        <div className="mt-16 pt-8 border-t border-white/15">
           <ShareButtons
             title="Running AMD Radeon RX 7900 XTX on macOS with TinyGrad"
             url="https://onde.la/blog/radeon-7900-xtx-mac-tinygrad"
@@ -676,7 +676,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <p className="text-white/40 text-sm mb-4">
+          <p className="text-white/60 text-sm mb-4">
             Built by{' '}
             <Link
               href="/"
@@ -734,7 +734,7 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
         <div className="mt-12 text-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/40 hover:text-onde-teal transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-onde-teal transition-colors text-sm"
           >
             <svg
               className="w-4 h-4"

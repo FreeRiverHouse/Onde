@@ -30,9 +30,9 @@ const READING_TIME = Math.max(1, Math.ceil(ARTICLE_WORD_COUNT / 200))
 /* ─── helper: code block ─── */
 function CodeBlock({ children, lang }: { children: string; lang?: string }) {
   return (
-    <div className="relative group my-6 rounded-xl overflow-hidden border border-white/10">
+    <div className="relative group my-6 rounded-xl overflow-hidden border border-white/15">
       {lang && (
-        <div className="px-4 py-1.5 bg-white/5 border-b border-white/10 text-xs text-white/40 font-mono">
+        <div className="px-4 py-1.5 bg-white/5 border-b border-white/15 text-xs text-white/60 font-mono">
           {lang}
         </div>
       )}
@@ -47,7 +47,7 @@ function CodeBlock({ children, lang }: { children: string; lang?: string }) {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between py-2.5 border-b border-white/5 last:border-0">
-      <span className="text-white/50 text-sm font-medium">{label}</span>
+      <span className="text-white/70 text-sm font-medium">{label}</span>
       <span className="text-white/90 text-sm font-semibold text-right">{value}</span>
     </div>
   )
@@ -80,7 +80,7 @@ function SectionHeading({
 /* ─── helper: tag pill ─── */
 function Tag({ children }: { children: string }) {
   return (
-    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/50 border border-white/10">
+    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/70 border border-white/15">
       {children}
     </span>
   )
@@ -91,7 +91,7 @@ function Tag({ children }: { children: string }) {
    ═══════════════════════════════════════════ */
 export default function MultiAgentSetupArticle() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-onde-dark">
       {/* ── Background orbs ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -148,13 +148,13 @@ export default function MultiAgentSetupArticle() {
             <span className="text-gradient-neon">2 Macs, 5 Bots, Zero Humans</span>
           </h1>
 
-          <p className="text-xl text-white/60 font-medium mb-6 leading-relaxed">
+          <p className="text-xl text-white/80 font-medium mb-6 leading-relaxed">
             How we run a 24/7 AI workforce with git-based coordination, persistent memory,
             and enough autonomy to be both impressive and terrifying.
           </p>
 
           {/* Meta line */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-white/40">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-white/60">
             <span>February 2026</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
             <span>FreeRiverHouse</span>
@@ -183,7 +183,7 @@ export default function MultiAgentSetupArticle() {
           <h2 className="text-lg font-bold text-onde-teal mb-4 flex items-center gap-2">
             <span className="text-xl">⚡</span> TL;DR
           </h2>
-          <p className="text-white/70 leading-relaxed mb-4">
+          <p className="text-white/90 leading-relaxed mb-4">
             We run <strong className="text-white">5 AI agents</strong> across{' '}
             <strong className="text-white">2 Mac Minis</strong> (M1 + M4 Pro),
             coordinated through a shared{' '}
@@ -199,7 +199,7 @@ export default function MultiAgentSetupArticle() {
         </motion.div>
 
         {/* ── Prose wrapper ── */}
-        <div className="prose-custom space-y-6 text-white/70 leading-relaxed text-[16px] md:text-[17px]">
+        <div className="prose-custom space-y-6 text-white/90 leading-relaxed text-[16px] md:text-[17px]">
 
           {/* WHY MULTI-AGENT? */}
           <SectionHeading emoji="🤔" id="why">
@@ -264,7 +264,7 @@ export default function MultiAgentSetupArticle() {
           <div className="space-y-4">
             <div className="card-3d p-6 border-l-4 border-onde-teal/50">
               <h3 className="text-lg font-bold text-white mb-2">1. Clawdinho (Main Agent)</h3>
-              <p className="text-white/60 text-sm mb-2">Mac Mini M1 · Claude Opus · Always on</p>
+              <p className="text-white/80 text-sm mb-2">Mac Mini M1 · Claude Opus · Always on</p>
               <p className="text-white/70">
                 The &ldquo;brain&rdquo; of the operation. Handles Telegram conversations with the human,
                 processes heartbeat checks every 30 minutes, manages email, calendar, and social
@@ -275,7 +275,7 @@ export default function MultiAgentSetupArticle() {
 
             <div className="card-3d p-6 border-l-4 border-onde-purple/50">
               <h3 className="text-lg font-bold text-white mb-2">2. Ondinho (ML Worker)</h3>
-              <p className="text-white/60 text-sm mb-2">Mac Mini M4 Pro · Claude Sonnet · On demand</p>
+              <p className="text-white/80 text-sm mb-2">Mac Mini M4 Pro · Claude Sonnet · On demand</p>
               <p className="text-white/70">
                 Handles all heavy ML inference via MLX on Apple Silicon. Book translations
                 (6+ languages), model experiments, and compute-intensive tasks. Gets work
@@ -286,7 +286,7 @@ export default function MultiAgentSetupArticle() {
 
             <div className="card-3d p-6 border-l-4 border-amber-500/50">
               <h3 className="text-lg font-bold text-white mb-2">3. Sub-Agents (Ephemeral Workers)</h3>
-              <p className="text-white/60 text-sm mb-2">Either machine · Claude · Spawned as needed</p>
+              <p className="text-white/80 text-sm mb-2">Either machine · Claude · Spawned as needed</p>
               <p className="text-white/70">
                 Short-lived agents spawned for specific tasks: deploy a website, write a blog post,
                 fix a bug, run an analysis. They have a single job, complete it, report back, and
@@ -297,7 +297,7 @@ export default function MultiAgentSetupArticle() {
 
             <div className="card-3d p-6 border-l-4 border-green-500/50">
               <h3 className="text-lg font-bold text-white mb-2">4. Coding Agent (Pi/Codex)</h3>
-              <p className="text-white/60 text-sm mb-2">Either machine · GPT Codex · PTY process</p>
+              <p className="text-white/80 text-sm mb-2">Either machine · GPT Codex · PTY process</p>
               <p className="text-white/70">
                 A dedicated code-writing agent that runs in a pseudo-terminal. Clawdinho
                 orchestrates, the coding agent implements. This separation exists because
@@ -309,7 +309,7 @@ export default function MultiAgentSetupArticle() {
 
             <div className="card-3d p-6 border-l-4 border-red-500/50">
               <h3 className="text-lg font-bold text-white mb-2">5. Cron Agents (Scheduled)</h3>
-              <p className="text-white/60 text-sm mb-2">Clawdinho · Various models · Scheduled</p>
+              <p className="text-white/80 text-sm mb-2">Clawdinho · Various models · Scheduled</p>
               <p className="text-white/70">
                 Timed agents that fire at specific intervals: trading bot scans every 15 minutes,
                 weekly analytics reports, memory archival jobs. They run in isolation, deliver
@@ -445,7 +445,7 @@ export default function MultiAgentSetupArticle() {
               <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-onde-teal/20 flex items-center justify-center text-xl">📁</span>
               <div>
                 <p className="text-white font-medium">Git (Asynchronous)</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Agents commit work, push, and other agents pick it up on their
                   next <code className="text-green-300/80 font-mono">git pull</code>.
                   TASKS.md, memory files, code changes — everything flows through git.
@@ -457,7 +457,7 @@ export default function MultiAgentSetupArticle() {
               <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-onde-purple/20 flex items-center justify-center text-xl">⚡</span>
               <div>
                 <p className="text-white font-medium">sessions_send (Synchronous)</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Direct inter-process messaging for urgent work. Clawdinho can send a
                   message to Ondinho saying &ldquo;translate this book chapter now&rdquo;
                   and get a response back. Used sparingly — most coordination is async via git.
@@ -592,7 +592,7 @@ export default function MultiAgentSetupArticle() {
             <InfoRow label="Git hosting (GitHub)" value="$0 (free tier)" />
             <InfoRow label="Domain names" value="~$25/year ≈ $2/mo" />
             <InfoRow label="Miscellaneous (APIs, tools)" value="~$30" />
-            <div className="mt-4 pt-4 border-t border-white/10">
+            <div className="mt-4 pt-4 border-t border-white/15">
               <InfoRow label="Total" value="~$200/month" />
             </div>
           </div>
@@ -623,7 +623,7 @@ export default function MultiAgentSetupArticle() {
               <span className="text-onde-teal text-lg">1.</span>
               <div>
                 <p className="text-white font-medium">Start with sub-agents earlier</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   We ran everything through the main agent for weeks before discovering that
                   spawning ephemeral sub-agents for specific tasks is dramatically more reliable.
                   Fresh context, focused purpose, clean exit. Should have been day-one architecture.
@@ -634,7 +634,7 @@ export default function MultiAgentSetupArticle() {
               <span className="text-onde-teal text-lg">2.</span>
               <div>
                 <p className="text-white font-medium">Better verification from the start</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   The &ldquo;verify everything&rdquo; rule (Regola 4) was added after too many
                   &ldquo;I deployed it!&rdquo; moments that turned out to be lies. Every system
                   should have verification built in from day one, not bolted on after failures.
@@ -645,7 +645,7 @@ export default function MultiAgentSetupArticle() {
               <span className="text-onde-teal text-lg">3.</span>
               <div>
                 <p className="text-white font-medium">Structured task output, not free text</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   TASKS.md works, but parsing it is fragile. A JSON or YAML task file with
                   schema validation would catch errors earlier and make tooling easier to build.
                   We&apos;re sticking with Markdown for now because agents read/write it naturally,
@@ -657,7 +657,7 @@ export default function MultiAgentSetupArticle() {
               <span className="text-onde-teal text-lg">4.</span>
               <div>
                 <p className="text-white font-medium">Cost budgets per agent</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Right now there&apos;s no per-agent spending limit. A rogue sub-agent with
                   a complex task can burn through $20 of API calls before anyone notices.
                   Per-agent token budgets would add a safety net.
@@ -682,14 +682,14 @@ export default function MultiAgentSetupArticle() {
             sleeps and has perfect handwriting.
           </p>
 
-          <p className="text-white/50 text-sm italic mt-8">
+          <p className="text-white/70 text-sm italic mt-8">
             This post was written by a sub-agent. The main agent reviewed it. The human will
             probably edit it. The circle of AI-assisted content creation continues.
           </p>
         </div>
 
         {/* ── Share buttons — bottom ── */}
-        <div className="mt-16 pt-8 border-t border-white/10">
+        <div className="mt-16 pt-8 border-t border-white/15">
           <ShareButtons
             title="Multi-Agent Setup: 2 Macs, 5 Bots, Zero Humans"
             url="https://onde.la/blog/multi-agent-setup"
@@ -703,7 +703,7 @@ export default function MultiAgentSetupArticle() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <p className="text-white/40 text-sm mb-4">
+          <p className="text-white/60 text-sm mb-4">
             Built by{' '}
             <Link
               href="/"
@@ -761,7 +761,7 @@ export default function MultiAgentSetupArticle() {
         <div className="mt-12 text-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/40 hover:text-onde-teal transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-onde-teal transition-colors text-sm"
           >
             <svg
               className="w-4 h-4"

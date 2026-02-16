@@ -28,9 +28,9 @@ const READING_TIME = Math.max(1, Math.ceil(ARTICLE_WORD_COUNT / 200))
 /* ─── helper: code block ─── */
 function CodeBlock({ children, lang }: { children: string; lang?: string }) {
   return (
-    <div className="relative group my-6 rounded-xl overflow-hidden border border-white/10">
+    <div className="relative group my-6 rounded-xl overflow-hidden border border-white/15">
       {lang && (
-        <div className="px-4 py-1.5 bg-white/5 border-b border-white/10 text-xs text-white/40 font-mono">
+        <div className="px-4 py-1.5 bg-white/5 border-b border-white/15 text-xs text-white/60 font-mono">
           {lang}
         </div>
       )}
@@ -45,7 +45,7 @@ function CodeBlock({ children, lang }: { children: string; lang?: string }) {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between py-2.5 border-b border-white/5 last:border-0">
-      <span className="text-white/50 text-sm font-medium">{label}</span>
+      <span className="text-white/70 text-sm font-medium">{label}</span>
       <span className="text-white/90 text-sm font-semibold text-right">{value}</span>
     </div>
   )
@@ -78,7 +78,7 @@ function SectionHeading({
 /* ─── helper: tag pill ─── */
 function Tag({ children }: { children: string }) {
   return (
-    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/50 border border-white/10">
+    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/70 border border-white/15">
       {children}
     </span>
   )
@@ -97,7 +97,7 @@ function StatCard({
   return (
     <div className="card-3d p-4 text-center">
       <div className={`text-2xl md:text-3xl font-bold text-${color} mb-1`}>{value}</div>
-      <div className="text-white/50 text-xs font-medium">{label}</div>
+      <div className="text-white/70 text-xs font-medium">{label}</div>
     </div>
   )
 }
@@ -107,7 +107,7 @@ function StatCard({
    ═══════════════════════════════════════════ */
 export default function HowWeBuiltOndeLaArticle() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-onde-dark">
       {/* ── Background orbs ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -164,13 +164,13 @@ export default function HowWeBuiltOndeLaArticle() {
             <span className="text-gradient-neon">onde.la</span>
           </h1>
 
-          <p className="text-xl text-white/60 font-medium mb-6 leading-relaxed">
+          <p className="text-xl text-white/80 font-medium mb-6 leading-relaxed">
             A free kids&apos; site with 50+ games, illustrated books, and a Minecraft skin creator —
             built in two weeks, mostly by AI agents.
           </p>
 
           {/* Meta line */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-white/40">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-white/60">
             <span>February 2026</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
             <span>FreeRiverHouse</span>
@@ -199,7 +199,7 @@ export default function HowWeBuiltOndeLaArticle() {
           <h2 className="text-lg font-bold text-onde-teal mb-4 flex items-center gap-2">
             <span className="text-xl">⚡</span> TL;DR
           </h2>
-          <p className="text-white/70 leading-relaxed mb-4">
+          <p className="text-white/90 leading-relaxed mb-4">
             <strong className="text-white">onde.la</strong> is a free website for kids —
             no ads, no tracking, no paywalls. It has{' '}
             <strong className="text-white">50+ browser games</strong>,{' '}
@@ -219,7 +219,7 @@ export default function HowWeBuiltOndeLaArticle() {
         </motion.div>
 
         {/* ── Prose wrapper ── */}
-        <div className="prose-custom space-y-6 text-white/70 leading-relaxed text-[16px] md:text-[17px]">
+        <div className="prose-custom space-y-6 text-white/90 leading-relaxed text-[16px] md:text-[17px]">
           {/* THE IDEA */}
           <SectionHeading emoji="💡" id="the-idea">
             The Idea
@@ -574,9 +574,9 @@ const updateTexture = (x: number, y: number, color: string) => {
           <div className="card-3d p-6 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-2 text-white/50 font-medium">Metric</th>
-                  <th className="text-right py-2 text-white/50 font-medium">Value</th>
+                <tr className="border-b border-white/15">
+                  <th className="text-left py-2 text-white/70 font-medium">Metric</th>
+                  <th className="text-right py-2 text-white/70 font-medium">Value</th>
                 </tr>
               </thead>
               <tbody>
@@ -685,7 +685,7 @@ const updateTexture = (x: number, y: number, color: string) => {
               </span>
               <div>
                 <p className="text-white font-medium">More games</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Targeting 100+ games across more categories — science, music, coding basics
                 </p>
               </div>
@@ -696,7 +696,7 @@ const updateTexture = (x: number, y: number, color: string) => {
               </span>
               <div>
                 <p className="text-white font-medium">More languages</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Spanish, Portuguese, and French are the next priorities
                 </p>
               </div>
@@ -707,7 +707,7 @@ const updateTexture = (x: number, y: number, color: string) => {
               </span>
               <div>
                 <p className="text-white font-medium">Skin creator upgrades</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Template skins, undo/redo, layer support, community gallery
                 </p>
               </div>
@@ -718,7 +718,7 @@ const updateTexture = (x: number, y: number, color: string) => {
               </span>
               <div>
                 <p className="text-white font-medium">More books</p>
-                <p className="text-white/60 text-sm">
+                <p className="text-white/80 text-sm">
                   Expanding the library with more illustrated classics and original stories
                 </p>
               </div>
@@ -759,7 +759,7 @@ const updateTexture = (x: number, y: number, color: string) => {
         </div>
 
         {/* ── Share buttons — bottom ── */}
-        <div className="mt-16 pt-8 border-t border-white/10">
+        <div className="mt-16 pt-8 border-t border-white/15">
           <ShareButtons
             title="How We Built onde.la — A Free Kids' Site, Mostly by AI"
             url="https://onde.la/blog/how-we-built-onde-la"
@@ -773,7 +773,7 @@ const updateTexture = (x: number, y: number, color: string) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <p className="text-white/40 text-sm mb-4">
+          <p className="text-white/60 text-sm mb-4">
             Built by{' '}
             <Link
               href="/"
@@ -831,7 +831,7 @@ const updateTexture = (x: number, y: number, color: string) => {
         <div className="mt-12 text-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/40 hover:text-onde-teal transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-onde-teal transition-colors text-sm"
           >
             <svg
               className="w-4 h-4"
