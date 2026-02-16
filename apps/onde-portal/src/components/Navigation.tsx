@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import { useTranslations } from '@/i18n'
 import LanguageSwitcher from './LanguageSwitcher'
 import NotificationCenter from './NotificationCenter'
+import ThemeToggle, { ThemeToggleCompact } from './ThemeToggle'
 import { useSearchModal } from './SearchModal'
 import CoinDisplay, { CoinDisplayCompact } from './CoinDisplay'
 
@@ -45,7 +46,7 @@ export default function Navigation() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
           ${isScrolled
-            ? 'bg-white/80 backdrop-blur-lg shadow-lg'
+            ? 'bg-white/80 dark:bg-onde-dark/80 backdrop-blur-lg shadow-lg dark:shadow-black/20'
             : 'bg-transparent'
           }`}
         initial={{ y: -100 }}
@@ -110,6 +111,7 @@ export default function Navigation() {
                 </kbd>
               </motion.button>
               <CoinDisplay />
+              <ThemeToggle />
               <LanguageSwitcher />
               <NotificationCenter />
               <Link href="/libri/">
@@ -143,6 +145,7 @@ export default function Navigation() {
                 </svg>
               </motion.button>
               <CoinDisplayCompact />
+              <ThemeToggleCompact />
               <LanguageSwitcher />
               <NotificationCenter />
               <motion.button
@@ -185,7 +188,7 @@ export default function Navigation() {
 
             {/* Menu Panel */}
             <motion.div
-              className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-xl overflow-hidden"
+              className="absolute top-20 left-4 right-4 bg-white dark:bg-onde-dark-surface rounded-3xl shadow-xl dark:shadow-black/30 overflow-hidden"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
