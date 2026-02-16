@@ -183,42 +183,6 @@ export default async function Dashboard() {
         </ScrollReveal>
       </div>
 
-      {/* Games Section - New! */}
-      <ScrollReveal animation="fade-up" delay={200}>
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-white/80 mb-4 flex items-center gap-3">
-            <span className="text-3xl">🎮</span>
-            <span>Games</span>
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <GameCard 
-              href="/static-games/moonlight-magic-house"
-              title="Moonlight Magic House"
-              description="Explore Luna's magical house with WASD controls"
-              icon="🌙"
-              gradient="from-purple-500/30 to-indigo-500/30"
-              borderColor="border-purple-500/30 hover:border-purple-400/50"
-            />
-            <GameCard 
-              href="/static-games/skin-creator"
-              title="Skin Creator"
-              description="Create unique characters with AI-powered evolution"
-              icon="🎨"
-              gradient="from-pink-500/30 to-rose-500/30"
-              borderColor="border-pink-500/30 hover:border-pink-400/50"
-            />
-            <GameCard 
-              href="/static-games/vr-reader"
-              title="VR Reader"
-              description="Immersive reading experience in virtual reality"
-              icon="📚"
-              gradient="from-cyan-500/30 to-blue-500/30"
-              borderColor="border-cyan-500/30 hover:border-cyan-400/50"
-            />
-          </div>
-        </div>
-      </ScrollReveal>
-
       {/* Quick Links - Bento Grid Style */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         <QuickLink 
@@ -364,56 +328,3 @@ function YouTubeIcon() {
   )
 }
 
-function GameCard({ 
-  href, 
-  title, 
-  description, 
-  icon,
-  gradient = 'from-white/10 to-white/5',
-  borderColor = 'border-white/20 hover:border-white/40',
-}: {
-  href: string
-  title: string
-  description: string
-  icon: string
-  gradient?: string
-  borderColor?: string
-}) {
-  return (
-    <a 
-      href={href}
-      className={`
-        group relative overflow-hidden
-        bg-gradient-to-br ${gradient}
-        rounded-2xl p-6 
-        border ${borderColor}
-        transition-all duration-500 ease-out
-        hover:shadow-2xl hover:shadow-purple-500/10
-        hover:-translate-y-2 hover:scale-[1.02]
-      `}
-    >
-      {/* Animated background glow */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer" />
-      </div>
-      
-      <div className="relative z-10">
-        <div className="text-4xl mb-3 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
-          {icon}
-        </div>
-        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-white transition-colors">
-          {title}
-        </h3>
-        <p className="text-sm text-white/50 group-hover:text-white/70 transition-colors">
-          {description}
-        </p>
-        
-        {/* Play button hint */}
-        <div className="mt-4 flex items-center gap-2 text-sm text-white/30 group-hover:text-white/60 transition-colors">
-          <span className="text-lg group-hover:translate-x-1 transition-transform">▶</span>
-          <span>Play now</span>
-        </div>
-      </div>
-    </a>
-  )
-}
