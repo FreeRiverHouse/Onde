@@ -134,9 +134,9 @@ VIRTUAL_BALANCE = 100.0  # Virtual balance for paper mode when real balance < $1
 
 # ── Trading parameters (data-driven from v3's 132 settled trades analysis) ──
 # BUY_NO: 76% WR overall → low bar.  BUY_YES: 19% WR overall → high bar.
-MIN_EDGE_BUY_NO  = 0.05   # 5% min for BUY_NO  (raised from 1% per Grok analysis: filter marginal trades)
-MIN_EDGE_BUY_YES = 0.08   # 8% min for BUY_YES (raised from 5%: only high-confidence setups)
-MIN_EDGE = 0.05            # Global minimum (raised from 1%: reduce low-quality trades)
+MIN_EDGE_BUY_NO  = 0.03   # 3% min for BUY_NO  (relaxed for paper mode data collection)
+MIN_EDGE_BUY_YES = 0.05   # 5% min for BUY_YES (relaxed for paper mode data collection)
+MIN_EDGE = 0.03            # Global minimum (relaxed for paper mode data collection)
 MAX_EDGE_CAP = 0.10        # Cap edges >10% (overconfident forecaster at >10%: 0% WR)
 MAX_POSITION_PCT = 0.05    # Max 5% of portfolio per position
 KELLY_FRACTION = 0.05      # Conservative (reduced from 0.15 per Grok: crypto too volatile for aggressive sizing)
@@ -146,7 +146,7 @@ MAX_POSITIONS = 15
 
 # ── Risk/Reward filters (TRADE-003: fix loss 2x > win asymmetry) ──
 # BUY_NO at >50¢ means you risk more than you win. Require bigger edge to justify.
-MAX_NO_PRICE_CENTS = 65     # Hard cap: never buy NO above 65¢ (risk:reward > 1.86)
+MAX_NO_PRICE_CENTS = 80     # Hard cap: never buy NO above 80¢ (relaxed for paper mode data)
 NO_PRICE_EDGE_SCALE = True  # Scale min edge up with BUY_NO price
 # If NO price is 50-65¢, require edge >= 3% + 0.1% per cent above 50
 # e.g., 55¢ → 3.5% min edge, 60¢ → 4% min edge, 65¢ → 4.5%
