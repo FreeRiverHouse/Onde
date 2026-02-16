@@ -281,7 +281,7 @@
 ### Da TRADE-002 (Grok ACCEPTED ✅)
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| G5 | GROK-TRADE-003 | Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data | 🔥 Strategy | TODO | @clawdinho |
+| G5 | GROK-TRADE-003 | Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data | 🔥 Strategy | IN_PROGRESS | @clawdinho |
 | G6 | GROK-TRADE-004 | Post-trade monitoring + auto-veto overrides with circuit breakers: log vetoed/passed trades, alert clusters of high-edge trades, daily exposure caps, pause-on-loss-streaks | 🔥 Risk mgmt | TODO | @clawdinho |
 
 ---
