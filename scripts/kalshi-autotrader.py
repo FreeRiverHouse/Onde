@@ -2561,6 +2561,14 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         print("❌ No tradeable markets found!")
         return
 
+    # On holidays, pre-filter to crypto-only (they trade 24/7)
+    if is_holiday_today:
+        crypto_markets = [m for m in markets if any(x in m.ticker.upper() for x in ("KXBTC", "KXETH", "KXSOL", "CRYPTO"))]
+        print(f"🎄 Holiday filter: {len(crypto_markets)} crypto markets out of {len(markets)} total")
+        if crypto_markets:
+            markets = crypto_markets
+        # If no crypto markets available, keep all (holiday skip will filter later)
+
     # Score and rank
     scored = [(m, score_market(m)) for m in markets]
     scored.sort(key=lambda x: x[1], reverse=True)
