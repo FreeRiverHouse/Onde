@@ -114,6 +114,75 @@ def get_current_tasks_by_agent() -> dict:
     
     return result
 
+def get_system_health() -> dict:
+    """Get system CPU, memory, and disk metrics."""
+    result = {"cpu_percent": 0, "memory_percent": 0, "gpu_temp": None}
+    
+    try:
+        # CPU usage via top (macOS)
+        cpu_out = run_command(["top", "-l", "1", "-n", "0"])
+        for line in cpu_out.split("\n"):
+            if "CPU usage" in line:
+                # Parse "CPU usage: 5.26% user, 8.77% sys, 85.96% idle"
+                parts = line.split(",")
+                for part in parts:
+                    part = part.strip()
+                    if "idle" in part:
+                        try:
+                            idle = float(part.split("%")[0].strip().split()[-1])
+                            result["cpu_percent"] = round(100 - idle, 1)
+                        except (ValueError, IndexError):
+                            pass
+                break
+    except Exception:
+        pass
+    
+    try:
+        # Memory usage via vm_stat (macOS)
+        vm_out = run_command(["vm_stat"])
+        page_size = 16384  # Default for Apple Silicon
+        pages_free = 0
+        pages_active = 0
+        pages_inactive = 0
+        pages_speculative = 0
+        pages_wired = 0
+        pages_compressor = 0
+        
+        for line in vm_out.split("\n"):
+            if "page size of" in line:
+                try:
+                    page_size = int(line.split("page size of")[1].strip().split()[0])
+                except (ValueError, IndexError):
+                    pass
+            elif "Pages free:" in line:
+                try: pages_free = int(line.split(":")[1].strip().rstrip("."))
+                except: pass
+            elif "Pages active:" in line:
+                try: pages_active = int(line.split(":")[1].strip().rstrip("."))
+                except: pass
+            elif "Pages inactive:" in line:
+                try: pages_inactive = int(line.split(":")[1].strip().rstrip("."))
+                except: pass
+            elif "Pages speculative:" in line:
+                try: pages_speculative = int(line.split(":")[1].strip().rstrip("."))
+                except: pass
+            elif "Pages wired down:" in line:
+                try: pages_wired = int(line.split(":")[1].strip().rstrip("."))
+                except: pass
+            elif "Pages occupied by compressor:" in line:
+                try: pages_compressor = int(line.split(":")[1].strip().rstrip("."))
+                except: pass
+        
+        total_pages = pages_free + pages_active + pages_inactive + pages_speculative + pages_wired + pages_compressor
+        if total_pages > 0:
+            used_pages = pages_active + pages_wired + pages_compressor
+            result["memory_percent"] = round((used_pages / total_pages) * 100, 1)
+    except Exception:
+        pass
+    
+    return result
+
+
 def get_memory_stats() -> dict:
     """Get memory statistics for today."""
     today = datetime.now().strftime("%Y-%m-%d")
@@ -269,6 +338,7 @@ def build_dashboard_data() -> dict:
         "gpu": get_gpu_status(),
         "ollama": get_ollama_status(),
         "alerts_pending": get_alert_count(),
+        "systemHealth": get_system_health(),
         "agents": {
             "clawdinho": {
                 "host": "FRH-M1-PRO",
