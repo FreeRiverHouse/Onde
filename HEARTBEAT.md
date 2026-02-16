@@ -65,7 +65,7 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 - `scripts/kalshi-extreme-vol.alert` → Salva in `data/finetuning/extreme-vol.jsonl`, poi elimina
 - `scripts/kalshi-price-spread.alert` → Salva in `data/finetuning/price-spread.jsonl`, poi elimina
 
-## ⏰ CICLO HEARTBEAT (ogni 5 min)
+## ⏰ CICLO WATCHDOG (ogni 15 min)
 
 ```
 1. CHECK: Autotrader running? → pgrep -f kalshi-autotrader
@@ -76,9 +76,21 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 6. WORK: Completa il task! (solo se GPU/CPU OK)
 7. UPDATE: Segna completato in TASKS.md
 8. ADD: Aggiungi 3 nuovi task utili (da ROADMAP o idee)
-9. COMMIT: git add/commit/push
-10. Continua col prossimo task
+9. 🤖 GROK: Racconta a Grok cosa hai fatto, fatti valutare, chiedi next steps
+10. COMMIT: git add/commit/push
+11. Continua col prossimo task — MAI FERMARTI
 ```
+
+### 🤖 STEP 9: Consulenza Grok (OBBLIGATORIO se fermo o dopo task)
+
+Ogni 15 minuti, SE sei fermo o hai appena finito un task:
+```bash
+gemini "Sono un AI agent che lavora su progetto Onde (sito web onde.la, dashboard onde.surf, trading Kalshi/Polymarket). Ho appena fatto: [DESCRIVI TASK]. Valuta il mio lavoro, testa mentalmente se ha senso, e suggerisci i prossimi 3 step concreti per migliorare il progetto."
+```
+- Prendi il primo suggerimento e INIZIA SUBITO
+- Aggiungi gli altri 2 come task in TASKS.md
+- Se hai dubbi tecnici/creativi/business → chiedi a Grok PRIMA di decidere
+- MAI MAI fermarti senza aver consultato Grok per i next steps
 
 ## 🖥️ LOAD CHECK (STEP 2)
 
