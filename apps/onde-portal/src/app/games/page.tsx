@@ -45,6 +45,7 @@ const allGames = [
   { id: 'minesweeper', href: '/games/minesweeper', emoji: '💣', title: 'Minesweeper' },
   { id: 'scratch', href: '/games/scratch', emoji: '💻', title: 'Scratch' },
   { id: 'typing-race', href: '/games/typing-race', emoji: '🏎️', title: 'Type Race' },
+  { id: 'snake', href: '/games/snake', emoji: '🐍', title: 'Snake' },
 ]
 
 // Positions for floating game bubbles around the island (percentages)

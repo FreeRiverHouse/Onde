@@ -76,6 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/tictactoe',
     '/games/typing',
     '/games/typing-race',
+    '/games/snake',
     '/games/whack',
     '/games/wheel',
     '/games/word-puzzle',
