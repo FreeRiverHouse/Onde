@@ -134,12 +134,12 @@ VIRTUAL_BALANCE = 100.0  # Virtual balance for paper mode when real balance < $1
 
 # ── Trading parameters (data-driven from v3's 132 settled trades analysis) ──
 # BUY_NO: 76% WR overall → low bar.  BUY_YES: 19% WR overall → high bar.
-MIN_EDGE_BUY_NO  = 0.01   # 1% min for BUY_NO  (78% WR even at tiny edges)
-MIN_EDGE_BUY_YES = 0.05   # 5% min for BUY_YES (only profitable bucket: 5-10%)
-MIN_EDGE = 0.01            # Global minimum (legacy compat)
+MIN_EDGE_BUY_NO  = 0.05   # 5% min for BUY_NO  (raised from 1% per Grok analysis: filter marginal trades)
+MIN_EDGE_BUY_YES = 0.08   # 8% min for BUY_YES (raised from 5%: only high-confidence setups)
+MIN_EDGE = 0.05            # Global minimum (raised from 1%: reduce low-quality trades)
 MAX_EDGE_CAP = 0.10        # Cap edges >10% (overconfident forecaster at >10%: 0% WR)
 MAX_POSITION_PCT = 0.05    # Max 5% of portfolio per position
-KELLY_FRACTION = 0.15      # Aggressive in paper mode for data collection
+KELLY_FRACTION = 0.05      # Conservative (reduced from 0.15 per Grok: crypto too volatile for aggressive sizing)
 MIN_BET_CENTS = 5
 MAX_BET_CENTS = 500
 MAX_POSITIONS = 15
@@ -1170,18 +1170,22 @@ def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
         result["regime"] = "sideways"
         result["confidence"] = 0.6
 
-    # Dynamic min edge per regime
+    # Dynamic min edge per regime (tightened per Grok analysis 2026-02-16)
     if result["regime"] in ("trending_bullish", "trending_bearish"):
-        result["dynamic_min_edge"] = 0.07
+        result["dynamic_min_edge"] = 0.07  # Trending = clearer signal, moderate edge ok
     elif result["regime"] == "choppy":
-        result["dynamic_min_edge"] = 0.08
+        result["dynamic_min_edge"] = 0.10  # Choppy = danger zone, require high edge (was 0.08)
     else:
-        result["dynamic_min_edge"] = 0.06
+        result["dynamic_min_edge"] = 0.08  # Sideways = uncertain, need decent edge (was 0.06)
 
     if vol_class in ("high", "very_high"):
-        result["dynamic_min_edge"] += 0.01
+        result["dynamic_min_edge"] += 0.02  # Extra penalty for high volatility (was 0.01)
 
-    result["dynamic_min_edge"] = max(0.03 if DRY_RUN else 0.05, min(0.20, result["dynamic_min_edge"]))
+    # Store ATR info for asset-specific filtering (Grok recommendation #4)
+    result["avg_candle_range_pct"] = avg_range
+    result["btc_high_vol_skip"] = (avg_range > 0.01)  # ATR > 1% = skip BTC trades
+
+    result["dynamic_min_edge"] = max(0.05, min(0.20, result["dynamic_min_edge"]))
     return result
 
 
@@ -2606,6 +2610,22 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
             asset = "btc" if "BTC" in market.ticker.upper() else "eth"
             mkt_context["momentum"] = context.get("momentum", {}).get(asset, {})
             mkt_context["regime"] = context.get("regime", {}).get(asset, {})
+
+        # Asset-specific volatility filter (Grok recommendation #4: BTC only in low-vol regimes)
+        if mkt_type == "crypto":
+            asset_regime = mkt_context.get("regime", {})
+            asset_name = "btc" if "BTC" in market.ticker.upper() else "eth"
+            if asset_name == "btc" and asset_regime.get("btc_high_vol_skip", False):
+                avg_range = asset_regime.get("avg_candle_range_pct", 0)
+                print(f"   ⏭️ BTC high-vol skip: ATR {avg_range:.2%} > 1% (choppy conditions)")
+                trades_skipped += 1
+                log_skip(market.ticker, f"btc_high_vol_atr_{avg_range:.4f}", {"regime": asset_regime.get("regime")})
+                continue
+            if asset_regime.get("regime") == "choppy" and asset_regime.get("volatility") in ("high", "very_high"):
+                print(f"   ⏭️ Choppy+high-vol skip for {asset_name.upper()}")
+                trades_skipped += 1
+                log_skip(market.ticker, f"choppy_high_vol_{asset_name}", {"regime": "choppy"})
+                continue
 
         # Step 1: FORECAST
         if use_heuristic:
