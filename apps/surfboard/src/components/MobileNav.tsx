@@ -7,10 +7,12 @@ const navLinks = [
   { href: '/', label: 'Dashboard', icon: '🏠' },
   { href: '/analytics', label: 'Analytics', icon: '📊' },
   { href: '/house', label: 'House', icon: '🏡' },
+  { href: '/trading', label: 'Trading', icon: '📈' },
   { href: '/pr', label: 'PR', icon: '📰' },
   { href: '/betting', label: 'Betting', icon: '🎰' },
   { href: '/corde', label: 'CORDE', icon: '🔗' },
   { href: '/social', label: 'Social', icon: '📱' },
+  { href: '/health', label: 'Health', icon: '💚' },
 ]
 
 export function MobileNav() {
