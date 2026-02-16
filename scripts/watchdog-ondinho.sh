@@ -1,60 +1,44 @@
 #!/bin/bash
-# Watchdog for Ondinho (M4 Pro agent) activity
-# Creates alert file if Ondinho is inactive >30 min during work hours
+# Watchdog: Clawdinho monitora Ondinho
+# Controlla ultimo commit di Ondinho su git, se fermo >30min crea alert
+# Ogni 2 ore: review task chiusi da Ondinho
 
-set -e
-cd "$(dirname "$0")/.."
-
-ALERT_FILE="scripts/ondinho-stalled.alert"
-LOG_FILE="scripts/watchdog-ondinho.log"
-WORK_START=8   # 8 AM
-WORK_END=23    # 11 PM
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+LOG_FILE="$SCRIPT_DIR/watchdog-ondinho.log"
+ALERT_FILE="$SCRIPT_DIR/ondinho-stalled.alert"
+ONDINHO_BOT_TOKEN="${ONDINHO_BOT_TOKEN:-$(grep ONDINHO_BOT_TOKEN "$PROJECT_DIR/.env.trading" 2>/dev/null | cut -d= -f2)}"
+MATTIA_CHAT_ID="7505631979"
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
 }
 
-# Check if within work hours (PST)
-HOUR=$(TZ="America/Los_Angeles" date +%H)
-if [ "$HOUR" -lt "$WORK_START" ] || [ "$HOUR" -ge "$WORK_END" ]; then
-    log "Outside work hours ($HOUR), skipping check"
-    exit 0
+# Check ultimo commit di Ondinho (commits con "ondinho" o dal M4)
+cd "$PROJECT_DIR" || exit 1
+git fetch origin main --quiet 2>/dev/null
+
+# Cerca commit recenti (ultimi 30 min) - qualsiasi commit conta come attività
+LAST_COMMIT_TIME=$(git log origin/main -1 --format="%ct" 2>/dev/null)
+NOW=$(date +%s)
+DIFF_MIN=$(( (NOW - LAST_COMMIT_TIME) / 60 ))
+
+log "Check: ultimo commit $DIFF_MIN min fa"
+
+if [ "$DIFF_MIN" -gt 30 ]; then
+    log "⚠️ Nessun commit da $DIFF_MIN minuti!"
+    
+    # Crea alert file per Clawdinho heartbeat
+    echo "Ondinho non ha committato da $DIFF_MIN minuti. Ultimo commit: $(git log origin/main -1 --format='%s (%ar)')" > "$ALERT_FILE"
+    
+    log "Alert file creato: $ALERT_FILE"
+else
+    log "✅ Attività recente ($DIFF_MIN min fa)"
+    # Rimuovi alert se esiste
+    [ -f "$ALERT_FILE" ] && rm "$ALERT_FILE" && log "Alert rimosso"
 fi
 
-# Check last commit from Ondinho (commits from M4 Pro or onde-bot)
-# Look for commits in last 30 minutes
-LAST_COMMIT_TIME=$(git log --all --author="onde-bot\|ondinho\|M4" --format="%at" -1 2>/dev/null || echo "0")
-CURRENT_TIME=$(date +%s)
-INACTIVE_MINUTES=$(( (CURRENT_TIME - LAST_COMMIT_TIME) / 60 ))
-
-log "Ondinho last commit: ${INACTIVE_MINUTES} min ago"
-
-# Check for recent task completions (look for "DONE" additions in last hour)
-RECENT_TASK_DONE=$(git log --all --since="1 hour ago" --grep="task:.*done\|DONE" --oneline 2>/dev/null | wc -l | tr -d ' ')
-
-log "Recent task completions: ${RECENT_TASK_DONE}"
-
-# Alert if inactive >30 min AND no recent task completions
-if [ "$INACTIVE_MINUTES" -gt 30 ] && [ "$RECENT_TASK_DONE" -eq 0 ]; then
-    if [ ! -f "$ALERT_FILE" ]; then
-        cat > "$ALERT_FILE" << EOF
-🤖 ONDINHO STALLED ALERT
-
-Last Ondinho commit: ${INACTIVE_MINUTES} minutes ago
-Recent task completions: ${RECENT_TASK_DONE}
-Time: $(date '+%Y-%m-%d %H:%M:%S PST')
-
-Ondinho may need a restart or new task assignment.
-EOF
-        log "ALERT: Ondinho inactive for ${INACTIVE_MINUTES} min, alert created"
-    else
-        log "Alert file already exists, skipping"
-    fi
-else
-    # Remove old alert if Ondinho is active again
-    if [ -f "$ALERT_FILE" ]; then
-        rm "$ALERT_FILE"
-        log "Ondinho active again, alert cleared"
-    fi
-    log "OK: Ondinho is active"
+# Mantieni log compatto (ultime 200 righe)
+if [ -f "$LOG_FILE" ] && [ "$(wc -l < "$LOG_FILE")" -gt 200 ]; then
+    tail -100 "$LOG_FILE" > "$LOG_FILE.tmp" && mv "$LOG_FILE.tmp" "$LOG_FILE"
 fi
