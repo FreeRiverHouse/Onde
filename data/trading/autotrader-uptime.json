@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-15T23:30:03.480529+00:00",
+  "updated_at": "2026-02-16T01:30:03.824292+00:00",
   "last_24h": {
     "uptime_pct": 99.48,
     "healthy_checks": 386,
@@ -16,8 +16,8 @@
   },
   "daily": {
     "2026-02-15": {
-      "uptime_pct": 99.47,
-      "healthy": 376,
+      "uptime_pct": 99.53,
+      "healthy": 424,
       "restarts": 2
     },
     "2026-02-14": {
