@@ -242,7 +242,7 @@ export default function MyBooksPage() {
                     </div>
                   )}
 
-                  <p className="text-gray-800 text-sm leading-relaxed mb-6 line-clamp-3">
+                  <p className="text-gray-800 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3">
                     {book.description}
                   </p>
 
@@ -296,7 +296,7 @@ export default function MyBooksPage() {
 
                   {/* Free Label */}
                   {book.isFree && (
-                    <p className="mt-4 text-xs text-green-600 flex items-center gap-1.5">
+                    <p className="mt-4 text-xs text-green-600 dark:text-green-400 flex items-center gap-1.5">
                       <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>

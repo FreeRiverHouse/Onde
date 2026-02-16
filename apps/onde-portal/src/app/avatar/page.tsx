@@ -1041,13 +1041,13 @@ export default function AvatarPage() {
   }
 
   return (
-    <div className="min-h-screen py-6 px-4 bg-gradient-to-br from-onde-teal/10 via-purple-50 to-pink-50">
+    <div className="min-h-screen py-6 px-4 bg-gradient-to-br from-onde-teal/10 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <Link
             href="/profile"
-            className="flex items-center gap-2 text-teal-600 hover:text-teal-800 transition-colors"
+            className="flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-200 transition-colors"
           >
             <span>←</span>
             <span>Back to Profile</span>
@@ -1064,10 +1064,10 @@ export default function AvatarPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-6"
         >
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
             🎨 Avatar Studio
           </h1>
-          <p className="text-gray-600">Create your unique look!</p>
+          <p className="text-gray-600 dark:text-gray-400">Create your unique look!</p>
         </motion.div>
 
         {/* Success Messages */}
@@ -1101,7 +1101,7 @@ export default function AvatarPage() {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col items-center"
           >
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border-2 border-white/50">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border-2 border-white/50 dark:border-gray-700">
               <motion.div
                 key={JSON.stringify(avatar)}
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -1137,7 +1137,7 @@ export default function AvatarPage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-xl border-2 border-white/50"
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-6 shadow-xl border-2 border-white/50 dark:border-gray-700"
           >
             {/* Category Tabs */}
             <div className="flex flex-wrap gap-2 mb-6">
@@ -1364,10 +1364,10 @@ export default function AvatarPage() {
           transition={{ delay: 0.3 }}
           className="mt-8 bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/50"
         >
-          <h3 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <h3 className="font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
             <span>💡</span> How to Unlock More Items
           </h3>
-          <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-600">
+          <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-400">
             <div className="flex items-start gap-2">
               <span className="text-lg">🪙</span>
               <div>

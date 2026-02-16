@@ -34,7 +34,7 @@ function EmojiPicker({
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl"
           onClick={e => e.stopPropagation()}
         >
           <h3 className="text-xl font-bold text-teal-800 mb-4 text-center">
@@ -301,7 +301,7 @@ export default function ProfilePage() {
   const lockedAchievements = getLockedAchievements()
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
+    <div className="min-h-screen py-8 px-4 dark:bg-gray-900" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
       <div className="max-w-4xl mx-auto">
         {/* Back link */}
         <Link 

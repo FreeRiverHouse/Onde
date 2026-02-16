@@ -241,7 +241,7 @@ function PetModal({
               </div>
             ) : (
               <div className="flex items-center justify-center gap-2">
-                <h2 className="text-2xl font-bold text-gray-800">{pet.nickname}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">{pet.nickname}</h2>
                 <button 
                   onClick={() => setIsRenaming(true)}
                   className="text-gray-500 hover:text-gray-700"
@@ -545,7 +545,7 @@ export default function PetsPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ background: 'linear-gradient(180deg, #FEF3E2 0%, #FFECD2 30%, #FCB69F 100%)' }}>
+    <div className="min-h-screen py-8 px-4 dark:bg-gray-900" style={{ background: 'linear-gradient(180deg, #FEF3E2 0%, #FFECD2 30%, #FCB69F 100%)' }}>
       <div className="max-w-6xl mx-auto">
         {/* Back link */}
         <Link 

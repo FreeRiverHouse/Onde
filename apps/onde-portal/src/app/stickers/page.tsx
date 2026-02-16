@@ -172,7 +172,7 @@ function SetCard({
       <div className="text-4xl mb-2">{set.icon}</div>
 
       {/* Set info */}
-      <h3 className={`font-bold text-lg ${isCompleted ? 'text-white' : 'text-gray-800'}`}>
+      <h3 className={`font-bold text-lg ${isCompleted ? 'text-white' : 'text-gray-800 dark:text-white'}`}>
         {set.name}
       </h3>
       <p className={`text-sm mb-3 ${isCompleted ? 'text-white/80' : 'text-gray-500'}`}>
@@ -602,7 +602,7 @@ export default function StickersPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ background: 'linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 50%, #BAE6FD 100%)' }}>
+    <div className="min-h-screen py-8 px-4 dark:bg-gray-900" style={{ background: 'linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 50%, #BAE6FD 100%)' }}>
       <div className="max-w-6xl mx-auto">
         {/* Back link */}
         <Link

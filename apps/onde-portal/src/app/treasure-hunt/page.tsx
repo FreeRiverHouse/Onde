@@ -29,7 +29,7 @@ export default function TreasureHuntPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white dark:from-gray-900 dark:to-gray-900">
       {/* Hero Header */}
       <div className="relative bg-gradient-to-br from-onde-gold via-amber-400 to-amber-500 
                       text-white py-16 px-4 overflow-hidden">
@@ -121,8 +121,8 @@ export default function TreasureHuntPage() {
                 flex items-center gap-2 px-6 py-3 rounded-lg font-medium
                 transition-all duration-200
                 ${activeTab === tab.id 
-                  ? 'bg-white shadow-md text-onde-ocean' 
-                  : 'text-gray-600 hover:text-gray-800'}
+                  ? 'bg-white dark:bg-gray-800 shadow-md text-onde-ocean dark:text-teal-300' 
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white'}
               `}
             >
               <span>{tab.icon}</span>
@@ -146,7 +146,7 @@ export default function TreasureHuntPage() {
               
               {/* Chest list by location */}
               <div className="mt-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
                   📍 Chest Locations
                 </h2>
                 <div className="grid gap-4 md:grid-cols-2">
@@ -224,11 +224,11 @@ function LocationCard({
 
   return (
     <div className={`
-      bg-white rounded-xl p-4 border-2 transition-all
+      bg-white dark:bg-gray-800 rounded-xl p-4 border-2 transition-all
       ${allFound ? 'border-green-300 bg-green-50' : 'border-gray-200'}
     `}>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="font-bold text-gray-800">{location}</h3>
+        <h3 className="font-bold text-gray-800 dark:text-white">{location}</h3>
         <span className={`
           text-sm px-2 py-1 rounded-full
           ${allFound ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}
