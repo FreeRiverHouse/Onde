@@ -118,14 +118,14 @@ export default function AnalyticsPage() {
       <ScrollReveal animation="fade-up" duration={800}>
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <a href="/" className="text-white/40 hover:text-white/60 transition-colors">← Back</a>
+            <a href="/" className="text-white/60 hover:text-white/80 transition-colors">← Back</a>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
             <GradientText colors={['#ffffff', '#06b6d4', '#8b5cf6', '#06b6d4', '#ffffff']} speed={4}>
               Analytics
             </GradientText>
           </h1>
-          <p className="text-white/40 max-w-xl">
+          <p className="text-white/60 max-w-xl">
             onde.la web traffic — powered by Cloudflare Web Analytics.
           </p>
         </div>
@@ -749,12 +749,12 @@ function StatCard({
     <div className="bg-white/[0.04] rounded-xl p-4 border border-white/[0.08] hover:border-white/[0.15] transition-colors">
       <div className="flex items-center gap-1.5 mb-1.5">
         <span className="text-sm">{icon}</span>
-        <span className="text-[10px] text-white/40 uppercase tracking-wider font-medium">{label}</span>
+        <span className="text-[10px] text-white/70 uppercase tracking-wider font-semibold">{label}</span>
       </div>
       <div className={`text-2xl font-bold ${colorClasses[color]} tabular-nums`}>
         {value.toLocaleString()}{suffix || ''}
       </div>
-      {subtitle && <div className="text-[10px] text-white/30 mt-0.5">{subtitle}</div>}
+      {subtitle && <div className="text-[10px] text-white/50 mt-0.5">{subtitle}</div>}
     </div>
   )
 }
