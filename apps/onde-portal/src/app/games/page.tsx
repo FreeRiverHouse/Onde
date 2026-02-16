@@ -16,6 +16,7 @@ const games = [
   { id: 'crafting', href: '/games/crafting-guide', title: 'Crafting Guide', desc: 'All Recipes', emoji: '📖' },
   { id: 'cookie', href: '/games/cookie-clicker', title: 'Cookie Clicker', desc: 'Idle Clicker', emoji: '🍪' },
   { id: 'pet', href: '/games/virtual-pet', title: 'Virtual Pet', desc: 'Adopt & Care', emoji: '🐾' },
+  { id: 'roblox-avatar', href: '/games/roblox-avatar', title: 'Avatar Creator', desc: 'Design Characters', emoji: '🧍' },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz', desc: 'Knowledge', emoji: '❓' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math Fun', emoji: '➕' },
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match Pairs', emoji: '🧠' },
@@ -54,6 +55,7 @@ const allGames = [
   { id: 'tower', href: '/games/tower', emoji: '🏗️', title: 'Tower Stack' },
   { id: 'cookie', href: '/games/cookie-clicker', emoji: '🍪', title: 'Cookie Clicker' },
   { id: 'pet', href: '/games/virtual-pet', emoji: '🐾', title: 'Virtual Pet' },
+  { id: 'roblox-avatar', href: '/games/roblox-avatar', emoji: '🧍', title: 'Avatar Creator' },
 ]
 
 // Positions for floating game bubbles around the island (percentages)
@@ -154,6 +156,7 @@ export default function GamingIsland() {
               { href: '/games/name-generator', emoji: '⚒️', title: 'Name Generator', color: 'from-gray-600 to-gray-700' },
               { href: '/games/cookie-clicker', emoji: '🍪', title: 'Cookie Clicker', color: 'from-amber-500 to-yellow-600' },
               { href: '/games/virtual-pet', emoji: '🐾', title: 'Virtual Pet', color: 'from-pink-500 to-purple-600' },
+              { href: '/games/roblox-avatar', emoji: '🧍', title: 'Avatar Creator', color: 'from-blue-500 to-purple-600' },
             ].map((game) => (
               <Link 
                 key={game.href}
@@ -168,6 +171,27 @@ export default function GamingIsland() {
 
           {/* Recently Played (mobile) */}
           <RecentlyPlayedSection />
+
+          {/* Browse by Category */}
+          <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">📂 Browse by Category</h2>
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            {[
+              { href: '/games/minecraft', emoji: '⛏️', title: 'Minecraft Tools', color: 'from-green-500 to-emerald-600' },
+              { href: '/games/category/puzzle', emoji: '🧩', title: 'Puzzle & Brain', color: 'from-blue-500 to-indigo-600' },
+              { href: '/games/category/educational', emoji: '📚', title: 'Educational', color: 'from-amber-500 to-orange-600' },
+              { href: '/games/category/creative', emoji: '🎨', title: 'Creative & Art', color: 'from-pink-500 to-rose-600' },
+              { href: '/games/category/action', emoji: '🕹️', title: 'Action & Arcade', color: 'from-red-500 to-red-700' },
+            ].map((cat) => (
+              <Link
+                key={cat.href}
+                href={cat.href}
+                className={`bg-gradient-to-br ${cat.color} rounded-2xl p-3 min-h-[56px] text-center shadow-lg active:scale-95 transition-transform flex items-center gap-2 justify-center`}
+              >
+                <span className="text-2xl">{cat.emoji}</span>
+                <span className="text-white font-bold text-sm">{cat.title}</span>
+              </Link>
+            ))}
+          </div>
 
           {/* All Mini-Games Grid */}
           <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">🎮 {t.gamesPage?.miniGames || 'Mini-Games'}</h2>
@@ -958,13 +982,13 @@ export default function GamingIsland() {
             </div>
           </Link>
           <Link
-            href="/games/skin-creator"
-            className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-purple-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+            href="/games/minecraft"
+            className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-green-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
           >
-            <span className="text-3xl group-hover:scale-110 transition-transform">🎨</span>
+            <span className="text-3xl group-hover:scale-110 transition-transform">⛏️</span>
             <div>
-              <p className="font-bold text-purple-800">Skin Creator</p>
-              <p className="text-sm text-purple-600/70">Design Minecraft skins with AI</p>
+              <p className="font-bold text-green-800">Minecraft Tools</p>
+              <p className="text-sm text-green-600/70">Skins, names, crafting & enchants</p>
             </div>
           </Link>
           <Link
