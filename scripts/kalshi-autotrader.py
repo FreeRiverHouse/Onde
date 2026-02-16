@@ -220,10 +220,16 @@ DRAWDOWN_ALERT_FILE = Path(__file__).parent / "kalshi-drawdown.alert"
 API_ERROR_ALERT_FILE = Path(__file__).parent / "kalshi-api-error.alert"
 MAX_EXPOSURE_ALERT_FILE = Path(__file__).parent / "kalshi-max-exposure.alert"
 
+# ── Alert + log files (GROK-TRADE-004: post-trade monitoring) ──
+DECISION_LOG_FILE = PROJECT_ROOT / "data" / "trading" / "kalshi-decisions.jsonl"
+LOSS_STREAK_ALERT_FILE = Path(__file__).parent / "kalshi-loss-streak.alert"
+HIGH_EDGE_CLUSTER_ALERT_FILE = Path(__file__).parent / "kalshi-high-edge-cluster.alert"
+
 # ── Risk limits (GROK-TRADE-002: portfolio-level) ──
 MAX_EXPOSURE_PCT = 0.50          # Don't trade if total open positions value > 50% of balance
 MAX_CATEGORY_EXPOSURE_PCT = 0.30 # Max 30% in any single category (crypto, weather, sports)
 MAX_DAILY_TRADES = 20            # Hard cap on trades per day
+MAX_DAILY_EXPOSURE_USD = 50.0    # GROK-TRADE-004: Absolute $ cap on daily new exposure
 
 # ── Structured logging (GROK-TRADE-002) ──
 AUTOTRADER_LOG_FILE = PROJECT_ROOT / "data" / "trading" / "kalshi-autotrader.log"
@@ -2094,8 +2100,14 @@ def check_circuit_breaker() -> tuple:
                  "losses": losses, "reason": f"{losses} consecutive losses"}
         with open(CIRCUIT_BREAKER_STATE_FILE, "w") as f:
             json.dump(state, f, indent=2)
+        # GROK-TRADE-004: Create alert file for loss streak
+        write_alert(LOSS_STREAK_ALERT_FILE,
+                   f"Circuit breaker triggered: {losses} consecutive losses",
+                   {"consecutive_losses": losses, "threshold": CIRCUIT_BREAKER_THRESHOLD})
         return True, losses, f"TRIGGERED: {losses} consecutive losses"
 
+    # Clear loss streak alert if we're under threshold
+    clear_alert(LOSS_STREAK_ALERT_FILE)
     return False, losses, f"OK ({losses}/{CIRCUIT_BREAKER_THRESHOLD} losses)"
 
 
@@ -2262,6 +2274,109 @@ def log_skip(ticker: str, reason: str, details: dict = None):
              "reason": reason, **(details or {})}
     with open(SKIP_LOG_FILE, "a") as f:
         f.write(json.dumps(entry) + "\n")
+
+
+# ============================================================================
+# POST-TRADE MONITORING (GROK-TRADE-004)
+# ============================================================================
+
+def log_decision(market: MarketInfo, decision: TradeDecision, outcome: str):
+    """
+    Log every trade decision (vetoed OR passed) to a dedicated JSONL file.
+    outcome: "executed", "vetoed", "skipped_risk", "skipped_edge", "skipped_parlay"
+    """
+    DECISION_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "ticker": market.ticker,
+        "title": market.title[:80],
+        "category": market.category,
+        "outcome": outcome,
+        "action": decision.action,
+        "edge": round(decision.edge, 4),
+        "price_cents": decision.price_cents,
+        "contracts": decision.contracts,
+        "reason": decision.reason,
+        "forecast_prob": round(decision.forecast.probability, 4) if decision.forecast else None,
+        "forecast_confidence": decision.forecast.confidence if decision.forecast else None,
+        "critic_should_trade": decision.critic.should_trade if decision.critic else None,
+        "critic_flaws": decision.critic.major_flaws if decision.critic else [],
+    }
+    try:
+        with open(DECISION_LOG_FILE, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+    except Exception as e:
+        structured_log("decision_log_error", {"error": str(e)}, level="error")
+
+
+def check_high_edge_cluster():
+    """
+    GROK-TRADE-004: Alert if we see clusters of high-edge skipped trades.
+    If 5+ trades in the last hour had edge > 15% but were skipped/vetoed,
+    the forecaster may be miscalibrated or market conditions are unusual.
+    """
+    if not DECISION_LOG_FILE.exists():
+        return
+    try:
+        one_hour_ago = datetime.now(timezone.utc) - timedelta(hours=1)
+        high_edge_skips = 0
+        with open(DECISION_LOG_FILE) as f:
+            for line in f:
+                try:
+                    entry = json.loads(line.strip())
+                    ts = datetime.fromisoformat(entry["timestamp"])
+                    if ts.tzinfo is None:
+                        ts = ts.replace(tzinfo=timezone.utc)
+                    if ts >= one_hour_ago and entry.get("outcome") != "executed":
+                        if abs(entry.get("edge", 0)) > 0.15:
+                            high_edge_skips += 1
+                except (json.JSONDecodeError, KeyError, ValueError):
+                    continue
+
+        if high_edge_skips >= 5:
+            write_alert(HIGH_EDGE_CLUSTER_ALERT_FILE,
+                       f"{high_edge_skips} high-edge trades (>15%) skipped/vetoed in last hour — possible forecaster miscalibration",
+                       {"count": high_edge_skips, "threshold": 5, "edge_threshold": 0.15})
+            structured_log("high_edge_cluster", {"count": high_edge_skips}, level="warning")
+        else:
+            clear_alert(HIGH_EDGE_CLUSTER_ALERT_FILE)
+    except Exception as e:
+        structured_log("high_edge_cluster_check_error", {"error": str(e)}, level="error")
+
+
+def check_daily_exposure_cap(daily_trades_cost_cents: int) -> bool:
+    """
+    GROK-TRADE-004: Check if daily new exposure exceeds absolute $ cap.
+    Returns True if we should pause trading.
+    """
+    daily_cost_usd = daily_trades_cost_cents / 100.0
+    if daily_cost_usd >= MAX_DAILY_EXPOSURE_USD:
+        structured_log("daily_exposure_cap", {
+            "daily_cost_usd": round(daily_cost_usd, 2),
+            "cap_usd": MAX_DAILY_EXPOSURE_USD
+        }, level="warning")
+        return True
+    return False
+
+
+def get_daily_trades_cost() -> int:
+    """Sum cost_cents of all trades executed today."""
+    if not TRADE_LOG_FILE.exists():
+        return 0
+    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    total_cost = 0
+    try:
+        with open(TRADE_LOG_FILE) as f:
+            for line in f:
+                try:
+                    entry = json.loads(line.strip())
+                    if entry.get("timestamp", "").startswith(today_str) and entry.get("action") != "SKIP":
+                        total_cost += entry.get("cost_cents", 0)
+                except (json.JSONDecodeError, KeyError):
+                    continue
+    except Exception:
+        pass
+    return total_cost
 
 
 # ============================================================================
@@ -2531,7 +2646,21 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
                 "ticker": market.ticker, "reason": decision.reason,
                 "edge": round(decision.edge, 4),
             })
+            # GROK-TRADE-004: log vetoed/skipped decision with reason classification
+            skip_outcome = "vetoed" if ("Critic vetoed" in decision.reason or "flaws" in decision.reason.lower()) else \
+                           "skipped_parlay" if "Parlay" in decision.reason else \
+                           "skipped_risk" if ("risk" in decision.reason.lower() or "cap" in decision.reason.lower() or "price" in decision.reason.lower()) else \
+                           "skipped_edge"
+            log_decision(market, decision, skip_outcome)
             log_trade(market, decision, {}, dry_run)
+            continue
+
+        # GROK-TRADE-004: Check daily absolute exposure cap
+        daily_cost = get_daily_trades_cost()
+        new_cost = decision.contracts * decision.price_cents
+        if check_daily_exposure_cap(daily_cost + new_cost) and not dry_run:
+            print(f"   ⛔ Daily exposure cap reached (${(daily_cost + new_cost)/100:.2f} >= ${MAX_DAILY_EXPOSURE_USD})")
+            log_decision(market, decision, "skipped_risk")
             continue
 
         # Step 4: EXECUTE
@@ -2552,6 +2681,8 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         trades_executed += 1
         existing_tickers.add(market.ticker)
         log_trade(market, decision, order_result, dry_run)
+        # GROK-TRADE-004: log executed decision
+        log_decision(market, decision, "executed")
         # GROK-TRADE-002: structured log for trade execution
         structured_log("trade_executed", {
             "ticker": market.ticker, "action": decision.action,
@@ -2618,6 +2749,8 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     log_cycle(cycle_stats)
     # GROK-TRADE-002: structured log for cycle end
     structured_log("cycle_end", cycle_stats)
+    # GROK-TRADE-004: post-cycle monitoring checks
+    check_high_edge_cluster()
 
 
 # ============================================================================

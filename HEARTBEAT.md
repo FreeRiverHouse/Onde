@@ -29,6 +29,8 @@
 - `scripts/kalshi-rate-limit.alert` → API rate limit alto (>80%)! Manda alert, poi elimina
 - `scripts/kalshi-api-error.alert` → HIGH API ERROR RATE (>10%)! Manda alert, poi elimina
 - `scripts/kalshi-api-error-weekly.alert` → Weekly API error report. Manda report, poi elimina
+- `scripts/kalshi-loss-streak.alert` → Loss streak! Circuit breaker triggered. Manda alert con dettagli, poi elimina
+- `scripts/kalshi-high-edge-cluster.alert` → High-edge cluster! Possibile miscalibrazione forecaster. Manda alert, poi elimina
 - `scripts/ohlc-cache-stale.alert` → OHLC cache stale >24h! Manda alert, poi elimina
 - `scripts/memory-stale.alert` → Memory files stale >7 giorni! Manda alert, poi elimina
 - `scripts/test-failure.alert` → Test suite failed! Manda alert, poi elimina

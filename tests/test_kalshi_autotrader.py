@@ -1369,6 +1369,271 @@ class TestFullPipeline:
 
 
 # ============================================================================
+# GROK-TRADE-004: Post-trade monitoring tests
+# ============================================================================
+
+# Import real module functions for GROK-TRADE-004 integration tests
+_autotrader_mod = None
+
+def _get_mod():
+    global _autotrader_mod
+    if _autotrader_mod is None:
+        _autotrader_mod = _import_autotrader()
+    return _autotrader_mod
+
+# Lazy accessors for real module functions
+def _real_log_decision(market, decision, outcome):
+    mod = _get_mod()
+    return mod.log_decision(market, decision, outcome)
+
+def _real_check_high_edge_cluster():
+    mod = _get_mod()
+    return mod.check_high_edge_cluster()
+
+def _real_check_daily_exposure_cap(cost):
+    mod = _get_mod()
+    return mod.check_daily_exposure_cap(cost)
+
+def _real_get_daily_trades_cost():
+    mod = _get_mod()
+    return mod.get_daily_trades_cost()
+
+def _real_check_circuit_breaker():
+    mod = _get_mod()
+    return mod.check_circuit_breaker()
+
+
+class TestDecisionLogging:
+    """Test decision logging for vetoed/passed trades (GROK-TRADE-004)."""
+
+    def test_log_decision_creates_file(self, tmp_path):
+        """log_decision should create a JSONL file with the decision."""
+        mod = _get_mod()
+        log_file = tmp_path / "decisions.jsonl"
+        orig = mod.DECISION_LOG_FILE
+        mod.DECISION_LOG_FILE = log_file
+        try:
+            market = mod.MarketInfo(ticker="TEST-001", title="Test", subtitle="",
+                                    category="test", yes_price=40, no_price=60,
+                                    volume=1000, open_interest=100,
+                                    expiry="2026-03-01T00:00:00Z",
+                                    status="open", result="")
+            forecast = mod.ForecastResult(probability=0.55, reasoning="test",
+                                          confidence="medium", key_factors=["test"],
+                                          model_used="test")
+            critic = mod.CriticResult(adjusted_probability=0.50, should_trade=False,
+                                      major_flaws=["stale data"])
+            decision = mod.TradeDecision(action="SKIP", edge=0.05, kelly_size=0, contracts=0,
+                                        price_cents=0, reason="Critic vetoed: stale data",
+                                        forecast=forecast, critic=critic)
+            mod.log_decision(market, decision, "vetoed")
+            assert log_file.exists()
+            entries = [json.loads(l) for l in log_file.read_text().strip().split("\n")]
+            assert len(entries) == 1
+            assert entries[0]["outcome"] == "vetoed"
+            assert entries[0]["ticker"] == "TEST-001"
+        finally:
+            mod.DECISION_LOG_FILE = orig
+
+    def test_log_decision_appends(self, tmp_path):
+        """Multiple decisions should append to the same file."""
+        mod = _get_mod()
+        log_file = tmp_path / "decisions.jsonl"
+        orig = mod.DECISION_LOG_FILE
+        mod.DECISION_LOG_FILE = log_file
+        try:
+            for outcome in ["executed", "vetoed", "skipped_edge"]:
+                market = mod.MarketInfo(ticker=f"T-{outcome}", title="Test", subtitle="",
+                                        category="test", yes_price=40, no_price=60,
+                                        volume=1000, open_interest=100,
+                                        expiry="2026-03-01T00:00:00Z",
+                                        status="open", result="")
+                forecast = mod.ForecastResult(probability=0.55, reasoning="test",
+                                              confidence="medium", key_factors=["test"],
+                                              model_used="test")
+                critic = mod.CriticResult(adjusted_probability=0.50, should_trade=True)
+                decision = mod.TradeDecision(action="SKIP", edge=0.05, kelly_size=0.02,
+                                            contracts=1, price_cents=40, reason="test",
+                                            forecast=forecast, critic=critic)
+                mod.log_decision(market, decision, outcome)
+            entries = [json.loads(l) for l in log_file.read_text().strip().split("\n")]
+            assert len(entries) == 3
+            assert [e["outcome"] for e in entries] == ["executed", "vetoed", "skipped_edge"]
+        finally:
+            mod.DECISION_LOG_FILE = orig
+
+
+class TestHighEdgeCluster:
+    """Test high-edge cluster detection (GROK-TRADE-004)."""
+
+    def test_no_alert_when_few_high_edge(self, tmp_path):
+        """Less than 5 high-edge skips → no alert."""
+        mod = _get_mod()
+        log_file = tmp_path / "decisions.jsonl"
+        alert_file = tmp_path / "high-edge.alert"
+        orig_log = mod.DECISION_LOG_FILE
+        orig_alert = mod.HIGH_EDGE_CLUSTER_ALERT_FILE
+        mod.DECISION_LOG_FILE = log_file
+        mod.HIGH_EDGE_CLUSTER_ALERT_FILE = alert_file
+        try:
+            now = datetime.now(timezone.utc)
+            for i in range(3):
+                entry = {"timestamp": now.isoformat(), "outcome": "vetoed", "edge": 0.18}
+                with open(log_file, "a") as f:
+                    f.write(json.dumps(entry) + "\n")
+            mod.check_high_edge_cluster()
+            assert not alert_file.exists()
+        finally:
+            mod.DECISION_LOG_FILE = orig_log
+            mod.HIGH_EDGE_CLUSTER_ALERT_FILE = orig_alert
+
+    def test_alert_when_many_high_edge(self, tmp_path):
+        """5+ high-edge skips in last hour → alert created."""
+        mod = _get_mod()
+        log_file = tmp_path / "decisions.jsonl"
+        alert_file = tmp_path / "high-edge.alert"
+        orig_log = mod.DECISION_LOG_FILE
+        orig_alert = mod.HIGH_EDGE_CLUSTER_ALERT_FILE
+        mod.DECISION_LOG_FILE = log_file
+        mod.HIGH_EDGE_CLUSTER_ALERT_FILE = alert_file
+        try:
+            now = datetime.now(timezone.utc)
+            for i in range(6):
+                entry = {"timestamp": now.isoformat(), "outcome": "vetoed", "edge": 0.20}
+                with open(log_file, "a") as f:
+                    f.write(json.dumps(entry) + "\n")
+            mod.check_high_edge_cluster()
+            assert alert_file.exists()
+        finally:
+            mod.DECISION_LOG_FILE = orig_log
+            mod.HIGH_EDGE_CLUSTER_ALERT_FILE = orig_alert
+
+    def test_no_alert_for_old_entries(self, tmp_path):
+        """High-edge entries >1h old don't count."""
+        mod = _get_mod()
+        log_file = tmp_path / "decisions.jsonl"
+        alert_file = tmp_path / "high-edge.alert"
+        orig_log = mod.DECISION_LOG_FILE
+        orig_alert = mod.HIGH_EDGE_CLUSTER_ALERT_FILE
+        mod.DECISION_LOG_FILE = log_file
+        mod.HIGH_EDGE_CLUSTER_ALERT_FILE = alert_file
+        try:
+            old_time = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()
+            for i in range(10):
+                entry = {"timestamp": old_time, "outcome": "vetoed", "edge": 0.25}
+                with open(log_file, "a") as f:
+                    f.write(json.dumps(entry) + "\n")
+            mod.check_high_edge_cluster()
+            assert not alert_file.exists()
+        finally:
+            mod.DECISION_LOG_FILE = orig_log
+            mod.HIGH_EDGE_CLUSTER_ALERT_FILE = orig_alert
+
+
+class TestDailyExposureCap:
+    """Test daily absolute $ exposure cap (GROK-TRADE-004)."""
+
+    def test_under_cap_returns_false(self):
+        """Under the cap → no pause."""
+        mod = _get_mod()
+        assert not mod.check_daily_exposure_cap(2000)  # $20 < $50
+
+    def test_over_cap_returns_true(self):
+        """Over the cap → pause."""
+        mod = _get_mod()
+        assert mod.check_daily_exposure_cap(5100)  # $51 >= $50
+
+    def test_exact_cap_returns_true(self):
+        """Exactly at cap → pause."""
+        mod = _get_mod()
+        assert mod.check_daily_exposure_cap(5000)  # $50 >= $50
+
+    def test_get_daily_trades_cost_empty(self, tmp_path):
+        """No trades today → 0 cost."""
+        mod = _get_mod()
+        orig = mod.TRADE_LOG_FILE
+        mod.TRADE_LOG_FILE = tmp_path / "nope.jsonl"
+        try:
+            assert mod.get_daily_trades_cost() == 0
+        finally:
+            mod.TRADE_LOG_FILE = orig
+
+    def test_get_daily_trades_cost_with_trades(self, tmp_path):
+        """Sums cost_cents of today's executed trades."""
+        mod = _get_mod()
+        log_file = tmp_path / "trades.jsonl"
+        orig = mod.TRADE_LOG_FILE
+        mod.TRADE_LOG_FILE = log_file
+        try:
+            today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            entries = [
+                {"timestamp": f"{today_str}T10:00:00+00:00", "action": "BUY_NO", "cost_cents": 200},
+                {"timestamp": f"{today_str}T11:00:00+00:00", "action": "BUY_YES", "cost_cents": 150},
+                {"timestamp": f"{today_str}T12:00:00+00:00", "action": "SKIP", "cost_cents": 0},
+                {"timestamp": "2025-01-01T10:00:00+00:00", "action": "BUY_NO", "cost_cents": 500},
+            ]
+            with open(log_file, "w") as f:
+                for e in entries:
+                    f.write(json.dumps(e) + "\n")
+            assert mod.get_daily_trades_cost() == 350  # 200 + 150
+        finally:
+            mod.TRADE_LOG_FILE = orig
+
+
+class TestLossStreakAlert:
+    """Test that circuit breaker creates loss streak alert (GROK-TRADE-004)."""
+
+    def test_circuit_breaker_creates_alert(self, tmp_path):
+        """When circuit breaker triggers, a .alert file should be created."""
+        mod = _get_mod()
+        alert_file = tmp_path / "loss-streak.alert"
+        state_file = tmp_path / "cb.json"
+        trade_file = tmp_path / "trades.jsonl"
+        orig_alert = mod.LOSS_STREAK_ALERT_FILE
+        orig_state = mod.CIRCUIT_BREAKER_STATE_FILE
+        orig_trade = mod.TRADE_LOG_FILE
+        mod.LOSS_STREAK_ALERT_FILE = alert_file
+        mod.CIRCUIT_BREAKER_STATE_FILE = state_file
+        mod.TRADE_LOG_FILE = trade_file
+        try:
+            threshold = mod.CIRCUIT_BREAKER_THRESHOLD
+            with open(trade_file, "w") as f:
+                for i in range(threshold):
+                    f.write(json.dumps({"result_status": "lost"}) + "\n")
+            paused, losses, msg = mod.check_circuit_breaker()
+            assert paused
+            assert alert_file.exists()
+        finally:
+            mod.LOSS_STREAK_ALERT_FILE = orig_alert
+            mod.CIRCUIT_BREAKER_STATE_FILE = orig_state
+            mod.TRADE_LOG_FILE = orig_trade
+
+    def test_circuit_breaker_clears_alert_when_ok(self, tmp_path):
+        """When not triggered, clear existing alert."""
+        mod = _get_mod()
+        alert_file = tmp_path / "loss-streak.alert"
+        state_file = tmp_path / "cb.json"
+        trade_file = tmp_path / "trades.jsonl"
+        alert_file.write_text("old alert")
+        orig_alert = mod.LOSS_STREAK_ALERT_FILE
+        orig_state = mod.CIRCUIT_BREAKER_STATE_FILE
+        orig_trade = mod.TRADE_LOG_FILE
+        mod.LOSS_STREAK_ALERT_FILE = alert_file
+        mod.CIRCUIT_BREAKER_STATE_FILE = state_file
+        mod.TRADE_LOG_FILE = trade_file
+        try:
+            with open(trade_file, "w") as f:
+                f.write(json.dumps({"result_status": "won"}) + "\n")
+            paused, losses, msg = mod.check_circuit_breaker()
+            assert not paused
+            assert not alert_file.exists()
+        finally:
+            mod.LOSS_STREAK_ALERT_FILE = orig_alert
+            mod.CIRCUIT_BREAKER_STATE_FILE = orig_state
+            mod.TRADE_LOG_FILE = orig_trade
+
+
+# ============================================================================
 # Run with: pytest tests/test_kalshi_autotrader.py -v
 # ============================================================================
 
