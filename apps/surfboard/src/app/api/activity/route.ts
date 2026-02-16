@@ -12,14 +12,8 @@ const VALID_TYPES = [
   'cron_job', 'monitor', 'error', 'chat_message'
 ]
 
-// Fallback mock activities for development
-const mockActivities = [
-  { id: 1, type: 'deploy', title: 'onde.surf deployed', description: 'Production build v1.2.0', actor: 'CI/CD', created_at: new Date(Date.now() - 1000 * 60 * 2).toISOString() },
-  { id: 2, type: 'task_completed', title: 'GAM-FIX-001 completed', description: 'All 44 games tested and working', actor: 'Clawdinho', created_at: new Date(Date.now() - 1000 * 60 * 10).toISOString() },
-  { id: 3, type: 'git_commit', title: 'fix: 2048 empty grid + jigsaw navbar', description: '3 files changed', actor: 'Clawdinho', created_at: new Date(Date.now() - 1000 * 60 * 15).toISOString() },
-  { id: 4, type: 'heartbeat', title: 'Heartbeat check OK', description: 'Autotrader running, no alerts', actor: 'Clawdinho', created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString() },
-  { id: 5, type: 'agent_action', title: 'QA tests completed', description: 'All 19 tests passed', actor: 'QA Agent', created_at: new Date(Date.now() - 1000 * 60 * 60).toISOString() },
-]
+// Empty fallback - no mock data (DASH-013: removed hardcoded mock activities)
+const emptyActivities: { id: number; type: string; title: string; description: string; actor: string; created_at: string }[] = []
 
 export async function GET(request: Request) {
   try {
@@ -64,14 +58,12 @@ export async function GET(request: Request) {
       }))
       return NextResponse.json({ activities, source: 'd1' })
     } else {
-      // Fallback to mock data for local dev
-      let filtered = mockActivities
-      if (type) filtered = filtered.filter(a => a.type === type)
-      return NextResponse.json({ activities: filtered.slice(0, limit), source: 'mock' })
+      // No D1 database available - return empty (DASH-013: no mock fallback)
+      return NextResponse.json({ activities: emptyActivities, source: 'no-db', notice: 'No activity data available. D1 database not configured.' })
     }
   } catch (error) {
     console.error('Error fetching activity:', error)
-    return NextResponse.json({ activities: mockActivities, source: 'mock-fallback' })
+    return NextResponse.json({ activities: emptyActivities, source: 'error', notice: 'Failed to fetch activity data.' })
   }
 }
 

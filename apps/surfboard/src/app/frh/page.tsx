@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import TaskManagementPanel from '@/components/TaskManagementPanel'
 import { AgentsMonitoringWidget } from '@/components/AgentsMonitoringWidget'
 import { SystemMonitoringWidget } from '@/components/SystemMonitoringWidget'
+import { AgentChatWidget } from '@/components/AgentChatWidget'
 
 interface Agent {
   id: string
@@ -38,8 +39,13 @@ interface AgentStatusData {
   ollama: { running: boolean; location: string; models: string[] }
   alerts_pending: number
   agents: {
-    clawdinho: { host: string; model: string; status: string; current_task?: { id: string; title: string } | null }
-    ondinho: { host: string; model: string; status: string; current_task?: { id: string; title: string } | null }
+    clawdinho?: { host: string; model: string; status: 'active' | 'idle' | 'offline'; current_task?: { id: string; title: string; started?: string } | null }
+    ondinho?: { host: string; model: string; status: 'active' | 'idle' | 'offline'; current_task?: { id: string; title: string; started?: string } | null }
+  }
+  systemHealth?: {
+    cpu_percent: number
+    memory_percent: number
+    gpu_temp: number | null
   }
 }
 
@@ -189,22 +195,23 @@ export default function FRHDashboard() {
       {/* Real-Time Monitoring Widgets (T935 + T936) */}
       <div className="max-w-7xl mx-auto mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <AgentsMonitoringWidget 
-          agents={agentStatus?.agents}
+          agents={agentStatus?.agents as { clawdinho?: { host: string; model: string; status: 'active' | 'idle' | 'offline'; current_task?: { id: string; title: string; started?: string } }; ondinho?: { host: string; model: string; status: 'active' | 'idle' | 'offline'; current_task?: { id: string; title: string; started?: string } } } | undefined}
           git={agentStatus?.git}
           loading={agentStatusLoading}
         />
         <SystemMonitoringWidget 
-          systemHealth={{
-            cpu_percent: 15, // TODO: Add real CPU metrics
-            memory_percent: 65, // TODO: Add real memory metrics
-            gpu_temp: agentStatus?.gpu?.radeon_connected ? 45 : null
-          }}
+          systemHealth={agentStatus?.systemHealth || undefined}
           autotrader={agentStatus?.autotrader}
           ollama={agentStatus?.ollama}
           gpu={agentStatus?.gpu}
           alerts_pending={agentStatus?.alerts_pending}
           loading={agentStatusLoading}
         />
+      </div>
+
+      {/* Agent Chat */}
+      <div className="max-w-7xl mx-auto mb-6">
+        <AgentChatWidget agents={['clawdinho', 'ondinho']} />
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">

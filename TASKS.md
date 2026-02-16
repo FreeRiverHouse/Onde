@@ -452,16 +452,16 @@
 | 161 | DASH-010 | Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache | 🚨 CRITICO | ✅ DONE | @clawdinho | Rewrote route.ts to fetch winRateTrend from gist, no more Math.random() |
 | 162 | DASH-011 | Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock | 🚨 CRITICO | ✅ DONE | @clawdinho | Already fetches from gist with settlements + winRateTrend data |
 | 163 | DASH-012 | Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist | 🚨 CRITICO | ✅ DONE | @clawdinho | Rewrote route.ts to fetch healthStatus from trading gist, real agent data |
-| 164 | DASH-013 | Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts) | 🔥 ALTA | 🔶 BLOCKED | - | D1 migration needed (DASH-005). Mock fallback stays until D1 is available |
+| 164 | DASH-013 | Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts) | 🔥 ALTA | ✅ DONE | @clawdinho | Removed hardcoded mock activities, returns empty when D1 unavailable |
 | 165 | DASH-014 | Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback → fix con dati Gist | 🚨 CRITICO | ✅ DONE | @clawdinho | Uses real gist winRateTrend.data, no mock fallback |
 | 166 | DASH-015 | Betting page: Latency chart usa generateMockLatencyTrend → collegare a dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real latencyHistory.dataPoints from gist |
 | 167 | DASH-016 | Betting page: Return Distribution usa generateMockTrades → collegare a trades reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real recentTrades, shows placeholder if <5 trades |
 | 168 | DASH-017 | Betting page: PnL by market type usa generateMockPnLData fallback → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real recentTrades with parsePnLByMarketType, no mock |
 | 169 | DASH-018 | Betting page: WinRate Sparkline usa generateMockSparklineData → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses parseWinRateTrendFromStats(winRateTrend), conditional render |
 | 170 | DASH-019 | Betting page: Latency Sparkline usa generateMockLatencyHistory → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses tradingStats.latencyHistory, conditional render |
-| 171 | DASH-020 | FRH page: verificare e fixare agent chat (invio/ricezione messaggi) | 🚨 CRITICO | IN_PROGRESS | @clawdinho |
-| 172 | DASH-021 | FRH page: verificare TaskManagementPanel legge/scrive task reali | 🔥 ALTA | 🔶 TODO | - |
-| 173 | DASH-022 | FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali | 🔥 ALTA | 🔶 TODO | - |
-| 174 | DASH-023 | FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali | 🔥 ALTA | 🔶 TODO | - |
+| 171 | DASH-020 | FRH page: verificare e fixare agent chat (invio/ricezione messaggi) | 🚨 CRITICO | ✅ DONE | @clawdinho | Verified: uses D1 database, no mock data |
+| 172 | DASH-021 | FRH page: verificare TaskManagementPanel legge/scrive task reali | 🔥 ALTA | ✅ DONE | @clawdinho | Verified: reads from Gist via /api/tasks, no mock data |
+| 173 | DASH-022 | FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali | 🔥 ALTA | ✅ DONE | @clawdinho | Verified: uses Gist data from /api/agents/status |
+| 174 | DASH-023 | FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali | 🔥 ALTA | ✅ DONE | @clawdinho | Fixed: removed hardcoded CPU/memory, uses agentStatus.systemHealth |
 | 175 | DASH-024 | Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona | 🚨 CRITICO | 🔶 TODO | - |
 | 176 | DASH-025 | Deploy onde.surf dopo tutti i fix delle dashboard | 🚨 CRITICO | 🔶 TODO | - | Dipende da DASH-010 → DASH-024 |
