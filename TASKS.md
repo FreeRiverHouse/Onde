@@ -13,7 +13,7 @@
 |---|----|----- |--------|--------|-------|
 | B1 | PROC-002 | Processo Grok-receipts: ogni task chiuso va spiegato a Grok con receipts. Grok deve accettare. Poi Grok suggerisce 2 task migliorativi. PERMANENTE. | 🚨 PROCESSO | ✅ ATTIVO | @clawdinho | Attivato 2026-02-15. 3 receipts validate (DASH-001, TRADE-001, TRADE-002). 6 task migliorativi aggiunti (GROK-DASH-001/002, GROK-TRADE-001-004). |
 | B2 | DASH-001 | Eliminare TUTTI i fake data da onde.surf dashboard (betting, analytics, social). Dati reali o "no data available" | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Audit completo: 12 issues fixati — /trading, /frh, homepage whitespace, polyroborto fake PnL, eGPU rimossa, stale dates, analytics/social empty states, /corde offline msg. Deploy verificato. |
-| B3 | DASH-002 | Aggiungere grafici con TREND NEL TEMPO su onde.surf (accessi, betting PnL, analytics, agenti) | 🚨 BLOCCANTE | IN_PROGRESS | @clawdinho |
+| B3 | DASH-002 | Aggiungere grafici con TREND NEL TEMPO su onde.surf (accessi, betting PnL, analytics, agenti) | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | TrendChart + PnLTrendWidget + AgentActivityWidget + SystemHealthTrendWidget deployed to onde.surf |
 | B4 | FIX-001 | Fixare riferimento "Mattia Biondi" → FreeRiverHouse ovunque nel codice/gists | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Verified: no "Mattia Biondi" or "mattiabiondi" in any code/config/gist files. Only references are in TASKS.md task description and memory logs. |
 
 | # | ID | Task | Impact | Status | Owner |
@@ -276,7 +276,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | G3 | GROK-TRADE-001 | Add comprehensive unit/integration tests for unified autotrader: auth, market data, order creation, fills, cancellations, error handling (rate limits, balance). pytest + mocked API | 🔥 Reliability | TODO | @clawdinho |
-| G4 | GROK-TRADE-002 | Add structured logging (JSON), real-time alerts (drawdowns, errors), position/risk limits (max exposure per market, daily loss caps), graceful shutdown logic | 🔥 Risk mgmt | TODO | @clawdinho |
+| G4 | GROK-TRADE-002 | Add structured logging (JSON), real-time alerts (drawdowns, errors), position/risk limits (max exposure per market, daily loss caps), graceful shutdown logic | 🔥 Risk mgmt | IN_PROGRESS | @clawdinho |
 
 ### Da TRADE-002 (Grok ACCEPTED ✅)
 | # | ID | Task | Impact | Status | Owner |
