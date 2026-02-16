@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
-const GIST_ID = '12a07b9ed63e19f01d2693b69f8a0e3b';
+const GIST_ID = '0c71303677d56c9f579b40094128b00b';
 const GIST_FILENAME = 'onde-tasks-data.json';
-const GIST_FALLBACK_URL = 'https://gist.githubusercontent.com/mattiabiondi/12a07b9ed63e19f01d2693b69f8a0e3b/raw/onde-tasks-data.json';
+const GIST_FALLBACK_URL = 'https://gist.githubusercontent.com/FreeRiverHouse/0c71303677d56c9f579b40094128b00b/raw/onde-tasks-data.json';
 
 interface Task {
   id: string;
