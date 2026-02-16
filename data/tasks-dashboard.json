@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-02-15T21:25:54.260977",
+  "timestamp": "2026-02-15T22:00:01.569555",
   "stats": {
-    "total": 203,
-    "done": 181,
+    "total": 213,
+    "done": 186,
     "in_progress": 5,
     "blocked": 3,
-    "todo": 14,
-    "completion_rate": 89.2,
+    "todo": 19,
+    "completion_rate": 87.3,
     "by_priority": {
       "P1": 4,
-      "P3": 18
+      "P3": 23
     },
     "by_owner": {
-      "@clawdinho": 10,
+      "@clawdinho": 15,
       "unassigned": 5,
       "@mattia": 2,
       "@kalshi-paper-agent": 1,
@@ -80,6 +80,46 @@
       "title": "Dashboard autotrader su onde.surf funzionante con grafici trend",
       "impact": "\ud83d\udd25 Trading",
       "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "GROK-DASH-001",
+      "title": "Implement env-specific data seeding: fake data only in dev/staging, auto-stripped in prod. CI/CD pre-deploy scan for hardcoded fake patterns",
+      "impact": "\u2b50 Data quality",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "GROK-DASH-002",
+      "title": "Add dashboard data-quality monitoring: alerts on stale data (>24h), zero metrics, PnL outliers. Cron job or lightweight health check",
+      "impact": "\u2b50 Reliability",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "GROK-TRADE-001",
+      "title": "Add comprehensive unit/integration tests for unified autotrader: auth, market data, order creation, fills, cancellations, error handling (rate limits, balance). pytest + mocked API",
+      "impact": "\ud83d\udd25 Reliability",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "GROK-TRADE-003",
+      "title": "Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data",
+      "impact": "\ud83d\udd25 Strategy",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "GROK-TRADE-004",
+      "title": "Post-trade monitoring + auto-veto overrides with circuit breakers: log vetoed/passed trades, alert clusters of high-edge trades, daily exposure caps, pause-on-loss-streaks",
+      "impact": "\ud83d\udd25 Risk mgmt",
+      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },

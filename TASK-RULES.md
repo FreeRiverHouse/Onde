@@ -129,6 +129,52 @@ Ogni heartbeat (5 min):
 - Un task alla volta
 - Commit frequenti
 
+## 🏁 CHIUSURA TASK
+
+Quando chiudi un task, segui SEMPRE questo protocollo:
+
+### 1. Indica ORA e CHI
+Nel campo Status, usa il formato:
+```
+✅ DONE @clawdinho 2026-02-15 22:00 PST
+```
+
+| Campo | Descrizione |
+|-------|-------------|
+| `✅ DONE` | Status completato |
+| `@clawdinho` / `@ondinho` | Chi ha chiuso il task |
+| `2026-02-15 22:00 PST` | Data e ora di chiusura (fuso PST) |
+
+### 2. Chiudi la GitHub Issue corrispondente
+Se esiste una GitHub Issue per il task (creata da `sync-tasks-to-github.sh`):
+```bash
+# Trova la issue
+gh issue list --repo FreeRiverHouse/Onde --search "[TASK-ID]"
+
+# Chiudila con commento
+gh issue close <NUMERO> --repo FreeRiverHouse/Onde \
+  --comment "✅ Closed by @<agente> at $(date '+%Y-%m-%d %H:%M PST')"
+```
+
+Oppure esegui lo script di sync che lo fa automaticamente:
+```bash
+./scripts/sync-tasks-to-github.sh
+```
+
+### 3. Esempio completo
+```markdown
+### [SEO-001] Creare OG image per /skin-creator
+- **Status**: ✅ DONE @clawdinho 2026-02-15 22:00 PST
+- **Owner**: @clawdinho
+- **Priority**: P1
+- **Notes**: OG image 1200x630 creata e deployata
+```
+
+### 4. NON dimenticare
+- ⛔ MAI chiudere un task senza indicare chi e quando
+- ⛔ MAI lasciare la GitHub Issue aperta se il task è DONE
+- ✅ Segui il processo Grok-receipts (vedi AGENTS.md) per la validazione
+
 ---
 
 *Sistema di coordinamento multi-agente. Rispettare SEMPRE.*

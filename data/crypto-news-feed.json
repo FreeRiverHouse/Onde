@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T05:00:02.748539+00:00",
+  "timestamp": "2026-02-16T06:00:03.141104+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,27 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "OpenAI Taps OpenClaw Founder to Lead Push Into Personal AI Agents",
+      "url": "https://decrypt.co/358141/openai-openclaw-founder-lead-push-personal-ai-agents",
+      "source": "decrypt",
+      "description": "The founder said he is turning OpenClaw into a foundation, calling OpenAI the fastest way to bring open agents to everyone.",
+      "published": "2026-02-16T05:33:38+00:00"
+    },
+    {
+      "title": "UK Prime Minister Seeks New Powers to Regulate AI Chatbots as Child Safety Concerns Mount",
+      "url": "https://decrypt.co/358138/uk-prime-minister-seeks-new-powers-regulate-ai-chatbots",
+      "source": "decrypt",
+      "description": "The move would bring AI chatbots under UK online safety laws, enabling rapid age limits and feature curbs to protect children.",
+      "published": "2026-02-16T05:13:09+00:00"
+    },
+    {
+      "title": "Aave founder pitches $50T \u2018abundance asset\u2019 boom to drive DeFi",
+      "url": "https://cointelegraph.com/news/aave-founder-defi-tokenize-50t-abundance-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Aave Labs CEO Stani Kulechov said onchain lending could help accelerate the development of solar, energy storage and robotics by putting money behind \u201cfuture-proof\u201d assets.",
+      "published": "2026-02-16T05:04:07+00:00"
+    },
     {
       "title": "Bitcoin Leverage Heats Up as Traders Bet on Price Rebound",
       "url": "https://decrypt.co/358134/bitcoin-leverage-heats-up-as-traders-bet-on-price-rebound",
@@ -109,13 +130,6 @@
       "published": "2026-02-15T10:04:27+00:00"
     },
     {
-      "title": "Senators ask Bessent to probe $500M UAE stake in Trump-linked WLFI",
-      "url": "https://cointelegraph.com/news/senators-urge-cfius-probe-uae-stake-trump-linked-wlfi?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Elizabeth Warren and Andy Kim call on Treasury\u2019s Scott Bessent to review a UAE-backed investment in the Trump-linked crypto firm over national security concerns.",
-      "published": "2026-02-15T07:15:57+00:00"
-    },
-    {
       "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
       "source": "bitcoinmagazine",
@@ -144,13 +158,6 @@
       "published": "2026-02-14T00:04:45+00:00"
     },
     {
-      "title": "Trump Media Files to Launch Truth Social-Branded Bitcoin, Ethereum, Cronos ETFs",
-      "url": "https://decrypt.co/358079/trump-media-files-truth-social-bitcoin-ethereum-cronos-etfs",
-      "source": "decrypt",
-      "description": "Truth Social Funds applied for ETFs that would give investors exposure to crypto\u2014one focused on Bitcoin and Ethereum, the other on Cronos.",
-      "published": "2026-02-13T21:22:46+00:00"
-    },
-    {
       "title": "How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners",
       "url": "https://bitcoinmagazine.com/business/how-silent-link-solves-sim-swap-risks-and-roaming-hassles-for-traveling-bitcoiners",
       "source": "bitcoinmagazine",
@@ -163,13 +170,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump Crypto-linked stocks jumped as Coinbase (COIN) surged 18% and Strategy (MSTR) rose 10%, fueled by a rebound in Bitcoin and renewed investor interest in digital-asset exposure. This post Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-13T20:58:12+00:00"
-    },
-    {
-      "title": "Clarity Act Passage Would 'Comfort' Markets Amid Bitcoin Volatility: Treasury Secretary Bessent",
-      "url": "https://decrypt.co/358067/clarity-act-passage-comfort-markets-bitcoin-volatility-bessent",
-      "source": "decrypt",
-      "description": "U.S. Treasury Secretary Scott Bessent suggested that the crypto market would be calmed by the passage of the Clarity Act.",
-      "published": "2026-02-13T20:29:22+00:00"
     },
     {
       "title": "White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill",

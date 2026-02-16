@@ -33,6 +33,9 @@ import re
 import argparse
 import base64
 import traceback
+import signal
+import logging
+import logging.handlers
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
@@ -212,6 +215,29 @@ LEGACY_TRADE_LOG = Path(__file__).parent / "kalshi-trades.jsonl"
 CIRCUIT_BREAKER_STATE_FILE = Path(__file__).parent / "kalshi-circuit-breaker.json"
 DAILY_LOSS_PAUSE_FILE = Path(__file__).parent / "kalshi-daily-pause.json"
 
+# ── Alert files (GROK-TRADE-002) ──
+DRAWDOWN_ALERT_FILE = Path(__file__).parent / "kalshi-drawdown.alert"
+API_ERROR_ALERT_FILE = Path(__file__).parent / "kalshi-api-error.alert"
+MAX_EXPOSURE_ALERT_FILE = Path(__file__).parent / "kalshi-max-exposure.alert"
+
+# ── Risk limits (GROK-TRADE-002: portfolio-level) ──
+MAX_EXPOSURE_PCT = 0.50          # Don't trade if total open positions value > 50% of balance
+MAX_CATEGORY_EXPOSURE_PCT = 0.30 # Max 30% in any single category (crypto, weather, sports)
+MAX_DAILY_TRADES = 20            # Hard cap on trades per day
+
+# ── Structured logging (GROK-TRADE-002) ──
+AUTOTRADER_LOG_FILE = PROJECT_ROOT / "data" / "trading" / "kalshi-autotrader.log"
+
+# ── Drawdown tracking (GROK-TRADE-002) ──
+DRAWDOWN_PEAK_BALANCE = 0.0      # Tracked in-memory, seeded from balance on startup
+DRAWDOWN_WINDOW_HOURS = 24       # Rolling 24h window for drawdown alerts
+DRAWDOWN_THRESHOLD_PCT = 0.15    # Alert if portfolio drops >15% from peak
+
+# ── API error rate tracking (GROK-TRADE-002) ──
+API_ERROR_WINDOW: list = []      # list of (timestamp, is_error) tuples
+API_ERROR_RATE_WINDOW_SEC = 300  # 5 minute rolling window
+API_ERROR_RATE_THRESHOLD = 0.10  # Alert if >10% of API calls fail
+
 # ── Latency tracking (from v2) ──
 API_LATENCY_LOG = defaultdict(list)
 LATENCY_PROFILE_WINDOW = 50
@@ -294,6 +320,275 @@ def get_llm_config():
     return None
 
 LLM_CONFIG = get_llm_config()
+
+# ============================================================================
+# GRACEFUL SHUTDOWN (GROK-TRADE-002)
+# ============================================================================
+
+shutdown_requested = False
+
+def _shutdown_handler(signum, frame):
+    """Signal handler for graceful shutdown (SIGTERM/SIGINT)."""
+    global shutdown_requested
+    shutdown_requested = True
+    sig_name = signal.Signals(signum).name
+    print(f"\n⚠️  Received {sig_name} — graceful shutdown requested...")
+    structured_log("shutdown_requested", {"signal": sig_name})
+
+# Register signal handlers
+signal.signal(signal.SIGTERM, _shutdown_handler)
+signal.signal(signal.SIGINT, _shutdown_handler)
+
+
+# ============================================================================
+# STRUCTURED JSON LOGGING (GROK-TRADE-002)
+# ============================================================================
+
+class JSONFormatter(logging.Formatter):
+    """Outputs log records as JSON lines for machine-readable log files."""
+    def format(self, record):
+        log_entry = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "level": record.levelname,
+            "event": getattr(record, "event", record.getMessage()),
+            "data": getattr(record, "data", {}),
+        }
+        return json.dumps(log_entry)
+
+
+class ColoredConsoleFormatter(logging.Formatter):
+    """Human-readable colored console formatter."""
+    COLORS = {
+        "DEBUG": "\033[90m",     # gray
+        "INFO": "\033[36m",      # cyan
+        "WARNING": "\033[33m",   # yellow
+        "ERROR": "\033[31m",     # red
+        "CRITICAL": "\033[35m",  # magenta
+    }
+    RESET = "\033[0m"
+
+    def format(self, record):
+        color = self.COLORS.get(record.levelname, "")
+        event = getattr(record, "event", "")
+        data = getattr(record, "data", {})
+        data_str = ""
+        if data:
+            # Compact key=value representation
+            parts = []
+            for k, v in data.items():
+                if isinstance(v, float):
+                    parts.append(f"{k}={v:.4f}")
+                else:
+                    parts.append(f"{k}={v}")
+            data_str = " | " + ", ".join(parts)
+        ts = datetime.now(timezone.utc).strftime("%H:%M:%S")
+        return f"{color}[{ts}] [{record.levelname[0]}] {event}{data_str}{self.RESET}"
+
+
+def setup_structured_logger() -> logging.Logger:
+    """Set up structured JSON logger with rotating file + colored console handlers."""
+    logger = logging.getLogger("kalshi_autotrader")
+    logger.setLevel(logging.DEBUG)
+
+    # Avoid duplicate handlers on re-init
+    if logger.handlers:
+        return logger
+
+    # 1. Rotating JSON file handler (10MB, 5 backups)
+    AUTOTRADER_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    file_handler = logging.handlers.RotatingFileHandler(
+        str(AUTOTRADER_LOG_FILE),
+        maxBytes=10 * 1024 * 1024,  # 10MB
+        backupCount=5,
+        encoding="utf-8",
+    )
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(JSONFormatter())
+    logger.addHandler(file_handler)
+
+    # 2. Colored console handler (INFO+)
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(ColoredConsoleFormatter())
+    logger.addHandler(console_handler)
+
+    return logger
+
+
+# Initialize the structured logger
+_structured_logger = setup_structured_logger()
+
+
+def structured_log(event: str, data: dict = None, level: str = "info"):
+    """
+    Log a structured event. Key events:
+    cycle_start, cycle_end, trade_executed, trade_skipped,
+    circuit_breaker, daily_loss, position_exit, api_error, settlement,
+    risk_limit_hit, drawdown_alert, shutdown_requested, shutdown_complete
+    """
+    record = logging.LogRecord(
+        name="kalshi_autotrader",
+        level=getattr(logging, level.upper(), logging.INFO),
+        pathname="",
+        lineno=0,
+        msg=event,
+        args=(),
+        exc_info=None,
+    )
+    record.event = event
+    record.data = data or {}
+    _structured_logger.handle(record)
+
+
+# ============================================================================
+# ALERT FILE HELPERS (GROK-TRADE-002)
+# ============================================================================
+
+def write_alert(alert_file: Path, reason: str, data: dict = None):
+    """Write a .alert file for watchdog consumption."""
+    alert_content = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "reason": reason,
+        **(data or {}),
+    }
+    try:
+        with open(alert_file, "w") as f:
+            json.dump(alert_content, f, indent=2)
+        structured_log("alert_created", {"file": str(alert_file), "reason": reason})
+    except Exception as e:
+        structured_log("alert_write_error", {"file": str(alert_file), "error": str(e)}, level="error")
+
+
+def clear_alert(alert_file: Path):
+    """Remove an alert file when condition clears."""
+    try:
+        if alert_file.exists():
+            alert_file.unlink()
+            structured_log("alert_cleared", {"file": str(alert_file)})
+    except Exception:
+        pass
+
+
+def track_api_error(is_error: bool):
+    """Track API call success/failure for error rate alerting."""
+    now = time.time()
+    API_ERROR_WINDOW.append((now, is_error))
+    # Prune old entries outside the window
+    cutoff = now - API_ERROR_RATE_WINDOW_SEC
+    while API_ERROR_WINDOW and API_ERROR_WINDOW[0][0] < cutoff:
+        API_ERROR_WINDOW.pop(0)
+    # Check error rate
+    if len(API_ERROR_WINDOW) >= 10:  # Need at least 10 calls to judge
+        errors = sum(1 for _, e in API_ERROR_WINDOW if e)
+        rate = errors / len(API_ERROR_WINDOW)
+        if rate > API_ERROR_RATE_THRESHOLD:
+            write_alert(API_ERROR_ALERT_FILE, f"API error rate {rate:.0%} > {API_ERROR_RATE_THRESHOLD:.0%}",
+                       {"error_rate": round(rate, 3), "total_calls": len(API_ERROR_WINDOW), "errors": errors})
+            structured_log("api_error_rate_high", {"rate": round(rate, 3), "errors": errors,
+                                                    "total": len(API_ERROR_WINDOW)}, level="warning")
+        else:
+            clear_alert(API_ERROR_ALERT_FILE)
+
+
+def check_drawdown(current_balance: float):
+    """Check if portfolio has dropped >15% from peak in rolling 24h window."""
+    global DRAWDOWN_PEAK_BALANCE
+    if current_balance <= 0:
+        return
+    # Update peak
+    if current_balance > DRAWDOWN_PEAK_BALANCE:
+        DRAWDOWN_PEAK_BALANCE = current_balance
+    # Check drawdown
+    if DRAWDOWN_PEAK_BALANCE > 0:
+        drawdown = (DRAWDOWN_PEAK_BALANCE - current_balance) / DRAWDOWN_PEAK_BALANCE
+        if drawdown > DRAWDOWN_THRESHOLD_PCT:
+            write_alert(DRAWDOWN_ALERT_FILE,
+                       f"Drawdown {drawdown:.1%} > {DRAWDOWN_THRESHOLD_PCT:.0%} threshold",
+                       {"peak_balance": round(DRAWDOWN_PEAK_BALANCE, 2),
+                        "current_balance": round(current_balance, 2),
+                        "drawdown_pct": round(drawdown * 100, 1)})
+            structured_log("drawdown_alert", {"drawdown_pct": round(drawdown * 100, 1),
+                                               "peak": round(DRAWDOWN_PEAK_BALANCE, 2),
+                                               "current": round(current_balance, 2)}, level="warning")
+        else:
+            clear_alert(DRAWDOWN_ALERT_FILE)
+
+
+def check_exposure_alert(positions: list, balance: float):
+    """Check if total exposure > 50% of balance and write alert if so."""
+    if balance <= 0:
+        return
+    total_exposure = sum(abs(p.get("market_exposure", 0)) for p in positions) / 100.0
+    exposure_pct = total_exposure / balance
+    if exposure_pct > MAX_EXPOSURE_PCT:
+        write_alert(MAX_EXPOSURE_ALERT_FILE,
+                   f"Exposure {exposure_pct:.0%} > {MAX_EXPOSURE_PCT:.0%} limit",
+                   {"total_exposure": round(total_exposure, 2),
+                    "balance": round(balance, 2),
+                    "exposure_pct": round(exposure_pct * 100, 1)})
+        structured_log("max_exposure_alert", {"exposure_pct": round(exposure_pct * 100, 1),
+                                               "total_exposure": round(total_exposure, 2)}, level="warning")
+    else:
+        clear_alert(MAX_EXPOSURE_ALERT_FILE)
+
+
+# ============================================================================
+# RISK LIMIT CHECKS (GROK-TRADE-002)
+# ============================================================================
+
+def check_risk_limits(positions: list, balance: float, daily_trades: int) -> list:
+    """
+    Check portfolio-level risk limits before trading.
+    Returns list of reasons to skip trading (empty = OK to trade).
+    """
+    reasons = []
+
+    # 1. Max daily trades
+    if daily_trades >= MAX_DAILY_TRADES:
+        reason = f"Daily trade limit reached ({daily_trades}/{MAX_DAILY_TRADES})"
+        reasons.append(reason)
+        structured_log("risk_limit_hit", {"limit": "max_daily_trades",
+                                           "current": daily_trades, "max": MAX_DAILY_TRADES}, level="warning")
+
+    # 2. Max total exposure
+    if balance > 0:
+        total_exposure = sum(abs(p.get("market_exposure", 0)) for p in positions) / 100.0
+        exposure_pct = total_exposure / balance
+        if exposure_pct > MAX_EXPOSURE_PCT:
+            reason = f"Total exposure {exposure_pct:.0%} > {MAX_EXPOSURE_PCT:.0%} limit"
+            reasons.append(reason)
+            structured_log("risk_limit_hit", {"limit": "max_exposure",
+                                               "exposure_pct": round(exposure_pct * 100, 1),
+                                               "max_pct": MAX_EXPOSURE_PCT * 100}, level="warning")
+
+    # 3. Max category exposure
+    if balance > 0:
+        category_exposure = defaultdict(float)
+        for p in positions:
+            ticker = p.get("ticker", "").upper()
+            exposure_val = abs(p.get("market_exposure", 0)) / 100.0
+            # Classify category from ticker
+            if any(x in ticker for x in ("BTC", "ETH", "SOL", "CRYPTO")):
+                category_exposure["crypto"] += exposure_val
+            elif any(x in ticker for x in ("HIGH", "LOW", "WEATHER", "TEMP")):
+                category_exposure["weather"] += exposure_val
+            elif any(x in ticker for x in ("NBA", "NFL", "NHL", "MLB", "CBB", "SOCCER", "SPORT", "NCAA")):
+                category_exposure["sports"] += exposure_val
+            else:
+                category_exposure["other"] += exposure_val
+
+        for cat, cat_exposure in category_exposure.items():
+            cat_pct = cat_exposure / balance
+            if cat_pct > MAX_CATEGORY_EXPOSURE_PCT:
+                reason = f"Category '{cat}' exposure {cat_pct:.0%} > {MAX_CATEGORY_EXPOSURE_PCT:.0%} limit"
+                reasons.append(reason)
+                structured_log("risk_limit_hit", {"limit": "max_category_exposure",
+                                                   "category": cat,
+                                                   "exposure_pct": round(cat_pct * 100, 1),
+                                                   "max_pct": MAX_CATEGORY_EXPOSURE_PCT * 100}, level="warning")
+
+    return reasons
+
 
 # ============================================================================
 # DATA CLASSES
@@ -441,26 +736,37 @@ def kalshi_api(method: str, path: str, body: dict = None, max_retries: int = 3) 
                 if attempt < max_retries - 1:
                     time.sleep(2 ** attempt)
                     continue
+                track_api_error(True)  # GROK-TRADE-002: track API errors
+                structured_log("api_error", {"endpoint": endpoint_name,
+                                              "status": resp.status_code, "attempt": attempt + 1}, level="error")
                 return {"error": f"Server error {resp.status_code}"}
 
             latency = (time.time() - total_start) * 1000
             record_api_latency(endpoint_name, latency)
             record_api_call("kalshi")
+            track_api_error(False)  # GROK-TRADE-002: track API success
             return resp.json()
 
         except requests.exceptions.Timeout:
             if attempt < max_retries - 1:
                 time.sleep(2 ** attempt)
                 continue
+            track_api_error(True)  # GROK-TRADE-002: track API errors
+            structured_log("api_error", {"endpoint": endpoint_name, "error": "Timeout"}, level="error")
             return {"error": "Timeout"}
         except requests.exceptions.ConnectionError:
             if attempt < max_retries - 1:
                 time.sleep(2 ** attempt)
                 continue
+            track_api_error(True)  # GROK-TRADE-002: track API errors
+            structured_log("api_error", {"endpoint": endpoint_name, "error": "Connection error"}, level="error")
             return {"error": "Connection error"}
         except Exception as e:
+            track_api_error(True)  # GROK-TRADE-002: track API errors
+            structured_log("api_error", {"endpoint": endpoint_name, "error": str(e)}, level="error")
             return {"error": str(e)}
 
+    track_api_error(True)  # GROK-TRADE-002: track API errors
     return {"error": "Max retries exceeded"}
 
 
@@ -634,6 +940,14 @@ def manage_positions(positions: list, dry_run: bool = True) -> int:
                     continue
                 else:
                     print(f"      ✅ Exit order placed")
+
+            # GROK-TRADE-002: Structured log for position exit
+            structured_log("position_exit", {
+                "ticker": ticker, "side": side, "contracts": contracts,
+                "entry_price": round(entry_price), "exit_price": int(sell_price),
+                "unrealized_pnl_pct": round(unrealized_pnl_ratio * 100, 1),
+                "reason": exit_reason, "dry_run": dry_run,
+            })
 
             # Log the exit
             exit_entry = {
@@ -1885,9 +2199,12 @@ def update_trade_results():
         if updated_count > 0:
             with open(TRADE_LOG_FILE, "w") as f:
                 f.writelines(updated_lines)
+            # GROK-TRADE-002: structured log for settlements
+            structured_log("settlement", {"updated": updated_count, "wins": wins, "losses": losses})
 
     except Exception as e:
         print(f"⚠️ Settlement check error: {e}")
+        structured_log("api_error", {"context": "settlement_check", "error": str(e)}, level="error")
 
     return {"updated": updated_count, "wins": wins, "losses": losses}
 
@@ -1962,6 +2279,14 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     """
     cycle_start = time.time()
 
+    # GROK-TRADE-002: check shutdown before starting
+    if shutdown_requested:
+        print("⚠️  Shutdown requested — skipping cycle")
+        return
+
+    # GROK-TRADE-002: structured log cycle start
+    structured_log("cycle_start", {"dry_run": dry_run, "max_markets": max_markets, "max_trades": max_trades})
+
     print("=" * 70)
     print(f"🤖 KALSHI AUTOTRADER — Unified")
     print(f"📅 {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
@@ -1984,8 +2309,10 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     cb_paused, cb_losses, cb_msg = check_circuit_breaker()
     print(f"🔒 Circuit breaker: {cb_msg}")
     if cb_paused and not dry_run:
+        structured_log("circuit_breaker", {"paused": True, "losses": cb_losses, "message": cb_msg}, level="warning")
         return
     elif cb_paused:
+        structured_log("circuit_breaker", {"paused": True, "losses": cb_losses, "paper_mode": True})
         print("   📝 Paper mode — ignoring circuit breaker, continuing for data collection")
 
     # ── Daily loss limit ── (skip in paper mode — no real money at risk)
@@ -1993,8 +2320,10 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     print(f"📊 Daily PnL: ${dl_pnl['net_pnl_cents']/100:+.2f} ({dl_pnl['trades_today']} trades)")
     if dl_paused and not dry_run:
         print(f"🛑 Daily loss limit reached (-${DAILY_LOSS_LIMIT_CENTS/100:.2f})")
+        structured_log("daily_loss", {"paused": True, "pnl": dl_pnl}, level="warning")
         return
     elif dl_paused:
+        structured_log("daily_loss", {"paused": True, "pnl": dl_pnl, "paper_mode": True})
         print("   📝 Paper mode — ignoring daily loss limit, continuing for data collection")
 
     # ── LLM status ──
@@ -2031,6 +2360,22 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     if num_positions >= MAX_POSITIONS:
         print("⚠️ Max positions reached")
         return
+
+    # ── GROK-TRADE-002: Drawdown & exposure alerts ──
+    check_drawdown(balance)
+    check_exposure_alert(positions, balance)
+
+    # ── GROK-TRADE-002: Risk limit checks ──
+    risk_reasons = check_risk_limits(positions, balance, dl_pnl.get("trades_today", 0))
+    if risk_reasons and not dry_run:
+        for reason in risk_reasons:
+            print(f"🛡️ Risk limit: {reason}")
+        print("⚠️ Risk limits exceeded — skipping cycle")
+        structured_log("cycle_end", {"skipped": True, "reason": "risk_limits", "details": risk_reasons})
+        return
+    elif risk_reasons:
+        for reason in risk_reasons:
+            print(f"🛡️ Risk limit (paper mode, ignoring): {reason}")
 
     # ── Gather context (v2 signals) ──
     context = {}
@@ -2121,6 +2466,12 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
             pass
 
     for i, (market, score) in enumerate(top_markets, 1):
+        # GROK-TRADE-002: check shutdown between market analyses
+        if shutdown_requested:
+            print(f"\n⚠️  Shutdown requested — stopping market analysis")
+            structured_log("cycle_interrupted", {"reason": "shutdown", "markets_analyzed": i - 1})
+            break
+
         if trades_executed >= max_trades:
             print(f"\n⏹️ Max trades ({max_trades}) reached")
             break
@@ -2175,6 +2526,11 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
 
         if decision.action == "SKIP":
             trades_skipped += 1
+            # GROK-TRADE-002: structured log for trade skip
+            structured_log("trade_skipped", {
+                "ticker": market.ticker, "reason": decision.reason,
+                "edge": round(decision.edge, 4),
+            })
             log_trade(market, decision, {}, dry_run)
             continue
 
@@ -2196,6 +2552,13 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         trades_executed += 1
         existing_tickers.add(market.ticker)
         log_trade(market, decision, order_result, dry_run)
+        # GROK-TRADE-002: structured log for trade execution
+        structured_log("trade_executed", {
+            "ticker": market.ticker, "action": decision.action,
+            "contracts": decision.contracts, "price_cents": decision.price_cents,
+            "edge": round(decision.edge, 4), "cost_cents": cost,
+            "dry_run": dry_run,
+        })
         time.sleep(1)
 
     # ── Weather opportunities ──
@@ -2240,7 +2603,7 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         print(f"   Avg API latency: {avg_lat:.0f}ms")
     print(f"{'='*70}")
 
-    log_cycle({
+    cycle_stats = {
         "dry_run": dry_run,
         "forecaster": "heuristic" if use_heuristic else "llm",
         "duration_s": round(duration, 1),
@@ -2251,7 +2614,10 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         "tokens": total_tokens,
         "balance": balance,
         "positions": num_positions,
-    })
+    }
+    log_cycle(cycle_stats)
+    # GROK-TRADE-002: structured log for cycle end
+    structured_log("cycle_end", cycle_stats)
 
 
 # ============================================================================
@@ -2305,20 +2671,38 @@ Examples:
 
     if args.loop > 0:
         print(f"🔄 Loop mode: every {args.loop}s")
-        while True:
+        while not shutdown_requested:
             try:
                 run_cycle(dry_run=dry_run, max_markets=args.markets, max_trades=args.max_trades)
+                # GROK-TRADE-002: check shutdown during sleep
+                if shutdown_requested:
+                    break
                 print(f"\n⏰ Next cycle in {args.loop}s...")
-                time.sleep(args.loop)
+                # Sleep in small increments to respond to shutdown quickly
+                for _ in range(args.loop):
+                    if shutdown_requested:
+                        break
+                    time.sleep(1)
             except KeyboardInterrupt:
-                print("\n\n👋 Stopped by user")
+                # GROK-TRADE-002: KeyboardInterrupt also triggers graceful shutdown
                 break
             except Exception as e:
                 print(f"\n❌ Cycle error: {e}")
+                structured_log("api_error", {"context": "cycle_loop", "error": str(e)}, level="error")
                 traceback.print_exc()
                 time.sleep(30)
+        # GROK-TRADE-002: graceful shutdown — log final state
+        structured_log("shutdown_complete", {
+            "dry_run": dry_run,
+            "reason": "signal" if shutdown_requested else "user_interrupt",
+        })
+        print("\n✅ Graceful shutdown complete")
     else:
         run_cycle(dry_run=dry_run, max_markets=args.markets, max_trades=args.max_trades)
+        # GROK-TRADE-002: log shutdown for single-run mode too
+        if shutdown_requested:
+            structured_log("shutdown_complete", {"dry_run": dry_run, "reason": "signal"})
+            print("\n✅ Graceful shutdown complete")
 
 
 if __name__ == "__main__":

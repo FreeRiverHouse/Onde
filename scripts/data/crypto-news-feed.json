@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T05:14:00.400691+00:00",
+  "timestamp": "2026-02-16T05:44:17.180870+00:00",
   "sources": [
     "coindesk",
     "cointelegraph",
@@ -9,6 +9,13 @@
   "failed_sources": [],
   "article_count": 40,
   "results": [
+    {
+      "title": "OpenAI Taps OpenClaw Founder to Lead Push Into Personal AI Agents",
+      "url": "https://decrypt.co/358141/openai-openclaw-founder-lead-push-personal-ai-agents",
+      "source": "decrypt",
+      "description": "The founder said he is turning OpenClaw into a foundation, calling OpenAI the fastest way to bring open agents to everyone.",
+      "published": "2026-02-16T05:33:38+00:00"
+    },
     {
       "title": "UK Prime Minister Seeks New Powers to Regulate AI Chatbots as Child Safety Concerns Mount",
       "url": "https://decrypt.co/358138/uk-prime-minister-seeks-new-powers-regulate-ai-chatbots",
@@ -20,7 +27,7 @@
       "title": "Aave founder pitches $50T \u2018abundance asset\u2019 boom to drive DeFi",
       "url": "https://cointelegraph.com/news/aave-founder-defi-tokenize-50t-abundance-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Aave Labs CEO Stani Kulechov said onchain lending could help accelerate the development of solar, energy storage, robotics by putting money behind \"future-proof\" assets.",
+      "description": "Aave Labs CEO Stani Kulechov said onchain lending could help accelerate the development of solar, energy storage and robotics by putting money behind \u201cfuture-proof\u201d assets.",
       "published": "2026-02-16T05:04:07+00:00"
     },
     {
@@ -211,13 +218,6 @@
       "source": "coindesk",
       "description": "Despite the price recovery, the Crypto Fear & Greed Index remains in \u201cextreme fear,\u201d indicating underlying market anxiety.",
       "published": "2026-02-14T12:04:00+00:00"
-    },
-    {
-      "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
-      "url": "https://decrypt.co/358096/blockchain-lender-figure-confirms-customer-data-breach",
-      "source": "decrypt",
-      "description": "Blockchain lender Figure said hackers accessed customer data after an employee was targeted in a social engineering attack.",
-      "published": "2026-02-14T00:04:45+00:00"
     }
   ]
 }
