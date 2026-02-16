@@ -450,15 +450,15 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 161 | DASH-010 | Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache | 🚨 CRITICO | ✅ DONE | @clawdinho | Rewrote route.ts to fetch winRateTrend from gist, no more Math.random() |
-| 162 | DASH-011 | Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock | 🚨 CRITICO | 🔶 TODO | - |
+| 162 | DASH-011 | Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock | 🚨 CRITICO | ✅ DONE | @clawdinho | Already fetches from gist with settlements + winRateTrend data |
 | 163 | DASH-012 | Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist | 🚨 CRITICO | ✅ DONE | @clawdinho | Rewrote route.ts to fetch healthStatus from trading gist, real agent data |
-| 164 | DASH-013 | Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts) | 🔥 ALTA | 🔶 TODO | - |
-| 165 | DASH-014 | Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback → fix con dati Gist | 🚨 CRITICO | 🔶 TODO | - |
-| 166 | DASH-015 | Betting page: Latency chart usa generateMockLatencyTrend → collegare a dati reali | 🔥 ALTA | 🔶 TODO | - |
-| 167 | DASH-016 | Betting page: Return Distribution usa generateMockTrades → collegare a trades reali | 🔥 ALTA | 🔶 TODO | - |
-| 168 | DASH-017 | Betting page: PnL by market type usa generateMockPnLData fallback → dati reali | 🔥 ALTA | 🔶 TODO | - |
-| 169 | DASH-018 | Betting page: WinRate Sparkline usa generateMockSparklineData → dati reali | 🔥 ALTA | 🔶 TODO | - |
-| 170 | DASH-019 | Betting page: Latency Sparkline usa generateMockLatencyHistory → dati reali | 🔥 ALTA | 🔶 TODO | - |
+| 164 | DASH-013 | Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts) | 🔥 ALTA | 🔶 BLOCKED | - | D1 migration needed (DASH-005). Mock fallback stays until D1 is available |
+| 165 | DASH-014 | Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback → fix con dati Gist | 🚨 CRITICO | ✅ DONE | @clawdinho | Uses real gist winRateTrend.data, no mock fallback |
+| 166 | DASH-015 | Betting page: Latency chart usa generateMockLatencyTrend → collegare a dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real latencyHistory.dataPoints from gist |
+| 167 | DASH-016 | Betting page: Return Distribution usa generateMockTrades → collegare a trades reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real recentTrades, shows placeholder if <5 trades |
+| 168 | DASH-017 | Betting page: PnL by market type usa generateMockPnLData fallback → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses real recentTrades with parsePnLByMarketType, no mock |
+| 169 | DASH-018 | Betting page: WinRate Sparkline usa generateMockSparklineData → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses parseWinRateTrendFromStats(winRateTrend), conditional render |
+| 170 | DASH-019 | Betting page: Latency Sparkline usa generateMockLatencyHistory → dati reali | 🔥 ALTA | ✅ DONE | @clawdinho | Uses tradingStats.latencyHistory, conditional render |
 | 171 | DASH-020 | FRH page: verificare e fixare agent chat (invio/ricezione messaggi) | 🚨 CRITICO | 🔶 TODO | - |
 | 172 | DASH-021 | FRH page: verificare TaskManagementPanel legge/scrive task reali | 🔥 ALTA | 🔶 TODO | - |
 | 173 | DASH-022 | FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali | 🔥 ALTA | 🔶 TODO | - |
