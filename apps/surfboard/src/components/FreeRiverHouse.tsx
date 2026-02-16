@@ -120,11 +120,13 @@ export function FreeRiverHouse() {
   const [selectedAgent, setSelectedAgent] = useState<AgentState | null>(null);
   const [tasks, setTasks] = useState<AgentTask[]>([]);
   const [message, setMessage] = useState('');
+  const [chatMessage, setChatMessage] = useState(''); // Separate state for chat input
   const [isCreatingTask, setIsCreatingTask] = useState(false);
   const [expanded, setExpanded] = useState(true);
   // panelMode now handles all 3 modes: tasks, chat, activity
-  const [chatHistory, setChatHistory] = useState<{role: 'user' | 'agent', content: string, timestamp: string, agentId?: string}[]>([]);
+  const [chatHistory, setChatHistory] = useState<{role: 'user' | 'agent', content: string, timestamp: string, agentId?: string, status?: string}[]>([]);
   const [isAsking, setIsAsking] = useState(false);
+  const [chatLoading, setChatLoading] = useState(false);
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [activities, setActivities] = useState<{id: number, type: string, title: string, description: string, actor: string, created_at: string}[]>([]);
   const [panelMode, setPanelMode] = useState<'tasks' | 'chat' | 'activity' | 'leaderboard'>('tasks'); // Extended with leaderboard
@@ -562,12 +564,71 @@ export function FreeRiverHouse() {
   // Chat session key for persistent conversations
   const [chatSessionKey, setChatSessionKey] = useState<string | null>(null);
   const lastPollTimeRef = useRef<string | null>(null);
+  const chatPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Load chat history from API for selected agent
+  const loadChatHistory = useCallback(async (agentId: string) => {
+    try {
+      setChatLoading(true);
+      const res = await fetch(`/api/agent-chat?agentId=${encodeURIComponent(agentId)}&limit=50`);
+      if (res.ok) {
+        const data = await res.json();
+        const messages = (data.messages || []).map((m: { sender: string; content: string; created_at: string; status: string; agent_id: string }) => ({
+          role: m.sender === 'agent' ? 'agent' as const : 'user' as const,
+          content: m.content,
+          timestamp: m.created_at,
+          agentId: m.agent_id,
+          status: m.status,
+        }));
+        setChatHistory(messages);
+        // Set session key from most recent message if available
+        if (data.messages?.length > 0) {
+          const lastMsg = data.messages[data.messages.length - 1];
+          if (lastMsg.session_key) {
+            setChatSessionKey(lastMsg.session_key);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load chat history:', err);
+    } finally {
+      setChatLoading(false);
+    }
+  }, []);
+
+  // Poll for new messages when chat is open
+  useEffect(() => {
+    if (panelMode === 'chat' && selectedAgent) {
+      // Load history on mount
+      loadChatHistory(selectedAgent.id);
+
+      // Poll every 10 seconds for new messages
+      chatPollIntervalRef.current = setInterval(() => {
+        if (selectedAgent) {
+          loadChatHistory(selectedAgent.id);
+        }
+      }, 10000);
+
+      return () => {
+        if (chatPollIntervalRef.current) {
+          clearInterval(chatPollIntervalRef.current);
+          chatPollIntervalRef.current = null;
+        }
+      };
+    }
+    return () => {
+      if (chatPollIntervalRef.current) {
+        clearInterval(chatPollIntervalRef.current);
+        chatPollIntervalRef.current = null;
+      }
+    };
+  }, [panelMode, selectedAgent, loadChatHistory]);
 
   // Ask a question to an agent - NOW USES REAL CLAWDBOT VIA AGENT-CHAT API
   const handleAskQuestion = async () => {
-    if (!selectedAgent || !message.trim()) return;
+    if (!selectedAgent || !chatMessage.trim()) return;
 
-    const question = message.trim();
+    const question = chatMessage.trim();
     setIsAsking(true);
 
     // Add user message to chat immediately for responsiveness
@@ -575,9 +636,10 @@ export function FreeRiverHouse() {
       role: 'user',
       content: question,
       timestamp: new Date().toISOString(),
-      agentId: selectedAgent.id
+      agentId: selectedAgent.id,
+      status: 'sending',
     }]);
-    setMessage('');
+    setChatMessage('');
 
     try {
       // Send message to agent-chat API (queued for Clawdbot pickup)
@@ -587,7 +649,7 @@ export function FreeRiverHouse() {
         body: JSON.stringify({
           agentId: selectedAgent.id,
           content: question,
-          senderName: 'Dashboard',
+          senderName: 'Mattia (Dashboard)',
           sessionKey: chatSessionKey,
           metadata: { source: 'free-river-house' }
         })
@@ -599,58 +661,14 @@ export function FreeRiverHouse() {
         if (data.sessionKey && !chatSessionKey) {
           setChatSessionKey(data.sessionKey);
         }
-
-        // Poll for response (check every 5 seconds for up to 3 minutes)
-        // Clawdbot will pick up the message via heartbeat and respond
-        let attempts = 0;
-        const maxAttempts = 36; // 3 minutes
-        const startTime = new Date().toISOString();
-        
-        const pollInterval = setInterval(async () => {
-          attempts++;
-          try {
-            // Fetch messages from agent-chat API, looking for agent responses after our message
-            const historyRes = await fetch(
-              `/api/agent-chat?sessionKey=${encodeURIComponent(data.sessionKey)}&after=${encodeURIComponent(lastPollTimeRef.current || startTime)}`
-            );
-            
-            if (historyRes.ok) {
-              const historyData = await historyRes.json();
-              const newMessages = (historyData.messages || []).filter(
-                (m: { sender: string; created_at: string }) => 
-                  m.sender === 'agent' && new Date(m.created_at) > new Date(startTime)
-              );
-              
-              if (newMessages.length > 0) {
-                clearInterval(pollInterval);
-                // Add all new agent messages to chat
-                newMessages.forEach((msg: { content: string; created_at: string }) => {
-                  setChatHistory(prev => [...prev, {
-                    role: 'agent',
-                    content: msg.content,
-                    timestamp: msg.created_at,
-                    agentId: selectedAgent.id
-                  }]);
-                });
-                lastPollTimeRef.current = newMessages[newMessages.length - 1].created_at;
-                setIsAsking(false);
-              }
-            }
-          } catch (e) {
-            console.error('Poll error:', e);
-          }
-
-          if (attempts >= maxAttempts) {
-            clearInterval(pollInterval);
-            setChatHistory(prev => [...prev, {
-              role: 'agent',
-              content: '⏳ L\'agente non ha ancora risposto. Il messaggio è in coda e riceverai una risposta quando l\'agente sarà disponibile. Riprova tra qualche minuto o controlla più tardi.',
-              timestamp: new Date().toISOString(),
-              agentId: selectedAgent.id
-            }]);
-            setIsAsking(false);
-          }
-        }, 5000);
+        // Update the optimistic message status to pending
+        setChatHistory(prev => prev.map((m, i) => 
+          i === prev.length - 1 && m.status === 'sending' 
+            ? { ...m, status: 'pending' } 
+            : m
+        ));
+        setIsAsking(false);
+        // The polling interval will pick up the agent's response automatically
       } else {
         showToast('Errore nell\'invio del messaggio', 'error');
         setIsAsking(false);
@@ -1222,27 +1240,49 @@ export function FreeRiverHouse() {
 
                 {panelMode === 'chat' && (
                   <>
-                    {/* TTS toggle header */}
-                    {tts.isSupported && (
-                      <div className="px-3 py-2 border-b border-white/5 flex items-center justify-between">
-                        <span className="text-[10px] text-white/40">Read aloud</span>
+                    {/* Chat header with TTS + refresh */}
+                    <div className="px-3 py-2 border-b border-white/5 flex items-center justify-between">
+                      <span className="text-[10px] text-white/40">
+                        💬 Chat con {selectedAgent.name.split(' ')[0]}
+                        {chatLoading && ' • loading...'}
+                      </span>
+                      <div className="flex items-center gap-1">
                         <button
-                          onClick={() => toggleTTS(!ttsEnabled)}
-                          className={`p-1.5 rounded transition-colors ${
-                            ttsEnabled 
-                              ? 'bg-purple-500/20 text-purple-400' 
-                              : 'bg-white/5 text-white/30 hover:text-white/50'
-                          }`}
-                          title={ttsEnabled ? 'TTS enabled - click messages to hear' : 'Enable TTS'}
+                          onClick={() => loadChatHistory(selectedAgent.id)}
+                          className="p-1 rounded transition-colors hover:bg-white/10 text-white/30 hover:text-white/50"
+                          title="Ricarica chat"
                         >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                          <svg className={`w-3 h-3 ${chatLoading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                           </svg>
                         </button>
+                        {tts.isSupported && (
+                          <button
+                            onClick={() => toggleTTS(!ttsEnabled)}
+                            className={`p-1 rounded transition-colors ${
+                              ttsEnabled 
+                                ? 'bg-purple-500/20 text-purple-400' 
+                                : 'bg-white/5 text-white/30 hover:text-white/50'
+                            }`}
+                            title={ttsEnabled ? 'TTS enabled' : 'Enable TTS'}
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                            </svg>
+                          </button>
+                        )}
                       </div>
-                    )}
-                    {/* Chat history */}
-                    <div className="flex-1 overflow-y-auto max-h-48 p-2 space-y-2">
+                    </div>
+                    {/* Chat history - EXPANDED area */}
+                    <div className="flex-1 overflow-y-auto p-2 space-y-2" style={{ minHeight: '200px', maxHeight: '400px' }}>
+                      {chatLoading && chatHistory.filter(m => m.agentId === selectedAgent.id).length === 0 && (
+                        <div className="flex items-center justify-center py-8">
+                          <svg className="w-5 h-5 animate-spin text-purple-400" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                          </svg>
+                        </div>
+                      )}
                       {chatHistory.filter(m => m.agentId === selectedAgent.id).length > 0 ? (
                         chatHistory.filter(m => m.agentId === selectedAgent.id).map((msg, idx) => (
                           <div
@@ -1254,8 +1294,21 @@ export function FreeRiverHouse() {
                             }`}
                           >
                             <div className="flex items-center justify-between text-[10px] text-white/30 mb-1">
-                              <span>
-                                {msg.role === 'user' ? 'You' : selectedAgent.name} • {new Date(msg.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                              <span className="flex items-center gap-1">
+                                {msg.role === 'user' ? '👤 You' : `🤖 ${selectedAgent.name.split(' ')[0]}`} • {new Date(msg.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                                {/* Status indicator for user messages */}
+                                {msg.role === 'user' && msg.status && (
+                                  <span className={`ml-1 ${
+                                    msg.status === 'sending' ? 'text-yellow-500' :
+                                    msg.status === 'pending' ? 'text-amber-400' :
+                                    msg.status === 'delivered' ? 'text-green-400' :
+                                    'text-white/20'
+                                  }`}>
+                                    {msg.status === 'sending' ? '⏳' :
+                                     msg.status === 'pending' ? '📤 in coda' :
+                                     msg.status === 'delivered' ? '✅' : ''}
+                                  </span>
+                                )}
                               </span>
                               {/* TTS button for agent messages */}
                               {msg.role === 'agent' && ttsEnabled && tts.isSupported && (
@@ -1284,11 +1337,17 @@ export function FreeRiverHouse() {
                             <div className="whitespace-pre-wrap">{msg.content}</div>
                           </div>
                         ))
-                      ) : (
-                        <p className="text-white/30 text-xs text-center py-4">
-                          Ask {selectedAgent.name.split(' ')[0]} a question
-                        </p>
-                      )}
+                      ) : !chatLoading ? (
+                        <div className="text-center py-8">
+                          <span className="text-3xl mb-2 block">💬</span>
+                          <p className="text-white/30 text-xs">
+                            Scrivi a {selectedAgent.name.split(' ')[0]}
+                          </p>
+                          <p className="text-white/20 text-[10px] mt-1">
+                            I messaggi vengono ricevuti dall&apos;agente in ~2 min
+                          </p>
+                        </div>
+                      ) : null}
                       {isAsking && (
                         <div className="p-2 rounded-lg bg-purple-500/10 text-purple-200 mr-4 text-xs">
                           <div className="flex items-center gap-2">
@@ -1296,28 +1355,28 @@ export function FreeRiverHouse() {
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                             </svg>
-                            <span>{selectedAgent.name} is thinking...</span>
+                            <span>Invio in corso...</span>
                           </div>
                         </div>
                       )}
                       <div ref={chatEndRef} />
                     </div>
 
-                    {/* Question input */}
+                    {/* Chat input */}
                     <div className="p-3 border-t border-white/10">
                       <div className="flex gap-2">
                         <input
                           type="text"
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
+                          value={chatMessage}
+                          onChange={(e) => setChatMessage(e.target.value)}
                           onKeyDown={(e) => e.key === 'Enter' && !isAsking && handleAskQuestion()}
-                          placeholder={`Ask ${selectedAgent.name.split(' ')[0]}...`}
+                          placeholder={`Scrivi a ${selectedAgent.name.split(' ')[0]}...`}
                           className="flex-1 bg-white/5 border border-white/10 text-white px-3 py-2 rounded-lg text-xs placeholder:text-white/30 focus:outline-none focus:border-purple-500/50"
                           disabled={isAsking}
                         />
                         <button
                           onClick={handleAskQuestion}
-                          disabled={!message.trim() || isAsking}
+                          disabled={!chatMessage.trim() || isAsking}
                           className="px-3 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                           {isAsking ? (
@@ -1327,7 +1386,7 @@ export function FreeRiverHouse() {
                             </svg>
                           ) : (
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                             </svg>
                           )}
                         </button>
