@@ -274,8 +274,6 @@
 | 107 | BLOG-002 | Create /blog section on onde.la | 🔥 Infra | ✅ DONE | @clawdinho | /blog listing page + layout with Blog JSON-LD, breadcrumbs, dark glass UI, sitemap updated, footer nav link added |
 | 108 | DASH-002 | FRH agent chat fully working end-to-end | ⭐ Dashboard | ✅ DONE | @clawdinho | D1 tables created, API working, tested send+receive |
 | 109 | DASH-003 | Dashboard stats show real data (books=2, gist fallback) | ⭐ Dashboard | ✅ DONE | @clawdinho | EnhancedStats fetches from gist when DB unavailable |
-| 110 | RADEON-001 | Verify Radeon patch still works, test with eGPU connected | ⭐ Tech | TODO | - | Need eGPU connected to test |
-| 111 | RADEON-002 | Submit TinyGrad float16 patch as PR to tinygrad/tinygrad | ⭐ Open Source | TODO | - | Depends on RADEON-001 verification |
 | 112 | DASH-004 | Populate Visitors/Followers/PageViews with Cloudflare Analytics | ⭐ Dashboard | DONE | @clawdinho | Real CF data on EnhancedStats: 19 daily visitors, 147 weekly, 1079 monthly, sparklines | Integrate CF Web Analytics API |
 | 113 | CYCLE-001 | Continuous improvement: add error boundaries to all dashboard pages | ⭐ Quality | DONE | @clawdinho | ErrorBoundary wraps 9 panels + betting + trading, deployed | Prevent full-page crashes from single component errors |
 | 114 | SEO-015 | Full SEO audit onde.la - meta tags, OG, structured data, sitemap | 🔥 SEO | ✅ DONE | @clawdinho | Report: docs/seo/full-audit-2026-02.md. Fixed sitemap 404s (4 broken book URLs). CF AI Audit blocks crawlers — needs Mattia to disable in CF dashboard |
