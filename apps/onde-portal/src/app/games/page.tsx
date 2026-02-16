@@ -12,6 +12,7 @@ const games = [
   { id: 'banner', href: '/games/banner-maker', title: 'Banner Maker', desc: 'Minecraft Banners', emoji: '🏳️' },
   { id: 'pixel-art', href: '/games/pixel-art', title: 'Pixel Art', desc: 'Image to Blocks', emoji: '🖼️' },
   { id: 'enchant', href: '/games/enchant-calc', title: 'Enchant Calc', desc: 'Enchantment Guide', emoji: '✨' },
+  { id: 'name-gen', href: '/games/name-generator', title: 'Name Generator', desc: 'MC Usernames', emoji: '⚒️' },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz', desc: 'Knowledge', emoji: '❓' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math Fun', emoji: '➕' },
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match Pairs', emoji: '🧠' },
@@ -145,6 +146,7 @@ export default function GamingIsland() {
               { href: '/games/banner-maker', emoji: '🏳️', title: 'Banner Maker', color: 'from-indigo-500 to-blue-500' },
               { href: '/games/pixel-art', emoji: '🖼️', title: 'Pixel Art', color: 'from-emerald-500 to-cyan-500' },
               { href: '/games/enchant-calc', emoji: '✨', title: 'Enchant Calc', color: 'from-purple-500 to-violet-600' },
+              { href: '/games/name-generator', emoji: '⚒️', title: 'Name Generator', color: 'from-gray-600 to-gray-700' },
             ].map((game) => (
               <Link 
                 key={game.href}

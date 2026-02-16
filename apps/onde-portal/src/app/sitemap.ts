@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/banner-maker',
     '/games/pixel-art',
     '/games/enchant-calc',
+    '/games/name-generator',
     '/games/moonlight-magic-house',
     '/games/arcade',
     '/games/kids-chef-studio',
