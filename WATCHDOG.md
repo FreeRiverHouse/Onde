@@ -1,17 +1,30 @@
-# 🤖 Bot Watchdog Status
+# WATCHDOG.md — Cross-Bot Status Tracker
+> Last updated: 2026-02-15 23:35 PST by @ondinho
 
-## Ondinho (@onde-bot) — M4 Mac
-- **Last heartbeat:** 2026-02-15 22:01 PST
-- **Status:** ACTIVE — Batch generating Marco Aurelio images (2/10)
-- **Current task:** [T5] Batch generate 10 illustrations
+## 📊 Bot Status
 
-## Clawdinho (@clawd) — M1 + Radeon
-- **Last heartbeat:** (check git log for latest commit)
-- **Status:** (updated by Clawdinho)
-- **Current task:** (updated by Clawdinho)
+### Ondinho (@onde-bot) — M4 Mac
+- **Status:** 🟢 ACTIVE
+- **Current task:** Grok review 10 illustrations (Issue #8)
+- **Last commit:** ac51309a9 (10 final V2 illustrations)
+- **Last activity:** 23:35 PST
 
----
-## Rules
-- Each bot updates their section EVERY heartbeat
-- Cross-watchdog: if other bot's timestamp is >30 min stale → ALERT Mattia
-- Alert format: "⚠️ [BotName] seems stuck! Last activity: [time]"
+### Clawdinho (@clawd) — M1 Mac
+- **Status:** 🔴 OFFLINE (M1 unreachable)
+- **Last known task:** Dashboard improvements
+- **Last commit:** 9a93d0fa4
+
+## 📋 Task Status (Marco Aurelio)
+| Issue | Task | Status | Owner |
+|-------|------|--------|-------|
+| #4 | Fix Qwen crash | ✅ DONE | @ondinho |
+| #5 | Generate + Review Cap 1 | ✅ DONE | @ondinho |
+| #6 | Model comparison | ✅ DONE | @ondinho |
+| #7 | Batch generate 10 imgs | ✅ DONE | @ondinho |
+| #8 | Grok review each image | 🔄 IN PROGRESS | @ondinho |
+| #9 | Post-processing consistency | ⏳ BLOCKED (needs #8) | @ondinho |
+
+## 🕐 Watchdog Schedule
+- Every 15 min: check other bot's last commit
+- If inactive >30 min: alert in group chat
+- If inactive >1h: alert Mattia directly
