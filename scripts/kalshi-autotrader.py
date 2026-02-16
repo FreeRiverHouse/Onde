@@ -60,6 +60,9 @@ YJZnQlMSeGK5ezv10pi0K5q7luyW8TNfknr5uafM5vq2c/LLcAJn
 
 BASE_URL = "https://api.elections.kalshi.com"
 
+# Paper/Dry-run mode — logs trades but does NOT place real orders
+DRY_RUN = True  # 🔴 PAPER MODE — set to False to enable real trading
+
 # Trading parameters
 MIN_EDGE = 0.15  # 15% minimum edge to trade (conservative!)
 MAX_EDGE = 0.20  # TRADE-005: 20% max edge — edges above this are model errors, not real alpha
@@ -768,7 +771,11 @@ def trading_cycle(live_mode: bool = False):
     print(f"   Edge: {best['edge']*100:.1f}%")
     print(f"   Time to expiry: {best.get('minutes_to_expiry', '?')} min")
     
-    result = place_order(best["ticker"], best["side"], contracts, best["price"])
+    if DRY_RUN:
+        print(f"📝 [PAPER MODE] Would place order — NOT executing")
+        result = {"order": {"status": "paper", "taker_fill_cost": contracts * best["price"]}}
+    else:
+        result = place_order(best["ticker"], best["side"], contracts, best["price"])
     
     # Build trade reason explanation
     momentum_dir = "bullish" if momentum > 0.005 else "bearish" if momentum < -0.005 else "neutral"
@@ -819,8 +826,12 @@ def trading_cycle(live_mode: bool = False):
 
 def run_autotrader(live_mode: bool = False, interval_seconds: int = 300):
     """Run the autotrader continuously"""
+    if DRY_RUN:
+        live_mode = False  # DRY_RUN config overrides --live flag
     print("🤖 Starting Kalshi AutoTrader...")
-    print(f"   Mode: {'LIVE' if live_mode else 'DRY RUN'}")
+    if DRY_RUN:
+        print("   ⚠️  *** PAPER MODE *** — NO real orders will be placed!")
+    print(f"   Mode: {'LIVE' if live_mode else 'PAPER / DRY RUN'}")
     print(f"   Interval: {interval_seconds}s")
     print(f"   Daily loss limit: ${DAILY_LOSS_LIMIT_CENTS/100:.2f}")
     print("   Press Ctrl+C to stop\n")
