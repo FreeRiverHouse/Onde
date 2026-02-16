@@ -102,7 +102,7 @@ export default function AppPage() {
   }))
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen dark:bg-gray-900">
       {/* Watercolor Background Effect */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div
@@ -165,7 +165,7 @@ export default function AppPage() {
                 border border-onde-${app.color}/20 shadow-card
                 hover:shadow-card-hover hover:border-onde-${app.color}/40
                 transition-all duration-300 overflow-hidden group
-              `}>
+              dark:bg-gray-800 dark:border-gray-700`}>
                 {/* Watercolor Splash Background */}
                 <div
                   className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-500"
@@ -213,11 +213,11 @@ export default function AppPage() {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-display font-bold text-onde-ocean mb-2">
+                <h3 className="text-2xl font-display font-bold text-onde-ocean dark:text-white mb-2">
                   {app.title}
                 </h3>
-                <p className="text-sm text-onde-ocean/50 font-medium mb-4">{app.subtitle}</p>
-                <p className="text-onde-ocean/70 leading-relaxed mb-6">
+                <p className="text-sm text-onde-ocean/50 dark:text-gray-400 font-medium mb-4">{app.subtitle}</p>
+                <p className="text-onde-ocean/70 dark:text-gray-300 leading-relaxed mb-6">
                   {app.description}
                 </p>
 
@@ -254,10 +254,10 @@ export default function AppPage() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-display font-bold text-onde-ocean mb-2">
+          <h3 className="text-2xl font-display font-bold text-onde-ocean dark:text-white mb-2">
             {t.appPage.futureApps.title}
           </h3>
-          <p className="text-onde-ocean/60">{t.appPage.futureApps.subtitle}</p>
+          <p className="text-onde-ocean/60 dark:text-gray-400">{t.appPage.futureApps.subtitle}</p>
         </motion.div>
 
         <motion.div
@@ -279,11 +279,11 @@ export default function AppPage() {
                   {app.status}
                 </span>
               </div>
-              <h4 className="text-lg font-display font-bold text-onde-ocean mb-1">
+              <h4 className="text-lg font-display font-bold text-onde-ocean dark:text-white mb-1">
                 {app.title}
               </h4>
-              <p className="text-xs text-onde-ocean/50 mb-2">{app.subtitle}</p>
-              <p className="text-sm text-onde-ocean/60 leading-relaxed">
+              <p className="text-xs text-onde-ocean/50 dark:text-gray-400 mb-2">{app.subtitle}</p>
+              <p className="text-sm text-onde-ocean/60 dark:text-gray-400 leading-relaxed">
                 {app.description}
               </p>
             </AnimatedCard>

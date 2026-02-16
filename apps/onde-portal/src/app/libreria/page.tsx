@@ -62,12 +62,12 @@ export default function Libreria() {
   // Not logged in
   if (!user) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">La Mia Libreria</h1>
+      <div className="max-w-6xl mx-auto px-4 py-12 dark:text-white">
+        <h1 className="text-4xl font-bold mb-8 dark:text-white">La Mia Libreria</h1>
 
         <div className="text-center py-20">
           <div className="text-6xl mb-6">🔐</div>
-          <p className="text-xl mb-4 opacity-80">Accedi per vedere la tua libreria</p>
+          <p className="text-xl mb-4 opacity-80 dark:text-gray-300">Accedi per vedere la tua libreria</p>
           <p className="opacity-60 mb-8">
             I tuoi libri acquistati saranno sempre disponibili qui.
           </p>

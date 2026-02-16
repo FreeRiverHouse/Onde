@@ -87,7 +87,7 @@ export default function MyBooksPage() {
   }
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12 dark:bg-gray-900">
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
         <div className="text-center mb-16">
@@ -152,10 +152,10 @@ export default function MyBooksPage() {
             className="text-center py-16"
           >
             <div className="text-6xl mb-6">📚</div>
-            <h3 className="text-xl font-display font-semibold text-gray-900 mb-3">
+            <h3 className="text-xl font-display font-semibold text-gray-900 dark:text-white mb-3">
               Your reading list is empty
             </h3>
-            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
               Browse our library and click the bookmark icon on any book to save it for later.
             </p>
             <Link
@@ -177,7 +177,7 @@ export default function MyBooksPage() {
             {bookmarkedBooks.map((book, index) => (
               <motion.div
                 key={book.id}
-                className="bg-white/90 backdrop-blur-sm rounded-3xl border border-amber-200/50
+                className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-3xl border border-amber-200/50 dark:border-gray-700
                            shadow-xl overflow-hidden"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -212,11 +212,11 @@ export default function MyBooksPage() {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h2 className="text-2xl font-display font-bold text-amber-900 mb-1">
+                  <h2 className="text-2xl font-display font-bold text-amber-900 dark:text-amber-200 mb-1">
                     {book.title}
                   </h2>
-                  <p className="text-amber-900 mb-1">{book.subtitle}</p>
-                  <p className="text-gray-700 text-sm mb-2">by {book.author}</p>
+                  <p className="text-amber-900 dark:text-amber-300 mb-1">{book.subtitle}</p>
+                  <p className="text-gray-700 dark:text-gray-400 text-sm mb-2">by {book.author}</p>
 
                   {/* Reading info */}
                   {(book.pages || book.readingTime) && (

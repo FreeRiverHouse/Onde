@@ -133,13 +133,14 @@ export default function Home() {
   ]
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
+    <div className="relative min-h-screen overflow-x-hidden dark:bg-gray-900" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
       {/* ============================================
           GLOBAL BACKGROUND - Ocean Relaxing + Kids Friendly
           ============================================ */}
       <div className="fixed inset-0 pointer-events-none">
         {/* Soft ocean gradient */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }} />
+        <div className="absolute inset-0 dark:hidden" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }} />
+        <div className="absolute inset-0 hidden dark:block bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" />
         
         {/* Warm sun glow */}
         <div className="absolute -top-40 right-1/4 w-[600px] h-[600px] bg-amber-300/30 rounded-full blur-[100px]" />
@@ -174,10 +175,10 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-lg backdrop-blur-xl mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 dark:bg-gray-800/70 border border-white dark:border-gray-700 shadow-lg backdrop-blur-xl mb-8"
           >
             <span className="text-2xl">🌊</span>
-            <span className="text-teal-700 text-sm font-medium">{t.home.badge} ☀️</span>
+            <span className="text-teal-700 dark:text-teal-300 text-sm font-medium">{t.home.badge} ☀️</span>
           </motion.div>
 
           {/* Main Title */}
@@ -187,13 +188,13 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="text-teal-800 drop-shadow-sm">{t.home.hero.craftedBy}</span>
+            <span className="text-teal-800 dark:text-teal-200 drop-shadow-sm">{t.home.hero.craftedBy}</span>
             <br />
             <GradientText colors={["#0D9488", "#D97706", "#EC4899", "#0D9488"]}>
               {t.home.hero.code}
             </GradientText>
             <br />
-            <span className="text-teal-700">{t.home.hero.touchedBy}</span>
+            <span className="text-teal-700 dark:text-teal-300">{t.home.hero.touchedBy}</span>
             <br />
             <motion.span 
               className="text-transparent bg-clip-text"
@@ -211,7 +212,7 @@ export default function Home() {
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-teal-600/80 max-w-2xl mx-auto mb-12"
+            className="text-xl md:text-2xl text-teal-600/80 dark:text-teal-300/80 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -236,7 +237,7 @@ export default function Home() {
             
             <Link 
               href="/games/"
-              className="group px-8 py-4 min-h-[48px] bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+              className="group px-8 py-4 min-h-[48px] bg-white/80 dark:bg-gray-800/80 backdrop-blur text-teal-700 dark:text-teal-300 font-bold text-lg border-2 border-teal-300 dark:border-teal-600 rounded-full hover:bg-white dark:hover:bg-gray-700 hover:border-teal-400 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <span>{t.home.hero.playGames}</span>
               <span className="text-xl group-hover:animate-bounce">🎮</span>
@@ -263,7 +264,7 @@ export default function Home() {
             transition={{ delay: 1, y: { duration: 1.5, repeat: Infinity } }}
           >
             <div className="flex flex-col items-center gap-2">
-              <span className="text-teal-500 text-sm font-medium">{t.home.hero.scrollHint}</span>
+              <span className="text-teal-500 dark:text-teal-400 text-sm font-medium">{t.home.hero.scrollHint}</span>
               <motion.span 
                 className="text-2xl"
                 animate={{ y: [0, 8, 0] }}
@@ -290,10 +291,10 @@ export default function Home() {
             <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
               <span>🌟</span> {t.home.whyOnde.badge} <span>🌟</span>
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-teal-800 mt-4 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-teal-800 dark:text-teal-200 mt-4 mb-6">
               {t.home.whyOnde.title}
             </h2>
-            <p className="text-teal-600/70 max-w-xl mx-auto text-base">
+            <p className="text-teal-600/70 dark:text-teal-400/70 max-w-xl mx-auto text-base">
               {t.home.whyOnde.subtitle}
             </p>
           </motion.div>
@@ -333,10 +334,10 @@ export default function Home() {
             <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
               <span>📖</span> {t.home.library.badge} <span>📖</span>
             </span>
-            <h2 className="text-4xl md:text-6xl font-bold text-teal-800 mt-4 mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-teal-800 dark:text-teal-200 mt-4 mb-6">
               {t.home.library.title}
             </h2>
-            <p className="text-teal-600/70 max-w-xl mx-auto">
+            <p className="text-teal-600/70 dark:text-teal-400/70 max-w-xl mx-auto">
               {t.home.library.subtitle}
             </p>
           </motion.div>
@@ -355,7 +356,7 @@ export default function Home() {
                     className="h-full"
                     glowColor={book.gradient.includes('amber') ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'}
                   >
-                    <div className="bg-white/90 backdrop-blur-xl border-2 border-teal-200 rounded-2xl overflow-hidden shadow-xl">
+                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border-2 border-teal-200 dark:border-teal-700 rounded-2xl overflow-hidden shadow-xl">
                       {/* Cover */}
                       <div className={`aspect-[16/10] relative bg-gradient-to-br ${book.gradient}`}>
                         <Image
@@ -381,10 +382,10 @@ export default function Home() {
 
                       {/* Info */}
                       <div className="p-8">
-                        <h3 className="text-2xl font-bold text-teal-800 mb-1">{book.title}</h3>
-                        <p className="text-amber-600 text-base md:text-sm mb-1">{book.subtitle}</p>
-                        <p className="text-teal-500 text-sm md:text-xs mb-4">by {book.author}</p>
-                        <p className="text-teal-600/70 text-base md:text-sm leading-relaxed mb-8">
+                        <h3 className="text-2xl font-bold text-teal-800 dark:text-teal-200 mb-1">{book.title}</h3>
+                        <p className="text-amber-600 dark:text-amber-400 text-base md:text-sm mb-1">{book.subtitle}</p>
+                        <p className="text-teal-500 dark:text-teal-400 text-sm md:text-xs mb-4">by {book.author}</p>
+                        <p className="text-teal-600/70 dark:text-teal-400/70 text-base md:text-sm leading-relaxed mb-8">
                           {book.description}
                         </p>
 
@@ -413,7 +414,7 @@ export default function Home() {
           >
             <Link 
               href="/libri/"
-              className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800 transition-colors group font-medium"
+              className="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-200 transition-colors group font-medium"
             >
               <span>{t.home.library.viewAll}</span>
               <motion.span 
@@ -437,7 +438,7 @@ export default function Home() {
             <span className="text-pink-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
               <span>💬</span> {t.home.testimonials.badge} <span>💬</span>
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mt-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-teal-800 dark:text-teal-200 mt-4">
               {t.home.testimonials.title}
             </h2>
           </div>
@@ -451,17 +452,17 @@ export default function Home() {
           ============================================ */}
       <section className="relative py-20">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="p-12 md:p-20 text-center bg-white/80 backdrop-blur-xl rounded-3xl border-2 border-teal-200 shadow-2xl">
+          <div className="p-12 md:p-20 text-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl border-2 border-teal-200 dark:border-teal-700 shadow-2xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
               <span className="text-6xl mb-6 block">{t.home.ctaNew.emoji}</span>
-              <h2 className="text-3xl md:text-5xl font-bold text-teal-800 mb-6">
+              <h2 className="text-3xl md:text-5xl font-bold text-teal-800 dark:text-teal-200 mb-6">
                 {t.home.ctaNew.title}
               </h2>
-              <p className="text-teal-600/70 text-lg mb-10 max-w-lg mx-auto">
+              <p className="text-teal-600/70 dark:text-teal-400/70 text-lg mb-10 max-w-lg mx-auto">
                 {t.home.ctaNew.subtitle}
               </p>
               <Link 
@@ -477,9 +478,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative py-16 border-t border-teal-200">
+      <footer className="relative py-16 border-t border-teal-200 dark:border-gray-700">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-teal-500 text-base md:text-sm flex items-center justify-center gap-2">
+          <p className="text-teal-500 dark:text-teal-400 text-base md:text-sm flex items-center justify-center gap-2">
             <span>🌊</span>
             {t.home.footerNew.copyright}
             <span>☀️</span>

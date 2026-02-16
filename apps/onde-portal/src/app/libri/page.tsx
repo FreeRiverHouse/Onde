@@ -275,7 +275,7 @@ export default function LibriPage() {
   const t = useTranslations()
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12 dark:bg-gray-900">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Breadcrumb items={[
@@ -313,14 +313,14 @@ export default function LibriPage() {
           {books.map((book, index) => (
             <motion.div
               key={book.id}
-              className="bg-white/90 backdrop-blur-sm rounded-3xl border border-amber-200/50
+              className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-3xl border border-amber-200/50 dark:border-gray-700
                          shadow-xl overflow-hidden"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15 }}
             >
               {/* Cover Image */}
-              <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-50 to-amber-100">
+              <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-50 to-amber-100 dark:from-gray-700 dark:to-gray-800">
                 <Image
                   src={book.coverImage}
                   alt={book.title}
@@ -344,13 +344,13 @@ export default function LibriPage() {
 
               {/* Content */}
               <div className="p-6">
-                <h2 className="text-2xl font-display font-bold text-amber-900 mb-1">
+                <h2 className="text-2xl font-display font-bold text-amber-900 dark:text-amber-200 mb-1">
                   {book.title}
                 </h2>
-                <p className="text-amber-900 mb-1">{book.subtitle}</p>
-                <p className="text-gray-700 text-sm mb-4">by {book.author}</p>
+                <p className="text-amber-900 dark:text-amber-300 mb-1">{book.subtitle}</p>
+                <p className="text-gray-700 dark:text-gray-400 text-sm mb-4">by {book.author}</p>
 
-                <p className="text-gray-800 text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-gray-800 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3">
                   {book.description}
                 </p>
 
@@ -408,7 +408,7 @@ export default function LibriPage() {
 
                 {/* Free Label */}
                 {book.isFree && (
-                  <p className="mt-4 text-xs text-green-600 flex items-center gap-1.5">
+                  <p className="mt-4 text-xs text-green-600 dark:text-green-400 flex items-center gap-1.5">
                     <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
@@ -424,17 +424,17 @@ export default function LibriPage() {
       {/* Coming Soon */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <motion.div
-          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-onde-ocean/5 to-onde-teal/10
-                     p-8 md:p-12 text-center border border-onde-ocean/10"
+          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-onde-ocean/5 to-onde-teal/10 dark:from-gray-800 dark:to-gray-800
+                     p-8 md:p-12 text-center border border-onde-ocean/10 dark:border-gray-700"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <span className="text-4xl mb-4 block">📖</span>
-          <h3 className="text-2xl font-display font-bold text-onde-ocean mb-4">
+          <h3 className="text-2xl font-display font-bold text-onde-ocean dark:text-teal-300 mb-4">
             More Books Coming Soon
           </h3>
-          <p className="text-gray-700 max-w-lg mx-auto">
+          <p className="text-gray-700 dark:text-gray-300 max-w-lg mx-auto">
             We&apos;re preparing more beautifully illustrated editions of classic literature.
             Stay tuned for new releases.
           </p>
@@ -448,36 +448,36 @@ export default function LibriPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl font-display font-bold text-center text-amber-800 mb-8">✨ Explore More on Onde</h2>
+          <h2 className="text-2xl font-display font-bold text-center text-amber-800 dark:text-amber-300 mb-8">✨ Explore More on Onde</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
               href="/games/"
-              className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-sky-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+              className="group flex items-center gap-3 p-5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl border-2 border-sky-200 dark:border-sky-800 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🎮</span>
               <div>
-                <p className="font-bold text-sky-800">Games</p>
-                <p className="text-sm text-sky-600/70">50+ free browser games for kids</p>
+                <p className="font-bold text-sky-800 dark:text-sky-300">Games</p>
+                <p className="text-sm text-sky-600/70 dark:text-sky-400/70">50+ free browser games for kids</p>
               </div>
             </Link>
             <Link
               href="/games/skin-creator"
-              className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-purple-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+              className="group flex items-center gap-3 p-5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl border-2 border-purple-200 dark:border-purple-800 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🎨</span>
               <div>
-                <p className="font-bold text-purple-800">Skin Creator</p>
-                <p className="text-sm text-purple-600/70">Design Minecraft skins with AI</p>
+                <p className="font-bold text-purple-800 dark:text-purple-300">Skin Creator</p>
+                <p className="text-sm text-purple-600/70 dark:text-purple-400/70">Design Minecraft skins with AI</p>
               </div>
             </Link>
             <Link
               href="/shop/"
-              className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-teal-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+              className="group flex items-center gap-3 p-5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl border-2 border-teal-200 dark:border-teal-800 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🛍️</span>
               <div>
-                <p className="font-bold text-teal-800">Shop</p>
-                <p className="text-sm text-teal-600/70">Stickers, merch & more</p>
+                <p className="font-bold text-teal-800 dark:text-teal-300">Shop</p>
+                <p className="text-sm text-teal-600/70 dark:text-teal-400/70">Stickers, merch & more</p>
               </div>
             </Link>
           </div>

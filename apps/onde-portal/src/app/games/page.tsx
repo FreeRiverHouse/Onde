@@ -130,7 +130,7 @@ export default function GamingIsland() {
   return (
     <>
       {/* === MOBILE SIMPLE VIEW === */}
-      <div className="md:hidden min-h-screen bg-gradient-to-b from-sky-100 via-green-50 to-green-100">
+      <div className="md:hidden min-h-screen bg-gradient-to-b from-sky-100 via-green-50 to-green-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
         {/* Mobile Header */}
         <div className="bg-gradient-to-r from-green-400 to-emerald-500 pt-6 pb-8 px-4 text-center shadow-lg">
           <Link href="/" className="absolute top-4 left-4 bg-white/90 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-bold text-green-600 shadow flex items-center">
@@ -173,7 +173,7 @@ export default function GamingIsland() {
           <RecentlyPlayedSection />
 
           {/* Browse by Category */}
-          <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">📂 Browse by Category</h2>
+          <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3 px-1">📂 Browse by Category</h2>
           <div className="grid grid-cols-2 gap-3 mb-6">
             {[
               { href: '/games/minecraft', emoji: '⛏️', title: 'Minecraft Tools', color: 'from-green-500 to-emerald-600' },
@@ -194,23 +194,23 @@ export default function GamingIsland() {
           </div>
 
           {/* All Mini-Games Grid */}
-          <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">🎮 {t.gamesPage?.miniGames || 'Mini-Games'}</h2>
+          <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3 px-1">🎮 {t.gamesPage?.miniGames || 'Mini-Games'}</h2>
           <div className="grid grid-cols-4 gap-2">
             {allGames.map((game) => (
               <Link
                 key={game.id}
                 href={game.href}
-                className="bg-white rounded-xl p-3 min-h-[64px] text-center shadow-md active:scale-95 transition-transform border border-gray-100 flex flex-col items-center justify-center"
+                className="bg-white dark:bg-gray-800 rounded-xl p-3 min-h-[64px] text-center shadow-md active:scale-95 transition-transform border border-gray-100 dark:border-gray-700 flex flex-col items-center justify-center"
               >
                 <div className="text-2xl mb-1">{game.emoji}</div>
-                <div className="text-xs font-medium text-gray-600 truncate">{game.title}</div>
+                <div className="text-xs font-medium text-gray-600 dark:text-gray-300 truncate">{game.title}</div>
               </Link>
             ))}
           </div>
         </div>
 
         {/* Footer decoration */}
-        <div className="text-center py-4 text-gray-400 text-sm">
+        <div className="text-center py-4 text-gray-400 dark:text-gray-500 text-sm">
           🌈 {t.gamesPage?.moreGames || 'More games coming soon!'}
         </div>
       </div>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function Terms() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen dark:bg-gray-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -26,17 +26,17 @@ export default function Terms() {
           transition={{ duration: 0.8 }}
         >
           {/* Header */}
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-onde-ocean mb-8">
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-onde-ocean dark:text-white mb-8">
             Termini di Servizio
           </h1>
           
-          <div className="prose prose-lg max-w-none text-onde-ocean/80">
+          <div className="prose prose-lg max-w-none text-onde-ocean/80 dark:text-gray-300">
             <p className="text-xl mb-8">
               Benvenuto su Onde! Usando i nostri servizi accetti questi termini.
               Leggi attentamente prima di procedere.
             </p>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Uso dei servizi
             </h2>
             <p>
@@ -49,7 +49,7 @@ export default function Terms() {
               <li>Non tentare di aggirare le protezioni dei contenuti</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Contenuti
             </h2>
             <p>
@@ -59,7 +59,7 @@ export default function Terms() {
               non trasferibile.
             </p>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Account
             </h2>
             <p>
@@ -71,7 +71,7 @@ export default function Terms() {
               <li>Non puoi condividere l'account con altri</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Acquisti e rimborsi
             </h2>
             <p>
@@ -83,7 +83,7 @@ export default function Terms() {
               <li>Per problemi tecnici, contattaci entro 14 giorni</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Limitazioni
             </h2>
             <p>
@@ -95,7 +95,7 @@ export default function Terms() {
               <li>Uso improprio dei contenuti da parte tua</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Modifiche
             </h2>
             <p>
@@ -103,18 +103,18 @@ export default function Terms() {
               Continuando a usare i servizi dopo le modifiche, accetti i nuovi termini.
             </p>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Contatti
             </h2>
             <p>
               Per domande sui termini di servizio:{' '}
-              <a href="mailto:info@onde.la" className="text-onde-coral hover:underline">
+              <a href="mailto:info@onde.la" className="text-onde-coral dark:text-cyan-400 hover:underline">
                 info@onde.la
               </a>
             </p>
 
-            <div className="mt-12 pt-8 border-t border-onde-ocean/10">
-              <p className="text-sm text-onde-ocean/50">
+            <div className="mt-12 pt-8 border-t border-onde-ocean/10 dark:border-gray-700">
+              <p className="text-sm text-onde-ocean/50 dark:text-gray-500">
                 Ultimo aggiornamento: Gennaio 2026
               </p>
             </div>
@@ -124,7 +124,7 @@ export default function Terms() {
           <div className="mt-12">
             <Link 
               href="/" 
-              className="text-onde-coral hover:text-onde-coral-light transition-colors"
+              className="text-onde-coral dark:text-cyan-400 hover:text-onde-coral-light dark:hover:text-cyan-300 transition-colors"
             >
               ← Torna alla home
             </Link>

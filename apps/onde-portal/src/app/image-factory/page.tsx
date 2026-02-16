@@ -26,11 +26,11 @@ export default function ImageFactoryPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 dark:text-white">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Image Factory</h1>
-        <p className="opacity-70">Genera immagini coerenti per i libri usando la tecnica del reference</p>
+        <h1 className="text-3xl font-bold mb-2 dark:text-white">Image Factory</h1>
+        <p className="opacity-70 dark:text-gray-400">Genera immagini coerenti per i libri usando la tecnica del reference</p>
       </div>
 
       {/* Step 1: Seleziona Libro */}

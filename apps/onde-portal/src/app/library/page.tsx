@@ -87,9 +87,9 @@ function Book({ book, index }: { book: typeof books[0], index: number }) {
 
       {/* Hover info card */}
       {isHovered && (
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white rounded-xl p-3 shadow-2xl z-20 whitespace-nowrap animate-fadeIn">
-          <p className="font-bold text-gray-800">{book.title}</p>
-          <p className="text-sm text-gray-500">{book.author}</p>
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-2xl z-20 whitespace-nowrap animate-fadeIn">
+          <p className="font-bold text-gray-800 dark:text-white">{book.title}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{book.author}</p>
           <p className="text-xs text-green-600 mt-1">📖 Click to read!</p>
         </div>
       )}
@@ -129,7 +129,7 @@ export default function MagicLibrary() {
   const [hoveredBook, setHoveredBook] = useState<string | null>(null)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-100 via-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-amber-100 via-amber-50 to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
       {/* Header */}
       <div className="text-center pt-12 pb-8 relative">
         <Link href="/" className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-amber-700 shadow-lg hover:scale-105 transition-all">
@@ -137,10 +137,10 @@ export default function MagicLibrary() {
         </Link>
         
         <div className="text-6xl mb-4 animate-bounce">📚</div>
-        <h1 className="text-4xl md:text-5xl font-black text-amber-800 drop-shadow-lg">
+        <h1 className="text-4xl md:text-5xl font-black text-amber-800 dark:text-amber-200 drop-shadow-lg">
           Magic Library
         </h1>
-        <p className="text-xl text-amber-600 mt-2">
+        <p className="text-xl text-amber-600 dark:text-amber-400 mt-2">
           Pick a book from the shelf! ✨
         </p>
         <div className="mt-2 bg-white/60 inline-block px-4 py-1 rounded-full">
@@ -202,7 +202,7 @@ export default function MagicLibrary() {
 
       {/* Reading corner */}
       <div className="text-center pb-12">
-        <p className="text-amber-600 text-lg mb-4">
+        <p className="text-amber-600 dark:text-amber-400 text-lg mb-4">
           🪑 Find a cozy spot and enjoy reading!
         </p>
         <Link 

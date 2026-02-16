@@ -106,8 +106,8 @@ export default function Account() {
   // Logged in view
   if (user) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Il Mio Account</h1>
+      <div className="max-w-4xl mx-auto px-4 py-12 dark:text-white">
+        <h1 className="text-4xl font-bold mb-8 dark:text-white">Il Mio Account</h1>
 
         {/* Profile Card */}
         <div className="bg-white/5 rounded-2xl p-8 mb-8">
@@ -179,8 +179,8 @@ export default function Account() {
 
   // Login view
   return (
-    <div className="max-w-md mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Accedi</h1>
+    <div className="max-w-md mx-auto px-4 py-12 dark:text-white">
+      <h1 className="text-4xl font-bold mb-8 text-center dark:text-white">Accedi</h1>
 
       {message && (
         <div className="bg-green-500/20 border border-green-500 rounded-lg p-4 mb-6 text-center">

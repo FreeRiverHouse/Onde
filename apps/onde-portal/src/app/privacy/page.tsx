@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function Privacy() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen dark:bg-gray-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -26,17 +26,17 @@ export default function Privacy() {
           transition={{ duration: 0.8 }}
         >
           {/* Header */}
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-onde-ocean mb-8">
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-onde-ocean dark:text-white mb-8">
             Privacy Policy
           </h1>
           
-          <div className="prose prose-lg max-w-none text-onde-ocean/80">
+          <div className="prose prose-lg max-w-none text-onde-ocean/80 dark:text-gray-300">
             <p className="text-xl mb-8">
               La tua privacy è importante per noi. Questa policy spiega come raccogliamo, 
               usiamo e proteggiamo i tuoi dati personali.
             </p>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Dati che raccogliamo
             </h2>
             <p>
@@ -48,7 +48,7 @@ export default function Privacy() {
               <li>Preferenze di lettura (se usi le nostre app)</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Come usiamo i tuoi dati
             </h2>
             <p>
@@ -60,7 +60,7 @@ export default function Privacy() {
               <li>Personalizzare i contenuti nelle nostre app</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Protezione dei dati
             </h2>
             <p>
@@ -69,7 +69,7 @@ export default function Privacy() {
               tempo necessario.
             </p>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               I tuoi diritti
             </h2>
             <p>
@@ -82,18 +82,18 @@ export default function Privacy() {
               <li>Revocare il consenso in qualsiasi momento</li>
             </ul>
 
-            <h2 className="font-display text-2xl font-semibold text-onde-ocean mt-12 mb-4">
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Contatti
             </h2>
             <p>
               Per qualsiasi domanda sulla privacy, contattaci all'indirizzo:{' '}
-              <a href="mailto:privacy@onde.la" className="text-onde-coral hover:underline">
+              <a href="mailto:privacy@onde.la" className="text-onde-coral dark:text-cyan-400 hover:underline">
                 privacy@onde.la
               </a>
             </p>
 
-            <div className="mt-12 pt-8 border-t border-onde-ocean/10">
-              <p className="text-sm text-onde-ocean/50">
+            <div className="mt-12 pt-8 border-t border-onde-ocean/10 dark:border-gray-700">
+              <p className="text-sm text-onde-ocean/50 dark:text-gray-500">
                 Ultimo aggiornamento: Gennaio 2026
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function Privacy() {
           <div className="mt-12">
             <Link 
               href="/" 
-              className="text-onde-coral hover:text-onde-coral-light transition-colors"
+              className="text-onde-coral dark:text-cyan-400 hover:text-onde-coral-light dark:hover:text-cyan-300 transition-colors"
             >
               ← Torna alla home
             </Link>

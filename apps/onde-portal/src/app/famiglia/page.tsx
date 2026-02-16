@@ -132,8 +132,8 @@ export default function Famiglia() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">{t.famiglia.title}</h1>
+    <div className="max-w-4xl mx-auto px-4 py-12 dark:text-white">
+      <h1 className="text-4xl font-bold mb-8 dark:text-white">{t.famiglia.title}</h1>
 
       {/* Profile grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">

@@ -66,10 +66,10 @@ function ShopItemCard({
     <motion.div
       className={`relative rounded-2xl p-4 border-2 transition-all duration-300
                   ${owned 
-                    ? 'bg-green-50 border-green-200' 
+                    ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700' 
                     : canAfford 
-                      ? 'bg-white border-onde-ocean/10 hover:border-onde-gold/50' 
-                      : 'bg-gray-50 border-gray-200 opacity-75'}
+                      ? 'bg-white dark:bg-gray-800 border-onde-ocean/10 dark:border-gray-700 hover:border-onde-gold/50' 
+                      : 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-75'}
                   ${getRarityGlow(item.rarity)}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -103,8 +103,8 @@ function ShopItemCard({
       </div>
       
       {/* Info */}
-      <h3 className="font-bold text-onde-ocean text-center mb-1">{item.name}</h3>
-      <p className="text-xs text-onde-ocean/60 text-center mb-3 line-clamp-2">{item.description}</p>
+      <h3 className="font-bold text-onde-ocean dark:text-white text-center mb-1">{item.name}</h3>
+      <p className="text-xs text-onde-ocean/60 dark:text-gray-400 text-center mb-3 line-clamp-2">{item.description}</p>
       
       {/* Pet animations preview */}
       {'animations' in item && (
@@ -235,7 +235,7 @@ export default function ShopPage() {
   
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-onde-cream to-white pt-24 px-4">
+      <div className="min-h-screen bg-gradient-to-b from-onde-cream to-white dark:from-gray-900 dark:to-gray-900 pt-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="animate-pulse space-y-4">
             <div className="h-40 bg-gray-200 rounded-2xl" />
@@ -252,7 +252,7 @@ export default function ShopPage() {
   }
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-onde-cream to-white pt-24 pb-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-onde-cream to-white dark:from-gray-900 dark:to-gray-900 pt-24 pb-12 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -260,10 +260,10 @@ export default function ShopPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-onde-ocean mb-2">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-onde-ocean dark:text-white mb-2">
             🏪 Il Negozio
           </h1>
-          <p className="text-onde-ocean/60">
+          <p className="text-onde-ocean/60 dark:text-gray-400">
             Spendi le tue monete in fantastici oggetti!
           </p>
         </motion.div>
@@ -277,8 +277,8 @@ export default function ShopPage() {
             {/* Transaction history toggle */}
             <motion.button
               onClick={() => setShowHistory(!showHistory)}
-              className="w-full py-3 rounded-xl bg-white border border-onde-ocean/10 
-                         font-medium text-onde-ocean hover:bg-onde-cream/50 transition-colors"
+              className="w-full py-3 rounded-xl bg-white dark:bg-gray-800 border border-onde-ocean/10 dark:border-gray-700
+                         font-medium text-onde-ocean dark:text-white hover:bg-onde-cream/50 dark:hover:bg-gray-700 transition-colors"
               whileTap={{ scale: 0.98 }}
             >
               📜 {showHistory ? (shopT.history?.hide || 'Hide History') : (shopT.history?.show || 'Show History')}
@@ -288,12 +288,12 @@ export default function ShopPage() {
             <AnimatePresence>
               {showHistory && (
                 <motion.div
-                  className="bg-white rounded-2xl border border-onde-ocean/10 p-4 overflow-hidden"
+                  className="bg-white dark:bg-gray-800 rounded-2xl border border-onde-ocean/10 dark:border-gray-700 p-4 overflow-hidden"
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                 >
-                  <h3 className="font-bold text-onde-ocean mb-3">Ultime Transazioni</h3>
+                  <h3 className="font-bold text-onde-ocean dark:text-white mb-3">Ultime Transazioni</h3>
                   <div className="space-y-2 max-h-60 overflow-y-auto">
                     {transactions.length === 0 ? (
                       <p className="text-sm text-onde-ocean/50 text-center py-4">
@@ -322,9 +322,9 @@ export default function ShopPage() {
             </AnimatePresence>
             
             {/* Quick links */}
-            <div className="bg-white rounded-2xl border border-onde-ocean/10 p-4">
-              <h3 className="font-bold text-onde-ocean mb-3">Come guadagnare</h3>
-              <ul className="space-y-2 text-sm text-onde-ocean/70">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-onde-ocean/10 dark:border-gray-700 p-4">
+              <h3 className="font-bold text-onde-ocean dark:text-white mb-3">Come guadagnare</h3>
+              <ul className="space-y-2 text-sm text-onde-ocean/70 dark:text-gray-400">
                 <li className="flex items-center gap-2">
                   <span>🎮</span>
                   <Link href="/games/" className="hover:text-onde-coral">Gioca ai minigiochi</Link>
@@ -361,7 +361,7 @@ export default function ShopPage() {
                              transition-colors duration-200
                              ${activeCategory === cat.id 
                                ? 'bg-onde-ocean text-white' 
-                               : 'bg-white border border-onde-ocean/10 text-onde-ocean hover:bg-onde-cream/50'}`}
+                               : 'bg-white dark:bg-gray-800 border border-onde-ocean/10 dark:border-gray-700 text-onde-ocean dark:text-gray-300 hover:bg-onde-cream/50 dark:hover:bg-gray-700'}`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -405,7 +405,7 @@ export default function ShopPage() {
             {allItems.length === 0 && (
               <div className="text-center py-12">
                 <span className="text-6xl block mb-4">🏪</span>
-                <p className="text-onde-ocean/60">Nessun oggetto in questa categoria</p>
+                <p className="text-onde-ocean/60 dark:text-gray-400">Nessun oggetto in questa categoria</p>
               </div>
             )}
           </div>
