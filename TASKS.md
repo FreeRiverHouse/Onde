@@ -11,7 +11,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| B1 | PROC-002 | Processo Grok-receipts: ogni task chiuso va spiegato a Grok con receipts. Grok deve accettare. Poi Grok suggerisce 2 task migliorativi. PERMANENTE. | 🚨 PROCESSO | TODO | @clawdinho |
+| B1 | PROC-002 | Processo Grok-receipts: ogni task chiuso va spiegato a Grok con receipts. Grok deve accettare. Poi Grok suggerisce 2 task migliorativi. PERMANENTE. | 🚨 PROCESSO | ✅ ATTIVO | @clawdinho | Attivato 2026-02-15. 3 receipts validate (DASH-001, TRADE-001, TRADE-002). 6 task migliorativi aggiunti (GROK-DASH-001/002, GROK-TRADE-001-004). |
 | B2 | DASH-001 | Eliminare TUTTI i fake data da onde.surf dashboard (betting, analytics, social). Dati reali o "no data available" | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Audit completo: 12 issues fixati — /trading, /frh, homepage whitespace, polyroborto fake PnL, eGPU rimossa, stale dates, analytics/social empty states, /corde offline msg. Deploy verificato. |
 | B3 | DASH-002 | Aggiungere grafici con TREND NEL TEMPO su onde.surf (accessi, betting PnL, analytics, agenti) | 🚨 BLOCCANTE | IN_PROGRESS | @clawdinho |
 | B4 | FIX-001 | Fixare riferimento "Mattia Biondi" → FreeRiverHouse ovunque nel codice/gists | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Verified: no "Mattia Biondi" or "mattiabiondi" in any code/config/gist files. Only references are in TASKS.md task description and memory logs. |
@@ -263,6 +263,28 @@
 | 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | DONE | @clawdinho | useGameTracking hook + gtag events + localStorage return tracking | Dipende da GAME-001 (DONE). Serve analytics su quanti usano il sistema |
 | 37 | GAME-003 | Sistema sblocchi/progressione funzionante | ⭐ Games | ✅ DONE | @clawdinho | usePlayerLevel con 100 livelli, milestones, badges. useCoins per negozio. Integrato in tutti i giochi (2026-02-14) |
 | 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | DONE | @clawdinho | Real win rate trend from v2 trades, replaced mock data, 7 days of real PnL |
+
+## 🤖 GROK IMPROVEMENT TASKS (2026-02-15 - PROC-002 Validated)
+
+### Da DASH-001 (Grok ACCEPTED ✅)
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| G1 | GROK-DASH-001 | Implement env-specific data seeding: fake data only in dev/staging, auto-stripped in prod. CI/CD pre-deploy scan for hardcoded fake patterns | ⭐ Data quality | TODO | @clawdinho |
+| G2 | GROK-DASH-002 | Add dashboard data-quality monitoring: alerts on stale data (>24h), zero metrics, PnL outliers. Cron job or lightweight health check | ⭐ Reliability | TODO | @clawdinho |
+
+### Da TRADE-001 (Grok ACCEPTED ✅)
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| G3 | GROK-TRADE-001 | Add comprehensive unit/integration tests for unified autotrader: auth, market data, order creation, fills, cancellations, error handling (rate limits, balance). pytest + mocked API | 🔥 Reliability | TODO | @clawdinho |
+| G4 | GROK-TRADE-002 | Add structured logging (JSON), real-time alerts (drawdowns, errors), position/risk limits (max exposure per market, daily loss caps), graceful shutdown logic | 🔥 Risk mgmt | TODO | @clawdinho |
+
+### Da TRADE-002 (Grok ACCEPTED ✅)
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| G5 | GROK-TRADE-003 | Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data | 🔥 Strategy | TODO | @clawdinho |
+| G6 | GROK-TRADE-004 | Post-trade monitoring + auto-veto overrides with circuit breakers: log vetoed/passed trades, alert clusters of high-edge trades, daily exposure caps, pause-on-loss-streaks | 🔥 Risk mgmt | TODO | @clawdinho |
+
+---
 
 ## BUG-001: onde.surf "Cannot access uninitialized variable" crash
 - **Status:** ✅ DONE (resolved - stale chunk cache, fixed by redeploy 2026-02-15)
