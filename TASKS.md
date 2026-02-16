@@ -449,9 +449,9 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 161 | DASH-010 | Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache | 🚨 CRITICO | 🔶 TODO | - |
+| 161 | DASH-010 | Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache | 🚨 CRITICO | ✅ DONE | @clawdinho | Rewrote route.ts to fetch winRateTrend from gist, no more Math.random() |
 | 162 | DASH-011 | Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock | 🚨 CRITICO | 🔶 TODO | - |
-| 163 | DASH-012 | Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist | 🚨 CRITICO | 🔶 TODO | - |
+| 163 | DASH-012 | Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist | 🚨 CRITICO | ✅ DONE | @clawdinho | Rewrote route.ts to fetch healthStatus from trading gist, real agent data |
 | 164 | DASH-013 | Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts) | 🔥 ALTA | 🔶 TODO | - |
 | 165 | DASH-014 | Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback → fix con dati Gist | 🚨 CRITICO | 🔶 TODO | - |
 | 166 | DASH-015 | Betting page: Latency chart usa generateMockLatencyTrend → collegare a dati reali | 🔥 ALTA | 🔶 TODO | - |

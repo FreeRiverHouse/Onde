@@ -5,128 +5,128 @@ export const runtime = 'edge';
 interface DailyStats {
   date: string;
   winRate: number;
+  dailyWinRate?: number;
   trades: number;
   won: number;
   lost: number;
   pnlCents: number;
+  cumulativePnlCents?: number;
 }
 
-// Since we're on edge runtime, we can't read local files
-// We'll provide an endpoint that the server-side script can populate
-// For now, return mock data that mimics real patterns
+// Fetch real data from trading stats gist (same source as betting page)
+const TRADING_STATS_GIST_URL = 'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json';
 
-function generateRealisticTrendData(days: number = 30): DailyStats[] {
-  const data: DailyStats[] = [];
-  
-  // Simulate realistic trading data
-  // V2 model started ~Jan 28, 2026, so show improvement trend
-  const startDate = new Date();
-  startDate.setDate(startDate.getDate() - days);
-  
-  let cumulativeWins = 0;
-  let cumulativeTrades = 0;
-  
-  for (let i = 0; i <= days; i++) {
-    const date = new Date(startDate);
-    date.setDate(date.getDate() + i);
-    const dateStr = date.toISOString().slice(0, 10);
-    
-    // Simulate trades per day (more on weekdays)
-    const dayOfWeek = date.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const baseTrades = isWeekend ? 3 : 8;
-    const dailyTrades = Math.max(0, baseTrades + Math.floor((Math.random() - 0.3) * 6));
-    
-    if (dailyTrades === 0) {
-      // No trades this day, use cumulative stats
-      const winRate = cumulativeTrades > 0 ? (cumulativeWins / cumulativeTrades) * 100 : 0;
-      data.push({
-        date: dateStr,
-        winRate: Math.round(winRate * 10) / 10,
-        trades: 0,
-        won: 0,
-        lost: 0,
-        pnlCents: 0
-      });
-      continue;
-    }
-    
-    // Simulate win rate - trending upward as model improves
-    // Days into trading affects base win rate (learning curve)
-    const dayFactor = Math.min(i / days, 1); // 0 to 1 over the period
-    const baseWinRate = 35 + dayFactor * 20; // 35% -> 55% over 30 days
-    
-    // Add daily variance
-    const variance = (Math.random() - 0.5) * 20;
-    const dailyWinRate = Math.max(0, Math.min(100, baseWinRate + variance));
-    
-    const won = Math.round(dailyTrades * dailyWinRate / 100);
-    const lost = dailyTrades - won;
-    
-    cumulativeWins += won;
-    cumulativeTrades += dailyTrades;
-    
-    // Calculate PnL (assume avg 15 cent profit per win, 20 cent loss per loss)
-    const pnlCents = won * 15 - lost * 20;
-    
-    data.push({
-      date: dateStr,
-      winRate: Math.round(dailyWinRate * 10) / 10,
-      trades: dailyTrades,
-      won,
-      lost,
-      pnlCents
+async function fetchRealTrendData(): Promise<{ data: DailyStats[]; summary: Record<string, unknown> } | null> {
+  try {
+    const response = await fetch(TRADING_STATS_GIST_URL, {
+      headers: { 'Accept': 'application/json' },
+      next: { revalidate: 120 } // Cache for 2 minutes
     });
+    
+    if (!response.ok) return null;
+    
+    const gistData = await response.json();
+    const winRateTrend = gistData.winRateTrend;
+    
+    if (!winRateTrend?.data || winRateTrend.data.length === 0) return null;
+    
+    // Map gist format to our DailyStats format
+    const data: DailyStats[] = winRateTrend.data.map((d: Record<string, unknown>) => ({
+      date: d.date as string,
+      winRate: (d.winRate as number) || 0,
+      dailyWinRate: (d.dailyWinRate as number) || 0,
+      trades: (d.trades as number) || 0,
+      won: (d.won as number) || 0,
+      lost: (d.lost as number) || 0,
+      pnlCents: (d.pnlCents as number) || 0,
+      cumulativePnlCents: (d.cumulativePnlCents as number) || 0,
+    }));
+    
+    // Calculate summary from real data
+    const totalTrades = data.reduce((sum, d) => sum + d.trades, 0);
+    const totalWon = data.reduce((sum, d) => sum + d.won, 0);
+    const overallWinRate = totalTrades > 0 ? (totalWon / totalTrades) * 100 : 0;
+    const totalPnlCents = data.reduce((sum, d) => sum + d.pnlCents, 0);
+    
+    // Trend direction
+    const recentDays = data.slice(-7);
+    const previousDays = data.slice(-14, -7);
+    const recentAvgWR = recentDays.length > 0 
+      ? recentDays.reduce((s, d) => s + d.winRate, 0) / recentDays.length : 0;
+    const previousAvgWR = previousDays.length > 0 
+      ? previousDays.reduce((s, d) => s + d.winRate, 0) / previousDays.length : recentAvgWR;
+    const trend = recentAvgWR > previousAvgWR + 2 ? 'improving' 
+                : recentAvgWR < previousAvgWR - 2 ? 'declining' 
+                : 'stable';
+    
+    return {
+      data,
+      summary: {
+        days: data.length,
+        source: winRateTrend.source || 'gist',
+        totalTrades,
+        totalWon,
+        totalLost: totalTrades - totalWon,
+        overallWinRate: Math.round(overallWinRate * 10) / 10,
+        totalPnlCents,
+        trend,
+        recentAvgWinRate: Math.round(recentAvgWR * 10) / 10,
+        previousAvgWinRate: Math.round(previousAvgWR * 10) / 10,
+      }
+    };
+  } catch (e) {
+    console.error('Failed to fetch trend data from gist:', e);
+    return null;
   }
-  
-  return data;
 }
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const days = parseInt(searchParams.get('days') || '30', 10);
-  const source = searchParams.get('source') || 'v2';
-  
-  // Clamp days to reasonable range
   const clampedDays = Math.max(7, Math.min(90, days));
   
-  // Generate trend data
-  // In production, this would read from a pre-computed cache file
-  // that gets updated by a cron job reading actual trade data
-  const trendData = generateRealisticTrendData(clampedDays);
+  // Try real data from gist first
+  const realData = await fetchRealTrendData();
   
-  // Calculate summary stats
-  const totalTrades = trendData.reduce((sum, d) => sum + d.trades, 0);
-  const totalWon = trendData.reduce((sum, d) => sum + d.won, 0);
-  const overallWinRate = totalTrades > 0 ? (totalWon / totalTrades) * 100 : 0;
-  const totalPnlCents = trendData.reduce((sum, d) => sum + d.pnlCents, 0);
+  if (realData) {
+    // Slice to requested number of days
+    const slicedData = realData.data.slice(-clampedDays);
+    
+    return NextResponse.json({
+      data: slicedData,
+      summary: realData.summary,
+      lastUpdated: new Date().toISOString(),
+      source: 'gist'
+    }, {
+      headers: {
+        'Cache-Control': 'public, max-age=120, stale-while-revalidate=300',
+        'X-Data-Source': 'gist'
+      }
+    });
+  }
   
-  // Trend direction (comparing last 7 days to previous 7 days)
-  const recentDays = trendData.slice(-7);
-  const previousDays = trendData.slice(-14, -7);
-  const recentAvgWR = recentDays.reduce((s, d) => s + d.winRate, 0) / recentDays.length;
-  const previousAvgWR = previousDays.length > 0 
-    ? previousDays.reduce((s, d) => s + d.winRate, 0) / previousDays.length 
-    : recentAvgWR;
-  const trend = recentAvgWR > previousAvgWR + 2 ? 'improving' 
-              : recentAvgWR < previousAvgWR - 2 ? 'declining' 
-              : 'stable';
-  
+  // Fallback: return empty data with clear indication
   return NextResponse.json({
-    data: trendData,
+    data: [],
     summary: {
-      days: clampedDays,
-      source,
-      totalTrades,
-      totalWon,
-      totalLost: totalTrades - totalWon,
-      overallWinRate: Math.round(overallWinRate * 10) / 10,
-      totalPnlCents,
-      trend,
-      recentAvgWinRate: Math.round(recentAvgWR * 10) / 10,
-      previousAvgWinRate: Math.round(previousAvgWR * 10) / 10
+      days: 0,
+      source: 'none',
+      totalTrades: 0,
+      totalWon: 0,
+      totalLost: 0,
+      overallWinRate: 0,
+      totalPnlCents: 0,
+      trend: 'stable',
+      recentAvgWinRate: 0,
+      previousAvgWinRate: 0,
     },
     lastUpdated: new Date().toISOString(),
-    note: 'Data simulated for edge runtime. For real data, use server-side endpoint or pre-computed cache.'
+    source: 'fallback',
+    note: 'Real data unavailable from gist. Check gist push script.'
+  }, {
+    headers: {
+      'Cache-Control': 'no-cache',
+      'X-Data-Source': 'fallback'
+    }
   });
 }
