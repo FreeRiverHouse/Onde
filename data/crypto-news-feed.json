@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-02-16T02:30:02.624253+00:00",
+<<<<<<< Updated upstream
+  "timestamp": "2026-02-16T02:00:03.738836+00:00",
+=======
+  "timestamp": "2026-02-15T22:55:35.902514+00:00",
+>>>>>>> Stashed changes
   "sources": [
+    "coindesk",
     "cointelegraph",
     "bitcoinmagazine",
     "decrypt"
   ],
-  "failed_sources": [
-    "coindesk"
-  ],
-  "article_count": 30,
+  "failed_sources": [],
+  "article_count": 40,
   "results": [
     {
+<<<<<<< Updated upstream
       "title": "Solution worse than problem? Adam Back opposes BIP-110 Ordinals fix",
       "url": "https://cointelegraph.com/news/adam-back-opposes-bip110-fixing-arbitrary-data-spam?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -18,6 +22,8 @@
       "published": "2026-02-16T01:57:35+00:00"
     },
     {
+=======
+>>>>>>> Stashed changes
       "title": "CZ says lack of onchain privacy is holding back crypto payments",
       "url": "https://cointelegraph.com/news/cz-privacy-holding-back-crypto-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -25,6 +31,16 @@
       "published": "2026-02-15T21:33:36+00:00"
     },
     {
+<<<<<<< Updated upstream
+=======
+      "title": "Wall Street giant Apollo deepens crypto push with Morpho token deal",
+      "url": "https://www.coindesk.com/business/2026/02/15/wall-street-giant-apollo-deepens-crypto-push-with-morpho-token-deal",
+      "source": "coindesk",
+      "description": "The asset manager overseeing more than $900 billion assets may buy up to 90 million MORPHO tokens as part of a partnership to support DeFi credit market, it said.",
+      "published": "2026-02-15T20:59:12+00:00"
+    },
+    {
+>>>>>>> Stashed changes
       "title": "OpenClaw Creator Gets Big Offers to Acquire AI Sensation\u2014Will It Stay Open Source?",
       "url": "https://decrypt.co/358129/openclaw-creator-offers-acquire-ai-sensation-stay-open-source",
       "source": "decrypt",
@@ -32,6 +48,16 @@
       "published": "2026-02-15T20:01:03+00:00"
     },
     {
+<<<<<<< Updated upstream
+=======
+      "title": "Hong Kong is trying to build up its crypto regulations: State of Crypto",
+      "url": "https://www.coindesk.com/policy/2026/02/16/hong-kong-is-trying-to-build-up-its-crypto-regulations-state-of-crypto",
+      "source": "coindesk",
+      "description": "Several leaders in Hong Kong announced efforts to advance the region's regulatory environment.",
+      "published": "2026-02-15T19:00:00+00:00"
+    },
+    {
+>>>>>>> Stashed changes
       "title": "Michael Saylor signals another Bitcoin buy amid market rout",
       "url": "https://cointelegraph.com/news/michael-saylor-signals-strategy-buy-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -46,11 +72,35 @@
       "published": "2026-02-15T18:01:02+00:00"
     },
     {
+<<<<<<< Updated upstream
+=======
+      "title": "Prediction markets vs. insider trading: Founders admit blockchain transparency is the only defense",
+      "url": "https://www.coindesk.com/business/2026/02/13/prediction-markets-vs-insider-trading-founders-admit-blockchain-transparency-is-the-only-defense",
+      "source": "coindesk",
+      "description": "Prediction markets are increasingly being framed not as gambling platforms but as vehicles for monetizing information, though founders acknowledged the line can blur.",
+      "published": "2026-02-15T18:00:00+00:00"
+    },
+    {
+>>>>>>> Stashed changes
       "title": "Bitcoin Takes Step Towards Quantum Fix as Experts Diverge on Urgency of Threat",
       "url": "https://decrypt.co/358068/bitcoin-quantum-fix-experts-diverge-urgency-threat",
       "source": "decrypt",
       "description": "Bitcoin developers lay the groundwork for post-quantum upgrades, but experts vary on whether the threat is years or decades away.",
       "published": "2026-02-15T16:17:16+00:00"
+    },
+    {
+      "title": "BlackRock's digital assets head: Leverage-driven volatility threatens bitcoin\u2019s narrative",
+      "url": "https://www.coindesk.com/markets/2026/02/13/blackrock-s-head-of-digital-assets-warns-leverage-driven-volatility-risks-undermine-bitcoin-s-institutional-narrative",
+      "source": "coindesk",
+      "description": "Rampant speculation on crypto derivatives platforms is fueling volatility and risking bitcoin\u2019s image as a stable hedge, says BlackRock\u2019s digital assets chief.",
+      "published": "2026-02-15T14:00:00+00:00"
+    },
+    {
+      "title": "XRP outruns bitcoin, ether after investors piled into the recent crash",
+      "url": "https://www.coindesk.com/markets/2026/02/15/xrp-is-outrunning-bitcoin-and-ether-after-investors-piled-into-the-recent-crash",
+      "source": "coindesk",
+      "description": "XRP is outperforming bitcoin and ether following signs of dip buying during recent crash.",
+      "published": "2026-02-15T13:39:18+00:00"
     },
     {
       "title": "Here\u2019s what happened in crypto today",
@@ -65,6 +115,13 @@
       "source": "cointelegraph",
       "description": "Trump-linked WLFI dropped more than five hours before a $6.9 billion crypto liquidation event, raising questions about early market stress signals.",
       "published": "2026-02-15T13:04:28+00:00"
+    },
+    {
+      "title": "Wall Street remains bullish on bitcoin while offshore traders retreat",
+      "url": "https://www.coindesk.com/markets/2026/02/15/wall-street-remains-bullish-on-bitcoin-while-offshore-traders-retreat",
+      "source": "coindesk",
+      "description": "The difference in futures basis between CME and Deribit reflects varying risk appetite across regions.",
+      "published": "2026-02-15T12:00:00+00:00"
     },
     {
       "title": "Mirae Asset agrees to buy 92% stake in Korean exchange Korbit for $93M",
@@ -109,11 +166,35 @@
       "published": "2026-02-14T22:16:34+00:00"
     },
     {
+<<<<<<< Updated upstream
+=======
+      "title": "X exec Nikita Bier says in-app trading coming in a 'couple' of weeks",
+      "url": "https://cointelegraph.com/news/x-nikita-bier-in-app-trading-couple-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "An announcement in January teased the potential in-app trading feature, fueling online speculation about X's upcoming Smart Cashtags.",
+      "published": "2026-02-14T21:00:30+00:00"
+    },
+    {
+>>>>>>> Stashed changes
       "title": "Can Meme Coins Power a Senate Bid? Virginia\u2019s Mark Moran Says Yes",
       "url": "https://decrypt.co/358070/can-meme-coins-power-senate-bid-virginia-mark-moran-says-yes",
       "source": "decrypt",
       "description": "Mark Moran is using a meme coin on Solana to elevate his U.S. Senate bid, rallying degens against a pro-crypto Democrat in Virginia.",
       "published": "2026-02-14T18:14:46+00:00"
+    },
+    {
+      "title": "The Genius Act ripple effect: Sui executives say institutional demand has never been higher",
+      "url": "https://www.coindesk.com/business/2026/02/13/the-genius-act-ripple-effect-sui-executives-say-institutional-demand-has-never-been-higher",
+      "source": "coindesk",
+      "description": "Evan Cheng and Stephen Mackintosh said 2025 marked a turning point for institutional adoption, with tokenization and agentic commerce emerging as the next frontier.",
+      "published": "2026-02-14T18:00:00+00:00"
+    },
+    {
+      "title": "Elon Musk's X to launch crypto and stock trading in \u2018couple weeks\u2019",
+      "url": "https://www.coindesk.com/business/2026/02/14/elon-musk-s-x-to-launch-crypto-and-stock-trading-in-couple-weeks",
+      "source": "coindesk",
+      "description": "Users will be able to interact with ticker symbols in posts and execute trades within the app, the company's head of product said.",
+      "published": "2026-02-14T17:33:54+00:00"
     },
     {
       "title": "Bitcoin Is Down Bad, But Hasn't Yet Hit Its 'Ultimate Bear Market Bottom': Analysts",
@@ -123,6 +204,23 @@
       "published": "2026-02-14T16:11:05+00:00"
     },
     {
+<<<<<<< Updated upstream
+=======
+      "title": "Galaxy\u2019s Steve Kurz sees \u2018great convergence\u2019 driving crypto\u2019s long-term outlook",
+      "url": "https://www.coindesk.com/business/2026/02/14/galaxy-s-steve-kurz-sees-great-convergence-driving-crypto-s-long-term-outlook",
+      "source": "coindesk",
+      "description": "The firm's asset-management chief says the recent crypto selloff reflects healthy deleveraging, while infrastructure growth and institutional adoption support a bullish outlook.",
+      "published": "2026-02-14T16:00:00+00:00"
+    },
+    {
+      "title": "Bitcoin claws back to $70,000 on cooling inflation after $8.7 billion wipeout",
+      "url": "https://www.coindesk.com/markets/2026/02/14/bitcoin-claws-back-to-usd70-000-on-cooling-inflation-after-usd8-7-billion-wipeout",
+      "source": "coindesk",
+      "description": "Despite the price recovery, the Crypto Fear & Greed Index remains in \u201cextreme fear,\u201d indicating underlying market anxiety.",
+      "published": "2026-02-14T12:04:00+00:00"
+    },
+    {
+>>>>>>> Stashed changes
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
       "url": "https://decrypt.co/358096/blockchain-lender-figure-confirms-customer-data-breach",
       "source": "decrypt",
@@ -149,6 +247,7 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump Crypto-linked stocks jumped as Coinbase (COIN) surged 18% and Strategy (MSTR) rose 10%, fueled by a rebound in Bitcoin and renewed investor interest in digital-asset exposure. This post Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-13T20:58:12+00:00"
+<<<<<<< Updated upstream
     },
     {
       "title": "Clarity Act Passage Would 'Comfort' Markets Amid Bitcoin Volatility: Treasury Secretary Bessent",
@@ -219,6 +318,8 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows The corporate adoption of bitcoin was dominated by a single player last month \u2014 Strategy. This post Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-12T18:52:50+00:00"
+=======
+>>>>>>> Stashed changes
     }
   ]
 }

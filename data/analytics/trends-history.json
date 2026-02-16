@@ -1,0 +1,358 @@
+{
+  "snapshots": [
+    {
+      "date": "2026-02-15",
+      "pageViews30d": 1080,
+      "pageViews7d": 147,
+      "daily": [
+        {
+          "date": "2026-01-16",
+          "views": 20
+        },
+        {
+          "date": "2026-01-19",
+          "views": 170
+        },
+        {
+          "date": "2026-01-20",
+          "views": 30
+        },
+        {
+          "date": "2026-01-21",
+          "views": 20
+        },
+        {
+          "date": "2026-01-22",
+          "views": 30
+        },
+        {
+          "date": "2026-01-23",
+          "views": 10
+        },
+        {
+          "date": "2026-01-26",
+          "views": 10
+        },
+        {
+          "date": "2026-01-27",
+          "views": 10
+        },
+        {
+          "date": "2026-01-28",
+          "views": 20
+        },
+        {
+          "date": "2026-01-29",
+          "views": 10
+        },
+        {
+          "date": "2026-01-30",
+          "views": 60
+        },
+        {
+          "date": "2026-01-31",
+          "views": 250
+        },
+        {
+          "date": "2026-02-01",
+          "views": 50
+        },
+        {
+          "date": "2026-02-02",
+          "views": 60
+        },
+        {
+          "date": "2026-02-03",
+          "views": 110
+        },
+        {
+          "date": "2026-02-04",
+          "views": 10
+        },
+        {
+          "date": "2026-02-05",
+          "views": 50
+        },
+        {
+          "date": "2026-02-06",
+          "views": 20
+        },
+        {
+          "date": "2026-02-08",
+          "views": 10
+        },
+        {
+          "date": "2026-02-09",
+          "views": 10
+        },
+        {
+          "date": "2026-02-10",
+          "views": 20
+        },
+        {
+          "date": "2026-02-11",
+          "views": 10
+        },
+        {
+          "date": "2026-02-12",
+          "views": 10
+        },
+        {
+          "date": "2026-02-13",
+          "views": 30
+        },
+        {
+          "date": "2026-02-14",
+          "views": 10
+        },
+        {
+          "date": "2026-02-15",
+          "views": 40
+        }
+      ],
+      "topPages": [
+        {
+          "path": "/",
+          "views": 360
+        },
+        {
+          "path": "/games/skin-creator/",
+          "views": 90
+        },
+        {
+          "path": "/games/",
+          "views": 70
+        },
+        {
+          "path": "/static-games/moonlight-magic-house/",
+          "views": 70
+        },
+        {
+          "path": "/freeriverjams/",
+          "views": 60
+        },
+        {
+          "path": "/games/moonlight-magic-house/",
+          "views": 60
+        },
+        {
+          "path": "/libri/",
+          "views": 50
+        },
+        {
+          "path": "/en",
+          "views": 30
+        },
+        {
+          "path": "/f183c",
+          "views": 30
+        },
+        {
+          "path": "/7f052",
+          "views": 30
+        }
+      ],
+      "topReferrers": [
+        {
+          "referrer": "onde.la",
+          "views": 310
+        },
+        {
+          "referrer": "m.facebook.com",
+          "views": 30
+        },
+        {
+          "referrer": "com.google.android.googlequicksearchbox",
+          "views": 10
+        },
+        {
+          "referrer": "l.instagram.com",
+          "views": 10
+        },
+        {
+          "referrer": "onde.surf",
+          "views": 10
+        },
+        {
+          "referrer": "www.google.com",
+          "views": 10
+        }
+      ]
+    },
+    {
+      "date": "2026-02-16",
+      "pageViews30d": 1060,
+      "pageViews7d": 149,
+      "daily": [
+        {
+          "date": "2026-01-19",
+          "views": 170
+        },
+        {
+          "date": "2026-01-20",
+          "views": 30
+        },
+        {
+          "date": "2026-01-21",
+          "views": 20
+        },
+        {
+          "date": "2026-01-22",
+          "views": 30
+        },
+        {
+          "date": "2026-01-23",
+          "views": 10
+        },
+        {
+          "date": "2026-01-26",
+          "views": 10
+        },
+        {
+          "date": "2026-01-27",
+          "views": 10
+        },
+        {
+          "date": "2026-01-28",
+          "views": 20
+        },
+        {
+          "date": "2026-01-29",
+          "views": 10
+        },
+        {
+          "date": "2026-01-30",
+          "views": 60
+        },
+        {
+          "date": "2026-01-31",
+          "views": 250
+        },
+        {
+          "date": "2026-02-01",
+          "views": 50
+        },
+        {
+          "date": "2026-02-02",
+          "views": 60
+        },
+        {
+          "date": "2026-02-03",
+          "views": 110
+        },
+        {
+          "date": "2026-02-04",
+          "views": 10
+        },
+        {
+          "date": "2026-02-05",
+          "views": 50
+        },
+        {
+          "date": "2026-02-06",
+          "views": 20
+        },
+        {
+          "date": "2026-02-08",
+          "views": 10
+        },
+        {
+          "date": "2026-02-09",
+          "views": 10
+        },
+        {
+          "date": "2026-02-10",
+          "views": 20
+        },
+        {
+          "date": "2026-02-11",
+          "views": 10
+        },
+        {
+          "date": "2026-02-12",
+          "views": 10
+        },
+        {
+          "date": "2026-02-13",
+          "views": 30
+        },
+        {
+          "date": "2026-02-14",
+          "views": 10
+        },
+        {
+          "date": "2026-02-15",
+          "views": 40
+        }
+      ],
+      "topPages": [
+        {
+          "path": "/",
+          "views": 360
+        },
+        {
+          "path": "/games/skin-creator/",
+          "views": 90
+        },
+        {
+          "path": "/games/",
+          "views": 70
+        },
+        {
+          "path": "/static-games/moonlight-magic-house/",
+          "views": 70
+        },
+        {
+          "path": "/freeriverjams/",
+          "views": 60
+        },
+        {
+          "path": "/games/moonlight-magic-house/",
+          "views": 60
+        },
+        {
+          "path": "/libri/",
+          "views": 50
+        },
+        {
+          "path": "/en",
+          "views": 30
+        },
+        {
+          "path": "/19f%20porn",
+          "views": 20
+        },
+        {
+          "path": "/7f052",
+          "views": 20
+        }
+      ],
+      "topReferrers": [
+        {
+          "referrer": "onde.la",
+          "views": 310
+        },
+        {
+          "referrer": "m.facebook.com",
+          "views": 30
+        },
+        {
+          "referrer": "com.google.android.googlequicksearchbox",
+          "views": 10
+        },
+        {
+          "referrer": "l.instagram.com",
+          "views": 10
+        },
+        {
+          "referrer": "onde.surf",
+          "views": 10
+        },
+        {
+          "referrer": "www.google.com",
+          "views": 10
+        }
+      ]
+    }
+  ]
+}

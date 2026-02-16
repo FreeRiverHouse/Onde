@@ -1,84 +1,62 @@
 {
   "NYC": {
-    "fetched_at": "2026-02-14T21:58:24.743790+00:00",
+    "fetched_at": "2026-02-15T22:55:44.097849+00:00",
     "forecast": {
       "city": "NYC",
       "location": "Central Park",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-02-14T13:00:00-05:00",
-          "end_time": "2026-02-14T18:00:00-05:00",
-          "temperature": 43,
+          "start_time": "2026-02-15T15:00:00-05:00",
+          "end_time": "2026-02-15T18:00:00-05:00",
+          "temperature": 41,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Mostly Sunny",
-          "wind_speed": "8 mph",
-          "wind_direction": "W"
+          "short_forecast": "Cloudy",
+          "wind_speed": "5 mph",
+          "wind_direction": "E"
         },
         {
           "name": "Tonight",
-          "start_time": "2026-02-14T18:00:00-05:00",
-          "end_time": "2026-02-15T06:00:00-05:00",
-          "temperature": 30,
-          "temperature_unit": "F",
-          "is_daytime": false,
-          "short_forecast": "Mostly Clear",
-          "wind_speed": "1 to 5 mph",
-          "wind_direction": "W"
-        },
-        {
-          "name": "Sunday",
-          "start_time": "2026-02-15T06:00:00-05:00",
-          "end_time": "2026-02-15T18:00:00-05:00",
-          "temperature": 39,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Mostly Cloudy then Slight Chance Rain Showers",
-          "wind_speed": "5 mph",
-          "wind_direction": "NE"
-        },
-        {
-          "name": "Sunday Night",
           "start_time": "2026-02-15T18:00:00-05:00",
           "end_time": "2026-02-16T06:00:00-05:00",
-          "temperature": 31,
+          "temperature": 32,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Slight Chance Rain And Snow Showers then Light Snow Likely",
-          "wind_speed": "6 mph",
-          "wind_direction": "NE"
+          "short_forecast": "Rain And Snow Likely",
+          "wind_speed": "7 mph",
+          "wind_direction": "E"
         },
         {
           "name": "Washington's Birthday",
           "start_time": "2026-02-16T06:00:00-05:00",
           "end_time": "2026-02-16T18:00:00-05:00",
-          "temperature": 40,
+          "temperature": 39,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Light Snow then Slight Chance Rain And Snow Showers",
-          "wind_speed": "2 to 6 mph",
-          "wind_direction": "N"
+          "short_forecast": "Slight Chance Light Snow then Mostly Cloudy",
+          "wind_speed": "1 to 7 mph",
+          "wind_direction": "NE"
         },
         {
           "name": "Monday Night",
           "start_time": "2026-02-16T18:00:00-05:00",
           "end_time": "2026-02-17T06:00:00-05:00",
-          "temperature": 33,
+          "temperature": 31,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Mostly Cloudy",
+          "short_forecast": "Mostly Cloudy then Slight Chance Snow Showers",
           "wind_speed": "2 mph",
-          "wind_direction": "W"
+          "wind_direction": "S"
         },
         {
           "name": "Tuesday",
           "start_time": "2026-02-17T06:00:00-05:00",
           "end_time": "2026-02-17T18:00:00-05:00",
-          "temperature": 43,
+          "temperature": 45,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Partly Sunny",
+          "short_forecast": "Slight Chance Snow Showers then Partly Sunny",
           "wind_speed": "3 mph",
           "wind_direction": "SW"
         },
@@ -91,7 +69,7 @@
           "is_daytime": false,
           "short_forecast": "Mostly Cloudy",
           "wind_speed": "2 mph",
-          "wind_direction": "W"
+          "wind_direction": "SW"
         },
         {
           "name": "Wednesday",
@@ -100,36 +78,14 @@
           "temperature": 43,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Light Rain",
-          "wind_speed": "5 mph",
-          "wind_direction": "NE"
+          "short_forecast": "Light Rain Likely",
+          "wind_speed": "3 mph",
+          "wind_direction": "E"
         },
         {
           "name": "Wednesday Night",
           "start_time": "2026-02-18T18:00:00-05:00",
           "end_time": "2026-02-19T06:00:00-05:00",
-          "temperature": 40,
-          "temperature_unit": "F",
-          "is_daytime": false,
-          "short_forecast": "Chance Light Rain",
-          "wind_speed": "5 mph",
-          "wind_direction": "NE"
-        },
-        {
-          "name": "Thursday",
-          "start_time": "2026-02-19T06:00:00-05:00",
-          "end_time": "2026-02-19T18:00:00-05:00",
-          "temperature": 48,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Chance Light Rain",
-          "wind_speed": "7 mph",
-          "wind_direction": "N"
-        },
-        {
-          "name": "Thursday Night",
-          "start_time": "2026-02-19T18:00:00-05:00",
-          "end_time": "2026-02-20T06:00:00-05:00",
           "temperature": 38,
           "temperature_unit": "F",
           "is_daytime": false,
@@ -138,74 +94,96 @@
           "wind_direction": "N"
         },
         {
+          "name": "Thursday",
+          "start_time": "2026-02-19T06:00:00-05:00",
+          "end_time": "2026-02-19T18:00:00-05:00",
+          "temperature": 43,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Mostly Cloudy",
+          "wind_speed": "6 mph",
+          "wind_direction": "NE"
+        },
+        {
+          "name": "Thursday Night",
+          "start_time": "2026-02-19T18:00:00-05:00",
+          "end_time": "2026-02-20T06:00:00-05:00",
+          "temperature": 36,
+          "temperature_unit": "F",
+          "is_daytime": false,
+          "short_forecast": "Slight Chance Light Rain",
+          "wind_speed": "5 mph",
+          "wind_direction": "NE"
+        },
+        {
           "name": "Friday",
           "start_time": "2026-02-20T06:00:00-05:00",
           "end_time": "2026-02-20T18:00:00-05:00",
-          "temperature": 45,
+          "temperature": 43,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Light Rain",
+          "short_forecast": "Rain Likely",
           "wind_speed": "8 mph",
-          "wind_direction": "N"
+          "wind_direction": "NE"
         },
         {
           "name": "Friday Night",
           "start_time": "2026-02-20T18:00:00-05:00",
           "end_time": "2026-02-21T06:00:00-05:00",
+          "temperature": 37,
+          "temperature_unit": "F",
+          "is_daytime": false,
+          "short_forecast": "Light Rain Likely",
+          "wind_speed": "6 mph",
+          "wind_direction": "N"
+        },
+        {
+          "name": "Saturday",
+          "start_time": "2026-02-21T06:00:00-05:00",
+          "end_time": "2026-02-21T18:00:00-05:00",
+          "temperature": 45,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Chance Light Rain",
+          "wind_speed": "6 to 9 mph",
+          "wind_direction": "NW"
+        },
+        {
+          "name": "Saturday Night",
+          "start_time": "2026-02-21T18:00:00-05:00",
+          "end_time": "2026-02-22T06:00:00-05:00",
           "temperature": 33,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Chance Light Rain",
-          "wind_speed": "7 mph",
+          "wind_speed": "8 mph",
           "wind_direction": "NW"
         }
       ]
     }
   },
   "MIA": {
-    "fetched_at": "2026-02-14T21:58:25.675448+00:00",
+    "fetched_at": "2026-02-15T22:55:44.896482+00:00",
     "forecast": {
       "city": "MIA",
       "location": "Miami International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-02-14T16:00:00-05:00",
-          "end_time": "2026-02-14T18:00:00-05:00",
-          "temperature": 78,
+          "start_time": "2026-02-15T16:00:00-05:00",
+          "end_time": "2026-02-15T18:00:00-05:00",
+          "temperature": 79,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Sunny",
-          "wind_speed": "10 mph",
-          "wind_direction": "E"
+          "short_forecast": "Mostly Sunny",
+          "wind_speed": "14 mph",
+          "wind_direction": "S"
         },
         {
           "name": "Tonight",
-          "start_time": "2026-02-14T18:00:00-05:00",
-          "end_time": "2026-02-15T06:00:00-05:00",
-          "temperature": 67,
-          "temperature_unit": "F",
-          "is_daytime": false,
-          "short_forecast": "Partly Cloudy",
-          "wind_speed": "8 mph",
-          "wind_direction": "SE"
-        },
-        {
-          "name": "Sunday",
-          "start_time": "2026-02-15T06:00:00-05:00",
-          "end_time": "2026-02-15T18:00:00-05:00",
-          "temperature": 78,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Mostly Sunny then Slight Chance Rain Showers",
-          "wind_speed": "8 to 14 mph",
-          "wind_direction": "SE"
-        },
-        {
-          "name": "Sunday Night",
           "start_time": "2026-02-15T18:00:00-05:00",
           "end_time": "2026-02-16T06:00:00-05:00",
-          "temperature": 67,
+          "temperature": 68,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Partly Cloudy then Chance Rain Showers",
@@ -219,30 +197,30 @@
           "temperature": 82,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Rain Showers",
-          "wind_speed": "7 to 12 mph",
+          "short_forecast": "Slight Chance Rain Showers then Mostly Sunny",
+          "wind_speed": "7 to 10 mph",
           "wind_direction": "W"
         },
         {
           "name": "Monday Night",
           "start_time": "2026-02-16T18:00:00-05:00",
           "end_time": "2026-02-17T06:00:00-05:00",
-          "temperature": 64,
+          "temperature": 65,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Mostly Clear",
-          "wind_speed": "5 to 8 mph",
+          "short_forecast": "Partly Cloudy",
+          "wind_speed": "3 to 7 mph",
           "wind_direction": "N"
         },
         {
           "name": "Tuesday",
           "start_time": "2026-02-17T06:00:00-05:00",
           "end_time": "2026-02-17T18:00:00-05:00",
-          "temperature": 77,
+          "temperature": 78,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Mostly Sunny",
-          "wind_speed": "5 to 9 mph",
+          "wind_speed": "3 to 10 mph",
           "wind_direction": "NE"
         },
         {
@@ -253,18 +231,18 @@
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Mostly Clear",
-          "wind_speed": "7 mph",
+          "wind_speed": "5 to 8 mph",
           "wind_direction": "E"
         },
         {
           "name": "Wednesday",
           "start_time": "2026-02-18T06:00:00-05:00",
           "end_time": "2026-02-18T18:00:00-05:00",
-          "temperature": 80,
+          "temperature": 79,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Mostly Sunny",
-          "wind_speed": "3 to 8 mph",
+          "short_forecast": "Sunny",
+          "wind_speed": "5 to 9 mph",
           "wind_direction": "SE"
         },
         {
@@ -275,8 +253,8 @@
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Mostly Clear",
-          "wind_speed": "2 to 7 mph",
-          "wind_direction": "SE"
+          "wind_speed": "1 to 7 mph",
+          "wind_direction": "S"
         },
         {
           "name": "Thursday",
@@ -286,18 +264,18 @@
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Sunny",
-          "wind_speed": "2 to 8 mph",
+          "wind_speed": "1 to 7 mph",
           "wind_direction": "S"
         },
         {
           "name": "Thursday Night",
           "start_time": "2026-02-19T18:00:00-05:00",
           "end_time": "2026-02-20T06:00:00-05:00",
-          "temperature": 64,
+          "temperature": 65,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Mostly Clear",
-          "wind_speed": "2 to 7 mph",
+          "wind_speed": "1 to 6 mph",
           "wind_direction": "S"
         },
         {
@@ -315,212 +293,212 @@
           "name": "Friday Night",
           "start_time": "2026-02-20T18:00:00-05:00",
           "end_time": "2026-02-21T06:00:00-05:00",
-          "temperature": 65,
+          "temperature": 66,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Mostly Clear",
           "wind_speed": "2 to 7 mph",
+          "wind_direction": "SE"
+        },
+        {
+          "name": "Saturday",
+          "start_time": "2026-02-21T06:00:00-05:00",
+          "end_time": "2026-02-21T18:00:00-05:00",
+          "temperature": 83,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Sunny",
+          "wind_speed": "2 to 8 mph",
+          "wind_direction": "SE"
+        },
+        {
+          "name": "Saturday Night",
+          "start_time": "2026-02-21T18:00:00-05:00",
+          "end_time": "2026-02-22T06:00:00-05:00",
+          "temperature": 66,
+          "temperature_unit": "F",
+          "is_daytime": false,
+          "short_forecast": "Mostly Clear",
+          "wind_speed": "3 to 7 mph",
           "wind_direction": "SE"
         }
       ]
     }
   },
   "DEN": {
-    "fetched_at": "2026-02-14T21:58:26.395684+00:00",
+    "fetched_at": "2026-02-15T22:55:45.559537+00:00",
     "forecast": {
       "city": "DEN",
       "location": "Denver International Airport",
       "periods": [
         {
-          "name": "This Afternoon",
-          "start_time": "2026-02-14T12:00:00-07:00",
-          "end_time": "2026-02-14T18:00:00-07:00",
-          "temperature": 57,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Sunny",
-          "wind_speed": "6 mph",
-          "wind_direction": "NNE"
-        },
-        {
-          "name": "Tonight",
-          "start_time": "2026-02-14T18:00:00-07:00",
-          "end_time": "2026-02-15T06:00:00-07:00",
-          "temperature": 30,
-          "temperature_unit": "F",
-          "is_daytime": false,
-          "short_forecast": "Mostly Clear",
-          "wind_speed": "7 mph",
-          "wind_direction": "SSE"
-        },
-        {
-          "name": "Sunday",
-          "start_time": "2026-02-15T06:00:00-07:00",
+          "name": "Today",
+          "start_time": "2026-02-15T11:00:00-07:00",
           "end_time": "2026-02-15T18:00:00-07:00",
-          "temperature": 67,
+          "temperature": 66,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Mostly Sunny",
-          "wind_speed": "2 to 7 mph",
-          "wind_direction": "WSW"
+          "wind_speed": "3 to 7 mph",
+          "wind_direction": "N"
         },
         {
-          "name": "Sunday Night",
+          "name": "Tonight",
           "start_time": "2026-02-15T18:00:00-07:00",
           "end_time": "2026-02-16T06:00:00-07:00",
           "temperature": 35,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Partly Cloudy",
-          "wind_speed": "5 to 8 mph",
+          "wind_speed": "6 to 9 mph",
           "wind_direction": "S"
         },
         {
           "name": "Washington's Birthday",
           "start_time": "2026-02-16T06:00:00-07:00",
           "end_time": "2026-02-16T18:00:00-07:00",
-          "temperature": 70,
+          "temperature": 69,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Mostly Sunny",
-          "wind_speed": "6 to 9 mph",
+          "wind_speed": "6 to 10 mph",
           "wind_direction": "SW"
         },
         {
           "name": "Monday Night",
           "start_time": "2026-02-16T18:00:00-07:00",
           "end_time": "2026-02-17T06:00:00-07:00",
-          "temperature": 41,
+          "temperature": 42,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Partly Cloudy",
-          "wind_speed": "9 to 18 mph",
-          "wind_direction": "SW"
+          "short_forecast": "Mostly Clear",
+          "wind_speed": "5 to 18 mph",
+          "wind_direction": "SSE"
         },
         {
           "name": "Tuesday",
           "start_time": "2026-02-17T06:00:00-07:00",
           "end_time": "2026-02-17T18:00:00-07:00",
-          "temperature": 57,
+          "temperature": 58,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Mostly Sunny",
-          "wind_speed": "17 to 30 mph",
+          "wind_speed": "18 to 29 mph",
           "wind_direction": "WSW"
         },
         {
           "name": "Tuesday Night",
           "start_time": "2026-02-17T18:00:00-07:00",
           "end_time": "2026-02-18T06:00:00-07:00",
-          "temperature": 31,
+          "temperature": 30,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Slight Chance Light Snow",
-          "wind_speed": "17 to 26 mph",
+          "short_forecast": "Partly Cloudy",
+          "wind_speed": "13 to 22 mph",
           "wind_direction": "WSW"
         },
         {
           "name": "Wednesday",
           "start_time": "2026-02-18T06:00:00-07:00",
           "end_time": "2026-02-18T18:00:00-07:00",
-          "temperature": 54,
+          "temperature": 55,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Light Snow",
-          "wind_speed": "18 to 26 mph",
+          "short_forecast": "Mostly Sunny then Chance Light Snow",
+          "wind_speed": "13 to 23 mph",
           "wind_direction": "SW"
         },
         {
           "name": "Wednesday Night",
           "start_time": "2026-02-18T18:00:00-07:00",
           "end_time": "2026-02-19T06:00:00-07:00",
-          "temperature": 26,
+          "temperature": 24,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Chance Light Snow",
-          "wind_speed": "15 to 20 mph",
-          "wind_direction": "WSW"
+          "wind_speed": "14 to 22 mph",
+          "wind_direction": "W"
         },
         {
           "name": "Thursday",
           "start_time": "2026-02-19T06:00:00-07:00",
           "end_time": "2026-02-19T18:00:00-07:00",
-          "temperature": 45,
+          "temperature": 40,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Chance Light Snow",
-          "wind_speed": "15 to 23 mph",
-          "wind_direction": "WNW"
+          "wind_speed": "14 to 20 mph",
+          "wind_direction": "NW"
         },
         {
           "name": "Thursday Night",
           "start_time": "2026-02-19T18:00:00-07:00",
           "end_time": "2026-02-20T06:00:00-07:00",
-          "temperature": 20,
+          "temperature": 17,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Chance Light Snow",
-          "wind_speed": "8 to 20 mph",
-          "wind_direction": "E"
+          "wind_speed": "13 to 17 mph",
+          "wind_direction": "ESE"
         },
         {
           "name": "Friday",
           "start_time": "2026-02-20T06:00:00-07:00",
           "end_time": "2026-02-20T18:00:00-07:00",
-          "temperature": 43,
+          "temperature": 38,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Slight Chance Light Snow",
-          "wind_speed": "8 to 13 mph",
+          "short_forecast": "Chance Light Snow",
+          "wind_speed": "13 to 21 mph",
           "wind_direction": "W"
         },
         {
           "name": "Friday Night",
           "start_time": "2026-02-20T18:00:00-07:00",
           "end_time": "2026-02-21T06:00:00-07:00",
-          "temperature": 20,
+          "temperature": 18,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Partly Cloudy",
+          "short_forecast": "Chance Light Snow",
+          "wind_speed": "8 to 13 mph",
+          "wind_direction": "W"
+        },
+        {
+          "name": "Saturday",
+          "start_time": "2026-02-21T06:00:00-07:00",
+          "end_time": "2026-02-21T18:00:00-07:00",
+          "temperature": 43,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Sunny",
           "wind_speed": "10 mph",
-          "wind_direction": "SW"
+          "wind_direction": "W"
+        },
+        {
+          "name": "Saturday Night",
+          "start_time": "2026-02-21T18:00:00-07:00",
+          "end_time": "2026-02-22T06:00:00-07:00",
+          "temperature": 18,
+          "temperature_unit": "F",
+          "is_daytime": false,
+          "short_forecast": "Mostly Clear",
+          "wind_speed": "7 to 10 mph",
+          "wind_direction": "S"
         }
       ]
     }
   },
   "CHI": {
-    "fetched_at": "2026-02-14T21:58:27.146909+00:00",
+    "fetched_at": "2026-02-15T22:55:46.220636+00:00",
     "forecast": {
       "city": "CHI",
       "location": "O'Hare International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-02-14T15:00:00-06:00",
-          "end_time": "2026-02-14T18:00:00-06:00",
-          "temperature": 53,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Mostly Cloudy",
-          "wind_speed": "5 mph",
-          "wind_direction": "S"
-        },
-        {
-          "name": "Tonight",
-          "start_time": "2026-02-14T18:00:00-06:00",
-          "end_time": "2026-02-15T06:00:00-06:00",
-          "temperature": 35,
-          "temperature_unit": "F",
-          "is_daytime": false,
-          "short_forecast": "Mostly Cloudy",
-          "wind_speed": "5 mph",
-          "wind_direction": "SSW"
-        },
-        {
-          "name": "Sunday",
-          "start_time": "2026-02-15T06:00:00-06:00",
+          "start_time": "2026-02-15T15:00:00-06:00",
           "end_time": "2026-02-15T18:00:00-06:00",
-          "temperature": 57,
+          "temperature": 60,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Sunny",
@@ -528,26 +506,26 @@
           "wind_direction": "WNW"
         },
         {
-          "name": "Sunday Night",
+          "name": "Tonight",
           "start_time": "2026-02-15T18:00:00-06:00",
           "end_time": "2026-02-16T06:00:00-06:00",
-          "temperature": 35,
+          "temperature": 37,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Partly Cloudy",
           "wind_speed": "0 to 5 mph",
-          "wind_direction": "SE"
+          "wind_direction": "WSW"
         },
         {
           "name": "Washington's Birthday",
           "start_time": "2026-02-16T06:00:00-06:00",
           "end_time": "2026-02-16T18:00:00-06:00",
-          "temperature": 60,
+          "temperature": 62,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Mostly Sunny",
+          "short_forecast": "Partly Sunny",
           "wind_speed": "10 to 15 mph",
-          "wind_direction": "SSW"
+          "wind_direction": "SW"
         },
         {
           "name": "Monday Night",
@@ -556,29 +534,29 @@
           "temperature": 39,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Mostly Cloudy",
-          "wind_speed": "5 to 10 mph",
+          "short_forecast": "Mostly Cloudy then Patchy Fog",
+          "wind_speed": "5 mph",
           "wind_direction": "S"
         },
         {
           "name": "Tuesday",
           "start_time": "2026-02-17T06:00:00-06:00",
           "end_time": "2026-02-17T18:00:00-06:00",
-          "temperature": 48,
+          "temperature": 56,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Mostly Cloudy",
+          "short_forecast": "Patchy Fog then Mostly Cloudy",
           "wind_speed": "5 to 15 mph",
-          "wind_direction": "ESE"
+          "wind_direction": "SE"
         },
         {
           "name": "Tuesday Night",
           "start_time": "2026-02-17T18:00:00-06:00",
           "end_time": "2026-02-18T06:00:00-06:00",
-          "temperature": 45,
+          "temperature": 50,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Chance Showers And Thunderstorms",
+          "short_forecast": "Rain Showers Likely",
           "wind_speed": "15 mph",
           "wind_direction": "S"
         },
@@ -586,10 +564,10 @@
           "name": "Wednesday",
           "start_time": "2026-02-18T06:00:00-06:00",
           "end_time": "2026-02-18T18:00:00-06:00",
-          "temperature": 64,
+          "temperature": 65,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Showers And Thunderstorms then Sunny",
+          "short_forecast": "Chance Rain Showers then Sunny",
           "wind_speed": "15 to 20 mph",
           "wind_direction": "SW"
         },
@@ -600,53 +578,75 @@
           "temperature": 39,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Mostly Clear",
-          "wind_speed": "10 to 15 mph",
-          "wind_direction": "W"
+          "short_forecast": "Partly Cloudy",
+          "wind_speed": "5 to 15 mph",
+          "wind_direction": "WNW"
         },
         {
           "name": "Thursday",
           "start_time": "2026-02-19T06:00:00-06:00",
           "end_time": "2026-02-19T18:00:00-06:00",
-          "temperature": 51,
+          "temperature": 55,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Mostly Sunny then Chance Rain Showers",
-          "wind_speed": "10 to 15 mph",
-          "wind_direction": "NNW"
+          "short_forecast": "Partly Sunny then Chance Rain",
+          "wind_speed": "5 to 10 mph",
+          "wind_direction": "E"
         },
         {
           "name": "Thursday Night",
           "start_time": "2026-02-19T18:00:00-06:00",
           "end_time": "2026-02-20T06:00:00-06:00",
-          "temperature": 32,
+          "temperature": 35,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Chance Rain Showers",
+          "short_forecast": "Chance Rain",
           "wind_speed": "10 to 15 mph",
-          "wind_direction": "N"
+          "wind_direction": "SW"
         },
         {
           "name": "Friday",
           "start_time": "2026-02-20T06:00:00-06:00",
           "end_time": "2026-02-20T18:00:00-06:00",
-          "temperature": 42,
+          "temperature": 44,
           "temperature_unit": "F",
           "is_daytime": true,
-          "short_forecast": "Chance Rain Showers",
+          "short_forecast": "Slight Chance Rain",
           "wind_speed": "10 to 15 mph",
-          "wind_direction": "WNW"
+          "wind_direction": "W"
         },
         {
           "name": "Friday Night",
           "start_time": "2026-02-20T18:00:00-06:00",
           "end_time": "2026-02-21T06:00:00-06:00",
-          "temperature": 26,
+          "temperature": 28,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Slight Chance Rain And Snow Showers",
+          "short_forecast": "Slight Chance Rain",
           "wind_speed": "10 mph",
           "wind_direction": "WNW"
+        },
+        {
+          "name": "Saturday",
+          "start_time": "2026-02-21T06:00:00-06:00",
+          "end_time": "2026-02-21T18:00:00-06:00",
+          "temperature": 40,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Mostly Sunny then Slight Chance Rain",
+          "wind_speed": "10 mph",
+          "wind_direction": "WNW"
+        },
+        {
+          "name": "Saturday Night",
+          "start_time": "2026-02-21T18:00:00-06:00",
+          "end_time": "2026-02-22T06:00:00-06:00",
+          "temperature": 24,
+          "temperature_unit": "F",
+          "is_daytime": false,
+          "short_forecast": "Slight Chance Rain then Slight Chance Snow",
+          "wind_speed": "10 mph",
+          "wind_direction": "NW"
         }
       ]
     }

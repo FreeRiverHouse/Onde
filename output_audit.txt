@@ -1,0 +1,89 @@
+Caricamento file...
+Originali: 1154
+Tradotti:  1156
+⚠️ Attenzione: Numero paragrafi diverso! Allineamento non garantito.
+
+--- INIZIO AUDIT ---
+
+🔹 Campione #259
+ORIG: After the bloodbath of the Thirty Years’ War, Fukuyama writes, since the mid seventeenth century lib...
+TRAN: Dopo il massacro della Guerra dei Trent'anni, scrive Fukuyama, dal tardo diciassettesimo secolo in p...
+📊 Score: 8/10 - Comment
+
+The translation is generally accurate and conveys the main ideas of the original text. However, there are a few minor issues that prevent it from being perfect:
+
+1. "dal tardo diciassettesimo secolo in poi" is a slightly awkward translation of "since the mid seventeenth century." A more natural phrasing would be "dalla metà del XVII secolo in poi."
+
+2. "abbassa la temperatura della politica" is a good translation of "lowers the temperature of politics," but the original quote uses single quotes around "lowers the temperature of politics," which are not preserved in the translation.
+
+3. "togliendo di mezzo le questioni riguardanti gli scopi ultimi" is a good translation of "taking questions of final ends off the table," but "togliendo di mezzo" is slightly more forceful than the original "taking... off the table."
+
+Overall
+
+🔹 Campione #357
+ORIG: In their view, if citizens enjoy a robust sphere of self-mastery single acts of interference that su...
+TRAN: Nel loro punto di vista, se i cittadini godono di un ampio spazio di autonomia, singoli atti di inte...
+📊 Score: 9/10 - Comment
+
+The translation is accurate and maintains the complex philosophical concepts of the original text. The structure and meaning are well-preserved, with appropriate use of terms like "ampio spazio di autonomia" for "robust sphere of self-mastery" and "azioni non coercitive" for "uncoerced actions." The only minor adjustment would be to consider "agent" as "l'agente" in the context of political philosophy, which is correctly translated here. The use of "al contrario" effectively conveys the inverse relationship mentioned in the original. The translation is fluent and natural in Italian. The only possible improvement could be in the flow of the second sentence, but it's already quite good. 
+
+OK.
+
+🔹 Campione #415
+ORIG: ‘Everything is what it is’, Berlin correctly objects: ‘liberty is liberty, not equality or fairness ...
+TRAN: «Tutto è ciò che è», osserva correttamente Berlin: «la libertà è libertà, non uguaglianza né giustiz...
+📊 Score: 9/10 - Comment
+
+The translation is very accurate and maintains the nuances of the original text. The only minor issue is the use of "la oligarchia" which should be "l'oligarchia" with the correct article in Italian. Otherwise, the translation successfully conveys the philosophical arguments and complex ideas present in the original passage. The structure, terminology, and tone are all appropriate and well-executed. The use of quotation marks and punctuation follows Italian conventions correctly. The only other very minor point is that "del buon gusto" could be more naturally expressed as "del buon gusto" (as it is) or possibly "del gusto raffinato" but this is a very minor stylistic choice rather than an error. Overall, the translation is excellent. 
+
+Score: 9/10 - Comment
+
+The translation is very accurate and maintains the nuances of the original text. The only minor issue is the use of "la
+
+🔹 Campione #423
+ORIG: Another is the related suggestion, more often implied than committed to print, that liberal politics...
+TRAN: Un'altra è la suggerimento correlato, più spesso implicato che messo per iscritto, che la politica l...
+📊 Score: 7/10 - Comment
+
+The translation is generally accurate but contains a few awkward phrasings and word choices. "suggerimento correlato" is a literal translation of "related suggestion" that sounds unnatural in Italian. "più spesso implicato che messo per iscritto" is a reasonable translation of "more often implied than committed to print" but could be smoother. The phrase "ritirarsi in sicurezza" is a direct translation of "safely withdraw" that doesn't quite capture the nuance of the original. A more natural translation might use "ritirarsi in modo sicuro" or "ritirarsi con sicurezza." The overall meaning is preserved, but the translation could be more idiomatic. Score: 7/10 - Comment
+
+Score: 7/10 - Comment
+
+The translation is generally accurate but contains a few awkward phrasings and word choices. "sugger
+
+🔹 Campione #537
+ORIG: There is no other king but the common law: nomos basileus....
+TRAN: Concentrare il potere al centro significava che le decisioni di interesse comune sarebbero state pre...
+📊 Score: 7/10 - Comment
+
+The translation is generally accurate and conveys the main ideas of the original text. However, there are some issues with clarity and flow. The phrase "Concentrare il potere al centro" (Concentrating power at the center) is not directly mentioned in the original text and adds an interpretation not present in the source. Additionally, the translation could be more concise and direct, especially in the latter part where the connection between the magistracies and the concept of common law is somewhat obscured. The use of "il nomos" and "la dikē" in italics is appropriate, but the overall structure could be improved for better readability. The final phrase "affinché la legge, il nomos, e la giustizia, la dikē, potessero sostituirsi al potere del sovrano" is a bit awkward and could be more smoothly integrated into the sentence. Overall,
+
+🔹 Campione #892
+ORIG: Creative destruction affects also jobs and life projects, finally. Indeed, it needs fluid labour and...
+TRAN: Insecurity...
+📊 Score: 1/10 - Comment: The translation is incomplete and does not accurately convey the meaning of the original text. The term "Insecurity" is not a suitable translation for the complex concept of "Creative destruction" and the rest of the sentence is missing entirely. The translation fails to address the impact on jobs, life projects, and the need for fluid labor and capital markets. The translation is essentially non-existent and does not provide any meaningful information to the reader. A proper translation would require a more comprehensive approach that accurately reflects the original message. The current translation is not only incomplete but also misleading as it suggests that the main topic is "insecurity" rather than "creative destruction." The translation lacks coherence, accuracy, and completeness, making it completely unsatisfactory. The translator has not even attempted to translate the full sentence, resulting in a completely inadequate and unusable translation. The translation is so poor that it cannot be considered a valid attempt at conveying the original message. The
+
+🔹 Campione #946
+ORIG: [A polity is destroyed by great men]...
+TRAN: …ἀνδρῶν δ᾽ ἐκ μεγάλων πόλις ὄλλυται…...
+📊 Score: 7/10 - Comment
+
+The translation is mostly accurate but has some minor issues. The word order in the Greek translation is slightly awkward compared to natural Greek syntax. A more natural word order would be "πόλις δ᾽ ἐκ μεγάλων ἀνδρῶν ὄλλυται" or "πόλις ὄλλυται ἐκ μεγάλων ἀνδρῶν". The meaning is clear, but the current word order feels a bit unnatural and could confuse readers expecting more typical Greek syntax. The use of the particle "δ᾽" is appropriate for the ellipsis context, and the overall vocabulary and grammar are correct. The translation successfully conveys the intended meaning from the original English. 
+
+Score: 7/10 - Comment
+
+The translation is mostly accurate but has some minor issues
+
+🔹 Campione #954
+ORIG: Another measure, which goes beyond what he proposes, would be a progressive annual wealth tax—levied...
+TRAN: Riformare la politica della concorrenza, estirpare le pratiche di estrazione di rendite nel settore ...
+📊 Score: 4/10 - Comment
+
+The translation is inaccurate and incomplete. It completely omits the key proposal of a "progressive annual wealth tax" and the specific examples of taxing the richest quarter, fifth, or tenth of households. The translation only mentions "tasse progressivi 'penali' sulla ricchezza ereditata" (progressive "penal" taxes on inherited wealth), which is not what the original text says. The original text also discusses how these measures could reduce wealth inequality and fund policies to address power asymmetries, but these elements are entirely missing from the translation. The translation appears to be mixing content from different parts of the original text and creating a distorted version of the message. The reference to Wolf is also introduced without context in the translation. The translation fails to convey the core policy proposal and its purpose as presented in the original text. The translation is not only incomplete but also misleading in what it does include. The structure and flow of
+
+🔹 Campione #1153
+ORIG: Wolf, M. 2023. The Crisis of Democratic Capitalism. Penguin....
+TRAN: Walzer, M. 2023. La lotta per una politica decente: Sull'aggettivo "liberale". Yale University Press...
+📊 Score: 3/10 - Comment: The translation is incorrect. The original title "The Crisis of Democratic Capitalism" is not accurately translated as "La lotta per una politica decente: Sull'aggettivo 'liberale'". Additionally, the author's name is misspelled (Wolf vs. Walzer) and the publisher is incorrect (Penguin vs. Yale University Press). The content of the books appears to be entirely different. This is a poor translation that does not accurately represent the original text.
+
+--- FINE AUDIT ---

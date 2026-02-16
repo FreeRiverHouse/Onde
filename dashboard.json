@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-02-14T19:07:34Z",
+  "agents": {
+    "clawdinho": {
+      "last_commit": ,
+      "status": "active",
+      "host": "FRH-M1-PRO"
+    },
+    "ondinho": {
+      "last_commit": ,
+      "status": "unknown",
+      "host": "M4-Pro"
+    }
+  },
+  "tasks": ,
+  "memory": {"entries_today":0,"file_exists":false},
+  "hardware": {
+    "gpu": {"radeon_status":"disconnected","radeon_temp":"N/A","cpu_usage":238,"memory_gb":1.70539},
+    "ollama": {"local":"online","remote":"online","models":["qwen7b-16k:latest","qwen2.5:7b-instruct-q4_K_M"]}
+  },
+  "services": {
+    "autotrader": {"running":true,"pid":"85938"}
+  },
+  "alerts": {
+    "count": 8,
+    "files": [
+  "/Users/mattiapetrucciani/Onde/scripts/kalshi-momentum-aligned.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/kalshi-momentum-change.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/kalshi-regime-change.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/kalshi-whipsaw.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/memory-stale.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/moonlight-test-failure.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/ondinho-stalled.alert",
+  "/Users/mattiapetrucciani/Onde/scripts/services-health.alert"
+]
+  }
+}
