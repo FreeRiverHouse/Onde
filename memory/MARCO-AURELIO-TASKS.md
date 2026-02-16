@@ -39,17 +39,26 @@
 - Sent to Mattia for approval on Telegram
 - **AWAITING MATTIA'S OK to proceed with Cap 2-10**
 
-### T4: Qwen 20B Cap 1 comparison ⏳ IN PROGRESS
-- Qwen fixed (disk space was root cause)
-- Generating Cap 1 with Qwen 20B (50 steps, 4-bit, 1024x1024) — session salty-gulf
-- Step 3/50, ETA ~37 min
-- Will compare vs Z-Image V4 when done
+### T4: Model comparison ✅ DONE
+- Grok verdict: Z-Image Turbo wins 8.5 vs Qwen 7.5
+- Receipts approved by Grok
+- 2 improvement tasks: Character Bible + standardize params
 
-### T5: Batch generate all 10 chapters ⏳ BLOCKED (aspetta T4)
-- All 10 Grok prompts saved: /tmp/marco-aurelio-gen/grok-prompts-all.sh
-- Batch script ready for both models
-- Pick winner from T4 comparison → launch full batch
-- Target: all 10 done by morning
+### T5: Batch generate all 10 chapters ⏳ IN PROGRESS
+- Session: tidy-ridge
+- Z-Image Turbo, 12 steps, 1344x1344, character bible
+- Generating 1/10...
+- ETA: ~35-40 min total
+
+### T6: Grok review each image (from Grok improvement tasks)
+- After batch: describe each image to Grok
+- Get rating + fixes for any <9/10
+- Re-generate if needed
+
+### T7: Post-processing consistency check (from Grok improvement tasks)
+- Compare all 10 side by side
+- Check character consistency (Marcus, grandfather)
+- Light color/sharpness adjustments if needed
 
 ---
 
