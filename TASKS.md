@@ -275,7 +275,7 @@
 ### Da TRADE-001 (Grok ACCEPTED ✅)
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| G3 | GROK-TRADE-001 | Add comprehensive unit/integration tests for unified autotrader: auth, market data, order creation, fills, cancellations, error handling (rate limits, balance). pytest + mocked API | 🔥 Reliability | TODO | @clawdinho |
+| G3 | GROK-TRADE-001 | Add comprehensive unit/integration tests for unified autotrader: auth, market data, order creation, fills, cancellations, error handling (rate limits, balance). pytest + mocked API | 🔥 Reliability | ✅ DONE | @clawdinho | 112 tests: Kelly, trade decisions, market parsing/filtering/scoring, classification, parlay logic, momentum, circuit breaker, risk limits, position mgmt, drawdown, API errors, latency. All green. |
 | G4 | GROK-TRADE-002 | Add structured logging (JSON), real-time alerts (drawdowns, errors), position/risk limits (max exposure per market, daily loss caps), graceful shutdown logic | 🔥 Risk mgmt | DONE ✅ | @clawdinho |
 
 ### Da TRADE-002 (Grok ACCEPTED ✅)
