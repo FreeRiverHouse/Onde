@@ -976,3 +976,6 @@
 {"timestamp": "2026-02-16T07:00:03.122284+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 188.75}
 {"timestamp": "2026-02-16T07:00:03.122284+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 195.61}
 {"timestamp": "2026-02-16T07:00:03.122284+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 147.09}
+{"timestamp": "2026-02-16T08:00:04.271253+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 577.67}
+{"timestamp": "2026-02-16T08:00:04.271253+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 181.0}
+{"timestamp": "2026-02-16T08:00:04.271253+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 177.37}
