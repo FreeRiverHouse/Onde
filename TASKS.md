@@ -86,7 +86,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 1 | TRADE-001 | Consolidare V2+V3 Kalshi autotrader in uno solo | 🔥 Due bot che non fanno niente → uno che funziona | 🔶 TODO | - |
+| 1 | TRADE-001 | Consolidare V2+V3 Kalshi autotrader in uno solo | 🔥 Due bot che non fanno niente → uno che funziona | ✅ DONE | @kalshi-consolidation | Unified v1+v2+v3 into kalshi-autotrader-unified.py → kalshi-autotrader.py. Legacy files renamed *-legacy.py. Tested: paper mode, 1 trade executed, all features working. |
 | 2 | TRADE-002 | Fix V3: capire perché skippa tutti i trade | 🔥 Paper trading fermo | ✅ DONE | @kalshi-v3-fix-critic | Fixed: critic veto su parlay edges >20% + position sizing con bankroll piccolo. Commit 291781df |
 | 3 | TRADE-003 | Migliorare risk/reward V3 (loss 2x > win) | ⭐ PnL negativo per asimmetria | 🔶 TODO | - |
 
