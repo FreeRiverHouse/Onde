@@ -1930,6 +1930,12 @@ def score_market(market: MarketInfo) -> float:
     else: score += 1
     if market.open_interest > 0:
         score += min(5, math.log10(market.open_interest + 1) * 1.5)
+    # Crypto bonus: always tradeable, boost for hourly contracts
+    ticker = market.ticker.upper()
+    if any(x in ticker for x in ("KXBTC", "KXETH", "KXSOL")):
+        score += 5  # Crypto markets get priority (trade 24/7)
+        if dte < 0.1:  # Hourly contracts — our bread and butter
+            score += 3
     return score
 
 
