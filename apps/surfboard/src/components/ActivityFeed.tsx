@@ -148,7 +148,7 @@ export function ActivityFeed({ maxItems = 8, showHeader = true, className = '', 
 
       <div className="divide-y divide-white/5">
         {activities.length === 0 ? (
-          <div className="px-4 py-8 text-center text-white/40 text-sm">
+          <div className="px-4 py-3 text-center text-white/40 text-sm">
             No activity yet
           </div>
         ) : (

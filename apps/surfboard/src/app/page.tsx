@@ -117,8 +117,8 @@ export default async function Dashboard() {
         </div>
       </ScrollReveal>
 
-      {/* Main Grid - 3 columns on large screens */}
-      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+      {/* Main Grid - 2 cols: Post Approval + Activity Feed (compact when empty) */}
+      <div className="grid lg:grid-cols-3 gap-4 mb-6">
         {/* Left column: Post Approval */}
         <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
           <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
