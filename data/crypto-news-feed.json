@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T01:30:03.834806+00:00",
+  "timestamp": "2026-02-16T02:00:03.738836+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Solution worse than problem? Adam Back opposes BIP-110 Ordinals fix",
+      "url": "https://cointelegraph.com/news/adam-back-opposes-bip110-fixing-arbitrary-data-spam?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Blockstream's Adam Back said BIP-110 could be used to freeze user funds, but the proposal\u2019s creator argues there are safeguards in place to prevent it.",
+      "published": "2026-02-16T01:57:35+00:00"
+    },
     {
       "title": "CZ says lack of onchain privacy is holding back crypto payments",
       "url": "https://cointelegraph.com/news/cz-privacy-holding-back-crypto-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -100,13 +107,6 @@
       "source": "cointelegraph",
       "description": "Prediction markets should pivot from short-term betting and move toward becoming price stability instruments for consumers, Buterin argued.",
       "published": "2026-02-14T22:16:34+00:00"
-    },
-    {
-      "title": "X exec Nikita Bier says in-app trading coming in a 'couple' of weeks",
-      "url": "https://cointelegraph.com/news/x-nikita-bier-in-app-trading-couple-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "An announcement in January teased the potential in-app trading feature, fueling online speculation about X's upcoming Smart Cashtags.",
-      "published": "2026-02-14T21:00:30+00:00"
     },
     {
       "title": "Can Meme Coins Power a Senate Bid? Virginia\u2019s Mark Moran Says Yes",
