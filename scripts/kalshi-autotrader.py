@@ -228,7 +228,7 @@ HIGH_EDGE_CLUSTER_ALERT_FILE = Path(__file__).parent / "kalshi-high-edge-cluster
 # ── Risk limits (GROK-TRADE-002: portfolio-level) ──
 MAX_EXPOSURE_PCT = 0.50          # Don't trade if total open positions value > 50% of balance
 MAX_CATEGORY_EXPOSURE_PCT = 0.30 # Max 30% in any single category (crypto, weather, sports)
-MAX_DAILY_TRADES = 20            # Hard cap on trades per day
+MAX_DAILY_TRADES = 200           # Hard cap on trades per day (relaxed for paper mode data collection)
 MAX_DAILY_EXPOSURE_USD = 50.0    # GROK-TRADE-004: Absolute $ cap on daily new exposure
 
 # ── Structured logging (GROK-TRADE-002) ──
