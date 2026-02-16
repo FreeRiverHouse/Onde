@@ -1955,9 +1955,10 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 20, max_trades
         print(f"   📝 Key factors: {', '.join(forecast.key_factors[:3]) if forecast.key_factors else 'N/A'}")
         
         # Quick edge check before spending tokens on critic
+        # Use MIN_EDGE_BUY_NO (lowest bar) for quick check — fine-grained filter in make_trade_decision
         quick_edge = abs(forecast.probability - market.market_prob)
-        if quick_edge < MIN_EDGE * 0.5:
-            print(f"   ⏭️ Quick skip: edge {quick_edge:.1%} too small (need ~{MIN_EDGE:.0%})")
+        if quick_edge < MIN_EDGE_BUY_NO * 0.5:
+            print(f"   ⏭️ Quick skip: edge {quick_edge:.1%} too small")
             trades_skipped += 1
             
             # Log the skip
