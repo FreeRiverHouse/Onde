@@ -2,81 +2,71 @@
 
 export const runtime = 'edge'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { GlowCard } from '@/components/ui/GlowCard'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GradientText } from '@/components/ui/AnimatedText'
 
-interface MetricPoint {
+/* ─── Types ─── */
+interface DailyPoint {
   date: string
-  value: number
+  views: number
 }
 
-interface MetricWithHistory {
-  key: string
-  displayName: string
-  currentValue: number | null
-  previousValue: number | null
-  change: number | null
-  changePercent: number | null
-  history: MetricPoint[]
-  unit: string | null
-}
+interface PageEntry { path: string; views: number }
+interface ReferrerEntry { referrer: string; views: number }
+interface DeviceEntry { type: string; views: number }
+interface BrowserEntry { browser: string; views: number }
+interface CountryEntry { country: string; views: number }
+interface OSEntry { os: string; views: number }
 
 interface MetricsData {
-  // Cloudflare Web Analytics data
-  summary?: { pageViews30d: number; pageViews7d: number }
-  daily?: Array<{ date: string; views: number }>
-  topPages?: Array<{ path: string; views: number }>
-  topReferrers?: Array<{ referrer: string; views: number }>
-  devices?: Array<{ type: string; views: number }>
-  browsers?: Array<{ browser: string; views: number }>
-  countries?: Array<{ country: string; views: number }>
-  operatingSystems?: Array<{ os: string; views: number }>
-  // Legacy fields
-  publishing: {
-    booksPublished: number | null
-    audiobooks: number | null
-    podcasts: number | null
-    videos: number | null
-    history: MetricPoint[]
-  }
-  social: {
-    xFollowers: number | null
-    igFollowers: number | null
-    tiktokFollowers: number | null
-    youtubeSubscribers: number | null
-    postsThisWeek: number | null
-  }
-  analytics: {
-    pageviews: number | null
-    users: number | null
-    sessions: number | null
-    bounceRate: number | null
-    history: MetricPoint[]
-  }
-  search: {
-    clicks: number | null
-    impressions: number | null
-    ctr: number | null
-    avgPosition: number | null
-    history: MetricPoint[]
-  }
+  summary: { pageViews30d: number; pageViews7d: number }
+  daily: DailyPoint[]
+  topPages: PageEntry[]
+  topReferrers: ReferrerEntry[]
+  devices: DeviceEntry[]
+  browsers: BrowserEntry[]
+  countries: CountryEntry[]
+  operatingSystems: OSEntry[]
   hasData: boolean
   lastUpdated: string | null
 }
 
-type TimeRange = '7d' | '30d' | '90d' | '1y'
+type TimeRange = '7d' | '30d'
+type ChartMetric = 'pageviews' | 'visitors_device' | 'pages_per_day' | 'top_page_trend'
 
+const CHART_METRICS: { key: ChartMetric; label: string; description: string }[] = [
+  { key: 'pageviews', label: 'Page Views', description: 'Total page loads per day' },
+  { key: 'visitors_device', label: 'By Device', description: 'Mobile vs Desktop breakdown' },
+  { key: 'pages_per_day', label: 'Pages / Day', description: 'Average pages viewed daily' },
+  { key: 'top_page_trend', label: 'Top Pages', description: 'Most visited pages trend' },
+]
+
+/* ─── Utils ─── */
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
+function formatDateShort(dateStr: string): string {
+  const d = new Date(dateStr + 'T00:00:00')
+  return `${d.getDate()}`
+}
+
+function formatNumber(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`
+  return n.toLocaleString()
+}
+
+/* ─── Main Component ─── */
 export default function AnalyticsPage() {
   const [metrics, setMetrics] = useState<MetricsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [timeRange, setTimeRange] = useState<TimeRange>('30d')
-  const [selectedMetric, setSelectedMetric] = useState<string>('ga_pageviews')
-  const [metricHistory, setMetricHistory] = useState<MetricWithHistory | null>(null)
+  const [selectedMetric, setSelectedMetric] = useState<ChartMetric>('pageviews')
 
-  // Fetch main metrics
   useEffect(() => {
     async function fetchMetrics() {
       try {
@@ -93,22 +83,32 @@ export default function AnalyticsPage() {
     fetchMetrics()
   }, [])
 
-  // Fetch specific metric history
-  useEffect(() => {
-    async function fetchHistory() {
-      const days = timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : timeRange === '90d' ? 90 : 365
-      try {
-        const response = await fetch(`/api/metrics/history?key=${selectedMetric}&days=${days}`)
-        if (response.ok) {
-          const data = await response.json()
-          setMetricHistory(data)
-        }
-      } catch (err) {
-        console.error('Failed to fetch metric history:', err)
-      }
-    }
-    fetchHistory()
-  }, [selectedMetric, timeRange])
+  const filteredDaily = useMemo(() => {
+    if (!metrics?.daily) return []
+    const days = timeRange === '7d' ? 7 : 30
+    const cutoff = new Date()
+    cutoff.setDate(cutoff.getDate() - days)
+    const cutoffStr = cutoff.toISOString().slice(0, 10)
+    return metrics.daily
+      .filter(d => d.date >= cutoffStr)
+      .sort((a, b) => a.date.localeCompare(b.date))
+  }, [metrics, timeRange])
+
+  const summaryStats = useMemo(() => {
+    if (!metrics) return null
+    const totalViews = timeRange === '7d' ? metrics.summary.pageViews7d : metrics.summary.pageViews30d
+    const avgPerDay = filteredDaily.length > 0
+      ? Math.round(filteredDaily.reduce((s, d) => s + d.views, 0) / filteredDaily.length)
+      : 0
+    const peakDay = filteredDaily.length > 0
+      ? filteredDaily.reduce((max, d) => d.views > max.views ? d : max, filteredDaily[0])
+      : null
+    const mobileViews = metrics.devices.find(d => d.type === 'mobile')?.views ?? 0
+    const desktopViews = metrics.devices.find(d => d.type === 'desktop')?.views ?? 0
+    const mobilePercent = totalViews > 0 ? Math.round((mobileViews / totalViews) * 100) : 0
+
+    return { totalViews, avgPerDay, peakDay, mobileViews, desktopViews, mobilePercent }
+  }, [metrics, timeRange, filteredDaily])
 
   const hasData = metrics?.hasData ?? false
 
@@ -118,54 +118,58 @@ export default function AnalyticsPage() {
       <ScrollReveal animation="fade-up" duration={800}>
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <a 
-              href="/" 
-              className="text-white/40 hover:text-white/60 transition-colors"
-            >
-              ← Back
-            </a>
+            <a href="/" className="text-white/40 hover:text-white/60 transition-colors">← Back</a>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <GradientText 
-              colors={['#ffffff', '#06b6d4', '#8b5cf6', '#06b6d4', '#ffffff']}
-              speed={4}
-            >
-              Analytics & Trends
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
+            <GradientText colors={['#ffffff', '#06b6d4', '#8b5cf6', '#06b6d4', '#ffffff']} speed={4}>
+              Analytics
             </GradientText>
           </h1>
           <p className="text-white/40 max-w-xl">
-            Historical metrics and performance trends across all platforms.
+            onde.la web traffic — powered by Cloudflare Web Analytics.
           </p>
         </div>
       </ScrollReveal>
 
-      {/* Time Range Selector */}
-      <div className="flex gap-2 mb-8">
-        {(['7d', '30d', '90d', '1y'] as TimeRange[]).map((range) => (
-          <button
-            key={range}
-            onClick={() => setTimeRange(range)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              timeRange === range
-                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
-                : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10'
-            }`}
-          >
-            {range === '7d' ? '7 Days' : range === '30d' ? '30 Days' : range === '90d' ? '90 Days' : '1 Year'}
-          </button>
-        ))}
+      {/* Controls Bar */}
+      <div className="flex flex-wrap items-center gap-3 mb-8">
+        {/* Time Range */}
+        <div className="flex gap-1 bg-white/5 rounded-lg p-1 border border-white/10">
+          {(['7d', '30d'] as TimeRange[]).map((range) => (
+            <button
+              key={range}
+              onClick={() => setTimeRange(range)}
+              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+                timeRange === range
+                  ? 'bg-cyan-500/20 text-cyan-400 shadow-sm shadow-cyan-500/10'
+                  : 'text-white/50 hover:text-white/70'
+              }`}
+            >
+              {range === '7d' ? '7 Days' : '30 Days'}
+            </button>
+          ))}
+        </div>
+
+        {/* Metric Selector */}
+        <div className="flex gap-1 bg-white/5 rounded-lg p-1 border border-white/10">
+          {CHART_METRICS.map((m) => (
+            <button
+              key={m.key}
+              onClick={() => setSelectedMetric(m.key)}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all whitespace-nowrap ${
+                selectedMetric === m.key
+                  ? 'bg-purple-500/20 text-purple-400 shadow-sm shadow-purple-500/10'
+                  : 'text-white/50 hover:text-white/70'
+              }`}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="bg-white/5 rounded-xl p-6 border border-white/10 animate-pulse">
-              <div className="h-4 bg-white/10 rounded w-24 mb-4" />
-              <div className="h-8 bg-white/10 rounded w-16 mb-4" />
-              <div className="h-24 bg-white/10 rounded" />
-            </div>
-          ))}
-        </div>
+        <LoadingSkeleton />
       ) : error ? (
         <GlowCard variant="purple" className="p-8 text-center">
           <div className="text-3xl mb-4">⚠️</div>
@@ -173,239 +177,188 @@ export default function AnalyticsPage() {
           <p className="text-white/60">{error}</p>
         </GlowCard>
       ) : !hasData ? (
-        <GlowCard variant="cyan" className="p-12 text-center">
-          <div className="text-5xl mb-4">📊</div>
-          <h3 className="text-xl font-semibold mb-2">No Data Yet</h3>
-          <p className="text-white/60 max-w-md mx-auto mb-6">
-            Historical metrics will appear here once data collection begins.
-            Set up Google Analytics and configure your data sources to start tracking.
-          </p>
-          <div className="flex flex-col gap-4 items-center">
-            <div className="flex items-center gap-3 text-sm text-white/40">
-              <span className="w-2 h-2 rounded-full bg-amber-400" />
-              <span>Google Analytics integration pending</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-white/40">
-              <span className="w-2 h-2 rounded-full bg-amber-400" />
-              <span>Search Console integration pending</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-white/40">
-              <span className="w-2 h-2 rounded-full bg-amber-400" />
-              <span>Social metrics collection pending</span>
-            </div>
-          </div>
-        </GlowCard>
+        <EmptyState />
       ) : (
-        <div className="space-y-8">
-          {/* Main Chart */}
-          <GlowCard variant="cyan" noPadding noTilt>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-lg font-semibold">{metricHistory?.displayName || 'Select a Metric'}</h3>
-                  {metricHistory?.currentValue !== null && (
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-2xl font-bold text-cyan-400">
-                        {metricHistory?.currentValue?.toLocaleString()}
-                      </span>
-                      {metricHistory?.changePercent !== null && (
-                        <span className={`text-sm ${
-                          (metricHistory?.changePercent ?? 0) >= 0 ? 'text-emerald-400' : 'text-red-400'
-                        }`}>
-                          {(metricHistory?.changePercent ?? 0) >= 0 ? '+' : ''}
-                          {metricHistory?.changePercent?.toFixed(1)}%
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
-                <select
-                  value={selectedMetric}
-                  onChange={(e) => setSelectedMetric(e.target.value)}
-                  className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white appearance-none cursor-pointer"
-                >
-                  <optgroup label="Analytics">
-                    <option value="ga_pageviews">Page Views</option>
-                    <option value="ga_users">Unique Users</option>
-                    <option value="ga_sessions">Sessions</option>
-                    <option value="ga_bounce_rate">Bounce Rate</option>
-                  </optgroup>
-                  <optgroup label="Search">
-                    <option value="gsc_clicks">Search Clicks</option>
-                    <option value="gsc_impressions">Search Impressions</option>
-                    <option value="gsc_ctr">Search CTR</option>
-                  </optgroup>
-                  <optgroup label="Publishing">
-                    <option value="books_published">Books Published</option>
-                    <option value="videos_published">Videos Published</option>
-                  </optgroup>
-                  <optgroup label="Social">
-                    <option value="x_followers">X Followers</option>
-                    <option value="ig_followers">Instagram Followers</option>
-                    <option value="youtube_subscribers">YouTube Subscribers</option>
-                  </optgroup>
-                </select>
-              </div>
-              
-              {/* Chart Area */}
-              <div className="h-64 flex items-center justify-center border border-white/5 rounded-lg bg-white/[0.02]">
-                {metricHistory?.history && metricHistory.history.length > 0 ? (
-                  <SimpleLineChart data={metricHistory.history} />
-                ) : (
-                  <div className="text-center text-white/40">
-                    <div className="text-3xl mb-2">📈</div>
-                    <p>No historical data for this metric yet</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </GlowCard>
-
-          {/* Metrics Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <MetricCard
-              title="Page Views (30d)"
-              value={metrics?.summary?.pageViews30d ?? metrics?.analytics?.pageviews}
-              subtitle="Last 30 days"
+        <div className="space-y-6">
+          {/* Summary Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <StatCard
+              label="Total Views"
+              value={summaryStats?.totalViews ?? 0}
               icon="👁️"
               color="cyan"
             />
-            <MetricCard
-              title="Page Views (7d)"
-              value={metrics?.summary?.pageViews7d}
-              subtitle="Last 7 days"
-              icon="📈"
-              color="emerald"
-            />
-            <MetricCard
-              title="Mobile Views"
-              value={metrics?.devices?.find(d => d.type === 'mobile')?.views}
-              subtitle="Last 30 days"
-              icon="📱"
+            <StatCard
+              label="Avg / Day"
+              value={summaryStats?.avgPerDay ?? 0}
+              icon="📊"
               color="purple"
             />
-            <MetricCard
-              title="Desktop Views"
-              value={metrics?.devices?.find(d => d.type === 'desktop')?.views}
-              subtitle="Last 30 days"
-              icon="🖥️"
+            <StatCard
+              label="Peak Day"
+              value={summaryStats?.peakDay?.views ?? 0}
+              subtitle={summaryStats?.peakDay ? formatDate(summaryStats.peakDay.date) : undefined}
+              icon="🔥"
               color="amber"
+            />
+            <StatCard
+              label="Mobile"
+              value={summaryStats?.mobilePercent ?? 0}
+              suffix="%"
+              icon="📱"
+              color="emerald"
             />
           </div>
 
-          {/* CF Analytics Breakdowns */}
-          <div className="grid md:grid-cols-2 gap-6">
+          {/* Main Chart */}
+          <GlowCard variant="cyan" noPadding noTilt>
+            <div className="p-4 md:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-base font-semibold text-white/90">
+                    {CHART_METRICS.find(m => m.key === selectedMetric)?.label}
+                  </h3>
+                  <p className="text-xs text-white/40">
+                    {CHART_METRICS.find(m => m.key === selectedMetric)?.description}
+                  </p>
+                </div>
+              </div>
+
+              {selectedMetric === 'pageviews' && (
+                <DailyBarChart data={filteredDaily} />
+              )}
+              {selectedMetric === 'visitors_device' && metrics && (
+                <DeviceBreakdownChart devices={metrics.devices} total={summaryStats?.totalViews ?? 0} />
+              )}
+              {selectedMetric === 'pages_per_day' && (
+                <DailyLineChart data={filteredDaily} />
+              )}
+              {selectedMetric === 'top_page_trend' && metrics && (
+                <TopPagesChart pages={metrics.topPages} />
+              )}
+            </div>
+          </GlowCard>
+
+          {/* Detail Grid */}
+          <div className="grid md:grid-cols-2 gap-4">
             {/* Top Pages */}
             <GlowCard variant="cyan" noPadding noTilt>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <span>📄</span>
-                  Top Pages
+              <div className="p-5">
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 text-white/80">
+                  <span>📄</span> Top Pages
                 </h3>
                 {metrics?.topPages && metrics.topPages.length > 0 ? (
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {metrics.topPages.slice(0, 10).map((page, i) => (
-                      <div key={i} className="flex items-center justify-between">
-                        <span className="text-sm text-white/60 truncate max-w-[200px]" title={page.path}>
-                          {page.path}
-                        </span>
-                        <span className="text-sm font-medium text-white ml-2">
-                          {page.views.toLocaleString()}
-                        </span>
-                      </div>
+                      <BarRow
+                        key={i}
+                        rank={i + 1}
+                        label={page.path}
+                        value={page.views}
+                        maxValue={metrics.topPages[0].views}
+                        color="cyan"
+                      />
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-4 text-white/30 text-sm">No page data</div>
+                  <EmptyRow />
                 )}
               </div>
             </GlowCard>
 
             {/* Top Referrers */}
             <GlowCard variant="purple" noPadding noTilt>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <span>🔗</span>
-                  Top Referrers
+              <div className="p-5">
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 text-white/80">
+                  <span>🔗</span> Top Referrers
                 </h3>
                 {metrics?.topReferrers && metrics.topReferrers.length > 0 ? (
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {metrics.topReferrers.slice(0, 10).map((ref, i) => (
-                      <div key={i} className="flex items-center justify-between">
-                        <span className="text-sm text-white/60 truncate max-w-[200px]">
-                          {ref.referrer || '(direct)'}
-                        </span>
-                        <span className="text-sm font-medium text-white ml-2">
-                          {ref.views.toLocaleString()}
-                        </span>
-                      </div>
+                      <BarRow
+                        key={i}
+                        rank={i + 1}
+                        label={ref.referrer || '(direct)'}
+                        value={ref.views}
+                        maxValue={metrics.topReferrers[0].views}
+                        color="purple"
+                      />
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-4 text-white/30 text-sm">No referrer data</div>
+                  <EmptyRow />
                 )}
               </div>
             </GlowCard>
           </div>
 
-          {/* Browsers & Countries */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Browsers */}
+          {/* Browsers, Countries, OS */}
+          <div className="grid md:grid-cols-3 gap-4">
             <GlowCard variant="cyan" noPadding noTilt>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <span>🌐</span>
-                  Browsers
+              <div className="p-5">
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 text-white/80">
+                  <span>🌐</span> Browsers
                 </h3>
                 {metrics?.browsers && metrics.browsers.length > 0 ? (
-                  <div className="space-y-2">
-                    {metrics.browsers.slice(0, 8).map((b, i) => (
-                      <div key={i} className="flex items-center justify-between">
-                        <span className="text-sm text-white/60">{b.browser}</span>
-                        <div className="flex items-center gap-2">
-                          <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-cyan-400 rounded-full"
-                              style={{ width: `${Math.min(100, (b.views / (metrics.browsers![0]?.views || 1)) * 100)}%` }}
-                            />
-                          </div>
-                          <span className="text-sm font-medium text-white w-8 text-right">{b.views}</span>
-                        </div>
-                      </div>
+                  <div className="space-y-2.5">
+                    {metrics.browsers.slice(0, 6).map((b, i) => (
+                      <BarRow
+                        key={i}
+                        label={b.browser}
+                        value={b.views}
+                        maxValue={metrics.browsers[0].views}
+                        color="cyan"
+                      />
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-4 text-white/30 text-sm">No browser data</div>
+                  <EmptyRow />
                 )}
               </div>
             </GlowCard>
 
-            {/* Countries */}
             <GlowCard variant="purple" noPadding noTilt>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <span>🌍</span>
-                  Countries
+              <div className="p-5">
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 text-white/80">
+                  <span>🌍</span> Countries
                 </h3>
                 {metrics?.countries && metrics.countries.length > 0 ? (
-                  <div className="space-y-2">
-                    {metrics.countries.slice(0, 8).map((c, i) => (
-                      <div key={i} className="flex items-center justify-between">
-                        <span className="text-sm text-white/60">{c.country}</span>
-                        <div className="flex items-center gap-2">
-                          <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-purple-400 rounded-full"
-                              style={{ width: `${Math.min(100, (c.views / (metrics.countries![0]?.views || 1)) * 100)}%` }}
-                            />
-                          </div>
-                          <span className="text-sm font-medium text-white w-8 text-right">{c.views}</span>
-                        </div>
-                      </div>
+                  <div className="space-y-2.5">
+                    {metrics.countries.slice(0, 6).map((c, i) => (
+                      <BarRow
+                        key={i}
+                        label={c.country}
+                        value={c.views}
+                        maxValue={metrics.countries[0].views}
+                        color="purple"
+                      />
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-4 text-white/30 text-sm">No country data</div>
+                  <EmptyRow />
+                )}
+              </div>
+            </GlowCard>
+
+            <GlowCard variant="cyan" noPadding noTilt>
+              <div className="p-5">
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 text-white/80">
+                  <span>💻</span> Operating Systems
+                </h3>
+                {metrics?.operatingSystems && metrics.operatingSystems.length > 0 ? (
+                  <div className="space-y-2.5">
+                    {metrics.operatingSystems.slice(0, 6).map((o, i) => (
+                      <BarRow
+                        key={i}
+                        label={o.os}
+                        value={o.views}
+                        maxValue={metrics.operatingSystems[0].views}
+                        color="cyan"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyRow />
                 )}
               </div>
             </GlowCard>
@@ -413,8 +366,8 @@ export default function AnalyticsPage() {
 
           {/* Last Updated */}
           {metrics?.lastUpdated && (
-            <div className="text-center text-white/30 text-sm">
-              Data last updated: {new Date(metrics.lastUpdated).toLocaleString()}
+            <div className="text-center text-white/30 text-xs pt-2">
+              Updated: {new Date(metrics.lastUpdated).toLocaleString()}
             </div>
           )}
         </div>
@@ -423,115 +376,462 @@ export default function AnalyticsPage() {
   )
 }
 
-// Simple Line Chart Component (SVG-based)
-function SimpleLineChart({ data }: { data: MetricPoint[] }) {
-  if (data.length === 0) return null
+/* ─── Daily Bar Chart (SVG) ─── */
+function DailyBarChart({ data }: { data: DailyPoint[] }) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const values = data.map(d => d.value)
-  const maxVal = Math.max(...values)
-  const minVal = Math.min(...values)
-  const range = maxVal - minVal || 1
+  if (data.length === 0) return <ChartEmpty />
 
-  const width = 100
-  const height = 100
-  const padding = 5
+  const maxVal = Math.max(...data.map(d => d.views), 1)
+  // Y-axis nice ticks
+  const yTicks = useMemo(() => {
+    const step = Math.ceil(maxVal / 4)
+    const niceStep = step <= 5 ? step : Math.ceil(step / 5) * 5
+    const ticks: number[] = []
+    for (let v = 0; v <= maxVal + niceStep; v += niceStep) {
+      ticks.push(v)
+      if (ticks.length >= 5) break
+    }
+    return ticks
+  }, [maxVal])
 
-  const points = data.map((d, i) => {
-    const x = padding + (i / (data.length - 1)) * (width - 2 * padding)
-    const y = height - padding - ((d.value - minVal) / range) * (height - 2 * padding)
-    return `${x},${y}`
-  }).join(' ')
+  const chartMax = yTicks[yTicks.length - 1] || maxVal
 
-  const areaPoints = `${padding},${height - padding} ${points} ${width - padding},${height - padding}`
+  // Show every Nth label so they don't overlap
+  const labelEvery = data.length > 20 ? 5 : data.length > 14 ? 3 : data.length > 7 ? 2 : 1
 
-  return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full" preserveAspectRatio="none">
-      {/* Area fill */}
-      <polygon
-        points={areaPoints}
-        fill="url(#areaGradient)"
-        opacity="0.3"
-      />
-      {/* Line */}
-      <polyline
-        points={points}
-        fill="none"
-        stroke="#06b6d4"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Gradient definition */}
-      <defs>
-        <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#06b6d4" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-    </svg>
-  )
-}
+  const chartH = 220
+  const padLeft = 44
+  const padRight = 12
+  const padTop = 12
+  const padBottom = 32
 
-// Metric Card Component
-function MetricCard({
-  title,
-  value,
-  subtitle,
-  icon,
-  color = 'cyan'
-}: {
-  title: string
-  value: number | null | undefined
-  subtitle?: string
-  icon: string
-  color?: 'cyan' | 'emerald' | 'purple' | 'amber'
-}) {
-  const colorClasses = {
-    cyan: 'text-cyan-400',
-    emerald: 'text-emerald-400',
-    purple: 'text-purple-400',
-    amber: 'text-amber-400'
-  }
+  const barWidth = Math.max(4, Math.min(24, (600 - padLeft - padRight) / data.length - 2))
+  const chartW = padLeft + padRight + data.length * (barWidth + 2)
 
   return (
-    <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-lg">{icon}</span>
-        <span className="text-xs text-white/50 uppercase tracking-wider">{title}</span>
-      </div>
-      {value !== null && value !== undefined ? (
-        <div className={`text-2xl font-bold ${colorClasses[color]}`}>
-          {value.toLocaleString()}
+    <div ref={containerRef} className="relative overflow-x-auto">
+      {/* Tooltip */}
+      {hoveredIndex !== null && data[hoveredIndex] && (
+        <div
+          className="absolute z-10 pointer-events-none bg-black/90 border border-white/20 rounded-lg px-3 py-2 text-xs shadow-lg"
+          style={{
+            left: padLeft + hoveredIndex * (barWidth + 2) + barWidth / 2,
+            top: 0,
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <div className="text-white font-semibold">{data[hoveredIndex].views} views</div>
+          <div className="text-white/50">{formatDate(data[hoveredIndex].date)}</div>
         </div>
-      ) : (
-        <div className="text-2xl text-white/20">—</div>
       )}
-      {subtitle && <div className="text-xs text-white/40 mt-1">{subtitle}</div>}
+
+      <svg
+        width={Math.max(chartW, 300)}
+        height={chartH}
+        viewBox={`0 0 ${Math.max(chartW, 300)} ${chartH}`}
+        className="w-full"
+        style={{ minWidth: Math.min(chartW, 300) }}
+      >
+        {/* Y-axis grid + labels */}
+        {yTicks.map((tick, i) => {
+          const y = padTop + ((chartMax - tick) / chartMax) * (chartH - padTop - padBottom)
+          return (
+            <g key={i}>
+              <line
+                x1={padLeft}
+                y1={y}
+                x2={Math.max(chartW, 300) - padRight}
+                y2={y}
+                stroke="rgba(255,255,255,0.06)"
+                strokeDasharray="4 4"
+              />
+              <text x={padLeft - 6} y={y + 3} textAnchor="end" fill="rgba(255,255,255,0.35)" fontSize="10">
+                {formatNumber(tick)}
+              </text>
+            </g>
+          )
+        })}
+
+        {/* Bars */}
+        {data.map((d, i) => {
+          const barH = (d.views / chartMax) * (chartH - padTop - padBottom)
+          const x = padLeft + i * (barWidth + 2)
+          const y = chartH - padBottom - barH
+          const isHovered = hoveredIndex === i
+
+          return (
+            <g
+              key={d.date}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{ cursor: 'pointer' }}
+            >
+              {/* Hover background */}
+              <rect
+                x={x - 1}
+                y={padTop}
+                width={barWidth + 2}
+                height={chartH - padTop - padBottom}
+                fill={isHovered ? 'rgba(255,255,255,0.03)' : 'transparent'}
+                rx={2}
+              />
+              {/* Bar */}
+              <rect
+                x={x}
+                y={y}
+                width={barWidth}
+                height={Math.max(barH, 1)}
+                rx={2}
+                fill={isHovered ? '#22d3ee' : '#06b6d4'}
+                opacity={isHovered ? 1 : 0.7}
+              >
+                <animate attributeName="height" from="0" to={Math.max(barH, 1)} dur="0.4s" fill="freeze" />
+                <animate attributeName="y" from={chartH - padBottom} to={y} dur="0.4s" fill="freeze" />
+              </rect>
+
+              {/* X-axis label */}
+              {i % labelEvery === 0 && (
+                <text
+                  x={x + barWidth / 2}
+                  y={chartH - padBottom + 16}
+                  textAnchor="middle"
+                  fill="rgba(255,255,255,0.4)"
+                  fontSize="9"
+                >
+                  {formatDateShort(d.date)}
+                </text>
+              )}
+            </g>
+          )
+        })}
+
+        {/* X axis month labels for 30d view */}
+        {data.length > 14 && (() => {
+          const months = new Set<string>()
+          return data.map((d, i) => {
+            const monthKey = d.date.slice(0, 7)
+            if (months.has(monthKey)) return null
+            months.add(monthKey)
+            const x = padLeft + i * (barWidth + 2) + barWidth / 2
+            const label = new Date(d.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' })
+            return (
+              <text
+                key={monthKey}
+                x={x}
+                y={chartH - 2}
+                textAnchor="start"
+                fill="rgba(255,255,255,0.25)"
+                fontSize="9"
+                fontWeight="600"
+              >
+                {label}
+              </text>
+            )
+          })
+        })()}
+      </svg>
     </div>
   )
 }
 
-// Metric Row Component
-function MetricRow({
-  label,
-  value,
-  suffix
+/* ─── Daily Line Chart (SVG) ─── */
+function DailyLineChart({ data }: { data: DailyPoint[] }) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
+  if (data.length === 0) return <ChartEmpty />
+
+  const maxVal = Math.max(...data.map(d => d.views), 1)
+  const chartH = 220
+  const padLeft = 44
+  const padRight = 12
+  const padTop = 16
+  const padBottom = 32
+
+  const yTicks = useMemo(() => {
+    const step = Math.ceil(maxVal / 4)
+    const niceStep = step <= 5 ? step : Math.ceil(step / 5) * 5
+    const ticks: number[] = []
+    for (let v = 0; v <= maxVal + niceStep; v += niceStep) {
+      ticks.push(v)
+      if (ticks.length >= 5) break
+    }
+    return ticks
+  }, [maxVal])
+
+  const chartMax = yTicks[yTicks.length - 1] || maxVal
+  const chartW = 600
+  const innerW = chartW - padLeft - padRight
+  const innerH = chartH - padTop - padBottom
+  const labelEvery = data.length > 20 ? 5 : data.length > 14 ? 3 : data.length > 7 ? 2 : 1
+
+  const points = data.map((d, i) => ({
+    x: padLeft + (data.length === 1 ? innerW / 2 : (i / (data.length - 1)) * innerW),
+    y: padTop + ((chartMax - d.views) / chartMax) * innerH,
+  }))
+
+  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ')
+  const areaPath = `${linePath} L${points[points.length - 1].x},${chartH - padBottom} L${points[0].x},${chartH - padBottom} Z`
+
+  return (
+    <div className="relative overflow-x-auto">
+      {hoveredIndex !== null && data[hoveredIndex] && (
+        <div
+          className="absolute z-10 pointer-events-none bg-black/90 border border-white/20 rounded-lg px-3 py-2 text-xs shadow-lg"
+          style={{
+            left: points[hoveredIndex].x,
+            top: points[hoveredIndex].y - 40,
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <div className="text-white font-semibold">{data[hoveredIndex].views} views</div>
+          <div className="text-white/50">{formatDate(data[hoveredIndex].date)}</div>
+        </div>
+      )}
+
+      <svg width={chartW} height={chartH} viewBox={`0 0 ${chartW} ${chartH}`} className="w-full">
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        {/* Y grid */}
+        {yTicks.map((tick, i) => {
+          const y = padTop + ((chartMax - tick) / chartMax) * innerH
+          return (
+            <g key={i}>
+              <line x1={padLeft} y1={y} x2={chartW - padRight} y2={y} stroke="rgba(255,255,255,0.06)" strokeDasharray="4 4" />
+              <text x={padLeft - 6} y={y + 3} textAnchor="end" fill="rgba(255,255,255,0.35)" fontSize="10">
+                {formatNumber(tick)}
+              </text>
+            </g>
+          )
+        })}
+
+        {/* Area */}
+        <path d={areaPath} fill="url(#lineGrad)" />
+
+        {/* Line */}
+        <path d={linePath} fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinejoin="round" />
+
+        {/* Dots + hover areas */}
+        {points.map((p, i) => (
+          <g
+            key={data[i].date}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            style={{ cursor: 'pointer' }}
+          >
+            <rect
+              x={p.x - 10}
+              y={padTop}
+              width={20}
+              height={innerH}
+              fill="transparent"
+            />
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r={hoveredIndex === i ? 5 : 3}
+              fill={hoveredIndex === i ? '#a78bfa' : '#8b5cf6'}
+              stroke={hoveredIndex === i ? '#fff' : 'none'}
+              strokeWidth={1.5}
+            />
+            {/* X label */}
+            {i % labelEvery === 0 && (
+              <text x={p.x} y={chartH - padBottom + 16} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="9">
+                {formatDateShort(data[i].date)}
+              </text>
+            )}
+          </g>
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+/* ─── Device Breakdown ─── */
+function DeviceBreakdownChart({ devices, total }: { devices: DeviceEntry[]; total: number }) {
+  if (devices.length === 0) return <ChartEmpty />
+
+  const colors: Record<string, string> = {
+    desktop: '#06b6d4',
+    mobile: '#8b5cf6',
+    tablet: '#f59e0b',
+    other: '#6b7280',
+  }
+
+  const sorted = [...devices].sort((a, b) => b.views - a.views)
+
+  return (
+    <div className="space-y-4 py-4">
+      {sorted.map((device) => {
+        const pct = total > 0 ? (device.views / total) * 100 : 0
+        const color = colors[device.type.toLowerCase()] || colors.other
+        return (
+          <div key={device.type}>
+            <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                <span className="text-sm text-white/70 capitalize">{device.type}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-semibold text-white">{device.views.toLocaleString()}</span>
+                <span className="text-xs text-white/40 w-10 text-right">{pct.toFixed(1)}%</span>
+              </div>
+            </div>
+            <div className="h-2.5 bg-white/5 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-700"
+                style={{ width: `${pct}%`, backgroundColor: color }}
+              />
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/* ─── Top Pages Horizontal Bar Chart ─── */
+function TopPagesChart({ pages }: { pages: PageEntry[] }) {
+  if (pages.length === 0) return <ChartEmpty />
+
+  const top = pages.slice(0, 8)
+  const maxViews = top[0]?.views || 1
+
+  return (
+    <div className="space-y-3 py-2">
+      {top.map((page, i) => {
+        const pct = (page.views / maxViews) * 100
+        return (
+          <div key={page.path}>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-white/60 truncate max-w-[70%]" title={page.path}>
+                {page.path}
+              </span>
+              <span className="text-xs font-semibold text-white ml-2">{page.views}</span>
+            </div>
+            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 transition-all duration-700"
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/* ─── Subcomponents ─── */
+function StatCard({
+  label, value, suffix, subtitle, icon, color
 }: {
   label: string
-  value: number | null | undefined
+  value: number
   suffix?: string
+  subtitle?: string
+  icon: string
+  color: 'cyan' | 'purple' | 'amber' | 'emerald'
 }) {
+  const colorClasses = {
+    cyan: 'text-cyan-400',
+    purple: 'text-purple-400',
+    amber: 'text-amber-400',
+    emerald: 'text-emerald-400',
+  }
   return (
-    <div className="flex items-center justify-between">
-      <span className="text-sm text-white/60">{label}</span>
-      {value !== null && value !== undefined ? (
-        <span className="text-sm font-medium text-white">
-          {value.toLocaleString()}
-          {suffix && <span className="text-white/40 ml-1">{suffix}</span>}
-        </span>
-      ) : (
-        <span className="text-sm text-white/30">—</span>
-      )}
+    <div className="bg-white/[0.04] rounded-xl p-4 border border-white/[0.08] hover:border-white/[0.15] transition-colors">
+      <div className="flex items-center gap-1.5 mb-1.5">
+        <span className="text-sm">{icon}</span>
+        <span className="text-[10px] text-white/40 uppercase tracking-wider font-medium">{label}</span>
+      </div>
+      <div className={`text-2xl font-bold ${colorClasses[color]} tabular-nums`}>
+        {value.toLocaleString()}{suffix || ''}
+      </div>
+      {subtitle && <div className="text-[10px] text-white/30 mt-0.5">{subtitle}</div>}
+    </div>
+  )
+}
+
+function BarRow({
+  rank, label, value, maxValue, color
+}: {
+  rank?: number
+  label: string
+  value: number
+  maxValue: number
+  color: 'cyan' | 'purple'
+}) {
+  const pct = maxValue > 0 ? (value / maxValue) * 100 : 0
+  const barColor = color === 'cyan' ? 'bg-cyan-400/60' : 'bg-purple-400/60'
+
+  return (
+    <div className="group">
+      <div className="flex items-center gap-2 mb-0.5">
+        {rank !== undefined && (
+          <span className="text-[10px] text-white/25 w-4 text-right tabular-nums">{rank}</span>
+        )}
+        <span className="text-xs text-white/60 truncate flex-1" title={label}>{label}</span>
+        <span className="text-xs font-medium text-white/80 tabular-nums">{value.toLocaleString()}</span>
+      </div>
+      <div className={`h-1 bg-white/[0.04] rounded-full overflow-hidden ${rank !== undefined ? 'ml-6' : ''}`}>
+        <div
+          className={`h-full rounded-full ${barColor} transition-all duration-500`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function ChartEmpty() {
+  return (
+    <div className="h-48 flex items-center justify-center text-white/30">
+      <div className="text-center">
+        <div className="text-2xl mb-2">📈</div>
+        <p className="text-sm">No data for this period</p>
+      </div>
+    </div>
+  )
+}
+
+function EmptyRow() {
+  return <div className="text-center py-4 text-white/25 text-xs">No data</div>
+}
+
+function EmptyState() {
+  return (
+    <GlowCard variant="cyan" className="p-12 text-center">
+      <div className="text-5xl mb-4">📊</div>
+      <h3 className="text-xl font-semibold mb-2">No Data Yet</h3>
+      <p className="text-white/50 max-w-md mx-auto">
+        Analytics will appear once Cloudflare Web Analytics starts collecting data for onde.la.
+      </p>
+    </GlowCard>
+  )
+}
+
+function LoadingSkeleton() {
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {[1, 2, 3, 4].map(i => (
+          <div key={i} className="bg-white/5 rounded-xl p-4 border border-white/10 animate-pulse">
+            <div className="h-3 bg-white/10 rounded w-16 mb-3" />
+            <div className="h-7 bg-white/10 rounded w-12" />
+          </div>
+        ))}
+      </div>
+      <div className="bg-white/5 rounded-xl p-6 border border-white/10 animate-pulse">
+        <div className="h-4 bg-white/10 rounded w-24 mb-4" />
+        <div className="h-48 bg-white/[0.03] rounded" />
+      </div>
     </div>
   )
 }
