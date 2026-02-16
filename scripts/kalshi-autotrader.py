@@ -153,6 +153,13 @@ MAX_RISK_REWARD_RATIO = 1.5 # Skip if (cost / potential_win) > 1.5
 PARLAY_ONLY_NO = True       # On multi-leg parlays, primarily take BUY_NO
 PARLAY_YES_EXCEPTION = True # Allow BUY_YES on 2-leg parlays if edge > 5%
 
+# ── Position management / trailing stop (TRADE-017) ──
+TRAILING_STOP_ENABLED = True
+PROFIT_TAKE_PCT = 0.30       # Take profit when position is +30% (e.g., bought NO@60¢, now worth 78¢)
+TRAILING_STOP_PCT = 0.15     # Trail by 15% from peak unrealized profit
+MIN_PROFIT_TO_TRAIL = 0.10   # Start trailing only after +10% unrealized
+EARLY_EXIT_NEAR_EXPIRY_HOURS = 2  # Force exit if <2h to expiry and in profit
+
 # ── Market scanning filters ──
 MIN_VOLUME = 200
 MIN_LIQUIDITY = 1000
@@ -483,6 +490,181 @@ def place_order(ticker: str, side: str, price_cents: int, count: int, dry_run: b
         "yes_price": price_cents if side == "yes" else (100 - price_cents),
     }
     return kalshi_api("POST", "/trade-api/v2/portfolio/orders", body=body)
+
+
+def sell_position(ticker: str, side: str, price_cents: int, count: int, dry_run: bool = True) -> dict:
+    """Sell/exit an existing position."""
+    if dry_run:
+        return {"dry_run": True, "ticker": ticker, "action": "sell", "side": side,
+                "price": price_cents, "count": count, "status": "simulated"}
+    body = {
+        "ticker": ticker, "action": "sell", "side": side, "type": "limit",
+        "count": count,
+        "yes_price": price_cents if side == "yes" else (100 - price_cents),
+    }
+    return kalshi_api("POST", "/trade-api/v2/portfolio/orders", body=body)
+
+
+# ============================================================================
+# POSITION MANAGEMENT — Trailing Stop / Early Exit (TRADE-017)
+# ============================================================================
+
+# Track peak unrealized profit per position (in-memory, resets on restart)
+_position_peaks: dict[str, float] = {}  # ticker → peak unrealized profit ratio
+
+def manage_positions(positions: list, dry_run: bool = True) -> int:
+    """
+    Monitor open positions and exit when profitable.
+    
+    For BUY_NO positions:
+    - Take profit at +30% (bought NO@60¢ → current value 78¢+)
+    - Trailing stop: once +10% profit, trail by 15% from peak
+    - Early exit: <2h to expiry and in any profit → close
+    
+    Returns number of positions exited.
+    """
+    if not TRAILING_STOP_ENABLED or not positions:
+        return 0
+
+    exits = 0
+    now = datetime.now(timezone.utc)
+
+    for pos in positions:
+        ticker = pos.get("ticker", "")
+        if not ticker:
+            continue
+
+        # Position details from Kalshi API
+        # market_positions have: ticker, market_exposure, total_traded,
+        # realized_pnl, rest_resting_contracts, fees_paid, etc.
+        # We need to check the current market price vs our entry price
+        
+        # Get our side and contracts
+        yes_contracts = pos.get("position", 0)  # positive = long YES, negative = short YES (= long NO)
+        no_contracts = abs(yes_contracts) if yes_contracts < 0 else 0
+        yes_held = yes_contracts if yes_contracts > 0 else 0
+        
+        if yes_held == 0 and no_contracts == 0:
+            continue
+
+        # Get current market price
+        try:
+            market_data = kalshi_api("GET", f"/trade-api/v2/markets/{ticker}")
+            if "error" in market_data or "market" not in market_data:
+                continue
+            mkt = market_data["market"]
+        except Exception:
+            continue
+
+        current_yes = mkt.get("yes_bid", 0) or mkt.get("last_price", 50)
+        current_no = 100 - current_yes
+        
+        # Calculate cost basis from fills (approximate from total_traded / contracts)
+        total_traded_cents = pos.get("total_traded", 0)  # total cost in cents
+        total_contracts = abs(yes_contracts)
+        if total_contracts == 0:
+            continue
+        
+        entry_price = total_traded_cents / total_contracts  # avg entry price per contract
+        
+        # Determine our side
+        if yes_held > 0:
+            side = "yes"
+            current_value = current_yes
+            contracts = yes_held
+        else:
+            side = "no"
+            current_value = current_no
+            contracts = no_contracts
+
+        # Unrealized profit ratio
+        if entry_price <= 0:
+            continue
+        unrealized_pnl_ratio = (current_value - entry_price) / entry_price
+
+        # Track peak
+        peak = _position_peaks.get(ticker, unrealized_pnl_ratio)
+        if unrealized_pnl_ratio > peak:
+            peak = unrealized_pnl_ratio
+            _position_peaks[ticker] = peak
+
+        # Check time to expiry
+        close_time = mkt.get("close_time") or mkt.get("expiration_time", "")
+        hours_to_expiry = float('inf')
+        if close_time:
+            try:
+                exp = datetime.fromisoformat(close_time.replace("Z", "+00:00"))
+                hours_to_expiry = (exp - now).total_seconds() / 3600
+            except Exception:
+                pass
+
+        # Decision logic
+        should_exit = False
+        exit_reason = ""
+
+        # 1. Take profit: position is +30%
+        if unrealized_pnl_ratio >= PROFIT_TAKE_PCT:
+            should_exit = True
+            exit_reason = f"TAKE_PROFIT +{unrealized_pnl_ratio:.0%} (threshold: {PROFIT_TAKE_PCT:.0%})"
+
+        # 2. Trailing stop: peaked above +10%, now dropped 15% from peak
+        elif peak >= MIN_PROFIT_TO_TRAIL and (peak - unrealized_pnl_ratio) >= TRAILING_STOP_PCT:
+            should_exit = True
+            exit_reason = f"TRAILING_STOP peak={peak:.0%} current={unrealized_pnl_ratio:.0%} drop={peak-unrealized_pnl_ratio:.0%}"
+
+        # 3. Early exit near expiry: <2h to expiry and in any profit
+        elif hours_to_expiry < EARLY_EXIT_NEAR_EXPIRY_HOURS and unrealized_pnl_ratio > 0.01:
+            should_exit = True
+            exit_reason = f"EARLY_EXIT {hours_to_expiry:.1f}h to expiry, +{unrealized_pnl_ratio:.0%} profit"
+
+        if should_exit:
+            sell_price = current_value  # limit sell at current bid
+            print(f"   🔔 EXIT: {ticker}")
+            print(f"      Side: {side.upper()} x{contracts}")
+            print(f"      Entry: {entry_price:.0f}¢ → Current: {current_value:.0f}¢ ({unrealized_pnl_ratio:+.1%})")
+            print(f"      Reason: {exit_reason}")
+
+            result = sell_position(ticker, side, int(sell_price), contracts, dry_run)
+
+            if dry_run:
+                print(f"      🧪 DRY RUN: Simulated exit")
+            else:
+                if "error" in result:
+                    print(f"      ❌ Exit failed: {result['error']}")
+                    continue
+                else:
+                    print(f"      ✅ Exit order placed")
+
+            # Log the exit
+            exit_entry = {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "action": "EXIT",
+                "ticker": ticker,
+                "side": side,
+                "contracts": contracts,
+                "entry_price": round(entry_price),
+                "exit_price": int(sell_price),
+                "unrealized_pnl_pct": round(unrealized_pnl_ratio * 100, 1),
+                "reason": exit_reason,
+                "dry_run": dry_run,
+            }
+            try:
+                with open(TRADE_LOG_FILE, "a") as f:
+                    f.write(json.dumps(exit_entry) + "\n")
+            except Exception:
+                pass
+
+            # Clean up peak tracking
+            _position_peaks.pop(ticker, None)
+            exits += 1
+            time.sleep(0.5)  # Rate limit
+        else:
+            # Log status for monitoring
+            if unrealized_pnl_ratio > 0.05 or unrealized_pnl_ratio < -0.10:
+                status = "📈" if unrealized_pnl_ratio > 0 else "📉"
+                print(f"   {status} {ticker}: {side.upper()} entry={entry_price:.0f}¢ now={current_value:.0f}¢ ({unrealized_pnl_ratio:+.1%}) peak={peak:+.1%}")
+
+    return exits
 
 
 # ============================================================================
@@ -1834,6 +2016,18 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     positions = get_positions()
     num_positions = len(positions)
     print(f"📊 Open positions: {num_positions}/{MAX_POSITIONS}")
+
+    # ── Position Management: Trailing Stop / Early Exit (TRADE-017) ──
+    if TRAILING_STOP_ENABLED and positions:
+        print(f"\n🔔 Managing {num_positions} open positions...")
+        exits = manage_positions(positions, dry_run)
+        if exits > 0:
+            print(f"   ✅ Exited {exits} position(s)")
+            # Refresh positions after exits
+            positions = get_positions()
+            num_positions = len(positions)
+            print(f"📊 Open positions after exits: {num_positions}/{MAX_POSITIONS}")
+
     if num_positions >= MAX_POSITIONS:
         print("⚠️ Max positions reached")
         return

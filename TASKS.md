@@ -422,8 +422,8 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 158 | TRADE-016 | Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri | 🔥 Trading validation | ✅ DONE | @clawdinho | 132 settled trades analyzed. BUY_YES=18.6% WR (terrible), BUY_NO=75.8% WR (great). Best filter: BUY_NO only + R/R≤1.5 = 30.4¢/trade (2.9x baseline). Report: data/trading/risk-reward-backtest-results.md |
-| 159 | TRADE-017 | Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement) | ⭐ Trading performance | 🔶 TODO | - |
-| 160 | TRADE-018 | Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading | ⭐ Monitoring | 🔶 TODO | - |
+| 159 | TRADE-017 | Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement) | ⭐ Trading performance | ✅ DONE | @clawdinho | Added manage_positions() with: +30% take profit, trailing stop (15% from peak after +10%), early exit <2h to expiry. Integrated in run_cycle(). sell_position() API. |
+| 160 | TRADE-018 | Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading | ⭐ Monitoring | ✅ DONE | @clawdinho | Added 4-column risk/reward grid to V3 section: Avg YES ¢, Avg NO ¢, R/R ratio (color-coded), Avg Confidence. Deployed. |
 
 ### PERM-001: Polymarket Microbet 24/7
 - **Cosa:** Piazzare microbet $1-2 su mercati sport/eventi via phone mirror
