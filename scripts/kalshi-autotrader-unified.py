@@ -32,6 +32,8 @@ import math
 import re
 import argparse
 import base64
+import signal
+import logging
 import traceback
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -42,6 +44,292 @@ from collections import defaultdict
 import requests
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
+
+# ============================================================================
+# STRUCTURED LOGGING (JSON)
+# ============================================================================
+
+class JSONFormatter(logging.Formatter):
+    """JSON log formatter for structured logging."""
+    def format(self, record):
+        log_entry = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+        }
+        # Add extra fields if present
+        for key in ("ticker", "action", "edge", "contracts", "price_cents",
+                     "cost_cents", "balance", "positions", "cycle_id", "duration_s",
+                     "error_type", "market_type", "alert_type", "component"):
+            if hasattr(record, key):
+                log_entry[key] = getattr(record, key)
+        if record.exc_info and record.exc_info[0]:
+            log_entry["exception"] = self.formatException(record.exc_info)
+        return json.dumps(log_entry)
+
+
+def setup_logging(json_log_path: Path = None, console_level: int = logging.INFO):
+    """Set up structured JSON logging + human-readable console output."""
+    root_logger = logging.getLogger("autotrader")
+    root_logger.setLevel(logging.DEBUG)
+    root_logger.handlers.clear()
+
+    # Console handler (human-readable)
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(console_level)
+    console_fmt = logging.Formatter("%(message)s")
+    console_handler.setFormatter(console_fmt)
+    root_logger.addHandler(console_handler)
+
+    # JSON file handler
+    if json_log_path:
+        json_log_path.parent.mkdir(parents=True, exist_ok=True)
+        json_handler = logging.FileHandler(str(json_log_path), encoding="utf-8")
+        json_handler.setLevel(logging.DEBUG)
+        json_handler.setFormatter(JSONFormatter())
+        root_logger.addHandler(json_handler)
+
+    return root_logger
+
+
+# Initialize logger (will be configured in main())
+log = logging.getLogger("autotrader")
+
+# ============================================================================
+# GRACEFUL SHUTDOWN
+# ============================================================================
+
+class GracefulShutdown:
+    """Handle SIGTERM/SIGINT for graceful shutdown."""
+
+    def __init__(self):
+        self.should_stop = False
+        self.in_trade = False
+        self.current_cycle = 0
+        self._original_sigterm = signal.getsignal(signal.SIGTERM)
+        self._original_sigint = signal.getsignal(signal.SIGINT)
+
+    def install_handlers(self):
+        signal.signal(signal.SIGTERM, self._handle_signal)
+        signal.signal(signal.SIGINT, self._handle_signal)
+
+    def _handle_signal(self, signum, frame):
+        sig_name = "SIGTERM" if signum == signal.SIGTERM else "SIGINT"
+        if self.in_trade:
+            log.warning(f"🛑 {sig_name} received during trade execution — finishing current trade, then stopping",
+                        extra={"component": "shutdown", "alert_type": "graceful_shutdown"})
+        else:
+            log.warning(f"🛑 {sig_name} received — stopping after current cycle",
+                        extra={"component": "shutdown", "alert_type": "graceful_shutdown"})
+        self.should_stop = True
+
+        # Write shutdown alert
+        _write_alert("shutdown", {
+            "signal": sig_name,
+            "cycle": self.current_cycle,
+            "in_trade": self.in_trade,
+            "message": f"Graceful shutdown initiated by {sig_name}",
+        })
+
+    def check_stop(self) -> bool:
+        return self.should_stop
+
+    def enter_trade(self):
+        self.in_trade = True
+
+    def exit_trade(self):
+        self.in_trade = False
+
+    def cleanup(self):
+        """Restore original signal handlers."""
+        signal.signal(signal.SIGTERM, self._original_sigterm)
+        signal.signal(signal.SIGINT, self._original_sigint)
+
+
+# Global shutdown handler
+shutdown = GracefulShutdown()
+
+# ============================================================================
+# REAL-TIME ALERTS (.alert files)
+# ============================================================================
+
+ALERT_DIR = Path(__file__).parent
+ERROR_COUNTER = defaultdict(int)  # Track error clusters
+ERROR_WINDOW_START = time.time()
+ERROR_CLUSTER_THRESHOLD = 5  # N errors in window = alert
+ERROR_CLUSTER_WINDOW_SEC = 300  # 5 minute window
+
+DRAWDOWN_THRESHOLDS = [0.05, 0.10, 0.20]  # 5%, 10%, 20% drawdown alerts
+DRAWDOWN_ALERTED = set()  # Track which thresholds already alerted
+
+
+def _write_alert(alert_type: str, data: dict):
+    """Write a .alert file for monitoring tools to pick up."""
+    alert_file = ALERT_DIR / f"kalshi-{alert_type}.alert"
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": alert_type,
+        "severity": data.get("severity", "warning"),
+        **data,
+    }
+    try:
+        with open(alert_file, "w") as f:
+            json.dump(alert_data, f, indent=2)
+        log.info(f"🚨 Alert written: {alert_file.name}",
+                 extra={"component": "alerts", "alert_type": alert_type})
+    except Exception as e:
+        log.error(f"Failed to write alert file: {e}")
+
+
+def check_drawdown_alert(balance: float, peak_balance: float):
+    """Alert if drawdown exceeds thresholds."""
+    if peak_balance <= 0:
+        return
+    drawdown = (peak_balance - balance) / peak_balance
+    for threshold in DRAWDOWN_THRESHOLDS:
+        if drawdown >= threshold and threshold not in DRAWDOWN_ALERTED:
+            DRAWDOWN_ALERTED.add(threshold)
+            severity = "critical" if threshold >= 0.20 else ("warning" if threshold >= 0.10 else "info")
+            _write_alert("drawdown", {
+                "severity": severity,
+                "drawdown_pct": round(drawdown * 100, 2),
+                "threshold_pct": round(threshold * 100, 2),
+                "balance": round(balance, 2),
+                "peak_balance": round(peak_balance, 2),
+                "message": f"Drawdown {drawdown:.1%} exceeds {threshold:.0%} threshold",
+            })
+            log.warning(f"🚨 DRAWDOWN ALERT: {drawdown:.1%} (threshold: {threshold:.0%}) | "
+                        f"Balance: ${balance:.2f} / Peak: ${peak_balance:.2f}",
+                        extra={"component": "risk", "alert_type": "drawdown",
+                               "balance": balance})
+
+
+def record_error(error_type: str, details: str = ""):
+    """Track errors and alert on error clusters."""
+    global ERROR_WINDOW_START
+    now = time.time()
+
+    # Reset window if expired
+    if now - ERROR_WINDOW_START > ERROR_CLUSTER_WINDOW_SEC:
+        ERROR_COUNTER.clear()
+        ERROR_WINDOW_START = now
+
+    ERROR_COUNTER[error_type] += 1
+    total_errors = sum(ERROR_COUNTER.values())
+
+    if total_errors >= ERROR_CLUSTER_THRESHOLD:
+        _write_alert("error-cluster", {
+            "severity": "critical",
+            "total_errors": total_errors,
+            "window_seconds": ERROR_CLUSTER_WINDOW_SEC,
+            "error_types": dict(ERROR_COUNTER),
+            "latest_error": error_type,
+            "latest_details": details[:500],
+            "message": f"{total_errors} errors in {ERROR_CLUSTER_WINDOW_SEC}s window",
+        })
+        log.error(f"🚨 ERROR CLUSTER: {total_errors} errors in {ERROR_CLUSTER_WINDOW_SEC}s",
+                  extra={"component": "alerts", "alert_type": "error_cluster",
+                         "error_type": error_type})
+        # Reset after alerting
+        ERROR_COUNTER.clear()
+        ERROR_WINDOW_START = now
+
+
+# ============================================================================
+# POSITION & RISK LIMITS
+# ============================================================================
+
+# Per-market exposure limits
+MAX_EXPOSURE_PER_MARKET_CENTS = 1000   # $10 max exposure per single market
+MAX_EXPOSURE_PER_CATEGORY_PCT = 0.30   # 30% of portfolio in one category
+MAX_CONCURRENT_POSITIONS = 15          # Hard cap on open positions
+DAILY_LOSS_CAP_PCT = 0.10              # 10% of portfolio as daily loss cap
+MAX_DAILY_TRADES = 50                  # Circuit breaker on trade count
+
+# Peak balance tracking file
+PEAK_BALANCE_FILE = Path(__file__).parent / "kalshi-peak-balance.json"
+
+
+def load_peak_balance() -> float:
+    """Load historical peak balance for drawdown calculation."""
+    try:
+        if PEAK_BALANCE_FILE.exists():
+            with open(PEAK_BALANCE_FILE) as f:
+                data = json.load(f)
+            return data.get("peak_balance", 0)
+    except Exception:
+        pass
+    return 0
+
+
+def save_peak_balance(balance: float):
+    """Save peak balance if new high."""
+    current_peak = load_peak_balance()
+    if balance > current_peak:
+        try:
+            with open(PEAK_BALANCE_FILE, "w") as f:
+                json.dump({
+                    "peak_balance": round(balance, 2),
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }, f, indent=2)
+        except Exception:
+            pass
+
+
+def check_position_risk_limits(market, decision, balance: float,
+                                positions: list, daily_pnl: dict) -> tuple:
+    """
+    Comprehensive risk check before placing a trade.
+    Returns (allowed: bool, reason: str).
+    """
+    # 1. Max concurrent positions
+    if len(positions) >= MAX_CONCURRENT_POSITIONS:
+        return False, f"Max concurrent positions ({MAX_CONCURRENT_POSITIONS}) reached"
+
+    # 2. Per-market exposure check
+    cost_cents = decision.contracts * decision.price_cents
+    if cost_cents > MAX_EXPOSURE_PER_MARKET_CENTS:
+        return False, (f"Per-market exposure ${cost_cents/100:.2f} exceeds "
+                       f"${MAX_EXPOSURE_PER_MARKET_CENTS/100:.2f} limit")
+
+    # 3. Check existing exposure on same market
+    existing_exposure = 0
+    for pos in positions:
+        if pos.get("ticker") == market.ticker:
+            existing_exposure += abs(pos.get("market_exposure", 0))
+    if existing_exposure + cost_cents > MAX_EXPOSURE_PER_MARKET_CENTS:
+        return False, (f"Combined exposure on {market.ticker} would be "
+                       f"${(existing_exposure + cost_cents)/100:.2f}")
+
+    # 4. Category concentration check
+    category = market.category or "unknown"
+    cat_exposure = 0
+    for pos in positions:
+        # Approximate: count positions in same category
+        if pos.get("ticker", "").split("-")[0] == market.ticker.split("-")[0]:
+            cat_exposure += abs(pos.get("market_exposure", 0))
+    total_portfolio_cents = int(balance * 100)
+    if total_portfolio_cents > 0:
+        cat_pct = (cat_exposure + cost_cents) / total_portfolio_cents
+        if cat_pct > MAX_EXPOSURE_PER_CATEGORY_PCT:
+            return False, (f"Category concentration {cat_pct:.0%} exceeds "
+                           f"{MAX_EXPOSURE_PER_CATEGORY_PCT:.0%}")
+
+    # 5. Dynamic daily loss cap (% of portfolio)
+    dynamic_loss_cap = int(balance * DAILY_LOSS_CAP_PCT * 100)
+    effective_cap = max(DAILY_LOSS_LIMIT_CENTS, dynamic_loss_cap)
+    net_pnl = daily_pnl.get("net_pnl_cents", 0)
+    if net_pnl < -effective_cap:
+        return False, (f"Daily loss ${abs(net_pnl)/100:.2f} exceeds dynamic cap "
+                       f"${effective_cap/100:.2f}")
+
+    # 6. Max daily trade count
+    trades_today = daily_pnl.get("trades_today", 0)
+    if trades_today >= MAX_DAILY_TRADES:
+        return False, f"Max daily trades ({MAX_DAILY_TRADES}) reached"
+
+    return True, "OK"
 
 # ============================================================================
 # OPTIONAL MODULE IMPORTS (from v2 ecosystem)
@@ -453,7 +741,9 @@ def get_balance() -> float:
     """Get account balance in dollars."""
     result = kalshi_api("GET", "/trade-api/v2/portfolio/balance")
     if "error" in result:
-        print(f"❌ Balance error: {result['error']}")
+        log.error(f"❌ Balance error: {result['error']}",
+                  extra={"component": "api", "error_type": "balance_fetch"})
+        record_error("balance_fetch", result["error"])
         return 0.0
     return result.get("balance", 0) / 100.0
 
@@ -1402,7 +1692,7 @@ def scan_all_markets() -> list:
     seen = set()
     cursor = None
 
-    print("📡 Scanning Kalshi markets...")
+    log.info("📡 Scanning Kalshi markets...", extra={"component": "scanner"})
     for page in range(20):
         path = f"/trade-api/v2/markets?limit=200"
         if cursor:
@@ -1424,7 +1714,7 @@ def scan_all_markets() -> list:
         cursor = next_cursor
         time.sleep(0.3)
 
-    print(f"   General: {len(all_markets)} markets")
+    log.info(f"   General: {len(all_markets)} markets")
 
     # Sports event tickers
     sports_found = 0
@@ -1440,11 +1730,12 @@ def scan_all_markets() -> list:
                     sports_found += 1
         time.sleep(0.2)
     if sports_found:
-        print(f"   Sports: +{sports_found} additional markets")
+        log.info(f"   Sports: +{sports_found} additional markets")
 
     # Filter
     filtered = filter_markets(all_markets)
-    print(f"   Filtered: {len(filtered)}/{len(all_markets)} pass criteria")
+    log.info(f"   Filtered: {len(filtered)}/{len(all_markets)} pass criteria",
+             extra={"component": "scanner"})
     return filtered
 
 
@@ -1674,7 +1965,9 @@ def update_trade_results():
                 f.writelines(updated_lines)
 
     except Exception as e:
-        print(f"⚠️ Settlement check error: {e}")
+        log.warning(f"⚠️ Settlement check error: {e}",
+                    extra={"component": "settlement", "error_type": "settlement_check"})
+        record_error("settlement_check", str(e))
 
     return {"updated": updated_count, "wins": wins, "losses": losses}
 
@@ -1741,66 +2034,103 @@ def log_skip(ticker: str, reason: str, details: dict = None):
 def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     """
     One complete trading cycle:
-    1. Check safety (circuit breaker, daily loss, holiday)
+    1. Check safety (circuit breaker, daily loss, holiday, risk limits)
     2. Gather context (prices, momentum, sentiment, regime)
     3. Scan & rank markets
-    4. For top N: Forecast → Critique → Decide → Execute
-    5. Log everything
+    4. For top N: Forecast → Critique → Decide → Risk Check → Execute
+    5. Log everything (structured JSON)
+    6. Check drawdown alerts
     """
     cycle_start = time.time()
+    shutdown.current_cycle += 1
+    cycle_id = f"cycle-{shutdown.current_cycle}-{int(cycle_start)}"
 
-    print("=" * 70)
-    print(f"🤖 KALSHI AUTOTRADER — Unified")
-    print(f"📅 {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
-    print(f"{'🧪 DRY RUN (PAPER)' if dry_run else '🔴 LIVE TRADING'}")
-    print("=" * 70)
+    log.info("=" * 70)
+    log.info(f"🤖 KALSHI AUTOTRADER — Unified",
+             extra={"component": "cycle", "cycle_id": cycle_id})
+    log.info(f"📅 {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    log.info(f"{'🧪 DRY RUN (PAPER)' if dry_run else '🔴 LIVE TRADING'}")
+    log.info("=" * 70)
+
+    # ── Graceful shutdown check ──
+    if shutdown.check_stop():
+        log.info("🛑 Shutdown requested — skipping cycle",
+                 extra={"component": "shutdown", "cycle_id": cycle_id})
+        return
 
     # ── Check holiday ──
     if HOLIDAY_CHECK_AVAILABLE:
         is_hol, hol_name = is_market_holiday()
         if is_hol:
-            print(f"🎄 Market holiday: {hol_name} — skipping cycle")
+            log.info(f"🎄 Market holiday: {hol_name} — skipping cycle",
+                     extra={"component": "cycle", "cycle_id": cycle_id})
             return
 
     # ── Settlement tracker ──
     settlement = update_trade_results()
     if settlement["updated"]:
-        print(f"📊 Settled: {settlement['updated']} trades ({settlement['wins']}W/{settlement['losses']}L)")
+        log.info(f"📊 Settled: {settlement['updated']} trades ({settlement['wins']}W/{settlement['losses']}L)",
+                 extra={"component": "settlement", "cycle_id": cycle_id})
 
     # ── Circuit breaker ──
     cb_paused, cb_losses, cb_msg = check_circuit_breaker()
-    print(f"🔒 Circuit breaker: {cb_msg}")
+    log.info(f"🔒 Circuit breaker: {cb_msg}",
+             extra={"component": "risk", "cycle_id": cycle_id})
     if cb_paused:
+        _write_alert("circuit-breaker", {
+            "severity": "warning",
+            "consecutive_losses": cb_losses,
+            "message": cb_msg,
+        })
         return
 
     # ── Daily loss limit ──
     dl_paused, dl_pnl = check_daily_loss_limit()
-    print(f"📊 Daily PnL: ${dl_pnl['net_pnl_cents']/100:+.2f} ({dl_pnl['trades_today']} trades)")
+    log.info(f"📊 Daily PnL: ${dl_pnl['net_pnl_cents']/100:+.2f} ({dl_pnl['trades_today']} trades)",
+             extra={"component": "risk", "cycle_id": cycle_id})
     if dl_paused:
-        print(f"🛑 Daily loss limit reached (-${DAILY_LOSS_LIMIT_CENTS/100:.2f})")
+        log.warning(f"🛑 Daily loss limit reached (-${DAILY_LOSS_LIMIT_CENTS/100:.2f})",
+                    extra={"component": "risk", "alert_type": "daily_loss_limit"})
+        _write_alert("daily-loss", {
+            "severity": "critical",
+            "net_pnl_cents": dl_pnl["net_pnl_cents"],
+            "trades_today": dl_pnl["trades_today"],
+            "limit_cents": DAILY_LOSS_LIMIT_CENTS,
+            "message": f"Daily loss limit reached: ${abs(dl_pnl['net_pnl_cents'])/100:.2f}",
+        })
         return
 
     # ── LLM status ──
     use_heuristic = True
     if LLM_CONFIG and not LLM_CONFIG.get("api_key", "").startswith("sk-ant-oat"):
-        print(f"✅ LLM: {LLM_CONFIG['provider']} / {LLM_CONFIG['model']}")
+        log.info(f"✅ LLM: {LLM_CONFIG['provider']} / {LLM_CONFIG['model']}",
+                 extra={"component": "config"})
         use_heuristic = False
     else:
-        print("⚠️  No LLM API — using HEURISTIC forecaster")
+        log.info("⚠️  No LLM API — using HEURISTIC forecaster",
+                 extra={"component": "config"})
 
     # ── Balance ──
     balance = get_balance()
-    print(f"💰 Balance: ${balance:.2f}")
+    log.info(f"💰 Balance: ${balance:.2f}",
+             extra={"component": "balance", "balance": balance})
     if dry_run and balance < 1.0:
         balance = VIRTUAL_BALANCE
-        print(f"   📝 Using virtual balance: ${balance:.2f} (paper mode)")
+        log.info(f"   📝 Using virtual balance: ${balance:.2f} (paper mode)")
+
+    # ── Track peak balance & check drawdown ──
+    save_peak_balance(balance)
+    peak_balance = load_peak_balance()
+    check_drawdown_alert(balance, peak_balance)
 
     # ── Positions ──
     positions = get_positions()
     num_positions = len(positions)
-    print(f"📊 Open positions: {num_positions}/{MAX_POSITIONS}")
-    if num_positions >= MAX_POSITIONS:
-        print("⚠️ Max positions reached")
+    log.info(f"📊 Open positions: {num_positions}/{MAX_CONCURRENT_POSITIONS}",
+             extra={"component": "positions", "positions": num_positions})
+    if num_positions >= MAX_CONCURRENT_POSITIONS:
+        log.warning("⚠️ Max positions reached",
+                    extra={"component": "risk", "positions": num_positions})
         return
 
     # ── Gather context (v2 signals) ──
@@ -1810,14 +2140,18 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     prices = get_crypto_prices()
     if prices:
         context["crypto_prices"] = prices
-        print(f"📈 BTC: ${prices['btc']:,.0f} | ETH: ${prices['eth']:,.0f}")
+        log.info(f"📈 BTC: ${prices['btc']:,.0f} | ETH: ${prices['eth']:,.0f}",
+                 extra={"component": "market_data"})
     else:
-        print("⚠️ No crypto prices available")
+        log.warning("⚠️ No crypto prices available",
+                    extra={"component": "market_data"})
+        record_error("crypto_prices", "Failed to fetch crypto prices")
 
     # Fear & Greed
     fng = get_fear_greed_index()
     context["sentiment"] = fng
-    print(f"😱 Fear & Greed: {fng['value']} ({fng['classification']})")
+    log.info(f"😱 Fear & Greed: {fng['value']} ({fng['classification']})",
+             extra={"component": "market_data"})
 
     # News sentiment
     if NEWS_SEARCH_AVAILABLE:
@@ -1825,11 +2159,19 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
             news = get_crypto_sentiment("both")
             context["news_sentiment"] = news
             icon = "🟢" if news["sentiment"] == "bullish" else ("🔴" if news["sentiment"] == "bearish" else "⚪")
-            print(f"📰 News: {icon} {news['sentiment'].upper()} ({news['confidence']*100:.0f}%)")
-        except Exception:
+            log.info(f"📰 News: {icon} {news['sentiment'].upper()} ({news['confidence']*100:.0f}%)",
+                     extra={"component": "market_data"})
+        except Exception as e:
             context["news_sentiment"] = None
+            record_error("news_sentiment", str(e))
     else:
         context["news_sentiment"] = None
+
+    # ── Graceful shutdown check ──
+    if shutdown.check_stop():
+        log.info("🛑 Shutdown requested during context gathering — exiting",
+                 extra={"component": "shutdown"})
+        return
 
     # OHLC + Momentum + Regime
     btc_ohlc = get_crypto_ohlc("bitcoin", 7)
@@ -1848,15 +2190,18 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         cs = mom.get("composite_strength", 0)
         aligned = "✓" if mom.get("alignment") else ""
         label = "BULL" if cd > 0.1 else ("BEAR" if cd < -0.1 else "FLAT")
-        print(f"📊 {asset} Momentum: {label} (dir={cd:+.2f}, str={cs:.2f}) {aligned}")
+        log.info(f"📊 {asset} Momentum: {label} (dir={cd:+.2f}, str={cs:.2f}) {aligned}",
+                 extra={"component": "momentum"})
 
     for asset, regime in [("BTC", btc_regime), ("ETH", eth_regime)]:
-        print(f"   {asset} Regime: {regime['regime']} ({regime['confidence']:.0%}), vol: {regime['volatility']}")
+        log.info(f"   {asset} Regime: {regime['regime']} ({regime['confidence']:.0%}), vol: {regime['volatility']}",
+                 extra={"component": "regime"})
 
     # ── Scan markets ──
     markets = scan_all_markets()
     if not markets:
-        print("❌ No tradeable markets found!")
+        log.warning("❌ No tradeable markets found!",
+                    extra={"component": "scanner", "cycle_id": cycle_id})
         return
 
     # Score and rank
@@ -1864,16 +2209,17 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     scored.sort(key=lambda x: x[1], reverse=True)
     top_markets = scored[:max_markets]
 
-    print(f"\n🎯 TOP {len(top_markets)} MARKETS:")
-    print("-" * 70)
+    log.info(f"\n🎯 TOP {len(top_markets)} MARKETS:")
+    log.info("-" * 70)
     for i, (m, s) in enumerate(top_markets[:10], 1):
-        print(f"  {i:2d}. [{s:.1f}] {m.ticker} — {m.title[:65]}")
-        print(f"      YES:{m.yes_price}¢ Vol:{m.volume:,} DTE:{m.days_to_expiry:.1f}d")
-    print("-" * 70)
+        log.info(f"  {i:2d}. [{s:.1f}] {m.ticker} — {m.title[:65]}")
+        log.info(f"      YES:{m.yes_price}¢ Vol:{m.volume:,} DTE:{m.days_to_expiry:.1f}d")
+    log.info("-" * 70)
 
-    # ── Analyze markets: Forecast → Critique → Decide ──
+    # ── Analyze markets: Forecast → Critique → Decide → Risk Check ──
     trades_executed = 0
     trades_skipped = 0
+    risk_blocked = 0
     total_tokens = 0
     existing_tickers = {p.get("ticker", "") for p in positions}
 
@@ -1892,17 +2238,24 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
             pass
 
     for i, (market, score) in enumerate(top_markets, 1):
+        # ── Graceful shutdown check (between markets) ──
+        if shutdown.check_stop():
+            log.info(f"🛑 Shutdown requested — stopping market analysis at {i}/{len(top_markets)}",
+                     extra={"component": "shutdown", "cycle_id": cycle_id})
+            break
+
         if trades_executed >= max_trades:
-            print(f"\n⏹️ Max trades ({max_trades}) reached")
+            log.info(f"\n⏹️ Max trades ({max_trades}) reached")
             break
 
         if market.ticker in existing_tickers:
             continue
 
-        print(f"\n{'='*50}")
-        print(f"🔍 [{i}/{len(top_markets)}] {market.ticker}")
-        print(f"   {market.title[:75]}")
-        print(f"   YES:{market.yes_price}¢ NO:{market.no_price}¢ Vol:{market.volume:,}")
+        log.info(f"\n{'='*50}")
+        log.info(f"🔍 [{i}/{len(top_markets)}] {market.ticker}",
+                 extra={"component": "analysis", "ticker": market.ticker})
+        log.info(f"   {market.title[:75]}")
+        log.info(f"   YES:{market.yes_price}¢ NO:{market.no_price}¢ Vol:{market.volume:,}")
 
         # Build market-specific context
         mkt_context = dict(context)
@@ -1914,19 +2267,22 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
 
         # Step 1: FORECAST
         if use_heuristic:
-            print(f"   🧮 Heuristic ({mkt_type}/{detect_sport(market)})...")
+            log.info(f"   🧮 Heuristic ({mkt_type}/{detect_sport(market)})...")
             forecast = heuristic_forecast(market, mkt_context)
         else:
-            print(f"   🧠 LLM Forecasting...")
+            log.info(f"   🧠 LLM Forecasting...")
             forecast = forecast_market_llm(market, mkt_context)
         total_tokens += forecast.tokens_used
-        print(f"   📊 Forecast: {forecast.probability:.1%} ({forecast.confidence})")
-        print(f"   📝 Factors: {', '.join(forecast.key_factors[:3]) if forecast.key_factors else 'N/A'}")
+        log.info(f"   📊 Forecast: {forecast.probability:.1%} ({forecast.confidence})",
+                 extra={"component": "forecast", "ticker": market.ticker})
+        log.info(f"   📝 Factors: {', '.join(forecast.key_factors[:3]) if forecast.key_factors else 'N/A'}")
 
         # Quick edge check before critic
         quick_edge = abs(forecast.probability - market.market_prob)
         if quick_edge < MIN_EDGE_BUY_NO * 0.5:
-            print(f"   ⏭️ Quick skip: edge {quick_edge:.1%} too small")
+            log.debug(f"   ⏭️ Quick skip: edge {quick_edge:.1%} too small",
+                      extra={"component": "analysis", "ticker": market.ticker, "edge": quick_edge})
+            log.info(f"   ⏭️ Quick skip: edge {quick_edge:.1%} too small")
             trades_skipped += 1
             log_skip(market.ticker, f"quick_edge_{quick_edge:.3f}", {"market_prob": market.market_prob})
             continue
@@ -1935,93 +2291,143 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         if use_heuristic:
             critic = heuristic_critique(market, forecast)
         else:
-            print(f"   🔎 LLM Critiquing...")
+            log.info(f"   🔎 LLM Critiquing...")
             critic = critique_forecast_llm(market, forecast)
         total_tokens += critic.tokens_used
-        print(f"   📊 Critic: {critic.adjusted_probability:.1%} | Flaws: {len(critic.major_flaws)} | Trade: {'✅' if critic.should_trade else '❌'}")
+        log.info(f"   📊 Critic: {critic.adjusted_probability:.1%} | Flaws: {len(critic.major_flaws)} | Trade: {'✅' if critic.should_trade else '❌'}",
+                 extra={"component": "critic", "ticker": market.ticker})
 
         # Step 3: TRADE DECISION
         decision = make_trade_decision(market, forecast, critic, balance)
-        print(f"   📋 DECISION: {decision.action} — {decision.reason}")
+        log.info(f"   📋 DECISION: {decision.action} — {decision.reason}",
+                 extra={"component": "decision", "ticker": market.ticker,
+                        "action": decision.action, "edge": round(decision.edge, 4)})
 
         if decision.action == "SKIP":
             trades_skipped += 1
             log_trade(market, decision, {}, dry_run)
             continue
 
-        # Step 4: EXECUTE
-        side = "yes" if decision.action == "BUY_YES" else "no"
-        cost = decision.contracts * decision.price_cents
-        print(f"   💰 {decision.action} × {decision.contracts} @ {decision.price_cents}¢ = ${cost/100:.2f}")
+        # Step 3.5: RISK LIMITS CHECK (new!)
+        risk_ok, risk_reason = check_position_risk_limits(
+            market, decision, balance, positions, dl_pnl)
+        if not risk_ok:
+            log.warning(f"   🛡️ RISK BLOCKED: {risk_reason}",
+                        extra={"component": "risk", "ticker": market.ticker,
+                               "action": decision.action})
+            risk_blocked += 1
+            decision_blocked = TradeDecision(
+                action="SKIP", edge=decision.edge, kelly_size=decision.kelly_size,
+                contracts=0, price_cents=decision.price_cents,
+                reason=f"Risk limit: {risk_reason}",
+                forecast=forecast, critic=critic)
+            log_trade(market, decision_blocked, {}, dry_run)
+            continue
 
-        order_result = place_order(market.ticker, side, decision.price_cents, decision.contracts, dry_run)
+        # Step 4: EXECUTE (with graceful shutdown protection)
+        shutdown.enter_trade()
+        try:
+            side = "yes" if decision.action == "BUY_YES" else "no"
+            cost = decision.contracts * decision.price_cents
+            log.info(f"   💰 {decision.action} × {decision.contracts} @ {decision.price_cents}¢ = ${cost/100:.2f}",
+                     extra={"component": "execution", "ticker": market.ticker,
+                            "action": decision.action, "contracts": decision.contracts,
+                            "price_cents": decision.price_cents, "cost_cents": cost})
 
-        if dry_run:
-            print(f"   🧪 DRY RUN: Simulated")
-        else:
-            if "error" in order_result:
-                print(f"   ❌ Order failed: {order_result['error']}")
+            order_result = place_order(market.ticker, side, decision.price_cents, decision.contracts, dry_run)
+
+            if dry_run:
+                log.info(f"   🧪 DRY RUN: Simulated",
+                         extra={"component": "execution", "ticker": market.ticker})
             else:
-                print(f"   ✅ Placed! ID: {order_result.get('order', {}).get('order_id', 'N/A')}")
+                if "error" in order_result:
+                    log.error(f"   ❌ Order failed: {order_result['error']}",
+                              extra={"component": "execution", "ticker": market.ticker,
+                                     "error_type": "order_failed"})
+                    record_error("order_failed", f"{market.ticker}: {order_result['error']}")
+                else:
+                    log.info(f"   ✅ Placed! ID: {order_result.get('order', {}).get('order_id', 'N/A')}",
+                             extra={"component": "execution", "ticker": market.ticker})
 
-        trades_executed += 1
-        existing_tickers.add(market.ticker)
-        log_trade(market, decision, order_result, dry_run)
+            trades_executed += 1
+            existing_tickers.add(market.ticker)
+            log_trade(market, decision, order_result, dry_run)
+        finally:
+            shutdown.exit_trade()
+
         time.sleep(1)
 
     # ── Weather opportunities ──
-    if WEATHER_ENABLED:
+    if WEATHER_ENABLED and not shutdown.check_stop():
         weather_opps = find_weather_opportunities()
         if weather_opps:
-            print(f"\n🌡️ Weather: {len(weather_opps)} opportunities found")
+            log.info(f"\n🌡️ Weather: {len(weather_opps)} opportunities found",
+                     extra={"component": "weather"})
             for wo in weather_opps[:3]:
-                if trades_executed >= max_trades:
+                if trades_executed >= max_trades or shutdown.check_stop():
                     break
                 wm = wo["market"]
                 if wm.ticker in existing_tickers:
                     continue
-                print(f"   🌡️ {wm.ticker}: {wo['side'].upper()} @{wo['price']}¢ edge:{wo['edge']*100:.1f}% ({wo['city']})")
+                log.info(f"   🌡️ {wm.ticker}: {wo['side'].upper()} @{wo['price']}¢ edge:{wo['edge']*100:.1f}% ({wo['city']})")
                 # Simple forecast/critic for weather
                 wf = ForecastResult(probability=wo["our_prob"], reasoning="NWS forecast",
                                     confidence="medium", key_factors=["NWS"], model_used="nws-weather")
                 wc = CriticResult(adjusted_probability=wo["our_prob"], should_trade=True)
                 wd = make_trade_decision(wm, wf, wc, balance)
                 if wd.action != "SKIP":
-                    order = place_order(wm.ticker, wo["side"], wo["price"], wd.contracts, dry_run)
-                    log_trade(wm, wd, order, dry_run)
-                    trades_executed += 1
-                    existing_tickers.add(wm.ticker)
+                    # Risk check for weather trades too
+                    risk_ok, risk_reason = check_position_risk_limits(
+                        wm, wd, balance, positions, dl_pnl)
+                    if not risk_ok:
+                        log.warning(f"   🛡️ Weather trade risk blocked: {risk_reason}")
+                        continue
+                    shutdown.enter_trade()
+                    try:
+                        order = place_order(wm.ticker, wo["side"], wo["price"], wd.contracts, dry_run)
+                        log_trade(wm, wd, order, dry_run)
+                        trades_executed += 1
+                        existing_tickers.add(wm.ticker)
+                    finally:
+                        shutdown.exit_trade()
 
     # ── Cycle summary ──
     duration = time.time() - cycle_start
-    print(f"\n{'='*70}")
-    print(f"📊 CYCLE SUMMARY")
-    print(f"   Forecaster: {'🧮 HEURISTIC' if use_heuristic else '🧠 LLM'}")
-    print(f"   Duration: {duration:.1f}s")
-    print(f"   Markets scanned: {len(markets)}")
-    print(f"   Markets analyzed: {min(len(top_markets), max_markets)}")
-    print(f"   Trades executed: {trades_executed}")
-    print(f"   Trades skipped: {trades_skipped}")
+    log.info(f"\n{'='*70}")
+    log.info(f"📊 CYCLE SUMMARY",
+             extra={"component": "summary", "cycle_id": cycle_id, "duration_s": round(duration, 1)})
+    log.info(f"   Forecaster: {'🧮 HEURISTIC' if use_heuristic else '🧠 LLM'}")
+    log.info(f"   Duration: {duration:.1f}s")
+    log.info(f"   Markets scanned: {len(markets)}")
+    log.info(f"   Markets analyzed: {min(len(top_markets), max_markets)}")
+    log.info(f"   Trades executed: {trades_executed}")
+    log.info(f"   Trades skipped: {trades_skipped}")
+    log.info(f"   Risk blocked: {risk_blocked}")
     if not use_heuristic:
-        print(f"   Tokens: {total_tokens:,} (~${total_tokens * 0.000004:.4f})")
+        log.info(f"   Tokens: {total_tokens:,} (~${total_tokens * 0.000004:.4f})")
 
     # Latency summary
     avg_lat = get_avg_latency("markets_search")
     if avg_lat > 0:
-        print(f"   Avg API latency: {avg_lat:.0f}ms")
-    print(f"{'='*70}")
+        log.info(f"   Avg API latency: {avg_lat:.0f}ms")
+    log.info(f"{'='*70}")
 
     log_cycle({
         "dry_run": dry_run,
+        "cycle_id": cycle_id,
         "forecaster": "heuristic" if use_heuristic else "llm",
         "duration_s": round(duration, 1),
         "markets_scanned": len(markets),
         "markets_analyzed": min(len(top_markets), max_markets),
         "trades_executed": trades_executed,
         "trades_skipped": trades_skipped,
+        "risk_blocked": risk_blocked,
         "tokens": total_tokens,
         "balance": balance,
+        "peak_balance": peak_balance,
         "positions": num_positions,
+        "daily_pnl_cents": dl_pnl.get("net_pnl_cents", 0),
+        "shutdown_requested": shutdown.check_stop(),
     })
 
 
@@ -2042,6 +2448,7 @@ Examples:
   python kalshi-autotrader.py --loop 300            # Run every 5 minutes
   python kalshi-autotrader.py --min-edge 0.03       # Custom min edge
   python kalshi-autotrader.py --kelly 0.10          # Custom Kelly fraction
+  python kalshi-autotrader.py --json-log /tmp/at.log  # Custom JSON log path
         """)
 
     parser.add_argument("--live", action="store_true", help="Enable LIVE trading (default: paper)")
@@ -2050,46 +2457,92 @@ Examples:
     parser.add_argument("--loop", type=int, default=0, help="Loop interval in seconds (0 = single run)")
     parser.add_argument("--min-edge", type=float, default=None, help="Override minimum edge")
     parser.add_argument("--kelly", type=float, default=None, help="Override Kelly fraction")
+    parser.add_argument("--json-log", type=str, default=None, help="Path for structured JSON log file")
+    parser.add_argument("--max-exposure", type=int, default=None, help="Max exposure per market in cents (default: 1000)")
+    parser.add_argument("--daily-loss-cap-pct", type=float, default=None, help="Daily loss cap as %% of portfolio (default: 0.10)")
 
     args = parser.parse_args()
 
+    # ── Setup structured logging ──
+    global log
+    json_log_path = Path(args.json_log) if args.json_log else (PROJECT_ROOT / "data" / "trading" / "kalshi-autotrader.jsonl")
+    log = setup_logging(json_log_path=json_log_path)
+    log.info("🚀 Autotrader starting",
+             extra={"component": "init", "json_log": str(json_log_path)})
+
+    # ── Install graceful shutdown handlers ──
+    shutdown.install_handlers()
+    log.info("🛡️ Graceful shutdown handlers installed",
+             extra={"component": "init"})
+
     # Override globals
     global MIN_EDGE, MIN_EDGE_BUY_YES, MIN_EDGE_BUY_NO, KELLY_FRACTION, DRY_RUN
+    global MAX_EXPOSURE_PER_MARKET_CENTS, DAILY_LOSS_CAP_PCT
     if args.min_edge is not None:
         MIN_EDGE = args.min_edge
         MIN_EDGE_BUY_YES = max(args.min_edge, MIN_EDGE_BUY_YES)
         MIN_EDGE_BUY_NO = args.min_edge
     if args.kelly is not None:
         KELLY_FRACTION = args.kelly
+    if args.max_exposure is not None:
+        MAX_EXPOSURE_PER_MARKET_CENTS = args.max_exposure
+    if args.daily_loss_cap_pct is not None:
+        DAILY_LOSS_CAP_PCT = args.daily_loss_cap_pct
     if args.live:
         DRY_RUN = False
 
     dry_run = not args.live
 
+    # Log risk configuration
+    log.info(f"🛡️ Risk limits: max_exposure/market=${MAX_EXPOSURE_PER_MARKET_CENTS/100:.2f}, "
+             f"daily_loss_cap={DAILY_LOSS_CAP_PCT:.0%}, max_positions={MAX_CONCURRENT_POSITIONS}, "
+             f"max_daily_trades={MAX_DAILY_TRADES}",
+             extra={"component": "config"})
+
     if args.live:
-        print("⚠️  LIVE TRADING MODE! Press Ctrl+C within 5s to abort...")
+        log.warning("⚠️  LIVE TRADING MODE! Press Ctrl+C within 5s to abort...",
+                    extra={"component": "init"})
         try:
             time.sleep(5)
         except KeyboardInterrupt:
-            print("\nAborted.")
+            log.info("Aborted.")
             sys.exit(0)
 
-    if args.loop > 0:
-        print(f"🔄 Loop mode: every {args.loop}s")
-        while True:
-            try:
-                run_cycle(dry_run=dry_run, max_markets=args.markets, max_trades=args.max_trades)
-                print(f"\n⏰ Next cycle in {args.loop}s...")
-                time.sleep(args.loop)
-            except KeyboardInterrupt:
-                print("\n\n👋 Stopped by user")
-                break
-            except Exception as e:
-                print(f"\n❌ Cycle error: {e}")
-                traceback.print_exc()
-                time.sleep(30)
-    else:
-        run_cycle(dry_run=dry_run, max_markets=args.markets, max_trades=args.max_trades)
+    try:
+        if args.loop > 0:
+            log.info(f"🔄 Loop mode: every {args.loop}s",
+                     extra={"component": "init"})
+            while not shutdown.check_stop():
+                try:
+                    run_cycle(dry_run=dry_run, max_markets=args.markets, max_trades=args.max_trades)
+                    if shutdown.check_stop():
+                        break
+                    log.info(f"\n⏰ Next cycle in {args.loop}s...")
+                    # Sleep in small increments to check for shutdown
+                    for _ in range(args.loop):
+                        if shutdown.check_stop():
+                            break
+                        time.sleep(1)
+                except KeyboardInterrupt:
+                    log.info("\n\n👋 Stopped by user",
+                             extra={"component": "shutdown"})
+                    break
+                except Exception as e:
+                    log.error(f"\n❌ Cycle error: {e}",
+                              extra={"component": "cycle", "error_type": "cycle_crash"})
+                    record_error("cycle_crash", str(e))
+                    traceback.print_exc()
+                    time.sleep(30)
+
+            log.info("🏁 Autotrader stopped gracefully",
+                     extra={"component": "shutdown"})
+        else:
+            run_cycle(dry_run=dry_run, max_markets=args.markets, max_trades=args.max_trades)
+    finally:
+        # Cleanup
+        shutdown.cleanup()
+        log.info("👋 Autotrader shutdown complete",
+                 extra={"component": "shutdown"})
 
 
 if __name__ == "__main__":
