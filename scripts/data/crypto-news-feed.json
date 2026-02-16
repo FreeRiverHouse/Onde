@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T04:13:01.893880+00:00",
+  "timestamp": "2026-02-16T04:43:30.956371+00:00",
   "sources": [
     "coindesk",
     "cointelegraph",
@@ -9,6 +9,20 @@
   "failed_sources": [],
   "article_count": 40,
   "results": [
+    {
+      "title": "Bitcoin Leverage Heats Up as Traders Bet on Price Rebound",
+      "url": "https://decrypt.co/358134/bitcoin-leverage-heats-up-as-traders-bet-on-price-rebound",
+      "source": "decrypt",
+      "description": "Bitcoin's futures basis has widened amid retail dip buying surges, but one expert warns the setup may end in an \"over-leveraged shakeout.\"",
+      "published": "2026-02-16T04:24:00+00:00"
+    },
+    {
+      "title": "Strategy to equitize convertible debt over 3-6 years: Saylor",
+      "url": "https://cointelegraph.com/news/strategy-plans-equitize-convertible-debt-over-next-3-6-years-saylor?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The world\u2019s largest DAT plans to convert $6 billion in bond debt to equity, claiming that it could survive an 88% Bitcoin crash.",
+      "published": "2026-02-16T04:14:47+00:00"
+    },
     {
       "title": "Hollywood\u2019s AI Crackdown Opens Door for Copyright Detection Startups",
       "url": "https://decrypt.co/358131/hollywoods-ai-crackdown-copyright-detection-startups",
@@ -143,13 +157,6 @@
       "published": "2026-02-15T07:15:57+00:00"
     },
     {
-      "title": "Institutions may get 'fed up' and fire Bitcoin devs over quantum: VC",
-      "url": "https://cointelegraph.com/news/bitcoin-quantum-computing-risk-institutions-developers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin developers must address the quantum risks to Bitcoin fast to avoid a successful \u201ccorporate takeover,\u201d according to venture capitalist Nic Carter.",
-      "published": "2026-02-15T06:17:48+00:00"
-    },
-    {
       "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
       "source": "bitcoinmagazine",
@@ -211,13 +218,6 @@
       "source": "decrypt",
       "description": "Truth Social Funds applied for ETFs that would give investors exposure to crypto\u2014one focused on Bitcoin and Ethereum, the other on Cronos.",
       "published": "2026-02-13T21:22:46+00:00"
-    },
-    {
-      "title": "How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners",
-      "url": "https://bitcoinmagazine.com/business/how-silent-link-solves-sim-swap-risks-and-roaming-hassles-for-traveling-bitcoiners",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners Silent.Link eliminates SIM-swap attacks via eSIM backup codes and automates seamless roaming across 160+ countries, bypassing censorship like China's Great Firewall. This post How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners first appeared on Bitcoin Magazine and is written by Juan Galt.",
-      "published": "2026-02-13T21:11:47+00:00"
     }
   ]
 }

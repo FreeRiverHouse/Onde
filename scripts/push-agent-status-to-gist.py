@@ -15,8 +15,7 @@ import requests
 
 # Config
 PROJECT_DIR = Path(__file__).parent.parent
-GIST_ID = os.getenv("AGENT_GIST_ID", "12a07b9ed63e19f01d2693b69f8a0e3b")  # Create if doesn't exist
-GITHUB_TOKEN = os.getenv("GITHUB_GIST_TOKEN", "")
+GIST_ID = os.getenv("AGENT_GIST_ID", "2efe5147efa7f09753a6fce9c74dc5d0")
 GIST_FILENAME = "onde-agent-status.json"
 
 def run_command(cmd: list[str], cwd: str = None) -> str:
@@ -356,37 +355,27 @@ def build_dashboard_data() -> dict:
     }
 
 def push_to_gist(data: dict) -> bool:
-    """Push data to GitHub Gist."""
-    if not GITHUB_TOKEN:
-        print("No GITHUB_GIST_TOKEN set, saving locally only")
-        # Save locally for debugging
-        local_file = PROJECT_DIR / "data" / "agent-status.json"
-        local_file.parent.mkdir(parents=True, exist_ok=True)
-        local_file.write_text(json.dumps(data, indent=2))
-        print(f"Saved to {local_file}")
-        return False
+    """Push data to GitHub Gist using gh CLI (same pattern as push-stats-to-gist.py)."""
+    stats_json = json.dumps(data, indent=2)
     
-    url = f"https://api.github.com/gists/{GIST_ID}"
-    headers = {
-        "Authorization": f"token {GITHUB_TOKEN}",
-        "Accept": "application/vnd.github.v3+json"
-    }
+    # Always save locally too
+    local_file = PROJECT_DIR / "data" / "agent-status.json"
+    local_file.parent.mkdir(parents=True, exist_ok=True)
+    local_file.write_text(stats_json)
     
-    payload = {
-        "files": {
-            GIST_FILENAME: {
-                "content": json.dumps(data, indent=2)
-            }
-        }
-    }
-    
+    # Push via gh api (uses gh CLI auth, no separate token needed)
     try:
-        response = requests.patch(url, headers=headers, json=payload, timeout=10)
-        if response.ok:
+        result = subprocess.run(
+            ["gh", "api", "-X", "PATCH", f"/gists/{GIST_ID}",
+             "-f", f"files[{GIST_FILENAME}][content]={stats_json}"],
+            capture_output=True, text=True, timeout=15
+        )
+        
+        if result.returncode == 0:
             print(f"✅ Pushed to gist: {GIST_ID}")
             return True
         else:
-            print(f"❌ Gist push failed: {response.status_code} - {response.text[:100]}")
+            print(f"❌ Gist push failed: {result.stderr[:200]}")
             return False
     except Exception as e:
         print(f"❌ Gist push error: {e}")

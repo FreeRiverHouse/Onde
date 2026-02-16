@@ -3,12 +3,12 @@ import { NextResponse } from 'next/server';
 export const runtime = 'edge'
 
 // Agent status gist - same pattern as trading stats
-const AGENT_GIST_ID = "12a07b9ed63e19f01d2693b69f8a0e3b";
+const AGENT_GIST_ID = "2efe5147efa7f09753a6fce9c74dc5d0";
 const GIST_FILENAME = "onde-agent-status.json";
-const GIST_URL = `https://gist.githubusercontent.com/raw/${AGENT_GIST_ID}/${GIST_FILENAME}`;
+const GIST_URL = `https://gist.githubusercontent.com/FreeRiverHouse/${AGENT_GIST_ID}/raw/${GIST_FILENAME}`;
 
-// Fallback gist URL pattern (with username)
-const GIST_URL_ALT = `https://gist.githubusercontent.com/ondeclawd/${AGENT_GIST_ID}/raw/${GIST_FILENAME}`;
+// Fallback gist URL pattern (without username)
+const GIST_URL_ALT = `https://gist.githubusercontent.com/raw/${AGENT_GIST_ID}/${GIST_FILENAME}`;
 
 interface TaskStats {
   total: number;

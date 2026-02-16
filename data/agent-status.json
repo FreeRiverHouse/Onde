@@ -1,31 +1,31 @@
 {
-  "timestamp": "2026-02-06T20:22:29.132925Z",
+  "timestamp": "2026-02-16T04:45:02.496765Z",
   "tasks": {
-    "total": 0,
-    "done": 0,
-    "in_progress": 0,
-    "todo": 0,
-    "completion_rate": 0.0
+    "total": 199,
+    "done": 179,
+    "in_progress": 2,
+    "todo": 18,
+    "completion_rate": 89.9
   },
   "memory": {
-    "entries_today": 33,
+    "entries_today": 147,
     "file_exists": true,
-    "size_bytes": 24566,
-    "file_path": "memory/2026-02-06.md"
+    "size_bytes": 124566,
+    "file_path": "memory/2026-02-15.md"
   },
   "git": {
     "clawdinho": {
-      "hash": "e8635bf61",
-      "message": "memory: log Mattia voice feedback - fix errors wit",
-      "date": "2026-02-06 12:21:44 -0800",
-      "ago": "45 seconds ago"
+      "hash": "7e075d64d",
+      "message": "memory: log voice msg - Ogrocket integration reque",
+      "date": "2026-02-15 20:39:20 -0800",
+      "ago": "6 minutes ago"
     },
     "ondinho": null,
-    "total_commits_today": 79
+    "total_commits_today": 369
   },
   "autotrader": {
     "running": true,
-    "pid": "2027",
+    "pid": "23099",
     "circuit_breaker": false,
     "consecutive_losses": 0,
     "last_trade": null,
@@ -45,12 +45,20 @@
     ]
   },
   "alerts_pending": 0,
+  "systemHealth": {
+    "cpu_percent": 33.4,
+    "memory_percent": 56.6,
+    "gpu_temp": null
+  },
   "agents": {
     "clawdinho": {
       "host": "FRH-M1-PRO",
       "model": "claude-opus-4-5",
       "status": "active",
-      "current_task": null
+      "current_task": {
+        "id": "TRADE-002",
+        "title": "Dashboard autotrader su onde.surf funzionante con grafici tr"
+      }
     },
     "ondinho": {
       "host": "M4-Pro",

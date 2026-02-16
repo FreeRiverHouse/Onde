@@ -1448,8 +1448,8 @@ export default function BettingDashboard() {
   // Chart data - use real priceHistory from momentum API if available, otherwise fallback to mock
   const btcMomentumAsset = momentum?.data?.find(a => a.symbol === 'BTC');
   const ethMomentumAsset = momentum?.data?.find(a => a.symbol === 'ETH');
-  const btcChartData = btcMomentumAsset?.priceHistory?.length ? btcMomentumAsset.priceHistory : [88000, 88200, 87800, 88500, 88300, 88900, 89100, 88700, 88911];
-  const ethChartData = ethMomentumAsset?.priceHistory?.length ? ethMomentumAsset.priceHistory : [2950, 2980, 2960, 3010, 2990, 3020, 3000, 2995, 2999];
+  const btcChartData = btcMomentumAsset?.priceHistory?.length ? btcMomentumAsset.priceHistory : [];
+  const ethChartData = ethMomentumAsset?.priceHistory?.length ? ethMomentumAsset.priceHistory : [];
 
   return (
     <div

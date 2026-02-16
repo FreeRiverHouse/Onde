@@ -369,27 +369,4 @@ export function parsePnLByMarketType(trades: Array<{
   return result;
 }
 
-// Generate mock data for testing
-export function generateMockPnLData(days: number = 14): DailyPnL[] {
-  const result: DailyPnL[] = [];
-  const now = new Date();
-  
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(now);
-    date.setDate(date.getDate() - i);
-    const dateStr = `${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    
-    // Weather tends to be more consistent, crypto more volatile
-    const weatherPnl = Math.floor((Math.random() - 0.4) * 200); // Slight positive bias
-    const cryptoPnl = Math.floor((Math.random() - 0.5) * 400); // More volatile
-    
-    result.push({
-      date: dateStr,
-      weatherPnlCents: weatherPnl,
-      cryptoPnlCents: cryptoPnl,
-      combinedPnlCents: weatherPnl + cryptoPnl
-    });
-  }
-  
-  return result;
-}
+// generateMockPnLData removed - using real data from gist (DASH-017)

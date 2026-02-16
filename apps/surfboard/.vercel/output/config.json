@@ -52,7 +52,7 @@
       "continue": true
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/(.*).json",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/(.*).json",
       "dest": "/$1",
       "override": true,
       "continue": true,
@@ -82,7 +82,7 @@
         {
           "type": "header",
           "key": "x-prerender-revalidate",
-          "value": "dc21a03fd2fda523415dcc4d5e8374ed"
+          "value": "11c94a44da5eee58f4d39052cec877cd"
         }
       ],
       "middlewarePath": "src/middleware",
@@ -99,7 +99,7 @@
           "key": "x-nextjs-data"
         }
       ],
-      "dest": "/_next/data/TARjW4ks8rfhJGQSDR_Gm/index.json",
+      "dest": "/_next/data/uUTe9L5pZt_jHiH6KbwOZ/index.json",
       "continue": true,
       "override": true
     },
@@ -111,7 +111,7 @@
           "key": "x-nextjs-data"
         }
       ],
-      "dest": "/_next/data/TARjW4ks8rfhJGQSDR_Gm/$1.json",
+      "dest": "/_next/data/uUTe9L5pZt_jHiH6KbwOZ/$1.json",
       "continue": true,
       "override": true
     },
@@ -151,7 +151,7 @@
       "handle": "filesystem"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/(.*).json",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/(.*).json",
       "dest": "/$1",
       "continue": true,
       "has": [
@@ -227,7 +227,7 @@
           "key": "x-nextjs-data"
         }
       ],
-      "dest": "/_next/data/TARjW4ks8rfhJGQSDR_Gm/index.json",
+      "dest": "/_next/data/uUTe9L5pZt_jHiH6KbwOZ/index.json",
       "continue": true
     },
     {
@@ -238,31 +238,31 @@
           "key": "x-nextjs-data"
         }
       ],
-      "dest": "/_next/data/TARjW4ks8rfhJGQSDR_Gm/$1.json",
+      "dest": "/_next/data/uUTe9L5pZt_jHiH6KbwOZ/$1.json",
       "continue": true
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/api/agent\\-tasks/(?<nxtPid>[^/]+?)(?:/)?.json$",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/api/agent\\-tasks/(?<nxtPid>[^/]+?)(?:/)?.json$",
       "dest": "/api/agent-tasks/[id]?nxtPid=$nxtPid"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/api/auth/(?<nxtPnextauth>.+?)(?:/)?.json$",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/api/auth/(?<nxtPnextauth>.+?)(?:/)?.json$",
       "dest": "/api/auth/[...nextauth]?nxtPnextauth=$nxtPnextauth"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/api/players/(?<nxtPnickname>[^/]+?)(?:/)?.json$",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/api/players/(?<nxtPnickname>[^/]+?)(?:/)?.json$",
       "dest": "/api/players/[nickname]?nxtPnickname=$nxtPnickname"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/api/players/(?<nxtPnickname>[^/]+?)/sync(?:/)?.json$",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/api/players/(?<nxtPnickname>[^/]+?)/sync(?:/)?.json$",
       "dest": "/api/players/[nickname]/sync?nxtPnickname=$nxtPnickname"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/api/pr/posts/(?<nxtPid>[^/]+?)/approve(?:/)?.json$",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/api/pr/posts/(?<nxtPid>[^/]+?)/approve(?:/)?.json$",
       "dest": "/api/pr/posts/[id]/approve?nxtPid=$nxtPid"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/api/pr/posts/(?<nxtPid>[^/]+?)/feedback(?:/)?.json$",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/api/pr/posts/(?<nxtPid>[^/]+?)/feedback(?:/)?.json$",
       "dest": "/api/pr/posts/[id]/feedback?nxtPid=$nxtPid"
     },
     {
@@ -314,7 +314,7 @@
       "dest": "/api/pr/posts/[id]/feedback?nxtPid=$nxtPid"
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/(.*).json",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/(.*).json",
       "headers": {
         "x-nextjs-matched-path": "/$1"
       },
@@ -322,14 +322,14 @@
       "override": true
     },
     {
-      "src": "^/_next/data/TARjW4ks8rfhJGQSDR_Gm/(.*).json",
+      "src": "^/_next/data/uUTe9L5pZt_jHiH6KbwOZ/(.*).json",
       "dest": "__next_data_catchall"
     },
     {
       "handle": "hit"
     },
     {
-      "src": "/_next/static/(?:[^/]+/pages|pages|chunks|runtime|css|image|media|TARjW4ks8rfhJGQSDR_Gm)/.+",
+      "src": "/_next/static/(?:[^/]+/pages|pages|chunks|runtime|css|image|media|uUTe9L5pZt_jHiH6KbwOZ)/.+",
       "headers": {
         "cache-control": "public,max-age=31536000,immutable"
       },
