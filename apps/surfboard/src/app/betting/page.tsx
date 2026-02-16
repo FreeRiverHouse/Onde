@@ -2960,6 +2960,65 @@ export default function BettingDashboard() {
                   </div>
                 </div>
 
+                {/* Risk/Reward & Avg Price per Side (TRADE-018) */}
+                {(() => {
+                  const trades = tradingStats.v3PaperTrading!.recentTrades;
+                  const yesTrades = trades.filter(t => t.side === 'yes');
+                  const noTrades = trades.filter(t => t.side === 'no');
+                  const avgYesPrice = yesTrades.length > 0
+                    ? yesTrades.reduce((s, t) => s + t.price_cents, 0) / yesTrades.length
+                    : 0;
+                  const avgNoPrice = noTrades.length > 0
+                    ? noTrades.reduce((s, t) => s + t.price_cents, 0) / noTrades.length
+                    : 0;
+                  // Risk/reward: for BUY_YES, risk=price, reward=100-price
+                  // For BUY_NO, risk=price, reward=100-price
+                  const allAvgPrice = trades.length > 0
+                    ? trades.reduce((s, t) => s + t.price_cents, 0) / trades.length
+                    : 50;
+                  const avgRisk = allAvgPrice;
+                  const avgReward = 100 - allAvgPrice;
+                  const riskRewardRatio = avgReward > 0 ? avgRisk / avgReward : 0;
+                  const avgConfidence = trades.length > 0
+                    ? trades.reduce((s, t) => s + t.forecast_prob, 0) / trades.length
+                    : 0;
+
+                  return trades.length > 0 ? (
+                    <div className="grid grid-cols-4 gap-2 mb-4">
+                      <div className="bg-white/5 rounded-lg p-2 border border-white/[0.05]">
+                        <div className="text-[9px] text-gray-500 uppercase tracking-wider mb-0.5">Avg YES ¢</div>
+                        <div className="text-sm font-semibold font-mono text-emerald-400">
+                          {avgYesPrice > 0 ? `${avgYesPrice.toFixed(0)}¢` : '—'}
+                        </div>
+                        <div className="text-[9px] text-gray-600">{yesTrades.length} trades</div>
+                      </div>
+                      <div className="bg-white/5 rounded-lg p-2 border border-white/[0.05]">
+                        <div className="text-[9px] text-gray-500 uppercase tracking-wider mb-0.5">Avg NO ¢</div>
+                        <div className="text-sm font-semibold font-mono text-red-400">
+                          {avgNoPrice > 0 ? `${avgNoPrice.toFixed(0)}¢` : '—'}
+                        </div>
+                        <div className="text-[9px] text-gray-600">{noTrades.length} trades</div>
+                      </div>
+                      <div className="bg-white/5 rounded-lg p-2 border border-white/[0.05]">
+                        <div className="text-[9px] text-gray-500 uppercase tracking-wider mb-0.5">Risk/Reward</div>
+                        <div className={`text-sm font-semibold font-mono ${
+                          riskRewardRatio <= 1 ? 'text-emerald-400' : riskRewardRatio <= 1.5 ? 'text-amber-400' : 'text-red-400'
+                        }`}>
+                          {riskRewardRatio.toFixed(2)}
+                        </div>
+                        <div className="text-[9px] text-gray-600">{riskRewardRatio <= 1 ? '✅ Good' : riskRewardRatio <= 1.5 ? '⚠️ OK' : '🔴 Bad'}</div>
+                      </div>
+                      <div className="bg-white/5 rounded-lg p-2 border border-white/[0.05]">
+                        <div className="text-[9px] text-gray-500 uppercase tracking-wider mb-0.5">Avg Conf</div>
+                        <div className="text-sm font-semibold font-mono text-purple-400">
+                          {avgConfidence.toFixed(0)}%
+                        </div>
+                        <div className="text-[9px] text-gray-600">forecast</div>
+                      </div>
+                    </div>
+                  ) : null;
+                })()}
+
                 {/* Recent V3 Trades */}
                 {tradingStats.v3PaperTrading.recentTrades.length > 0 && (
                   <div>
