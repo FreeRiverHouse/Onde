@@ -8,7 +8,7 @@
 # - Telegram alerts for crashes
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-TRADER_SCRIPT="$SCRIPT_DIR/kalshi-autotrader-v2.py"
+TRADER_SCRIPT="$SCRIPT_DIR/kalshi-autotrader.py"
 LOG_FILE="$SCRIPT_DIR/watchdog.log"
 PID_FILE="/tmp/kalshi-autotrader.pid"
 ALERT_FILE="$SCRIPT_DIR/kalshi-autotrader-crash.alert"
