@@ -9,6 +9,7 @@ import { OfflineIndicator } from '@/components/OfflineIndicator'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { MobileNav } from '@/components/MobileNav'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -126,6 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ThemeToggle />
                 <HeaderClient />
                 <AuthButtons />
+                <MobileNav />
               </div>
             </div>
           </header>

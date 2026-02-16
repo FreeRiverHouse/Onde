@@ -269,8 +269,8 @@
 ### Da DASH-001 (Grok ACCEPTED ✅)
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| G1 | GROK-DASH-001 | Implement env-specific data seeding: fake data only in dev/staging, auto-stripped in prod. CI/CD pre-deploy scan for hardcoded fake patterns | ⭐ Data quality | TODO | @clawdinho |
-| G2 | GROK-DASH-002 | Add dashboard data-quality monitoring: alerts on stale data (>24h), zero metrics, PnL outliers. Cron job or lightweight health check | ⭐ Reliability | TODO | @clawdinho |
+| G1 | GROK-DASH-001 | Implement env-specific data seeding: fake data only in dev/staging, auto-stripped in prod. CI/CD pre-deploy scan for hardcoded fake patterns | ⭐ Data quality | ✅ DONE | @clawdinho | scripts/scan-fake-data.sh pre-deploy scanner, scripts/deploy-onde-surf.sh integrates scan, fixed settlements API comment, 0 fake data patterns in prod |
+| G2 | GROK-DASH-002 | Add dashboard data-quality monitoring: alerts on stale data (>24h), zero metrics, PnL outliers. Cron job or lightweight health check | ⭐ Reliability | ✅ DONE | @clawdinho | scripts/dashboard-data-quality.sh checks 6 categories: trading freshness, agent status, analytics, gist staleness, page health, PnL outliers. Creates .alert files when issues detected |
 
 ### Da TRADE-001 (Grok ACCEPTED ✅)
 | # | ID | Task | Impact | Status | Owner |
@@ -494,3 +494,20 @@
 | 174 | DASH-023 | FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali | 🔥 ALTA | ✅ DONE | @clawdinho | Fixed: removed hardcoded CPU/memory, uses agentStatus.systemHealth |
 | 175 | DASH-024 | Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona | 🚨 CRITICO | ✅ DONE | @clawdinho | E2E tested: 17 pages (2 public, 15 auth-protected), 33+ APIs (9 public OK, 24 auth-protected). No crashes. See docs/DASH-024-e2e-report.md |
 | 176 | DASH-025 | Deploy onde.surf dopo tutti i fix delle dashboard | 🚨 CRITICO | ✅ DONE | @clawdinho | Deployed to Cloudflare Pages: https://c2accc8e.onde-surf.pages.dev |
+
+### 🔥 NUOVI (da GROK-DASH-001/002 + onde.surf audit 2026-02-15)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 176 | DASH-026 | Fix health page: Onde.la API was checking nonexistent /api/books → fixed to /api/health/cron | ⭐ Health | ✅ DONE | @clawdinho | Health now shows "healthy" instead of "degraded" |
+| 177 | DASH-027 | Agent Activity widget: use healthStatus from gist when no history snapshots available | ⭐ Dashboard | ✅ DONE | @clawdinho | Shows cycle count line from current healthStatus instead of permanent "Collecting..." |
+| 178 | DASH-028 | Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend | ⭐ Dashboard | TODO | @clawdinho | Agent activity chart needs time-series data, currently only has latest cycle_count |
+| 179 | DASH-029 | Reduce empty white space on main dashboard when PostApproval/ActivityFeed are empty | ⭐ UX | TODO | @clawdinho | Big white gap between trend cards and quick links when no posts/activities |
+| 180 | DASH-030 | Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix | ⭐ Dashboard | TODO | @clawdinho | Correlation matrix shows "No correlation data, run btc-eth-correlation.py" |
+
+### 🔥 NUOVI (da Mattia 2026-02-15 22:45 — analytics link + mobile nav)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 181 | NAV-001 | Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile) | 🔥 ALTA | IN_PROGRESS | @clawdinho | Mattia non riesce ad accedere alle pagine da telefono perché la nav è nascosta su mobile |
+| 182 | NAV-002 | Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente) | ⭐ UX | TODO | @clawdinho | Mattia vuole accedere facilmente ad analytics dalla homepage |
