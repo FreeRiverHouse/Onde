@@ -1,14 +1,8 @@
 {
-  "generated_at": "2026-02-16T06:55:00.701056+00:00",
+  "generated_at": "2026-02-16T07:00:02.380784+00:00",
   "sites": {
     "onde.la": {
       "checks": [
-        {
-          "timestamp": "2026-02-05T22:25:00.634412+00:00",
-          "status": 200,
-          "latency_ms": 286,
-          "ok": true
-        },
         {
           "timestamp": "2026-02-05T22:30:01.405896+00:00",
           "status": 200,
@@ -12098,6 +12092,12 @@
           "status": 200,
           "latency_ms": 223,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-16T07:00:02.380784+00:00",
+          "status": 200,
+          "latency_ms": 253,
+          "ok": true
         }
       ],
       "stats": {
@@ -12113,12 +12113,6 @@
     },
     "onde.surf": {
       "checks": [
-        {
-          "timestamp": "2026-02-05T22:25:00.634412+00:00",
-          "status": 200,
-          "latency_ms": 424,
-          "ok": true
-        },
         {
           "timestamp": "2026-02-05T22:30:01.405896+00:00",
           "status": 200,
@@ -24209,12 +24203,18 @@
           "status": 200,
           "latency_ms": 680,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-16T07:00:02.380784+00:00",
+          "status": 200,
+          "latency_ms": 724,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 98.93,
         "uptime_7d": 99.7,
-        "avg_latency_24h": 262,
+        "avg_latency_24h": 264,
         "avg_latency_7d": 356,
         "incidents_24h": 1,
         "incidents_7d": 2,
@@ -24224,12 +24224,6 @@
     },
     "skin-studio": {
       "checks": [
-        {
-          "timestamp": "2026-02-05T22:25:00.634412+00:00",
-          "status": 200,
-          "latency_ms": 230,
-          "ok": true
-        },
         {
           "timestamp": "2026-02-05T22:30:01.405896+00:00",
           "status": 200,
@@ -36318,6 +36312,12 @@
           "timestamp": "2026-02-16T06:55:00.701056+00:00",
           "status": 200,
           "latency_ms": 141,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-02-16T07:00:02.380784+00:00",
+          "status": 200,
+          "latency_ms": 169,
           "ok": true
         }
       ],

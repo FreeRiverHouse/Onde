@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-02-15T22:30:01.206585",
+  "timestamp": "2026-02-15T23:00:01.374076",
   "stats": {
-    "total": 213,
-    "done": 186,
-    "in_progress": 5,
+    "total": 220,
+    "done": 190,
+    "in_progress": 6,
     "blocked": 3,
-    "todo": 19,
-    "completion_rate": 87.3,
+    "todo": 21,
+    "completion_rate": 86.4,
     "by_priority": {
       "P1": 4,
-      "P3": 23
+      "P3": 26
     },
     "by_owner": {
-      "@clawdinho": 15,
+      "@clawdinho": 18,
       "unassigned": 5,
       "@mattia": 2,
       "@kalshi-paper-agent": 1,
@@ -80,22 +80,6 @@
       "title": "Dashboard autotrader su onde.surf funzionante con grafici trend",
       "impact": "\ud83d\udd25 Trading",
       "status": "IN_PROGRESS",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "GROK-DASH-001",
-      "title": "Implement env-specific data seeding: fake data only in dev/staging, auto-stripped in prod. CI/CD pre-deploy scan for hardcoded fake patterns",
-      "impact": "\u2b50 Data quality",
-      "status": "TODO",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "GROK-DASH-002",
-      "title": "Add dashboard data-quality monitoring: alerts on stale data (>24h), zero metrics, PnL outliers. Cron job or lightweight health check",
-      "impact": "\u2b50 Reliability",
-      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
@@ -230,18 +214,42 @@
       "priority": "P3"
     },
     {
-      "id": "PM-002",
-      "title": "Polymarket: Aggiorna GOLDEN-CONFIG su GitHub",
-      "impact": "\ud83d\udd25 Alta",
-      "status": "DONE",
+      "id": "DASH-028",
+      "title": "Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend",
+      "impact": "\u2b50 Dashboard",
+      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "TRADE-016",
-      "title": "Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri",
-      "impact": "\ud83d\udd25 Trading validation",
-      "status": "DONE",
+      "id": "DASH-029",
+      "title": "Reduce empty white space on main dashboard when PostApproval/ActivityFeed are empty",
+      "impact": "\u2b50 UX",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-030",
+      "title": "Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix",
+      "impact": "\u2b50 Dashboard",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "NAV-001",
+      "title": "Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile)",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "NAV-002",
+      "title": "Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente)",
+      "impact": "\u2b50 UX",
+      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
@@ -385,6 +393,22 @@
       "id": "DASH-025",
       "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
       "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-026",
+      "title": "Fix health page: Onde.la API was checking nonexistent /api/books \u2192 fixed to /api/health/cron",
+      "impact": "\u2b50 Health",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-027",
+      "title": "Agent Activity widget: use healthStatus from gist when no history snapshots available",
+      "impact": "\u2b50 Dashboard",
       "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"
@@ -392,22 +416,6 @@
   ],
   "recent_done": [
     {
-      "id": "PM-002",
-      "title": "Polymarket: Aggiorna GOLDEN-CONFIG su GitHub",
-      "impact": "\ud83d\udd25 Alta",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "TRADE-016",
-      "title": "Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri",
-      "impact": "\ud83d\udd25 Trading validation",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
       "id": "TRADE-017",
       "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
       "impact": "\u2b50 Trading performance",
@@ -547,6 +555,22 @@
       "id": "DASH-025",
       "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
       "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-026",
+      "title": "Fix health page: Onde.la API was checking nonexistent /api/books \u2192 fixed to /api/health/cron",
+      "impact": "\u2b50 Health",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-027",
+      "title": "Agent Activity widget: use healthStatus from gist when no history snapshots available",
+      "impact": "\u2b50 Dashboard",
       "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"
