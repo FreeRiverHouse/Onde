@@ -444,3 +444,24 @@
   - PnL positivo per almeno 3 giorni consecutivi
   - No drawdown >20% del paper balance
 - **Quando criteri met:** Alert Mattia e switch a live trading
+
+### 🚨 DASHBOARD onde.surf - FIX URGENTE (da msg 7277)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 161 | DASH-010 | Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache | 🚨 CRITICO | 🔶 TODO | - |
+| 162 | DASH-011 | Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock | 🚨 CRITICO | 🔶 TODO | - |
+| 163 | DASH-012 | Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist | 🚨 CRITICO | 🔶 TODO | - |
+| 164 | DASH-013 | Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts) | 🔥 ALTA | 🔶 TODO | - |
+| 165 | DASH-014 | Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback → fix con dati Gist | 🚨 CRITICO | 🔶 TODO | - |
+| 166 | DASH-015 | Betting page: Latency chart usa generateMockLatencyTrend → collegare a dati reali | 🔥 ALTA | 🔶 TODO | - |
+| 167 | DASH-016 | Betting page: Return Distribution usa generateMockTrades → collegare a trades reali | 🔥 ALTA | 🔶 TODO | - |
+| 168 | DASH-017 | Betting page: PnL by market type usa generateMockPnLData fallback → dati reali | 🔥 ALTA | 🔶 TODO | - |
+| 169 | DASH-018 | Betting page: WinRate Sparkline usa generateMockSparklineData → dati reali | 🔥 ALTA | 🔶 TODO | - |
+| 170 | DASH-019 | Betting page: Latency Sparkline usa generateMockLatencyHistory → dati reali | 🔥 ALTA | 🔶 TODO | - |
+| 171 | DASH-020 | FRH page: verificare e fixare agent chat (invio/ricezione messaggi) | 🚨 CRITICO | 🔶 TODO | - |
+| 172 | DASH-021 | FRH page: verificare TaskManagementPanel legge/scrive task reali | 🔥 ALTA | 🔶 TODO | - |
+| 173 | DASH-022 | FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali | 🔥 ALTA | 🔶 TODO | - |
+| 174 | DASH-023 | FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali | 🔥 ALTA | 🔶 TODO | - |
+| 175 | DASH-024 | Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona | 🚨 CRITICO | 🔶 TODO | - |
+| 176 | DASH-025 | Deploy onde.surf dopo tutti i fix delle dashboard | 🚨 CRITICO | 🔶 TODO | - | Dipende da DASH-010 → DASH-024 |
