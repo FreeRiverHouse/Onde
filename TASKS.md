@@ -520,7 +520,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 183 | VIRAL-001 | Chiedere a Grok lista giochi virali/educativi per onde.la — SEO-driven, collegati a ricerche Google, da integrare nel portale esistente. Grok deve dare direzione editoriale giochi | 🔥🔥 CRESCITA | IN_PROGRESS | @clawdinho | Research completa. Built: Name Generator ✅, Crafting Guide ✅, Cookie Clicker ✅, Virtual Pet ✅. Next: Roblox Avatar Creator |
-| 184 | VIRAL-002 | Chiedere a Grok feedback sullo Skin Creator attuale — cosa migliorare, task per renderlo ancora più figo | 🔥 CRESCITA | IN_PROGRESS | @clawd | Doc preparato: docs/strategy/viral-002-skin-creator-grok-review.md |
+| 184 | VIRAL-002 | Grok feedback Skin Creator — review ricevuto, 6 task creati (SC-001 to SC-006) | 🔥 CRESCITA | ✅ DONE | @clawd | Doc + Grok response: docs/strategy/grok-viral-002-response.md |
 | 185 | ADS-001 | Valutare e integrare banner ads kid-friendly nei giochi | ⭐ Revenue | IN_PROGRESS | @clawd | Research doc: docs/strategy/ads-001-kid-friendly-ads-research.md — needs Grok review |
 | 186 | BOOK-001 | Impaginazione professionale PDF "Il Saggio Imperatore" | 🔥 Content | ✅ DONE | @clawd | PDF 26pg, A4, cover+colophon+10 capitoli illustrati. fpdf2 layout professionale. |
 | 187 | BOOK-002 | Versione inglese "The Wise Emperor" (traduzione + PDF) | ⭐ Content | ✅ DONE | @clawd | EN translation + Professional PDF 23pg A4. Script: generate_english_pdf.py |
@@ -547,6 +547,6 @@
 | 193 | SC-001 | Skin Creator: Add social sharing + "Share Your Skin" button with unique link/image for social media | 🔥🔥 CRESCITA | TODO | - | Grok says +20% session time and referrals. Priority #1 |
 | 194 | SC-002 | Skin Creator: Community gallery — users upload skins, browse, like, search | 🔥🔥 CRESCITA | TODO | - | Key feature missing vs Skindex. Grok priority #1 |
 | 195 | SC-003 | Skin Creator: Add image filters (brightness, contrast, saturation) like Nova Skin | ⭐ UX | TODO | - | Missing vs Nova Skin competitor |
-| 196 | SC-004 | SEO: Create 2-3 blog posts targeting long-tail keywords (free minecraft skin creator for kids, ai minecraft skin generator) | 🔥 SEO | TODO | @clawd | Grok says top 3 Google in 3 months with content strategy |
+| 196 | SC-004 | SEO: blog posts targeting long-tail keywords (free minecraft skin creator for kids, ai minecraft skin generator) | 🔥 SEO | IN_PROGRESS | @clawd | First post in progress |
 | 197 | SC-005 | Skin Creator: Add pose and background customization to 3D preview | ⭐ UX | TODO | - | Missing vs Nova Skin |
 | 198 | SC-006 | Skin Creator: YouTube Shorts tutorials (5/week) + TikTok export | 🔥 CRESCITA | TODO | - | Grok viral loop strategy |
