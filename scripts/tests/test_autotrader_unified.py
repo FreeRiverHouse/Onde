@@ -509,13 +509,13 @@ class TestTradeDecision:
         assert "Too many flaws" in d.reason
 
     def test_edge_capped(self, sample_market, sample_forecast, sample_critic):
-        """Edges > MAX_EDGE_CAP should be capped at 10%."""
+        """Single-leg edges > SINGLE_LEG_EDGE_CAP should be capped at 15%."""
         sample_forecast.probability = 0.90  # huge edge
         sample_critic.adjusted_probability = 0.88
         sample_critic.should_trade = True
         d = at.make_trade_decision(sample_market, sample_forecast, sample_critic, balance=100.0)
-        # After capping, edge should be <= MAX_EDGE_CAP
-        assert d.edge <= at.MAX_EDGE_CAP + 0.001
+        # After capping, edge should be <= SINGLE_LEG_EDGE_CAP (dynamic cap)
+        assert d.edge <= at.SINGLE_LEG_EDGE_CAP + 0.001
 
     def test_parlay_buy_yes_blocked(self, sample_market_combo):
         """Parlay BUY_YES should be blocked by PARLAY_ONLY_NO."""
@@ -549,6 +549,81 @@ class TestTradeDecision:
         d = at.make_trade_decision(sample_market, f, c, balance=100.0)
         # With such tiny kelly, it could be SKIP or BUY_NO with 1 contract
         assert d.action in ("SKIP", "BUY_NO")
+
+
+# ============================================================================
+# 7b. DYNAMIC EDGE CAPS (GROK-TRADE-003)
+# ============================================================================
+
+class TestDynamicEdgeCap:
+    """Tests for get_dynamic_edge_cap and parlay-specific thresholds."""
+
+    def test_single_leg_cap(self):
+        """Non-combo markets should get SINGLE_LEG_EDGE_CAP."""
+        assert at.get_dynamic_edge_cap("crypto", 1) == at.SINGLE_LEG_EDGE_CAP
+        assert at.get_dynamic_edge_cap("spread", 1) == at.SINGLE_LEG_EDGE_CAP
+        assert at.get_dynamic_edge_cap("weather", 1) == at.SINGLE_LEG_EDGE_CAP
+        assert at.get_dynamic_edge_cap("generic", 1) == at.SINGLE_LEG_EDGE_CAP
+
+    def test_combo_single_leg_fallback(self):
+        """Combo with <2 legs should still get single-leg cap."""
+        assert at.get_dynamic_edge_cap("combo", 1) == at.SINGLE_LEG_EDGE_CAP
+
+    def test_parlay_2_legs(self):
+        """2-leg parlay should get PARLAY_BASE_EDGE_CAP."""
+        cap = at.get_dynamic_edge_cap("combo", 2)
+        assert cap == at.PARLAY_BASE_EDGE_CAP  # 35%
+
+    def test_parlay_3_legs(self):
+        """3-leg parlay: base + 1 * scale factor."""
+        cap = at.get_dynamic_edge_cap("combo", 3)
+        expected = at.PARLAY_BASE_EDGE_CAP + 1 * at.PARLAY_LEG_SCALE_FACTOR
+        assert cap == pytest.approx(expected)
+
+    def test_parlay_5_legs(self):
+        """5-leg parlay: base + 3 * scale factor."""
+        cap = at.get_dynamic_edge_cap("combo", 5)
+        expected = min(at.PARLAY_BASE_EDGE_CAP + 3 * at.PARLAY_LEG_SCALE_FACTOR,
+                       at.PARLAY_MAX_EDGE_CAP)
+        assert cap == pytest.approx(expected)
+
+    def test_parlay_cap_ceiling(self):
+        """Very large parlay should be capped at PARLAY_MAX_EDGE_CAP."""
+        cap = at.get_dynamic_edge_cap("combo", 10)
+        assert cap == at.PARLAY_MAX_EDGE_CAP  # 40%
+
+    def test_parlay_edge_cap_in_trade_decision(self, sample_market_combo):
+        """Combo markets should use parlay cap (35%+) not single-leg cap (15%)."""
+        # sample_market_combo: yes=25, no=75, market_prob=0.25, 2-leg
+        # Set forecast way high so edge is huge
+        f = at.ForecastResult(probability=0.10, reasoning="", confidence="medium",
+                              model_used="heuristic-combo")
+        c = at.CriticResult(adjusted_probability=0.10, should_trade=True)
+        # final_prob = 0.6*0.10 + 0.4*0.10 = 0.10, edge_yes = 0.10 - 0.25 = -0.15 → BUY_NO
+        # edge = 0.15, within PARLAY_BASE_EDGE_CAP (0.35) → should NOT be capped
+        d = at.make_trade_decision(sample_market_combo, f, c, balance=100.0)
+        assert d.action == "BUY_NO"
+        assert d.edge == pytest.approx(0.15, abs=0.01)
+
+    def test_parlay_large_edge_capped_at_parlay_cap(self, sample_market_combo):
+        """Parlay with edge > PARLAY_BASE_EDGE_CAP should be capped at parlay cap, not single-leg."""
+        # market_prob=0.25, need forecast to give ~50% edge_no
+        f = at.ForecastResult(probability=0.01, reasoning="", confidence="medium",
+                              model_used="heuristic-combo")
+        c = at.CriticResult(adjusted_probability=0.01, should_trade=True)
+        # final_prob = 0.01, edge_yes = 0.01 - 0.25 = -0.24 → BUY_NO with edge 0.24
+        # 2-leg parlay cap = 0.35, so 0.24 < 0.35 → not capped
+        d = at.make_trade_decision(sample_market_combo, f, c, balance=100.0)
+        assert d.action == "BUY_NO"
+        # Edge should be 0.24 (uncapped since < 0.35)
+        assert d.edge == pytest.approx(0.24, abs=0.01)
+
+    def test_constants_values(self):
+        """Verify the constants match spec: single 15-18%, parlay 35-40%."""
+        assert 0.15 <= at.SINGLE_LEG_EDGE_CAP <= 0.18
+        assert 0.35 <= at.PARLAY_BASE_EDGE_CAP <= 0.40
+        assert 0.35 <= at.PARLAY_MAX_EDGE_CAP <= 0.40
+        assert at.PARLAY_MAX_EDGE_CAP >= at.PARLAY_BASE_EDGE_CAP
 
 
 # ============================================================================

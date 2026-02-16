@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-02-15T23:00:01.374076",
+  "timestamp": "2026-02-15T23:30:01.568822",
   "stats": {
     "total": 220,
-    "done": 190,
-    "in_progress": 6,
+    "done": 195,
+    "in_progress": 5,
     "blocked": 3,
-    "todo": 21,
-    "completion_rate": 86.4,
+    "todo": 17,
+    "completion_rate": 88.6,
     "by_priority": {
       "P1": 4,
-      "P3": 26
+      "P3": 21
     },
     "by_owner": {
-      "@clawdinho": 18,
+      "@clawdinho": 13,
       "unassigned": 5,
       "@mattia": 2,
       "@kalshi-paper-agent": 1,
@@ -80,14 +80,6 @@
       "title": "Dashboard autotrader su onde.surf funzionante con grafici trend",
       "impact": "\ud83d\udd25 Trading",
       "status": "IN_PROGRESS",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "GROK-TRADE-001",
-      "title": "Add comprehensive unit/integration tests for unified autotrader: auth, market data, order creation, fills, cancellations, error handling (rate limits, balance). pytest + mocked API",
-      "impact": "\ud83d\udd25 Reliability",
-      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
@@ -214,22 +206,6 @@
       "priority": "P3"
     },
     {
-      "id": "DASH-028",
-      "title": "Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend",
-      "impact": "\u2b50 Dashboard",
-      "status": "TODO",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-029",
-      "title": "Reduce empty white space on main dashboard when PostApproval/ActivityFeed are empty",
-      "impact": "\u2b50 UX",
-      "status": "TODO",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
       "id": "DASH-030",
       "title": "Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix",
       "impact": "\u2b50 Dashboard",
@@ -238,10 +214,154 @@
       "priority": "P3"
     },
     {
+      "id": "DASH-012",
+      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-013",
+      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-014",
+      "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-015",
+      "title": "Betting page: Latency chart usa generateMockLatencyTrend \u2192 collegare a dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-016",
+      "title": "Betting page: Return Distribution usa generateMockTrades \u2192 collegare a trades reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-017",
+      "title": "Betting page: PnL by market type usa generateMockPnLData fallback \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-018",
+      "title": "Betting page: WinRate Sparkline usa generateMockSparklineData \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-019",
+      "title": "Betting page: Latency Sparkline usa generateMockLatencyHistory \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-020",
+      "title": "FRH page: verificare e fixare agent chat (invio/ricezione messaggi)",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-021",
+      "title": "FRH page: verificare TaskManagementPanel legge/scrive task reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-022",
+      "title": "FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-023",
+      "title": "FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-024",
+      "title": "Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-025",
+      "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-026",
+      "title": "Fix health page: Onde.la API was checking nonexistent /api/books \u2192 fixed to /api/health/cron",
+      "impact": "\u2b50 Health",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-027",
+      "title": "Agent Activity widget: use healthStatus from gist when no history snapshots available",
+      "impact": "\u2b50 Dashboard",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-028",
+      "title": "Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend",
+      "impact": "\u2b50 Dashboard",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-029",
+      "title": "Reduce empty white space on main dashboard when PostApproval/ActivityFeed are empty",
+      "impact": "\u2b50 UX",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
       "id": "NAV-001",
       "title": "Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile)",
       "impact": "\ud83d\udd25 ALTA",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"
     },
@@ -249,166 +369,6 @@
       "id": "NAV-002",
       "title": "Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente)",
       "impact": "\u2b50 UX",
-      "status": "TODO",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "TRADE-017",
-      "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
-      "impact": "\u2b50 Trading performance",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "TRADE-018",
-      "title": "Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading",
-      "impact": "\u2b50 Monitoring",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-010",
-      "title": "Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-011",
-      "title": "Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-012",
-      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-013",
-      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-014",
-      "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-015",
-      "title": "Betting page: Latency chart usa generateMockLatencyTrend \u2192 collegare a dati reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-016",
-      "title": "Betting page: Return Distribution usa generateMockTrades \u2192 collegare a trades reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-017",
-      "title": "Betting page: PnL by market type usa generateMockPnLData fallback \u2192 dati reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-018",
-      "title": "Betting page: WinRate Sparkline usa generateMockSparklineData \u2192 dati reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-019",
-      "title": "Betting page: Latency Sparkline usa generateMockLatencyHistory \u2192 dati reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-020",
-      "title": "FRH page: verificare e fixare agent chat (invio/ricezione messaggi)",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-021",
-      "title": "FRH page: verificare TaskManagementPanel legge/scrive task reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-022",
-      "title": "FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-023",
-      "title": "FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-024",
-      "title": "Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-025",
-      "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-026",
-      "title": "Fix health page: Onde.la API was checking nonexistent /api/books \u2192 fixed to /api/health/cron",
-      "impact": "\u2b50 Health",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-027",
-      "title": "Agent Activity widget: use healthStatus from gist when no history snapshots available",
-      "impact": "\u2b50 Dashboard",
       "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"
@@ -416,38 +376,6 @@
   ],
   "recent_done": [
     {
-      "id": "TRADE-017",
-      "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
-      "impact": "\u2b50 Trading performance",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "TRADE-018",
-      "title": "Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading",
-      "impact": "\u2b50 Monitoring",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-010",
-      "title": "Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-011",
-      "title": "Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
       "id": "DASH-012",
       "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
       "impact": "\ud83d\udea8 CRITICO",
@@ -571,6 +499,38 @@
       "id": "DASH-027",
       "title": "Agent Activity widget: use healthStatus from gist when no history snapshots available",
       "impact": "\u2b50 Dashboard",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-028",
+      "title": "Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend",
+      "impact": "\u2b50 Dashboard",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-029",
+      "title": "Reduce empty white space on main dashboard when PostApproval/ActivityFeed are empty",
+      "impact": "\u2b50 UX",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "NAV-001",
+      "title": "Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile)",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "NAV-002",
+      "title": "Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente)",
+      "impact": "\u2b50 UX",
       "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"

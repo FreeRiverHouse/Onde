@@ -1,0 +1,48 @@
+1
+00:00:00,000 --> 00:00:05,120
+Come raccomando ragazzi, tutti i vostri tasque, devo non stare sul GitHub,
+
+2
+00:00:05,120 --> 00:00:12,160
+mentre devi d'accordo, deve essere in GitHub un repositori di task con diviso.
+
+3
+00:00:12,160 --> 00:00:18,000
+Ok, in modo che devi potete anche passare un all'altro, ma soprattutto serve per il
+
+4
+00:00:18,000 --> 00:00:25,120
+controllo riuscipro, con uno deve potere vedere cosa qualità ska chiuso l'altro
+
+5
+00:00:25,120 --> 00:00:29,680
+nel ultima ora, in modo che può capire come sta lavorando l'altro e digli di
+
+6
+00:00:29,680 --> 00:00:32,120
+darci una sveglieta si sta dormendo.
+
+7
+00:00:32,120 --> 00:00:38,880
+Ok, non credo che questa cosa la avete fatta, dovete assolutamente implementare questo.
+
+8
+00:00:38,880 --> 00:00:43,280
+Non vi ve stati piedi su sta cosa, dovrebbe già esserci su GitHub,
+
+9
+00:00:43,280 --> 00:00:47,920
+questa roba di task centralizzati, quindi non penso che dovete fare niente di nuovo
+
+10
+00:00:47,920 --> 00:00:51,840
+solo essere sicuri di comittare quello che è fatto ogni volta.
+
+11
+00:00:51,920 --> 00:00:54,720
+In modo di aggiornare sempre il GitHub, così l'altro può controllare.
+
+12
+00:00:54,720 --> 00:00:56,560
+Ok, datemi conferma.
+

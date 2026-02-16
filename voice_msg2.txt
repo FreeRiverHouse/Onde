@@ -1,0 +1,12 @@
+Come raccomando ragazzi, tutti i vostri tasque, devo non stare sul GitHub,
+mentre devi d'accordo, deve essere in GitHub un repositori di task con diviso.
+Ok, in modo che devi potete anche passare un all'altro, ma soprattutto serve per il
+controllo riuscipro, con uno deve potere vedere cosa qualità ska chiuso l'altro
+nel ultima ora, in modo che può capire come sta lavorando l'altro e digli di
+darci una sveglieta si sta dormendo.
+Ok, non credo che questa cosa la avete fatta, dovete assolutamente implementare questo.
+Non vi ve stati piedi su sta cosa, dovrebbe già esserci su GitHub,
+questa roba di task centralizzati, quindi non penso che dovete fare niente di nuovo
+solo essere sicuri di comittare quello che è fatto ogni volta.
+In modo di aggiornare sempre il GitHub, così l'altro può controllare.
+Ok, datemi conferma.

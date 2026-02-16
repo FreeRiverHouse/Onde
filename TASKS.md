@@ -24,6 +24,9 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
+| 0a | CHAT-001 | Dashboard Agent Chat: riscrivere UI chat come panel dedicato, caricare storico da API, stato messaggi visibile | 🔥 Comunicazione agenti | 🔄 IN_PROGRESS | @clawdinho |
+| 0b | CHAT-002 | Dashboard Agent Chat: Clawdbot pickup real-time (cron ogni 2min + heartbeat), risposte visibili nella dashboard | 🔥 Comunicazione agenti | TODO | @clawdinho |
+| 0c | CHAT-003 | Dashboard Agent Chat: test end-to-end (manda messaggio → agente risponde → dashboard mostra risposta) | 🔥 Comunicazione agenti | TODO | @clawdinho | Dipende da CHAT-001, CHAT-002 |
 | 1 | SEO-001 | Creare OG image per /skin-creator (1200x630) | 🔥 Social sharing = viralità | ✅ DONE | @clawdinho |
 | 2 | SEO-002 | Submit skin-creator a Google Search Console | 🔥 Indicizzazione Google | 🔶 READY | @clawdinho | Sitemap deployed, checklist: docs/marketing/gsc-submission-checklist.md |
 | 3 | MKTG-001 | Post skin creator su r/Minecraft e r/Roblox | 🔥 Marketing diretto | 🔶 DRAFT READY | @clawdinho | docs/marketing/reddit-skin-creator-post.md |
@@ -281,7 +284,7 @@
 ### Da TRADE-002 (Grok ACCEPTED ✅)
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| G5 | GROK-TRADE-003 | Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data | 🔥 Strategy | IN_PROGRESS | @clawdinho |
+| G5 | GROK-TRADE-003 | Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data | 🔥 Strategy | DONE | @clawdinho |
 | G6 | GROK-TRADE-004 | Post-trade monitoring + auto-veto overrides with circuit breakers: log vetoed/passed trades, alert clusters of high-edge trades, daily exposure caps, pause-on-loss-streaks | 🔥 Risk mgmt | TODO | @clawdinho |
 
 ---

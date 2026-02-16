@@ -423,6 +423,11 @@ MIN_EDGE_BUY_NO  = 0.01   # 1% min for BUY_NO  (78% WR even at tiny edges)
 MIN_EDGE_BUY_YES = 0.05   # 5% min for BUY_YES (only profitable bucket: 5-10%)
 MIN_EDGE = 0.01            # Global minimum (legacy compat)
 MAX_EDGE_CAP = 0.10        # Cap edges >10% (overconfident forecaster at >10%: 0% WR)
+# ── Dynamic edge caps by market type (GROK-TRADE-003) ──
+SINGLE_LEG_EDGE_CAP = 0.15        # 15% cap for single-leg markets
+PARLAY_BASE_EDGE_CAP = 0.35       # 35% base cap for parlays (2 legs)
+PARLAY_MAX_EDGE_CAP = 0.40        # 40% hard ceiling for parlays (any leg count)
+PARLAY_LEG_SCALE_FACTOR = 0.02    # +2% per additional leg beyond 2
 MAX_POSITION_PCT = 0.05    # Max 5% of portfolio per position
 KELLY_FRACTION = 0.15      # Aggressive in paper mode for data collection
 MIN_BET_CENTS = 5
@@ -1540,6 +1545,21 @@ def calculate_kelly(prob: float, price_cents: int) -> float:
     return max(0.0, min(kelly, MAX_POSITION_PCT))
 
 
+def get_dynamic_edge_cap(market_type: str, num_legs: int = 1) -> float:
+    """Return the edge cap based on market type and leg count (GROK-TRADE-003).
+    
+    - Single-leg markets: SINGLE_LEG_EDGE_CAP (15%)
+    - Parlays: PARLAY_BASE_EDGE_CAP + PARLAY_LEG_SCALE_FACTOR per leg beyond 2,
+      capped at PARLAY_MAX_EDGE_CAP (40%)
+    """
+    if market_type != "combo" or num_legs < 2:
+        return SINGLE_LEG_EDGE_CAP
+    # Parlay: base 35% + 2% per extra leg beyond 2, capped at 40%
+    extra_legs = max(0, num_legs - 2)
+    parlay_cap = PARLAY_BASE_EDGE_CAP + extra_legs * PARLAY_LEG_SCALE_FACTOR
+    return min(parlay_cap, PARLAY_MAX_EDGE_CAP)
+
+
 def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: CriticResult,
                         balance: float) -> TradeDecision:
     """Compare probability vs market price and decide. Uses split thresholds (v3 data-driven)."""
@@ -1572,15 +1592,18 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
                             reason=f"Low conf + moderate YES edge ({edge_yes:+.1%})",
                             forecast=forecast, critic=critic)
 
-    # Cap edges
-    if abs(edge_yes) > MAX_EDGE_CAP:
-        edge_yes = MAX_EDGE_CAP if edge_yes > 0 else -MAX_EDGE_CAP
+    # Classify market and count legs for dynamic edge cap (GROK-TRADE-003)
+    market_type = classify_market_type(market)
+    num_legs = estimate_combo_legs(market) if market_type == "combo" else 1
+
+    # Dynamic edge cap: single-leg 15%, parlays 35-40% scaled by legs
+    effective_edge_cap = get_dynamic_edge_cap(market_type, num_legs)
+    if abs(edge_yes) > effective_edge_cap:
+        edge_yes = effective_edge_cap if edge_yes > 0 else -effective_edge_cap
         final_prob = market_prob + edge_yes
 
     # Parlay BUY_YES filter
-    market_type = classify_market_type(market)
     if edge_yes > 0 and PARLAY_ONLY_NO and market_type == "combo":
-        num_legs = estimate_combo_legs(market)
         allow = PARLAY_YES_EXCEPTION and num_legs <= 2 and edge_yes > 0.05 and market.yes_price >= 30
         if not allow:
             return TradeDecision(action="SKIP", edge=edge_yes, kelly_size=0, contracts=0, price_cents=0,
