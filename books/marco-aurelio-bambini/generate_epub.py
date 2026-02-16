@@ -7,7 +7,6 @@ Uses ebooklib to create EPUB 3.0 books with embedded illustrations.
 import os
 import re
 import glob
-from datetime import datetime
 from ebooklib import epub
 
 # --- Paths ---
@@ -18,7 +17,7 @@ COVER_PATH = os.path.join(BASE_DIR, "images/00-copertina.png")
 ILLUS_DIR = os.path.join(BASE_DIR, "illustrations-v2-final")
 
 # --- CSS ---
-BOOK_CSS = """
+BOOK_CSS = """\
 @charset "UTF-8";
 
 body {
@@ -142,113 +141,93 @@ hr {
 """
 
 
+def xhtml(body_content, lang="it"):
+    """Wrap body content in a minimal XHTML page (no XML declaration — ebooklib adds its own)."""
+    return (
+        f'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">'
+        f'<head><link rel="stylesheet" href="style/book.css" type="text/css"/></head>'
+        f'<body>{body_content}</body></html>'
+    )
+
+
 def get_illustration_files():
     """Get sorted illustration files from the illustrations directory."""
-    files = sorted(glob.glob(os.path.join(ILLUS_DIR, "*.png")))
-    return files
+    return sorted(glob.glob(os.path.join(ILLUS_DIR, "*.png")))
 
 
-def parse_chapters(text, lang="it"):
-    """
-    Parse markdown text into chapters.
-    Returns list of dicts: {title, body_lines}
-    """
+def parse_chapters(text):
+    """Parse markdown text into chapters. Returns list of {title, body_lines}."""
     lines = text.strip().split('\n')
     chapters = []
     current = None
-    header_pattern = re.compile(r'^###\s+(Capitolo|Chapter)\s+\d+\s*[-—]\s*(.*)', re.IGNORECASE)
+    hdr = re.compile(r'^###\s+(Capitolo|Chapter)\s+\d+\s*[-—]\s*(.*)', re.I)
 
     for line in lines:
-        m = header_pattern.match(line)
-        if m:
+        if hdr.match(line):
             if current:
                 chapters.append(current)
-            full_title = line.lstrip('#').strip()
-            current = {'title': full_title, 'body_lines': []}
+            current = {'title': line.lstrip('#').strip(), 'body_lines': []}
         elif current is not None:
             current['body_lines'].append(line)
 
     if current:
         chapters.append(current)
-
     return chapters
 
 
 def clean_body(lines):
-    """
-    Convert markdown body lines to XHTML, stripping illustration annotations.
-    """
-    # Join and strip illustration annotations
+    """Convert markdown body lines to XHTML fragment, stripping illustration annotations."""
     text = '\n'.join(lines).strip()
     text = re.sub(r'\[ILLUSTRAZIONE:.*?\]', '', text, flags=re.DOTALL)
     text = re.sub(r'\[ILLUSTRATION:.*?\]', '', text, flags=re.DOTALL)
-
-    # Remove horizontal rules
     text = re.sub(r'^---+\s*$', '', text, flags=re.MULTILINE)
 
-    html_parts = []
+    parts = []
     in_list = False
 
     for line in text.split('\n'):
-        stripped = line.strip()
-
-        # Skip empty lines but close list if open
-        if not stripped:
+        s = line.strip()
+        if not s:
             if in_list:
-                html_parts.append('</ul>')
+                parts.append('</ul>')
                 in_list = False
             continue
 
-        # List items
-        if stripped.startswith('- '):
+        if s.startswith('- '):
             if not in_list:
-                html_parts.append('<ul>')
+                parts.append('<ul>')
                 in_list = True
-            html_parts.append(f'  <li>{stripped[2:]}</li>')
+            parts.append(f'<li>{s[2:]}</li>')
             continue
 
-        # Close list if we hit non-list content
         if in_list:
-            html_parts.append('</ul>')
+            parts.append('</ul>')
             in_list = False
 
-        # Quoted speech or emphasis
-        if stripped.startswith('"') or stripped.startswith('"') or stripped.startswith('«'):
-            html_parts.append(f'<p>{stripped}</p>')
-        elif stripped.startswith('*') and stripped.endswith('*') and not stripped.startswith('**'):
-            # Italic text
-            inner = stripped.strip('*').strip()
-            html_parts.append(f'<p><em>{inner}</em></p>')
+        if s.startswith('*') and s.endswith('*') and not s.startswith('**'):
+            parts.append(f'<p><em>{s.strip("*").strip()}</em></p>')
         else:
-            html_parts.append(f'<p>{stripped}</p>')
+            parts.append(f'<p>{s}</p>')
 
     if in_list:
-        html_parts.append('</ul>')
-
-    return '\n'.join(html_parts)
+        parts.append('</ul>')
+    return '\n'.join(parts)
 
 
 def create_epub(lang="it"):
     """Create an EPUB book for the given language."""
+    is_it = (lang == "it")
 
-    is_it = lang == "it"
-
-    # Read source text
     src_path = IT_TEXT if is_it else EN_TEXT
     with open(src_path, 'r', encoding='utf-8') as f:
         full_text = f.read()
 
-    # Book metadata
     if is_it:
-        title = "Il Saggio Imperatore"
-        subtitle = "Le Avventure di Marco Aurelio"
-        filename = "Il-Saggio-Imperatore.epub"
-        language = "it"
+        title, subtitle = "Il Saggio Imperatore", "Le Avventure di Marco Aurelio"
+        filename, language = "Il-Saggio-Imperatore.epub", "it"
     else:
-        title = "The Wise Emperor"
-        subtitle = "The Adventures of Marcus Aurelius"
-        filename = "The-Wise-Emperor.epub"
-        language = "en"
+        title, subtitle = "The Wise Emperor", "The Adventures of Marcus Aurelius"
+        filename, language = "The-Wise-Emperor.epub", "en"
 
     book = epub.EpubBook()
     book.set_identifier(f'onde-{lang}-saggio-imperatore-2026')
@@ -260,19 +239,25 @@ def create_epub(lang="it"):
     book.add_metadata('DC', 'contributor', 'Pina Pennello')
     book.add_metadata(None, 'meta', '', {'name': 'illustrator', 'content': 'Pina Pennello'})
 
-    # --- Cover ---
+    # --- CSS ---
+    css = epub.EpubItem(uid='style', file_name='style/book.css',
+                        media_type='text/css', content=BOOK_CSS.encode('utf-8'))
+    book.add_item(css)
+
+    # --- Cover image ---
     with open(COVER_PATH, 'rb') as f:
         cover_data = f.read()
-    book.set_cover('images/cover.png', cover_data)
+    book.set_cover('images/cover.png', cover_data, create_page=False)
 
-    # --- CSS ---
-    css = epub.EpubItem(
-        uid='style',
-        file_name='style/book.css',
-        media_type='text/css',
-        content=BOOK_CSS.encode('utf-8')
+    # Cover page
+    cover_page = epub.EpubHtml(title='Cover', file_name='cover.xhtml', lang=language)
+    cover_page.content = xhtml(
+        f'<div style="text-align:center;margin:0;padding:0;">'
+        f'<img src="images/cover.png" alt="{title}" style="max-width:100%;max-height:100vh;"/>'
+        f'</div>', language
     )
-    book.add_item(css)
+    cover_page.add_item(css)
+    book.add_item(cover_page)
 
     # --- Illustrations ---
     illus_files = get_illustration_files()
@@ -281,114 +266,80 @@ def create_epub(lang="it"):
         fname = os.path.basename(fpath)
         with open(fpath, 'rb') as f:
             img_data = f.read()
-        img_item = epub.EpubItem(
-            uid=f'illus_{i+1:02d}',
-            file_name=f'images/{fname}',
-            media_type='image/png',
-            content=img_data
-        )
-        book.add_item(img_item)
-        illus_items.append(img_item)
+        item = epub.EpubItem(uid=f'illus_{i+1:02d}', file_name=f'images/{fname}',
+                             media_type='image/png', content=img_data)
+        book.add_item(item)
+        illus_items.append(item)
 
     # --- Title page ---
-    author_label = "Testo di" if is_it else "Text by"
-    illus_label = "Illustrazioni di" if is_it else "Illustrations by"
-    classics_label = "Collana Onde Classics" if is_it else "Onde Classics"
+    a_lbl = "Testo di" if is_it else "Text by"
+    i_lbl = "Illustrazioni di" if is_it else "Illustrations by"
+    c_lbl = "Collana Onde Classics" if is_it else "Onde Classics"
 
-    title_page = epub.EpubHtml(
-        title=title,
-        file_name='title.xhtml',
-        lang=language
-    )
-    title_page.content = f'''<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{language}">
-<head><link rel="stylesheet" href="style/book.css" type="text/css"/></head>
-<body>
+    title_page = epub.EpubHtml(title=title, file_name='title.xhtml', lang=language)
+    title_page.content = xhtml(f'''
 <div class="title-page">
   <h1>{title}</h1>
   <h2>{subtitle}</h2>
-  <p class="author">{author_label} <strong>Gianni Parola</strong></p>
-  <p class="author">{illus_label} <strong>Pina Pennello</strong></p>
-  <p class="publisher">{classics_label}</p>
+  <p class="author">{a_lbl} <strong>Gianni Parola</strong></p>
+  <p class="author">{i_lbl} <strong>Pina Pennello</strong></p>
+  <p class="publisher">{c_lbl}</p>
   <p class="publisher">Onde · 2026</p>
 </div>
-</body>
-</html>'''
+''', language)
     title_page.add_item(css)
     book.add_item(title_page)
 
-    # --- Parse chapters ---
-    chapters = parse_chapters(full_text, lang)
-
+    # --- Chapters ---
+    chapters = parse_chapters(full_text)
     chapter_items = []
+
     for i, ch in enumerate(chapters):
-        ch_num = i + 1
         body_html = clean_body(ch['body_lines'])
 
-        # Illustration block (if available for this chapter)
         illus_html = ""
         if i < len(illus_items):
             img_fname = os.path.basename(illus_files[i])
-            illus_html = f'''<div class="illustration">
-  <img src="images/{img_fname}" alt="{ch['title']}"/>
-</div>
-'''
+            illus_html = (
+                f'<div class="illustration">'
+                f'<img src="images/{img_fname}" alt="{ch["title"]}"/>'
+                f'</div>'
+            )
 
-        ch_item = epub.EpubHtml(
-            title=ch['title'],
-            file_name=f'chapter_{ch_num:02d}.xhtml',
-            lang=language
+        ch_item = epub.EpubHtml(title=ch['title'],
+                                file_name=f'chapter_{i+1:02d}.xhtml', lang=language)
+        ch_item.content = xhtml(
+            f'<h3>{ch["title"]}</h3>\n{illus_html}\n{body_html}', language
         )
-        ch_item.content = f'''<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{language}">
-<head><link rel="stylesheet" href="style/book.css" type="text/css"/></head>
-<body>
-<h3>{ch['title']}</h3>
-{illus_html}
-{body_html}
-</body>
-</html>'''
         ch_item.add_item(css)
         book.add_item(ch_item)
         chapter_items.append(ch_item)
 
-    # --- Ending page ---
+    # --- Ending ---
     end_label = "Fine" if is_it else "The End"
-    more_label = ('Per saperne di più sulla filosofia di Marco Aurelio: '
-                  '<em>"Meditazioni"</em> (edizione illustrata Onde)') if is_it else (
-                 'To learn more about the philosophy of Marcus Aurelius: '
-                 '<em>"Meditations"</em> (Onde illustrated edition)')
+    more = ('Per saperne di più sulla filosofia di Marco Aurelio: '
+            '<em>"Meditazioni"</em> (edizione illustrata Onde)') if is_it else (
+           'To learn more about the philosophy of Marcus Aurelius: '
+           '<em>"Meditations"</em> (Onde illustrated edition)')
 
-    ending = epub.EpubHtml(
-        title=end_label,
-        file_name='ending.xhtml',
-        lang=language
-    )
-    ending.content = f'''<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{language}">
-<head><link rel="stylesheet" href="style/book.css" type="text/css"/></head>
-<body>
+    ending = epub.EpubHtml(title=end_label, file_name='ending.xhtml', lang=language)
+    ending.content = xhtml(f'''
 <div class="ending">
   <p>✦</p>
   <p><strong>{end_label}</strong></p>
 </div>
 <hr/>
 <div class="colophon">
-  <p>{more_label}</p>
+  <p>{more}</p>
   <p style="margin-top:1.5em;">© 2026 Onde</p>
 </div>
-</body>
-</html>'''
+''', language)
     ending.add_item(css)
     book.add_item(ending)
 
-    # --- Table of Contents ---
+    # --- TOC + Spine + Nav ---
     book.toc = [title_page] + chapter_items + [ending]
-
-    # --- Spine ---
-    book.spine = ['nav', title_page] + chapter_items + [ending]
-
-    # --- Navigation ---
+    book.spine = ['nav', cover_page, title_page] + chapter_items + [ending]
     book.add_item(epub.EpubNcx())
     book.add_item(epub.EpubNav())
 
@@ -410,10 +361,6 @@ if __name__ == '__main__':
 
     print()
     print("Done! Files created:")
-    print(f"  📖 {it_path}")
-    print(f"  📖 {en_path}")
-
-    # Show file sizes
     for p in [it_path, en_path]:
         size_mb = os.path.getsize(p) / (1024 * 1024)
-        print(f"     {os.path.basename(p)}: {size_mb:.1f} MB")
+        print(f"  📖 {os.path.basename(p)} ({size_mb:.1f} MB)")

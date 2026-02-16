@@ -35,7 +35,7 @@
     --onde-dark-surface: #122A42;
     --onde-dark-elevated: #1A3A52;
 
-    /* Glass effects */
+    /* Glass effects (dark mode default) */
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-highlight: rgba(255, 255, 255, 0.12);
@@ -92,6 +92,14 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, var(--onde-teal-light), var(--onde-gold));
+  }
+
+  /* Light mode overrides — WatercolorBackground provides the light BG */
+  body.light {
+    color: #0B1929;
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-highlight: rgba(0, 0, 0, 0.06);
   }
 
   /* Selection color - maritime */

@@ -19,13 +19,13 @@ export default function BlogPage() {
       {/* Background orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-20"
+          className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-10 dark:opacity-20"
           style={{ background: 'var(--onde-purple)', left: '-10%', top: '10%' }}
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-20"
+          className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-10 dark:opacity-20"
           style={{ background: 'var(--onde-teal)', right: '-5%', top: '50%' }}
           animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
           transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
@@ -72,12 +72,12 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="text-white">Onde </span>
+            <span className="text-onde-ocean dark:text-white">Onde </span>
             <span className="text-gradient-neon">Blog</span>
           </motion.h1>
 
           <motion.p
-            className="text-lg text-white/70 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg text-onde-ocean/70 dark:text-white/70 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -97,7 +97,7 @@ export default function BlogPage() {
               href="/blog/feed.xml"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/60 hover:text-orange-400 hover:border-orange-400/30 hover:bg-orange-400/5 transition-all duration-300 text-sm min-h-[44px]"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-onde-ocean/10 dark:border-white/10 bg-onde-ocean/5 dark:bg-white/5 text-onde-ocean/60 dark:text-white/60 hover:text-orange-500 dark:hover:text-orange-400 hover:border-orange-400/30 hover:bg-orange-400/5 transition-all duration-300 text-sm min-h-[44px]"
               title="Subscribe via RSS"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -138,7 +138,7 @@ export default function BlogPage() {
                   ${
                     isActive
                       ? 'bg-onde-teal/15 border-onde-teal/40 text-onde-teal shadow-lg shadow-onde-teal/10'
-                      : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10 hover:text-white/70 hover:border-white/20'
+                      : 'bg-onde-ocean/5 dark:bg-white/5 border-onde-ocean/10 dark:border-white/10 text-onde-ocean/50 dark:text-white/50 hover:bg-onde-ocean/10 dark:hover:bg-white/10 hover:text-onde-ocean/70 dark:hover:text-white/70 hover:border-onde-ocean/20 dark:hover:border-white/20'
                   }
                 `}
               >
@@ -147,7 +147,7 @@ export default function BlogPage() {
                 <span
                   className={`
                     text-xs px-1.5 py-0.5 rounded-full
-                    ${isActive ? 'bg-onde-teal/20 text-onde-teal' : 'bg-white/10 text-white/40'}
+                    ${isActive ? 'bg-onde-teal/20 text-onde-teal' : 'bg-onde-ocean/10 dark:bg-white/10 text-onde-ocean/40 dark:text-white/40'}
                   `}
                 >
                   {count}
@@ -176,7 +176,7 @@ export default function BlogPage() {
                 animate={{ opacity: 1 }}
               >
                 <span className="text-5xl mb-4 block">🏗️</span>
-                <p className="text-white/50 text-lg">
+                <p className="text-onde-ocean/50 dark:text-white/50 text-lg">
                   No posts in this category yet. Stay tuned!
                 </p>
               </motion.div>
@@ -202,9 +202,9 @@ export default function BlogPage() {
                       <div className="flex flex-col md:flex-row md:items-start gap-6">
                         {/* Emoji icon */}
                         <motion.div
-                          className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10
+                          className="flex-shrink-0 w-16 h-16 rounded-2xl bg-onde-ocean/5 dark:bg-white/5 border border-onde-ocean/10 dark:border-white/10
                                      flex items-center justify-center text-3xl
-                                     group-hover:scale-110 group-hover:bg-white/10 transition-all duration-300"
+                                     group-hover:scale-110 group-hover:bg-onde-ocean/10 dark:group-hover:bg-white/10 transition-all duration-300"
                           whileHover={{ rotate: [0, -5, 5, 0] }}
                         >
                           {post.emoji}
@@ -212,31 +212,31 @@ export default function BlogPage() {
 
                         <div className="flex-1 min-w-0">
                           {/* Meta */}
-                          <div className="flex flex-wrap items-center gap-3 text-sm text-white/40 mb-3">
+                          <div className="flex flex-wrap items-center gap-3 text-sm text-onde-ocean/40 dark:text-white/40 mb-3">
                             <span
                               className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full
-                                         bg-white/5 border border-white/10 text-white/60 text-xs font-medium"
+                                         bg-onde-ocean/5 dark:bg-white/5 border border-onde-ocean/10 dark:border-white/10 text-onde-ocean/60 dark:text-white/60 text-xs font-medium"
                             >
                               {BLOG_CATEGORIES.find((c) => c.value === post.category)?.emoji}{' '}
                               {post.category}
                             </span>
                             <span>{post.date}</span>
-                            <span className="w-1 h-1 rounded-full bg-white/20" />
+                            <span className="w-1 h-1 rounded-full bg-onde-ocean/20 dark:bg-white/20" />
                             <span>{post.readTime}</span>
                           </div>
 
                           {/* Title */}
                           <h2
-                            className="text-2xl md:text-3xl font-display font-bold text-white mb-2
+                            className="text-2xl md:text-3xl font-display font-bold text-onde-ocean dark:text-white mb-2
                                        group-hover:text-onde-teal transition-colors duration-300"
                           >
                             {post.title}
                           </h2>
 
-                          <p className="text-onde-teal/80 font-medium mb-3">{post.subtitle}</p>
+                          <p className="text-onde-teal font-medium mb-3">{post.subtitle}</p>
 
                           {/* Excerpt */}
-                          <p className="text-white/70 text-base leading-relaxed mb-4 line-clamp-2">
+                          <p className="text-onde-ocean/70 dark:text-white/70 text-base leading-relaxed mb-4 line-clamp-2">
                             {post.excerpt}
                           </p>
 
@@ -246,8 +246,8 @@ export default function BlogPage() {
                               <span
                                 key={tag}
                                 className="px-3 py-1 rounded-full text-xs font-medium
-                                           bg-white/5 text-white/50 border border-white/10
-                                           group-hover:bg-white/10 group-hover:text-white/70
+                                           bg-onde-ocean/5 dark:bg-white/5 text-onde-ocean/60 dark:text-white/50 border border-onde-ocean/10 dark:border-white/10
+                                           group-hover:bg-onde-ocean/10 dark:group-hover:bg-white/10 group-hover:text-onde-ocean dark:group-hover:text-white/70
                                            transition-all duration-300"
                               >
                                 {tag}
@@ -259,7 +259,7 @@ export default function BlogPage() {
                         {/* Arrow */}
                         <div
                           className="hidden md:flex flex-shrink-0 items-center self-center
-                                     text-white/20 group-hover:text-onde-teal group-hover:translate-x-1
+                                     text-onde-ocean/20 dark:text-white/20 group-hover:text-onde-teal group-hover:translate-x-1
                                      transition-all duration-300"
                         >
                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,38 +288,38 @@ export default function BlogPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl font-display font-bold text-center text-white mb-8">
+          <h2 className="text-2xl font-display font-bold text-center text-onde-ocean dark:text-white mb-8">
             ✨ Explore More on Onde
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
               href="/libri/"
-              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-white/20 transition-all active:scale-[0.98]"
+              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-onde-ocean/20 dark:hover:border-white/20 transition-all active:scale-[0.98]"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">📚</span>
               <div>
-                <p className="font-bold text-white">Books</p>
-                <p className="text-sm text-white/60">Free illustrated classics</p>
+                <p className="font-bold text-onde-ocean dark:text-white">Books</p>
+                <p className="text-sm text-onde-ocean/60 dark:text-white/60">Free illustrated classics</p>
               </div>
             </Link>
             <Link
               href="/games/"
-              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-white/20 transition-all active:scale-[0.98]"
+              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-onde-ocean/20 dark:hover:border-white/20 transition-all active:scale-[0.98]"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🎮</span>
               <div>
-                <p className="font-bold text-white">Games</p>
-                <p className="text-sm text-white/60">50+ free browser games</p>
+                <p className="font-bold text-onde-ocean dark:text-white">Games</p>
+                <p className="text-sm text-onde-ocean/60 dark:text-white/60">50+ free browser games</p>
               </div>
             </Link>
             <Link
               href="/about/"
-              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-white/20 transition-all active:scale-[0.98]"
+              className="group flex items-center gap-3 p-5 min-h-[64px] card-3d hover:border-onde-ocean/20 dark:hover:border-white/20 transition-all active:scale-[0.98]"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🌊</span>
               <div>
-                <p className="font-bold text-white">About</p>
-                <p className="text-sm text-white/60">Our story & mission</p>
+                <p className="font-bold text-onde-ocean dark:text-white">About</p>
+                <p className="text-sm text-onde-ocean/60 dark:text-white/60">Our story & mission</p>
               </div>
             </Link>
           </div>
