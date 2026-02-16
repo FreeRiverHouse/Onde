@@ -57,6 +57,24 @@ export const blogPosts: BlogPost[] = [
     contentHtml: `<p>A free, kid-friendly Minecraft skin creator with AI-powered tools, 3D preview, and dozens of templates. Designed for young gamers — no ads, no signup, no data collection.</p><p>Kids can design custom skins in minutes using simple drawing tools and smart AI color suggestions. Works with Minecraft Java &amp; Bedrock editions.</p><p><a href="https://onde.la/blog/free-minecraft-skin-creator-kids/">Read more →</a></p><p><a href="https://onde.la/games/skin-creator/">🎨 Open Skin Creator</a></p>`,
   },
   {
+    slug: 'free-roblox-avatar-creator',
+    title: 'Free Roblox Avatar Creator — Design Custom Skins Online',
+    subtitle: 'AI-Powered Roblox Skins',
+    description:
+      'Create custom Roblox avatars and skins for free with our online creator. AI-powered outfit maker, character customizer, multi-game support. No download, no signup.',
+    date: 'February 2026',
+    dateISO: '2026-02-19T00:00:00Z',
+    readTime: '5 min read',
+    category: 'Design',
+    tags: ['Roblox', 'Avatar', 'Skin Creator', 'Free Tool', 'Gaming', 'Kids', 'AI'],
+    emoji: '🟣',
+    gradient: 'from-purple-500 via-fuchsia-500 to-pink-500',
+    excerpt:
+      'Design unique Roblox avatars with our free AI-powered creator. Character customizer, 3D preview, multi-game export — no download, no signup.',
+    lang: 'en',
+    contentHtml: `<p>Create custom Roblox avatars and skins for free with Onde's online creator. Features include a pixel canvas editor, real-time 3D preview, AI-powered outfit suggestions, and multi-game export (Roblox, Minecraft, Fortnite, Among Us).</p><p>Kid-safe, no ads, no tracking, no signup required. Works on desktop, tablet, and mobile.</p><p><a href="https://onde.la/blog/free-roblox-avatar-creator/">Read more →</a></p><p><a href="https://onde.la/games/skin-creator/">🟣 Open Avatar Creator</a></p>`,
+  },
+  {
     slug: 'skin-creator-minecraft',
     title: 'Free Minecraft Skin Creator — Design Your Perfect Skin Online',
     subtitle: 'Create, Preview & Download',
