@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T07:17:23.195581+00:00",
+  "timestamp": "2026-02-16T07:47:44.900709+00:00",
   "sources": [
     "coindesk",
     "cointelegraph",
@@ -9,6 +9,13 @@
   "failed_sources": [],
   "article_count": 40,
   "results": [
+    {
+      "title": "Animoca Brands secures Dubai crypto license to expand services in Middle East",
+      "url": "https://cointelegraph.com/news/animoca-brands-dubai-vara-vasp-license-middle-east?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Dubai\u2019s regulator approved the license on Feb. 5, allowing Animoca Brands to target institutional and qualified investors under the oversight of Dubai\u2019s VARA.",
+      "published": "2026-02-16T07:22:14+00:00"
+    },
     {
       "title": "Crypto market drowns in red as bitcoin falls to $68,000",
       "url": "https://www.coindesk.com/markets/2026/02/16/crypto-market-drowns-in-red-as-bitcoin-falls-to-usd68-000",
@@ -127,13 +134,6 @@
       "source": "coindesk",
       "description": "Several leaders in Hong Kong announced efforts to advance the region's regulatory environment.",
       "published": "2026-02-15T19:00:00+00:00"
-    },
-    {
-      "title": "Michael Saylor signals another Bitcoin buy amid market rout",
-      "url": "https://cointelegraph.com/news/michael-saylor-signals-strategy-buy-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The purchase will mark week 12 of consecutive buys by Strategy, which continues accumulating BTC despite a sharp decline in the company's stock price.",
-      "published": "2026-02-15T18:55:52+00:00"
     },
     {
       "title": "Her Divorce Was Ugly. Crypto Became a Lifeline",

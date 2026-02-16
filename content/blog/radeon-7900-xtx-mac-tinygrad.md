@@ -122,12 +122,15 @@ The 570.x firmware doesn't support Thunderbolt 4/USB4 bus types. This is a firmw
 
 1. **Hardware:** Any AMD RDNA2/RDNA3 GPU + Thunderbolt eGPU enclosure + Apple Silicon Mac
 2. **Software:** TinyGPU.app (contact us for access)
-3. **Clone our fork:**
+3. **Clone tinygrad and apply our patch:**
 ```bash
 git clone https://github.com/tinygrad/tinygrad.git
 cd tinygrad
-# Apply the float16 patch to tinygrad/nn/state.py
+# Download and apply the float16 patch
+curl -O https://raw.githubusercontent.com/FreeRiverHouse/tinygrad-mac-egpu-patch/main/float16-ggml-amd.patch
+git apply float16-ggml-amd.patch
 ```
+> 📦 Full patch repo: [FreeRiverHouse/tinygrad-mac-egpu-patch](https://github.com/FreeRiverHouse/tinygrad-mac-egpu-patch)
 4. **Run:**
 ```bash
 AMD=1 AMD_LLVM=1 python3 -c "from tinygrad import Device; print(Device['AMD'])"
@@ -164,4 +167,4 @@ If you're interested in the patch, the full diff is below. We'd love to see this
 
 *Built by [FreeRiverHouse](https://onde.la) — where impossible things happen before breakfast.*
 
-*Have questions? Find us on [X @Onde_FRH](https://x.com/Onde_FRH) or [GitHub](https://github.com/FreeRiverHouse/Onde).*
+*Have questions? Find us on [X @Onde_FRH](https://x.com/Onde_FRH) or [GitHub](https://github.com/FreeRiverHouse/tinygrad-mac-egpu-patch).*

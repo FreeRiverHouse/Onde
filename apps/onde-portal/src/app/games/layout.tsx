@@ -410,6 +410,14 @@ const gamesJsonLd = {
       genre: ['Educational', 'Language'],
       audience: { '@type': 'PeopleAudience', suggestedMinAge: 6 },
     },
+    {
+      '@type': 'WebApplication',
+      name: 'Avatar Creator',
+      description: 'Create and customize your own blocky avatar with dozens of hairstyles, outfits, accessories, and pets. Download as PNG or share with friends!',
+      url: 'https://onde.la/games/roblox-avatar/',
+      genre: ['Educational', 'Creative'],
+      audience: { '@type': 'PeopleAudience', suggestedMinAge: 5 },
+    },
   ],
 };
 

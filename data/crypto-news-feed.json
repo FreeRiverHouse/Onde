@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T07:30:02.962834+00:00",
+  "timestamp": "2026-02-16T15:00:04.360241+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,32 +11,102 @@
   "article_count": 30,
   "results": [
     {
-      "title": "Animoca Brands wins Dubai crypto license to expand services in Middle East",
-      "url": "https://cointelegraph.com/news/animoca-brands-dubai-vara-vasp-license-middle-east?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Dubai\u2019s regulator approved the license on Feb. 5, allowing Animoca Brands to target institutional and qualified investors under the oversight of Dubai\u2019s VARA.",
-      "published": "2026-02-16T07:22:14+00:00"
+      "title": "Binance Founder CZ: Privacy 'Missing Link' for Crypto Payments Adoption",
+      "url": "https://decrypt.co/358153/binance-founder-cz-privacy-missing-link-for-crypto-payments-adoption",
+      "source": "decrypt",
+      "description": "Changpeng Zhao called on the industry to prioritise crypto privacy features, arguing that the gap is holding back mainstream adoption.",
+      "published": "2026-02-16T14:44:13+00:00"
     },
     {
-      "title": "Bitcoin down 22%, could it be the worst Q1 since 2018?",
-      "url": "https://cointelegraph.com/news/bitcoin-track-for-worst-q1-since-2018-first-ever-red-jan-and-feb?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Crypto services platform Nexo relaunches in the United States",
+      "url": "https://cointelegraph.com/news/nexo-relaunch-united-states?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "If Bitcoin posts a loss at the end of this month, it will also mark Bitcoin\u2019s first time ending both January and February in the red.",
-      "published": "2026-02-16T06:18:03+00:00"
+      "description": "Nexo exited the US in 2022, citing regulatory hostility toward the crypto industry from federal and state financial regulators.",
+      "published": "2026-02-16T14:37:41+00:00"
     },
     {
-      "title": "Russians move $129B in crypto yearly \u2018outside our attention\u2019: Official",
-      "url": "https://cointelegraph.com/news/russian-finance-ministry-reveals-648m-daily-crypto-volume-amid-regulatory-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Ray Dalio\u2019s world order warning revives case for Bitcoin as neutral money",
+      "url": "https://cointelegraph.com/news/dalio-collapse-world-order-permissionless-money?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Russia\u2019s deputy finance minister says around 50 billion rubles worth of crypto changes hands daily, calling for crypto market regulation.",
-      "published": "2026-02-16T06:14:41+00:00"
+      "description": "Ray Dalio warns that the rules\u2011based order is now over, putting monetary debasement, dollar risk and neutral, permissionless financial rails back at the center of the macro conversation.",
+      "published": "2026-02-16T14:26:33+00:00"
     },
     {
-      "title": "Kevin O\u2019Leary wins $2.8M defamation suit against Ben Armstrong",
-      "url": "https://cointelegraph.com/news/kevin-o-leary-wins-defamation-suit-against-bitboy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift",
+      "url": "https://bitcoinmagazine.com/news/harvard-trims-bitcoin-position",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift Harvard trimmed its Bitcoin holdings by 21% in the fourth quarter while establishing its first-ever position in Ethereum. This post Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-16T14:23:38+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "A Miami federal judge has entered a default judgment against Ben Armstrong, who failed to respond to Kevin O\u2019Leary\u2019s complaint accusing him of defamation.",
-      "published": "2026-02-16T06:07:14+00:00"
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-16T14:01:21+00:00"
+    },
+    {
+      "title": "When will crypto\u2019s CLARITY Act framework pass in the US Senate?",
+      "url": "https://cointelegraph.com/news/when-will-crypto-clarity-act-law-pass?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The CLARITY Act moved quickly through the House of Representatives since it was introduced in June 2025 but has been plagued with delays in the Senate.",
+      "published": "2026-02-16T13:08:15+00:00"
+    },
+    {
+      "title": "Metaplanet revenue jumps 738% as Bitcoin generates 95% of sales",
+      "url": "https://cointelegraph.com/news/metaplanet-revenue-jumps-738-percent-bitcoin-generates-95-percent-revenue?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Metaplanet reported about $40 million in operating profit but still recorded a $619 million net loss amid the Bitcoin price drop.",
+      "published": "2026-02-16T12:10:52+00:00"
+    },
+    {
+      "title": "Binance denies report on Iran-linked sanctions breaches and investigator firings",
+      "url": "https://cointelegraph.com/news/binance-denies-iran-sanctions-report-fortune?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Binance said an internal review with external counsel found no sanctions violations and that it continues to meet its regulatory obligations under monitoring and oversight.",
+      "published": "2026-02-16T11:09:48+00:00"
+    },
+    {
+      "title": "Animoca Granted Dubai License Amid Stricter Crypto Oversight",
+      "url": "https://decrypt.co/358149/animoca-granted-dubai-license-amid-stricter-crypto-oversight",
+      "source": "decrypt",
+      "description": "Animoca Brands calls Dubai a strategic hub for institutional clients as the emirate builds compliance-driven crypto markets.",
+      "published": "2026-02-16T10:57:46+00:00"
+    },
+    {
+      "title": "$75K or bearish \u2018regime shift?\u2019 Five things to know in Bitcoin this week",
+      "url": "https://cointelegraph.com/news/75k-or-bearish-regime-shift-five-things-to-know-in-bitcoin-this-week?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin market analysis focused on liquidations and the wick to $59,000 for signs of the next significant BTC price move on lower time frames.",
+      "published": "2026-02-16T10:41:38+00:00"
+    },
+    {
+      "title": "Crypto Traders Rotate Into Select Altcoins as Bitcoin Stalls",
+      "url": "https://decrypt.co/358144/crypto-traders-rotate-into-select-altcoins-as-bitcoin-stalls",
+      "source": "decrypt",
+      "description": "Altcoins notch double-digit weekly gains as Bitcoin remains rangebound, but most remain well below all-time highs with macro data looming.",
+      "published": "2026-02-16T10:37:23+00:00"
+    },
+    {
+      "title": "Crypto funds log fourth week of outflows at $173M as BTC dips below $70K",
+      "url": "https://cointelegraph.com/news/crypto-etf-4-week-outflows-173-million-btc-below-70k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Crypto funds saw $173 million outflows last week as Bitcoin and Ether slipped, while XRP and Solana bucked the trend across global markets.",
+      "published": "2026-02-16T09:59:52+00:00"
+    },
+    {
+      "title": "Willy Woo warns quantum risk is eroding Bitcoin\u2019s edge over gold",
+      "url": "https://cointelegraph.com/news/willy-woo-bitcoin-quantum-risk-gold-lost-coins-post-quantum-upgrade?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Onchain analyst Willy Woo says markets are starting to price in the quantum threat, putting 4 million \u201clost\u201d BTC and a 12\u2011year valuation uptrend versus gold into question.",
+      "published": "2026-02-16T09:42:50+00:00"
+    },
+    {
+      "title": "OKX secures EU payment license to expand stablecoin services",
+      "url": "https://cointelegraph.com/news/okx-secures-eu-payment-license-to-expand-stablecoin-services?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "OKX secured a Malta payment institution license to support EU-compliant stablecoin services, including OKX Pay and the OKX Card.",
+      "published": "2026-02-16T09:12:58+00:00"
     },
     {
       "title": "OpenAI Taps OpenClaw Founder to Lead Push Into Personal AI Agents",
@@ -53,13 +123,6 @@
       "published": "2026-02-16T05:13:09+00:00"
     },
     {
-      "title": "Aave founder pitches $50T \u2018abundance asset\u2019 boom to drive DeFi",
-      "url": "https://cointelegraph.com/news/aave-founder-defi-tokenize-50t-abundance-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Aave Labs CEO Stani Kulechov said onchain lending could help accelerate the development of solar, energy storage and robotics by putting money behind \u201cfuture-proof\u201d assets.",
-      "published": "2026-02-16T05:04:07+00:00"
-    },
-    {
       "title": "Bitcoin Leverage Heats Up as Traders Bet on Price Rebound",
       "url": "https://decrypt.co/358134/bitcoin-leverage-heats-up-as-traders-bet-on-price-rebound",
       "source": "decrypt",
@@ -67,46 +130,11 @@
       "published": "2026-02-16T04:24:00+00:00"
     },
     {
-      "title": "Strategy to equitize convertible debt over 3-6 years: Saylor",
-      "url": "https://cointelegraph.com/news/strategy-plans-equitize-convertible-debt-over-next-3-6-years-saylor?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The world\u2019s largest digital asset treasury plans to convert $6 billion in bond debt to equity, claiming that it could survive an 88% Bitcoin crash.",
-      "published": "2026-02-16T04:14:47+00:00"
-    },
-    {
       "title": "Hollywood\u2019s AI Crackdown Opens Door for Copyright Detection Startups",
       "url": "https://decrypt.co/358131/hollywoods-ai-crackdown-copyright-detection-startups",
       "source": "decrypt",
       "description": "Studios are escalating pressure on AI developers, as new tools aim to document whether generative models are trained on copyrighted material.",
       "published": "2026-02-16T02:49:10+00:00"
-    },
-    {
-      "title": "Grayscale seeks to convert Aave trust into ETF on NYSE Arca",
-      "url": "https://cointelegraph.com/news/grayscale-files-convert-aave-trust-etf-launch-nyse-arca?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Grayscale joins Bitwise in filing to launch a standalone Aave product in the US, betting that Wall Street has retained its appetite for altcoins.",
-      "published": "2026-02-16T02:44:26+00:00"
-    },
-    {
-      "title": "TradFi giant Apollo enters crypto lending  arena via Morpho deal",
-      "url": "https://cointelegraph.com/news/apollo-deepens-blockchain-play-enters-crypto-lending-via-morpho-partnership?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The $940 billion asset manager will collaborate on DeFi lending infrastructure and could acquire up to 90 million MORPHO tokens.",
-      "published": "2026-02-16T02:28:01+00:00"
-    },
-    {
-      "title": "Solution worse than problem? Adam Back opposes BIP-110 Ordinals fix",
-      "url": "https://cointelegraph.com/news/adam-back-opposes-bip110-fixing-arbitrary-data-spam?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Blockstream\u2019s Adam Back said BIP-110 could be used to freeze user funds, but the proposal\u2019s creator argues that safeguards are in place to prevent that.",
-      "published": "2026-02-16T01:57:35+00:00"
-    },
-    {
-      "title": "CZ says lack of onchain privacy is holding back crypto payments",
-      "url": "https://cointelegraph.com/news/cz-privacy-holding-back-crypto-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Transparency, which is a hallmark feature of most cryptocurrencies, is likely one of the biggest hurdles to mass adoption, the Binance founder said.",
-      "published": "2026-02-15T21:33:36+00:00"
     },
     {
       "title": "OpenClaw Creator Gets Big Offers to Acquire AI Sensation\u2014Will It Stay Open Source?",
@@ -135,27 +163,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Reclaims $70,000 After Deep February Slide After a rough sell-off that dragged BTC near $60,000, the bitcoin price has rebounded above $70,000. This post Bitcoin Price Reclaims $70,000 After Deep February Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-15T05:00:44+00:00"
-    },
-    {
-      "title": "Can Meme Coins Power a Senate Bid? Virginia\u2019s Mark Moran Says Yes",
-      "url": "https://decrypt.co/358070/can-meme-coins-power-senate-bid-virginia-mark-moran-says-yes",
-      "source": "decrypt",
-      "description": "Mark Moran is using a meme coin on Solana to elevate his U.S. Senate bid, rallying degens against a pro-crypto Democrat in Virginia.",
-      "published": "2026-02-14T18:14:46+00:00"
-    },
-    {
-      "title": "Bitcoin Is Down Bad, But Hasn't Yet Hit Its 'Ultimate Bear Market Bottom': Analysts",
-      "url": "https://decrypt.co/358083/bitcoin-down-bad-hasnt-hit-ultimate-bear-market-bottom",
-      "source": "decrypt",
-      "description": "Despite its 45% fall since its October peak, Bitcoin has not yet found its bear market bottom, according to a new report from CryptoQuant.",
-      "published": "2026-02-14T16:11:05+00:00"
-    },
-    {
-      "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
-      "url": "https://decrypt.co/358096/blockchain-lender-figure-confirms-customer-data-breach",
-      "source": "decrypt",
-      "description": "Blockchain lender Figure said hackers accessed customer data after an employee was targeted in a social engineering attack.",
-      "published": "2026-02-14T00:04:45+00:00"
     },
     {
       "title": "How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Thailand Moves to Cement Bitcoin and Digital Assets in Regulated Derivatives Market Thailand is moving to cement bitcoin and other digital assets as legitimate, regulated reference assets in its derivatives and capital markets. This post Thailand Moves to Cement Bitcoin and Digital Assets in Regulated Derivatives Market first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-12T20:07:39+00:00"
-    },
-    {
-      "title": "Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows",
-      "url": "https://bitcoinmagazine.com/news/strategy-mstr-accounted-corporate-bitcoin",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows The corporate adoption of bitcoin was dominated by a single player last month \u2014 Strategy. This post Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-12T18:52:50+00:00"
     }
   ]
 }

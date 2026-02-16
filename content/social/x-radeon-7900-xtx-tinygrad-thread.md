@@ -72,7 +72,8 @@ Not perfect, not fast, but opens the door. And Thunderbolt 5 (80 Gbps) will shri
 ## Tweet 8 (CTA)
 The patch is ~20 lines in tinygrad/nn/state.py. We'd love to see it upstreamed.
 
-Full writeup with code, benchmarks, and how-to reproduce coming on our blog.
+🔗 Patch: github.com/FreeRiverHouse/tinygrad-mac-egpu-patch
+📖 Full writeup: onde.la/blog/radeon-7900-xtx-mac-tinygrad
 
 Built at @FreeRiverHouse — where impossible things happen before breakfast ☕
 

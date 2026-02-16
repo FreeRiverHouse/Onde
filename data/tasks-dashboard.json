@@ -1,22 +1,23 @@
 {
-  "timestamp": "2026-02-15T23:30:01.568822",
+  "timestamp": "2026-02-16T07:00:01.825996",
   "stats": {
-    "total": 220,
-    "done": 195,
-    "in_progress": 5,
+    "total": 231,
+    "done": 202,
+    "in_progress": 6,
     "blocked": 3,
-    "todo": 17,
-    "completion_rate": 88.6,
+    "todo": 20,
+    "completion_rate": 87.4,
     "by_priority": {
       "P1": 4,
-      "P3": 21
+      "P3": 25
     },
     "by_owner": {
       "@clawdinho": 13,
       "unassigned": 5,
       "@mattia": 2,
       "@kalshi-paper-agent": 1,
-      "@kalshi-winrate-monitor": 1
+      "@kalshi-winrate-monitor": 1,
+      "@clawd": 4
     }
   },
   "tasks": [
@@ -80,22 +81,6 @@
       "title": "Dashboard autotrader su onde.surf funzionante con grafici trend",
       "impact": "\ud83d\udd25 Trading",
       "status": "IN_PROGRESS",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "GROK-TRADE-003",
-      "title": "Parlay-specific edge thresholds with dynamic adjustment: single-leg cap 15-18%, parlays 35-40% scaled by leg count. Backtest on historical data",
-      "impact": "\ud83d\udd25 Strategy",
-      "status": "TODO",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "GROK-TRADE-004",
-      "title": "Post-trade monitoring + auto-veto overrides with circuit breakers: log vetoed/passed trades, alert clusters of high-edge trades, daily exposure caps, pause-on-loss-streaks",
-      "impact": "\ud83d\udd25 Risk mgmt",
-      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
@@ -206,26 +191,58 @@
       "priority": "P3"
     },
     {
-      "id": "DASH-030",
-      "title": "Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix",
-      "impact": "\u2b50 Dashboard",
+      "id": "VIRAL-001",
+      "title": "Chiedere a Grok lista giochi virali/educativi per onde.la \u2014 SEO-driven, collegati a ricerche Google, da integrare nel portale esistente. Grok deve dare direzione editoriale giochi",
+      "impact": "\ud83d\udd25\ud83d\udd25 CRESCITA",
+      "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "VIRAL-002",
+      "title": "Chiedere a Grok feedback sullo Skin Creator attuale \u2014 cosa migliorare, task per renderlo ancora pi\u00f9 figo",
+      "impact": "\ud83d\udd25 CRESCITA",
+      "status": "TODO",
+      "owner": "@clawd",
+      "priority": "P3"
+    },
+    {
+      "id": "ADS-001",
+      "title": "Valutare e integrare banner ads kid-friendly nei giochi (Skin Creator + altri) \u2014 roba non invadente, pubblicit\u00e0 per bambini",
+      "impact": "\u2b50 Revenue",
+      "status": "TODO",
+      "owner": "@clawd",
+      "priority": "P3"
+    },
+    {
+      "id": "BOOK-001",
+      "title": "Impaginazione professionale PDF \"Il Saggio Imperatore\" \u2014 chiedere a Grok librerie/tool, layout degno di Amazon",
+      "impact": "\ud83d\udd25 Content",
+      "status": "TODO",
+      "owner": "@clawd",
+      "priority": "P3"
+    },
+    {
+      "id": "BOOK-002",
+      "title": "Versione inglese \"Il Saggio Imperatore\" (traduzione + adattamento)",
+      "impact": "\u2b50 Content",
+      "status": "TODO",
+      "owner": "@clawd",
+      "priority": "P3"
+    },
+    {
+      "id": "VIRAL-002",
+      "title": "Build Roblox Avatar Creator game (TIER 1 from viral research, 100K+ monthly searches)",
+      "impact": "\ud83d\udd25\ud83d\udd25 CRESCITA",
       "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "DASH-012",
-      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-013",
-      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
+      "id": "VIRAL-004",
+      "title": "Build Times Table Trainer (TIER 3 educational, parents actively search for this)",
+      "impact": "\u2b50 CRESCITA",
+      "status": "TODO",
       "owner": "@clawdinho",
       "priority": "P3"
     },
@@ -358,6 +375,14 @@
       "priority": "P3"
     },
     {
+      "id": "DASH-030",
+      "title": "Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix",
+      "impact": "\u2b50 Dashboard",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
       "id": "NAV-001",
       "title": "Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile)",
       "impact": "\ud83d\udd25 ALTA",
@@ -369,6 +394,14 @@
       "id": "NAV-002",
       "title": "Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente)",
       "impact": "\u2b50 UX",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "VIRAL-003",
+      "title": "Create /games/minecraft/ hub page linking all MC tools (Skin Creator, Name Gen, Crafting Guide, Enchant Calc)",
+      "impact": "\ud83d\udd25 SEO",
       "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"
@@ -376,22 +409,6 @@
   ],
   "recent_done": [
     {
-      "id": "DASH-012",
-      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
-      "impact": "\ud83d\udea8 CRITICO",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "DASH-013",
-      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
-      "impact": "\ud83d\udd25 ALTA",
-      "status": "DONE",
-      "owner": "@clawdinho",
-      "priority": "P3"
-    },
-    {
       "id": "DASH-014",
       "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
       "impact": "\ud83d\udea8 CRITICO",
@@ -520,6 +537,14 @@
       "priority": "P3"
     },
     {
+      "id": "DASH-030",
+      "title": "Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix",
+      "impact": "\u2b50 Dashboard",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
       "id": "NAV-001",
       "title": "Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile)",
       "impact": "\ud83d\udd25 ALTA",
@@ -531,6 +556,14 @@
       "id": "NAV-002",
       "title": "Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente)",
       "impact": "\u2b50 UX",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "VIRAL-003",
+      "title": "Create /games/minecraft/ hub page linking all MC tools (Skin Creator, Name Gen, Crafting Guide, Enchant Calc)",
+      "impact": "\ud83d\udd25 SEO",
       "status": "DONE",
       "owner": "@clawdinho",
       "priority": "P3"
