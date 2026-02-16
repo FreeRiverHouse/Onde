@@ -514,3 +514,13 @@
 |---|----|----- |--------|--------|-------|
 | 181 | NAV-001 | Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile) | 🔥 ALTA | ✅ DONE | @clawdinho | MobileNav hamburger già esisteva, aggiunto Trading + Health. Deploy verificato 2026-02-15 23:07 |
 | 182 | NAV-002 | Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente) | ⭐ UX | ✅ DONE | @clawdinho | Analytics card già presente nella Navigation Cards Row della homepage + quick link desktop nav |
+
+### 🔥 NUOVI (da Mattia 2026-02-15 23:36 — crescita traffico + monetizzazione)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 183 | VIRAL-001 | Chiedere a Grok lista giochi virali/educativi per onde.la — SEO-driven, collegati a ricerche Google, da integrare nel portale esistente. Grok deve dare direzione editoriale giochi | 🔥🔥 CRESCITA | TODO | @clawd | Skin Creator è la pagina più visitata → replicare il successo con altri giochi virali. Grok deve suggerire giochi + keyword target |
+| 184 | VIRAL-002 | Chiedere a Grok feedback sullo Skin Creator attuale — cosa migliorare, task per renderlo ancora più figo | 🔥 CRESCITA | TODO | @clawd | Skin Creator già funziona bene, ma Grok può suggerire miglioramenti per aumentare retention/viralità |
+| 185 | ADS-001 | Valutare e integrare banner ads kid-friendly nei giochi (Skin Creator + altri) — roba non invadente, pubblicità per bambini | ⭐ Revenue | TODO | @clawd | Iniziare a monetizzare anche con poco traffico. Banner carini, non invasivi. Chiedere consigli a Grok su network ads kid-safe (Google AdSense for kids? Superawesome?) |
+| 186 | BOOK-001 | Impaginazione professionale PDF "Il Saggio Imperatore" — chiedere a Grok librerie/tool, layout degno di Amazon | 🔥 Content | TODO | @clawd | PDF attuale troppo basic. Serve impaginazione curata → PDF + EPUB → Amazon. Grok deve approvare prima di chiudere |
+| 187 | BOOK-002 | Versione inglese "Il Saggio Imperatore" (traduzione + adattamento) | ⭐ Content | TODO | @clawd | Depends: BOOK-001 (impaginazione italiana prima). Poi tradurre testo + rigenerare PDF/EPUB in EN |
