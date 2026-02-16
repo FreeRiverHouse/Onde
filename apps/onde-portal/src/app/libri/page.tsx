@@ -6,6 +6,7 @@ import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import { useTranslations } from '@/i18n'
+import KidFriendlyAd from '@/components/KidFriendlyAd'
 
 interface Book {
   id: string
@@ -439,6 +440,13 @@ export default function LibriPage() {
             Stay tuned for new releases.
           </p>
         </motion.div>
+      </section>
+
+      {/* Sponsored — kid-friendly affiliate ad */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div className="flex justify-center">
+          <KidFriendlyAd slot="libri-bottom" className="w-full" />
+        </div>
       </section>
 
       {/* Explore More - Cross Links */}

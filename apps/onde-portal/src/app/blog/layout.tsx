@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import KidFriendlyAd from '@/components/KidFriendlyAd'
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -103,7 +104,22 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
       />
-      {children}
+      <div className="relative">
+        {/* Main content + optional sidebar ad */}
+        <div className="flex flex-col lg:flex-row lg:gap-8 max-w-7xl mx-auto">
+          <div className="flex-1 min-w-0">{children}</div>
+          {/* Blog sidebar ad (visible on lg+) */}
+          <div className="hidden lg:flex flex-col items-center pt-28 pr-4">
+            <div className="sticky top-28">
+              <KidFriendlyAd slot="blog-sidebar" />
+            </div>
+          </div>
+        </div>
+        {/* Mobile blog ad (below content, visible on <lg) */}
+        <div className="flex lg:hidden justify-center py-6 px-4">
+          <KidFriendlyAd slot="blog-sidebar" className="w-full max-w-md" />
+        </div>
+      </div>
     </>
   )
 }

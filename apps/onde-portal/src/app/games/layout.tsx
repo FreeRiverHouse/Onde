@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import KidFriendlyAd from '@/components/KidFriendlyAd';
 
 // Breadcrumb JSON-LD for /games
 const breadcrumbJsonLd = {
@@ -523,7 +524,15 @@ export default function GamesLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gamesHubWebAppJsonLd) }}
       />
+      {/* Desktop banner above games (728×90) */}
+      <div className="flex justify-center py-3">
+        <KidFriendlyAd slot="games-top" />
+      </div>
       {children}
+      {/* Mobile banner below games (320×50) */}
+      <div className="flex justify-center py-3">
+        <KidFriendlyAd slot="games-bottom-mobile" />
+      </div>
     </>
   );
 }

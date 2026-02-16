@@ -83,6 +83,26 @@ export default function Privacy() {
             </ul>
 
             <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
+              Pubblicità e Link Affiliati
+            </h2>
+            <p>
+              Il nostro sito può mostrare banner promozionali con link affiliati (ad es. Amazon Associates).
+              Questi banner:
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Non utilizzano cookie di tracciamento o pixel di monitoraggio</li>
+              <li>Non raccolgono dati comportamentali o personali</li>
+              <li>Mostrano contenuti contestuali basati solo sulla pagina visitata, non sul profilo dell'utente</li>
+              <li>Sono conformi alle normative COPPA (Children's Online Privacy Protection Act)</li>
+              <li>Sono chiaramente etichettati come &quot;Sponsored&quot;</li>
+            </ul>
+            <p className="mt-2">
+              Se acquisti un prodotto tramite un nostro link affiliato, potremmo ricevere una piccola
+              commissione senza alcun costo aggiuntivo per te. Questo ci aiuta a mantenere il sito
+              gratuito e senza pubblicità invasiva.
+            </p>
+
+            <h2 className="font-display text-2xl font-semibold text-onde-ocean dark:text-white mt-12 mb-4">
               Contatti
             </h2>
             <p>
@@ -94,7 +114,7 @@ export default function Privacy() {
 
             <div className="mt-12 pt-8 border-t border-onde-ocean/10 dark:border-gray-700">
               <p className="text-sm text-onde-ocean/50 dark:text-gray-500">
-                Ultimo aggiornamento: Gennaio 2026
+                Ultimo aggiornamento: Luglio 2025
               </p>
             </div>
           </div>
