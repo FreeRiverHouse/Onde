@@ -1798,18 +1798,22 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     if settlement["updated"]:
         print(f"📊 Settled: {settlement['updated']} trades ({settlement['wins']}W/{settlement['losses']}L)")
 
-    # ── Circuit breaker ──
+    # ── Circuit breaker ── (skip in paper mode — we want max data)
     cb_paused, cb_losses, cb_msg = check_circuit_breaker()
     print(f"🔒 Circuit breaker: {cb_msg}")
-    if cb_paused:
+    if cb_paused and not dry_run:
         return
+    elif cb_paused:
+        print("   📝 Paper mode — ignoring circuit breaker, continuing for data collection")
 
-    # ── Daily loss limit ──
+    # ── Daily loss limit ── (skip in paper mode — no real money at risk)
     dl_paused, dl_pnl = check_daily_loss_limit()
     print(f"📊 Daily PnL: ${dl_pnl['net_pnl_cents']/100:+.2f} ({dl_pnl['trades_today']} trades)")
-    if dl_paused:
+    if dl_paused and not dry_run:
         print(f"🛑 Daily loss limit reached (-${DAILY_LOSS_LIMIT_CENTS/100:.2f})")
         return
+    elif dl_paused:
+        print("   📝 Paper mode — ignoring daily loss limit, continuing for data collection")
 
     # ── LLM status ──
     use_heuristic = True
