@@ -1,13 +1,7 @@
 import { getDashboardStats } from '@/lib/data'
 import { PostApproval } from '@/components/PostApproval'
-import { PolyRobortoPanel } from '@/components/PolyRobortoPanel'
-// CordePanel removed - was showing fake characters (Milo Matita etc.)
-import { TechSupportPanel } from '@/components/TechSupportPanel'
-import { TestStatusPanel } from '@/components/TestStatusPanel'
-import { EnhancedStats, WeeklyComparison } from '@/components/EnhancedStats'
+import { EnhancedStats } from '@/components/EnhancedStats'
 import { ActivityFeed } from '@/components/ActivityFeed'
-import { AgentTasksPanel } from '@/components/AgentTasksPanel'
-import { FreeRiverHouse } from '@/components/FreeRiverHouse'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { GlowCard } from '@/components/ui/GlowCard'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
@@ -21,15 +15,15 @@ export default async function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero Header - Ultra Premium */}
-      <div className="mb-16 relative">
+      <div className="mb-10 relative">
         {/* Multi-layer background glow */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none">
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[900px] h-[300px] pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 via-transparent to-purple-500/30 blur-[120px] animate-pulse" />
           <div className="absolute inset-0 bg-gradient-to-b from-teal-500/20 to-transparent blur-[80px]" style={{ animationDelay: '1s' }} />
         </div>
         
         <ScrollReveal animation="fade-up" duration={800}>
-          <div className="relative pt-8">
+          <div className="relative pt-4">
             {/* Animated badge */}
             <div className="flex items-center gap-4 mb-6">
               <div className="group flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm hover:bg-emerald-500/20 transition-all duration-300 cursor-default">
@@ -108,53 +102,17 @@ export default async function Dashboard() {
         </ScrollReveal>
       </div>
 
-      {/* Second Row - PolyRoborto & Weekly Comparison */}
+      {/* Navigation Cards Row */}
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
-        <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
-          <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
-            <ErrorBoundary name="PolyRoborto">
-              <PolyRobortoPanel />
-            </ErrorBoundary>
-          </GlowCard>
-        </ScrollReveal>
-        <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
-          <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
-            <ErrorBoundary name="Weekly Comparison">
-              <WeeklyComparison stats={stats} />
-            </ErrorBoundary>
-          </GlowCard>
-        </ScrollReveal>
-      </div>
-
-      {/* Third Row - Free River House Map */}
-      <ScrollReveal animation="zoom-in" delay={0}>
-        <div className="mb-8">
-          <GlowCard variant="emerald" noPadding noTilt glassIntensity="high">
-            <ErrorBoundary name="Free River House">
-              <FreeRiverHouse />
-            </ErrorBoundary>
-          </GlowCard>
-        </div>
-      </ScrollReveal>
-
-      {/* Fourth Row - Agent Tasks & CORDE */}
-      <div className="grid lg:grid-cols-2 gap-6 mb-8">
         <ScrollReveal animation="fade-right" delay={0}>
-          <GlowCard variant="purple" noPadding noTilt glassIntensity="high">
-            <ErrorBoundary name="Agent Tasks">
-              <AgentTasksPanel />
-            </ErrorBoundary>
-          </GlowCard>
-        </ScrollReveal>
-        <ScrollReveal animation="fade-left" delay={100}>
           <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
             <div className="p-6">
               <h3 className="text-lg font-bold text-white/90 flex items-center gap-2 mb-4">
-                <span>📊</span> Kalshi Trading
+                <span>📊</span> Trading
               </h3>
               <div className="space-y-3">
                 <a href="/betting" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-cyan-500/30 transition-all">
-                  <div className="text-sm text-white/60">Live Dashboard</div>
+                  <div className="text-sm text-white/60">Betting Dashboard</div>
                   <div className="text-white/90 font-medium">View positions & performance →</div>
                 </a>
                 <a href="/trading" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-all">
@@ -165,21 +123,43 @@ export default async function Dashboard() {
             </div>
           </GlowCard>
         </ScrollReveal>
-      </div>
-
-      {/* Fifth Row - Tech Support & Test Status */}
-      <div className="grid lg:grid-cols-3 gap-6 mb-8">
-        <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
-          <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
-            <ErrorBoundary name="Tech Support">
-              <TechSupportPanel />
-            </ErrorBoundary>
+        <ScrollReveal animation="fade-up" delay={50}>
+          <GlowCard variant="purple" noPadding noTilt glassIntensity="high">
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-white/90 flex items-center gap-2 mb-4">
+                <span>🤖</span> Agents
+              </h3>
+              <div className="space-y-3">
+                <a href="/frh" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/30 transition-all">
+                  <div className="text-sm text-white/60">FRH Dashboard</div>
+                  <div className="text-white/90 font-medium">Agent monitoring & tasks →</div>
+                </a>
+                <a href="/house" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500/30 transition-all">
+                  <div className="text-sm text-white/60">House View</div>
+                  <div className="text-white/90 font-medium">Visual agent overview →</div>
+                </a>
+              </div>
+            </div>
           </GlowCard>
         </ScrollReveal>
-        <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
-          <ErrorBoundary name="Test Status">
-            <TestStatusPanel />
-          </ErrorBoundary>
+        <ScrollReveal animation="fade-left" delay={100}>
+          <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-white/90 flex items-center gap-2 mb-4">
+                <span>📈</span> Analytics
+              </h3>
+              <div className="space-y-3">
+                <a href="/analytics" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-amber-500/30 transition-all">
+                  <div className="text-sm text-white/60">Metrics & Trends</div>
+                  <div className="text-white/90 font-medium">Traffic & performance data →</div>
+                </a>
+                <a href="/health" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-amber-500/30 transition-all">
+                  <div className="text-sm text-white/60">System Health</div>
+                  <div className="text-white/90 font-medium">Uptime & service status →</div>
+                </a>
+              </div>
+            </div>
+          </GlowCard>
         </ScrollReveal>
       </div>
 

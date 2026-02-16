@@ -1,1083 +1,515 @@
 {
-  "timestamp": "2026-01-30T22:16:01.945470",
+  "timestamp": "2026-02-15T21:25:54.260977",
   "stats": {
-    "total": 997,
-    "done": 904,
-    "in_progress": 10,
-    "blocked": 4,
-    "todo": 79,
-    "completion_rate": 90.7,
+    "total": 203,
+    "done": 181,
+    "in_progress": 5,
+    "blocked": 3,
+    "todo": 14,
+    "completion_rate": 89.2,
     "by_priority": {
-      "P2": 20,
-      "P1": 6,
-      "P3": 61,
-      "P4": 2,
-      "P0": 4
+      "P1": 4,
+      "P3": 18
     },
     "by_owner": {
-      "@onde-bot-1": 9,
-      "@clawdinho": 1
+      "@clawdinho": 10,
+      "unassigned": 5,
+      "@mattia": 2,
+      "@kalshi-paper-agent": 1,
+      "@kalshi-winrate-monitor": 1
     }
   },
   "tasks": [
     {
-      "id": "T865",
-      "title": "Minecraft Skin Creator: iPad App",
+      "id": "SEO-002",
+      "title": "Submit skin-creator a Google Search Console",
+      "impact": "\ud83d\udd25 Indicizzazione Google",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P1"
+    },
+    {
+      "id": "MKTG-001",
+      "title": "Post skin creator su r/Minecraft e r/Roblox",
+      "impact": "\ud83d\udd25 Marketing diretto",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P1"
+    },
+    {
+      "id": "MKTG-002",
+      "title": "YouTube Shorts demo skin creator",
+      "impact": "\ud83d\udd25 Viralit\u00e0 video",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P1"
+    },
+    {
+      "id": "SOC-001",
+      "title": "Review X presence e engagement recente",
+      "impact": "\ud83d\udcc8 Social presence",
       "status": "BLOCKED",
-      "owner": "@onde-bot-1",
-      "depends": [
-        "T864"
-      ],
-      "priority": "P2"
+      "priority": "P1"
     },
     {
-      "id": "T696",
-      "title": "Surfboard: Upgrade to Next.js 15",
+      "id": "ANALYTICS-001",
+      "title": "Setup Plausible/Umami analytics",
+      "impact": "\ud83d\udcca Growth",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-005",
+      "title": "Mission Control: Activity logging from heartbeats",
+      "impact": "\ud83d\udd25 Agent monitoring",
       "status": "BLOCKED",
-      "owner": "@clawd",
-      "depends": [],
-      "priority": "P2"
+      "owner": "@clawdinho",
+      "priority": "P3"
     },
     {
-      "id": "T091",
-      "title": "Creare agente PM per review task",
+      "id": "PERF-003",
+      "title": "Fix Cloudflare robots.txt conflict (duplicate User-agent blocks)",
+      "impact": "\u2b50 SEO",
       "status": "TODO",
-      "owner": "@clawd",
-      "completed": "2026-01-29",
-      "depends": [
-        "T090"
-      ],
-      "priority": "P1"
+      "owner": "@clawdinho",
+      "priority": "P3"
     },
     {
-      "id": "T206",
-      "title": "Fix onde.surf GH Actions deploy (billing issue)",
+      "id": "TRADE-002",
+      "title": "Dashboard autotrader su onde.surf funzionante con grafici trend",
+      "impact": "\ud83d\udd25 Trading",
+      "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "MONEY-001",
+      "title": "Valutare e aggiungere ads kid-friendly su onde.la",
       "status": "TODO",
-      "owner": "@clawd",
-      "completed": "2026-01-28"
+      "priority": "P3"
     },
     {
-      "id": "T229",
-      "title": "Add hreflang tags for multilingual pages",
+      "id": "SEO-017",
+      "title": "Disabilitare CF AI Audit che blocca crawler AI (ClaudeBot, GPTBot, Google-Extended)",
+      "impact": "\ud83d\udea8 BLOCCANTE",
+      "status": "TODO",
+      "owner": "@mattia",
+      "priority": "P3"
+    },
+    {
+      "id": "SOC-002",
+      "title": "Post X thread su Radeon 7900 XTX + TinyGrad on Mac",
+      "impact": "\ud83d\udd25 Social/Content",
       "status": "BLOCKED",
-      "priority": "P3"
-    },
-    {
-      "id": "T272",
-      "title": "Add autotrader v2 trade count to /health page",
-      "status": "BLOCKED",
-      "priority": "P3"
-    },
-    {
-      "id": "T286",
-      "title": "Kelly criterion effectiveness tracking",
-      "status": "TODO",
-      "owner": "@clawd",
-      "completed": "2026-01-30",
-      "priority": "P3"
-    },
-    {
-      "id": "T342",
-      "title": "Trading history API caching",
-      "status": "TODO",
-      "owner": "@clawd",
-      "completed": "2026-01-30",
-      "depends": [
-        "T260"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T369",
-      "title": "Analyze trades by volatility bucket",
-      "status": "TODO",
-      "owner": "@clawd",
-      "completed": "2026-01-29",
-      "priority": "P3"
-    },
-    {
-      "id": "T892",
-      "title": "Skin Creator: Localize App Store Listings",
-      "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "depends": [
-        "T889"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T896",
-      "title": "Skin Studio: Add Roblox skin export format",
-      "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "depends": [
-        "T888"
-      ],
-      "priority": "P2"
-    },
-    {
-      "id": "T893",
-      "title": "Local LLM Integration: Health Check + Fallback",
-      "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T921",
-      "title": "Skin Creator: Add Random Template Generator",
-      "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "depends": [
-        "T864"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T922",
-      "title": "Skin Creator: Canvas History Sidebar",
-      "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "depends": [
-        "T887"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T913",
-      "title": "Feature Request: Streaming Responses in GUI",
-      "status": "TODO",
-      "depends": [
-        "T909"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T914",
-      "title": "Feature Request: Conversation Memory",
-      "status": "TODO",
-      "depends": [
-        "T909"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T915",
-      "title": "LLM-FEATURE: Test feature",
-      "status": "TODO",
-      "created": "2026-01-30 18:12",
-      "priority": "P3"
-    },
-    {
-      "id": "T928",
-      "title": "Moonlight: Add haptic feedback",
-      "status": "TODO",
       "owner": "@clawdinho",
-      "created": "2026-01-30 18:37",
-      "priority": "P4"
+      "priority": "P3"
     },
     {
-      "id": "T920",
-      "title": "Moonlight REVAMP: Grafica Professionale (DA MATTIA 2888)",
-      "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "created": "2026-01-30 19:05",
-      "blocks": [
-        "T921",
-        "T922",
-        "T923"
-      ],
-      "priority": "P0"
-    },
-    {
-      "id": "T921",
-      "title": "Moonlight REVAMP: UI/UX Moderno",
+      "id": "SOC-003",
+      "title": "Configurare Typefully API key per posting automatico su X",
+      "impact": "\ud83d\udd25 Social",
       "status": "TODO",
-      "depends": [
-        "T920"
-      ],
-      "priority": "P1"
+      "owner": "@mattia",
+      "priority": "P3"
     },
     {
-      "id": "T922",
-      "title": "Moonlight: Aggiungere GIOCHI (DA MATTIA 2888)",
+      "id": "TRADE-010",
+      "title": "A/B test live: autotrader v2 con nuovi caps vs paper mode vecchi caps per 1 settimana",
+      "impact": "\u2b50 Trading",
       "status": "TODO",
-      "created": "2026-01-30 19:05",
-      "priority": "P0"
+      "priority": "P3"
     },
     {
-      "id": "T878",
-      "title": "Moonlight Magic House: Interactive Pet Reactions (MM-023)",
+      "id": "TRADE-015",
+      "title": "Re-run kelly sweep dopo 30+ settled crypto trades",
+      "impact": "\u2b50 Trading",
       "status": "TODO",
-      "depends": [
-        "T876"
-      ],
-      "priority": "P2"
+      "priority": "P3"
     },
     {
-      "id": "T934",
-      "title": "Dashboard FRH: Task Management Panel",
+      "id": "PM-001",
+      "title": "Creare script polymarket-navigator.py con funzioni navigate/scroll/bet/screenshot",
+      "impact": "\ud83d\udd25 Trading",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-005",
+      "title": "Opus Forecaster: automated market scanning + trading ogni heartbeat",
+      "impact": "\ud83d\udd25 Trading",
       "status": "IN_PROGRESS",
       "owner": "@clawdinho",
-      "created_by": "@onde-bot-1",
-      "started": "2026-02-15 17:05 PST",
-      "blocks": [
-        "T935",
-        "T936"
-      ],
-      "priority": "P1"
-    },
-    {
-      "id": "T935",
-      "title": "Dashboard FRH: Agents Monitoring",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "depends": [
-        "T934"
-      ],
-      "priority": "P1"
-    },
-    {
-      "id": "T936",
-      "title": "Dashboard FRH: System Monitoring (Mac/CPU/Analytics)",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "depends": [
-        "T934"
-      ],
-      "priority": "P1"
-    },
-    {
-      "id": "T937",
-      "title": "Dashboard FRH: Unified Control Panel",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "depends": [
-        "T934",
-        "T935",
-        "T936"
-      ],
-      "priority": "P0"
-    },
-    {
-      "id": "T940",
-      "title": "Moonlight: Book Cover Images for Library",
-      "status": "TODO",
-      "created": "2026-02-15",
-      "depends": [
-        "T917"
-      ],
-      "priority": "P2"
-    },
-    {
-      "id": "T941",
-      "title": "Moonlight: More Demo Pages for Books",
-      "status": "TODO",
-      "created": "2026-02-15",
-      "depends": [
-        "T917"
-      ],
       "priority": "P3"
     },
     {
-      "id": "T943",
-      "title": "Documentation: Bot LLM Integration Examples",
+      "id": "~~TRADE-006~~",
+      "title": "~~Kalshi: deposit pi\u00f9 fondi~~",
+      "impact": "~~\ud83d\udea8 BLOCCANTE~~",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "PM-003",
+      "title": "Polymarket: Sub-agent scanner mercati sport",
+      "impact": "\u2b50 Media",
       "status": "TODO",
       "owner": "@clawdinho",
-      "created": "2026-01-30",
-      "depends": [
-        "T910"
-      ],
       "priority": "P3"
     },
     {
-      "id": "T944",
-      "title": "Heartbeat: Use Local LLM for Simple Summarization",
+      "id": "PM-004",
+      "title": "Polymarket: Collegare dashboard PolyRoborto a dati reali",
+      "impact": "\u2b50 Media",
       "status": "TODO",
       "owner": "@clawdinho",
-      "created": "2026-01-30",
-      "depends": [
-        "T910"
-      ],
       "priority": "P3"
     },
     {
-      "id": "T945",
-      "title": "Minecraft Skin Creator: Premium Templates Pack",
-      "status": "TODO",
-      "depends": [
-        "T864"
-      ],
-      "priority": "P2"
-    },
-    {
-      "id": "T946",
-      "title": "Minecraft Skin Creator: AI Generation Improvements",
-      "status": "TODO",
-      "depends": [
-        "T864"
-      ],
-      "priority": "P2"
-    },
-    {
-      "id": "T947",
-      "title": "Minecraft Skin Creator: Community Gallery",
-      "status": "TODO",
-      "depends": [
-        "T864"
-      ],
-      "priority": "P3"
-    },
-    {
-      "id": "T943",
-      "title": "Fix: LLM Latency Reporting - Show Real Query Time",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T952",
-      "title": "Skin Creator: Glow Toggle Button in UI",
+      "id": "PERM-001",
+      "title": "Polymarket: Microbet a raffica via phone mirror (24/7)",
+      "impact": "\ud83d\udea8 PERMANENTE",
       "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T961",
-      "title": "Skin Creator: Rename Saved Skins",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T962",
-      "title": "Skin Creator: Duplicate Skin Button",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T963",
-      "title": "Skin Creator: Skin Tags/Categories",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T964",
-      "title": "Skin Creator: QR Code Share",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T965",
-      "title": "Skin Creator: Social Share Buttons",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T966",
-      "title": "Skin Creator: Import from URL",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T967",
-      "title": "Skin Creator: Keyboard Shortcut Hints",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T968",
-      "title": "Skin Creator: Touch Gesture Support",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T969",
-      "title": "Skin Creator: Drawing Pressure Sensitivity",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T970",
-      "title": "Skin Creator: Export for Fortnite",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T971",
-      "title": "Skin Creator: Export History",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T972",
-      "title": "Skin Creator: Batch Export (All Formats)",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T973",
-      "title": "Skin Creator: Sound Volume Control",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T974",
-      "title": "Skin Creator: Mute Toggle",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T975",
-      "title": "Skin Creator: Custom Sound Packs",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P4"
-    },
-    {
-      "id": "T980",
-      "title": "Skin Creator: Environment Maps",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T982",
-      "title": "Skin Creator: AI Style Transfer",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T983",
-      "title": "Skin Creator: Smart Color Picker",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T984",
-      "title": "Skin Creator: Skin Rating/Feedback",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T985",
-      "title": "Skin Creator: Animated Background",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T989",
-      "title": "Skin Creator: Custom Particle Colors",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T990",
-      "title": "Skin Creator: Particle Presets",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T991",
-      "title": "Skin Creator: Video Recording",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T992",
-      "title": "Skin Creator: Screenshot Backgrounds",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T995",
-      "title": "Skin Creator: Camera Orbit Path",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T996",
-      "title": "Skin Creator: First Person View",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T997",
-      "title": "Skin Creator: Particle Intensity Slider",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T998",
-      "title": "Skin Creator: Particle Speed Control",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T999",
-      "title": "Skin Creator: Particle Shape Options",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1002",
-      "title": "Skin Creator: Combat Pose",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1003",
-      "title": "Skin Creator: Achievement System",
+      "id": "PERM-002",
+      "title": "Kalshi: Paper trading continuo con autotrader v3 (24/7)",
+      "impact": "\ud83d\udea8 PERMANENTE",
       "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1004",
-      "title": "Skin Creator: Daily Challenge",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1005",
-      "title": "Skin Creator: Leaderboard",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
+      "owner": "@kalshi-paper-agent",
       "priority": "P3"
     },
     {
-      "id": "T1007",
-      "title": "Skin Creator: Pinch-to-Zoom Mobile",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1009",
-      "title": "Skin Creator: Smooth Zoom Animation",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1010",
-      "title": "Skin Creator: Zoom Level Indicator",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1011",
-      "title": "Skin Creator: Zoom Presets",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1012",
-      "title": "Skin Creator: Right-Click Context Menu",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1014",
-      "title": "Skin Creator: Touch Gestures Guide",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1017",
-      "title": "Skin Creator: Animation Speed Control",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1018",
-      "title": "Skin Creator: Achievement Gallery",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1019",
-      "title": "Skin Creator: Achievement Sound Effects",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1020",
-      "title": "Skin Creator: Secret Achievements",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1021",
-      "title": "Skin Creator: Customizable Shortcuts",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1023",
-      "title": "Skin Creator: Onboarding Tutorial",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1024",
-      "title": "Moonlight: Deploy Footstep Dust Puffs to onde.la",
-      "status": "TODO",
-      "created_by": "@clawdinho",
-      "priority": "P2"
-    },
-    {
-      "id": "T1025",
-      "title": "Moonlight: Add Pet Sound Effects on Tap (MM-024)",
-      "status": "TODO",
-      "created_by": "@clawdinho",
-      "depends": [
-        "T878"
-      ],
-      "priority": "P2"
-    },
-    {
-      "id": "T1026",
-      "title": "Infra: Add Moonlight Build to Daily Test Suite",
-      "status": "TODO",
-      "created_by": "@clawdinho",
-      "priority": "P3"
-    },
-    {
-      "id": "T1024",
-      "title": "Skin Creator: Floating Help Tips",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1025",
-      "title": "Skin Creator: Help Search",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1026",
-      "title": "Skin Creator: Video Tutorials Link",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1027",
-      "title": "Skin Creator: Orange Justice Dance",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1028",
-      "title": "Skin Creator: Default Dance",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1029",
-      "title": "Skin Creator: Dance Music Option",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1030",
-      "title": "Skin Creator: Pose Favorites",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1031",
-      "title": "Skin Creator: Custom Pose Creator",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1032",
-      "title": "Skin Creator: Pose Timeline",
-      "status": "TODO",
-      "created_by": "@onde-bot-1",
-      "priority": "P3"
-    },
-    {
-      "id": "T1033",
-      "title": "\ud83e\udd16 GROK Review: Onde Apps Feedback",
+      "id": "PERM-003",
+      "title": "Kalshi: Monitor win rate \u2192 passare a live quando profittevole",
+      "impact": "\ud83d\udea8 PERMANENTE",
       "status": "IN_PROGRESS",
-      "owner": "@onde-bot-1",
-      "created_by": "@mattia",
-      "priority": "P0"
+      "owner": "@kalshi-winrate-monitor",
+      "priority": "P3"
     },
     {
-      "id": "T976",
-      "title": "Skin Creator: Advanced 3D Shaders",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T977",
-      "title": "Skin Creator: AI Texture Enhancement",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T978",
-      "title": "Games: Research Google Veo/AI Graphics",
+      "id": "PM-002",
+      "title": "Polymarket: Aggiorna GOLDEN-CONFIG su GitHub",
+      "impact": "\ud83d\udd25 Alta",
       "status": "DONE",
       "owner": "@clawdinho",
-      "completed": "2026-01-30 22:15 PST",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
+      "priority": "P3"
     },
     {
-      "id": "T979",
-      "title": "Skin Creator: Post-Processing Effects",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T981",
-      "title": "Skin Creator: Particle Effects",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T986",
-      "title": "Skin Creator: Screenshot Mode",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T987",
-      "title": "Skin Creator: Multiple Camera Angles",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T988",
-      "title": "Infra: Fix GPU Detection in agent-dashboard-data.sh",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@clawdinho",
-      "priority": "P1"
-    },
-    {
-      "id": "T989",
-      "title": "Research: Analizza Tweet @rasmr_eth per ROADMAP",
+      "id": "TRADE-016",
+      "title": "Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri",
+      "impact": "\ud83d\udd25 Trading validation",
       "status": "DONE",
       "owner": "@clawdinho",
-      "completed": "2026-01-30 22:10 PST",
-      "created_by": "@clawdinho",
-      "priority": "P1"
-    },
-    {
-      "id": "T988",
-      "title": "Skin Creator: Particle Toggle Button",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
       "priority": "P3"
     },
     {
-      "id": "T993",
-      "title": "Skin Creator: Pose Selector",
+      "id": "TRADE-017",
+      "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
+      "impact": "\u2b50 Trading performance",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T994",
-      "title": "Skin Creator: Zoom Controls",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1000",
-      "title": "\ud83c\udf89 Skin Creator: Milestone Feature",
+      "id": "TRADE-018",
+      "title": "Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading",
+      "impact": "\u2b50 Monitoring",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T1001",
-      "title": "Skin Creator: Dance Animation",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1006",
-      "title": "Skin Creator: Mouse Wheel Zoom",
+      "id": "DASH-010",
+      "title": "Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1008",
-      "title": "Skin Creator: Double-Click Reset View",
+      "id": "DASH-011",
+      "title": "Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1013",
-      "title": "Skin Creator: Keyboard Shortcuts Help",
+      "id": "DASH-012",
+      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1015",
-      "title": "Skin Creator: Floss Dance",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1016",
-      "title": "Skin Creator: Dab Pose",
+      "id": "DASH-013",
+      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
+      "impact": "\ud83d\udd25 ALTA",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1022",
-      "title": "Skin Creator: Help Button in UI",
+      "id": "DASH-014",
+      "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-015",
+      "title": "Betting page: Latency chart usa generateMockLatencyTrend \u2192 collegare a dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-016",
+      "title": "Betting page: Return Distribution usa generateMockTrades \u2192 collegare a trades reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-017",
+      "title": "Betting page: PnL by market type usa generateMockPnLData fallback \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-018",
+      "title": "Betting page: WinRate Sparkline usa generateMockSparklineData \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-019",
+      "title": "Betting page: Latency Sparkline usa generateMockLatencyHistory \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-020",
+      "title": "FRH page: verificare e fixare agent chat (invio/ricezione messaggi)",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-021",
+      "title": "FRH page: verificare TaskManagementPanel legge/scrive task reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-022",
+      "title": "FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-023",
+      "title": "FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-024",
+      "title": "Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-025",
+      "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
     }
   ],
   "recent_done": [
     {
-      "id": "T976",
-      "title": "Skin Creator: Advanced 3D Shaders",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T977",
-      "title": "Skin Creator: AI Texture Enhancement",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T978",
-      "title": "Games: Research Google Veo/AI Graphics",
+      "id": "PM-002",
+      "title": "Polymarket: Aggiorna GOLDEN-CONFIG su GitHub",
+      "impact": "\ud83d\udd25 Alta",
       "status": "DONE",
       "owner": "@clawdinho",
-      "completed": "2026-01-30 22:15 PST",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
+      "priority": "P3"
     },
     {
-      "id": "T979",
-      "title": "Skin Creator: Post-Processing Effects",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T981",
-      "title": "Skin Creator: Particle Effects",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T986",
-      "title": "Skin Creator: Screenshot Mode",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T987",
-      "title": "Skin Creator: Multiple Camera Angles",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T988",
-      "title": "Infra: Fix GPU Detection in agent-dashboard-data.sh",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@clawdinho",
-      "priority": "P1"
-    },
-    {
-      "id": "T989",
-      "title": "Research: Analizza Tweet @rasmr_eth per ROADMAP",
+      "id": "TRADE-016",
+      "title": "Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri",
+      "impact": "\ud83d\udd25 Trading validation",
       "status": "DONE",
       "owner": "@clawdinho",
-      "completed": "2026-01-30 22:10 PST",
-      "created_by": "@clawdinho",
-      "priority": "P1"
-    },
-    {
-      "id": "T988",
-      "title": "Skin Creator: Particle Toggle Button",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
       "priority": "P3"
     },
     {
-      "id": "T993",
-      "title": "Skin Creator: Pose Selector",
+      "id": "TRADE-017",
+      "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
+      "impact": "\u2b50 Trading performance",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T994",
-      "title": "Skin Creator: Zoom Controls",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1000",
-      "title": "\ud83c\udf89 Skin Creator: Milestone Feature",
+      "id": "TRADE-018",
+      "title": "Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading",
+      "impact": "\u2b50 Monitoring",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P1"
-    },
-    {
-      "id": "T1001",
-      "title": "Skin Creator: Dance Animation",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1006",
-      "title": "Skin Creator: Mouse Wheel Zoom",
+      "id": "DASH-010",
+      "title": "Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1008",
-      "title": "Skin Creator: Double-Click Reset View",
+      "id": "DASH-011",
+      "title": "Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1013",
-      "title": "Skin Creator: Keyboard Shortcuts Help",
+      "id": "DASH-012",
+      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
-    },
-    {
-      "id": "T1015",
-      "title": "Skin Creator: Floss Dance",
-      "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1016",
-      "title": "Skin Creator: Dab Pose",
+      "id": "DASH-013",
+      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
+      "impact": "\ud83d\udd25 ALTA",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
+      "owner": "@clawdinho",
       "priority": "P3"
     },
     {
-      "id": "T1022",
-      "title": "Skin Creator: Help Button in UI",
+      "id": "DASH-014",
+      "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
+      "impact": "\ud83d\udea8 CRITICO",
       "status": "DONE",
-      "owner": "@onde-bot-1",
-      "created_by": "@onde-bot-1",
-      "priority": "P2"
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-015",
+      "title": "Betting page: Latency chart usa generateMockLatencyTrend \u2192 collegare a dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-016",
+      "title": "Betting page: Return Distribution usa generateMockTrades \u2192 collegare a trades reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-017",
+      "title": "Betting page: PnL by market type usa generateMockPnLData fallback \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-018",
+      "title": "Betting page: WinRate Sparkline usa generateMockSparklineData \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-019",
+      "title": "Betting page: Latency Sparkline usa generateMockLatencyHistory \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-020",
+      "title": "FRH page: verificare e fixare agent chat (invio/ricezione messaggi)",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-021",
+      "title": "FRH page: verificare TaskManagementPanel legge/scrive task reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-022",
+      "title": "FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-023",
+      "title": "FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-024",
+      "title": "Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-025",
+      "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
     }
   ]
 }

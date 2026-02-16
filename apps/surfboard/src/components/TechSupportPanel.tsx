@@ -46,29 +46,11 @@ export function TechSupportPanel() {
         setStatus(data)
       }
     } catch {
-      // Use demo data
+      // DASH-001: No fake fallback data - show empty state
       setStatus({
-        procedures: [
-          { id: 'SNAPSHOT', name: 'Backup Sito', category: 'core', status: 'ready' },
-          { id: 'MODIFICA', name: 'Modifica Sito', category: 'core', status: 'ready' },
-          { id: 'DEPLOY', name: 'Deploy', category: 'core', status: 'ready' },
-          { id: 'ROLLBACK', name: 'Rollback', category: 'core', status: 'ready' },
-          { id: 'MOD-001', name: 'Aggiungi Libro', category: 'mod', status: 'ready' },
-          { id: 'MOD-002', name: 'Cambia Prezzo', category: 'mod', status: 'ready' }
-        ],
-        environments: [
-          { name: 'TEST', url: 'localhost:8888', status: 'offline' },
-          { name: 'PREPROD', url: 'onde.surf', status: 'online' },
-          { name: 'PROD', url: 'onde.la', status: 'online' }
-        ],
-        roadmap: [
-          { title: 'Dashboard HQ', status: 'in_progress' },
-          { title: 'CORDE Integration', status: 'in_progress' },
-          { title: 'Auto-posting X', status: 'done' },
-          { title: 'PolyRoborto Link', status: 'done' },
-          { title: 'Multi-language Support', status: 'pending' },
-          { title: 'Analytics Dashboard', status: 'pending' }
-        ]
+        procedures: [],
+        environments: [],
+        roadmap: []
       })
     }
     setLoading(false)
@@ -149,6 +131,12 @@ export function TechSupportPanel() {
           {/* Environments */}
           <div className="mb-6">
             <div className="text-sm text-white/60 mb-3">Ambienti</div>
+            {status.environments.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-6 text-white/30">
+                <span className="text-2xl mb-2">🌐</span>
+                <span className="text-sm">Nessun ambiente configurato</span>
+              </div>
+            ) : (
             <div className="grid grid-cols-3 gap-2">
               {status.environments.map(env => (
                 <button
@@ -172,11 +160,18 @@ export function TechSupportPanel() {
                 </button>
               ))}
             </div>
+            )}
           </div>
 
           {/* Procedures */}
           <div className="mb-6" role="region" aria-label="Available procedures">
             <h3 className="text-sm text-white/60 mb-3">Procedure</h3>
+            {coreProcedures.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-6 text-white/30">
+                <span className="text-2xl mb-2">⚙️</span>
+                <span className="text-sm">Nessuna procedura disponibile</span>
+              </div>
+            ) : (
             <div className="grid grid-cols-2 gap-2" role="list">
               {coreProcedures.map(proc => (
                 <div
@@ -197,11 +192,18 @@ export function TechSupportPanel() {
                 </div>
               ))}
             </div>
+            )}
           </div>
 
           {/* Roadmap */}
           <div className="border-t border-white/10 pt-4">
             <div className="text-sm text-white/60 mb-3">Roadmap</div>
+            {status.roadmap.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-6 text-white/30">
+                <span className="text-2xl mb-2">🗺️</span>
+                <span className="text-sm">Nessun elemento roadmap</span>
+              </div>
+            ) : (
             <div className="space-y-2">
               {status.roadmap.map((item, i) => (
                 <div key={i} className="flex items-center gap-2 group">
@@ -234,6 +236,7 @@ export function TechSupportPanel() {
                 </div>
               ))}
             </div>
+            )}
           </div>
         </>
       )}

@@ -172,41 +172,14 @@ export function GpuStatusWidget({
           System Status
         </h3>
         <div className="flex items-center gap-2">
-          {radeonConnected ? (
-            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-              <Zap className="h-3 w-3" />
-              Radeon 7900 XTX
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400">
-              <Circle className="h-3 w-3" />
-              eGPU Offline
-            </span>
-          )}
+          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+            <Circle className="h-3 w-3" />
+            Apple Silicon
+          </span>
         </div>
       </div>
       
-      {/* GPU Info Card (when connected) */}
-      {radeonConnected && gpu?.vram_gb && (
-        <div className="mb-4 p-3 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 border border-purple-200 dark:border-purple-800">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AMD</span>
-              </div>
-              <div>
-                <div className="font-semibold text-gray-900 dark:text-white">
-                  {gpu.type || 'Radeon 7900 XTX'}
-                </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {gpu.vram_gb}GB VRAM • TinyGrad Ready
-                </div>
-              </div>
-            </div>
-            {gpuTemp && <TempGauge temp={gpuTemp} />}
-          </div>
-        </div>
-      )}
+      {/* GPU returned Feb 2026 — no eGPU card shown */}
       
       {/* System Metrics */}
       <div className="space-y-3 mb-4">

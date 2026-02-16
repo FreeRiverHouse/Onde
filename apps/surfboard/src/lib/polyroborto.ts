@@ -17,13 +17,15 @@ export interface TechFeedback {
   status: 'pending' | 'processed'
 }
 
-// Simulated trading status - will be replaced with real API call to PolyRoborto
+// Trading status — no live data available
+// PolyRoborto panel now uses Gist data (PolyRobortoPanel.tsx)
+// This module is kept for tech feedback only
 let tradingStatus: TradingStatus = {
-  isRunning: true,
-  balance: 1250.00,
-  openPositions: 3,
-  todayPnL: 45.20,
-  weeklyPnL: 180.50,
+  isRunning: false,
+  balance: 0,
+  openPositions: 0,
+  todayPnL: 0,
+  weeklyPnL: 0,
   lastUpdate: new Date().toISOString()
 }
 
@@ -31,11 +33,10 @@ let tradingStatus: TradingStatus = {
 const feedbackQueue: TechFeedback[] = []
 
 export function getTradingStatus(): TradingStatus {
-  // TODO: Fetch real status from PolyRoborto bot
-  // For now, return simulated data with slight variations
+  // No live trading data — returns zeros
+  // Real data comes from Gist via PolyRobortoPanel component
   return {
     ...tradingStatus,
-    todayPnL: tradingStatus.todayPnL + (Math.random() - 0.5) * 10,
     lastUpdate: new Date().toISOString()
   }
 }

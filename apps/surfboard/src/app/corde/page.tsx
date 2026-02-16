@@ -174,13 +174,16 @@ export default function CordePage() {
 
       {/* Offline Warning */}
       {backendStatus === "offline" && (
-        <div className="mb-8 p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
-          <div className="text-2xl mb-2">⚠️</div>
-          <h3 className="text-lg font-bold text-red-400 mb-2">Backend Non Raggiungibile</h3>
+        <div className="mb-8 p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-center">
+          <div className="text-2xl mb-2">🔌</div>
+          <h3 className="text-lg font-bold text-amber-400 mb-2">CORDE Engine Offline</h3>
           <p className="text-surf-foam/60 text-sm">
-            Il server CORDE non risponde all'indirizzo {CORDE_API}.<br />
-            Verifica che il servizio sia attivo sulla rete locale.
+            The Radeon eGPU hardware was returned in February 2026.<br />
+            Image generation is currently unavailable. This page will be reactivated when new GPU hardware is configured.
           </p>
+          <a href="/" className="inline-block mt-4 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all text-sm">
+            ← Back to Dashboard
+          </a>
         </div>
       )}
 

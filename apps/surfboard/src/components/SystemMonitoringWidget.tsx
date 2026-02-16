@@ -5,8 +5,6 @@ import {
   Server, 
   AlertTriangle, 
   Activity,
-  Thermometer,
-  Zap,
   TrendingUp
 } from 'lucide-react'
 
@@ -241,18 +239,7 @@ export function SystemMonitoringWidget({
       <div className="flex justify-around mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
         <CircularGauge value={cpuPercent} label="CPU" color="blue" />
         <CircularGauge value={memoryPercent} label="Memory" color="green" />
-        {gpu?.radeon_connected && systemHealth?.gpu_temp && (
-          <div className="flex flex-col items-center">
-            <div className="relative h-20 w-20 flex items-center justify-center">
-              <Thermometer className={`h-8 w-8 ${
-                systemHealth.gpu_temp >= 85 ? 'text-red-500' :
-                systemHealth.gpu_temp >= 70 ? 'text-yellow-500' : 'text-green-500'
-              }`} />
-            </div>
-            <span className="font-bold text-lg">{systemHealth.gpu_temp}°C</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">GPU Temp</span>
-          </div>
-        )}
+        {/* GPU temp gauge removed — eGPU returned Feb 2026 */}
       </div>
       
       {/* Services Status */}
@@ -281,15 +268,7 @@ export function SystemMonitoringWidget({
           }
         />
         
-        <ServiceIndicator 
-          name="Radeon eGPU" 
-          status={gpu?.radeon_connected ?? false}
-          icon={Zap}
-          detail={gpu?.radeon_connected 
-            ? `${gpu.type} • ${gpu.vram_gb}GB VRAM`
-            : 'Disconnected'
-          }
-        />
+        {/* Radeon eGPU removed — returned Feb 2026, no longer available */}
       </div>
       
       {/* Quick Stats */}

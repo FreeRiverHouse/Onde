@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-02-16T04:50:01.233337Z",
+  "timestamp": "2026-02-16T05:25:01.670105Z",
   "tasks": {
     "total": 199,
-    "done": 180,
+    "done": 181,
     "in_progress": 2,
-    "todo": 17,
-    "completion_rate": 90.5
+    "todo": 16,
+    "completion_rate": 91.0
   },
   "memory": {
-    "entries_today": 148,
+    "entries_today": 157,
     "file_exists": true,
-    "size_bytes": 126161,
+    "size_bytes": 132420,
     "file_path": "memory/2026-02-15.md"
   },
   "git": {
     "clawdinho": {
-      "hash": "065e6ffca",
-      "message": "feat(betting): TRADE-018 add risk/reward ratio + a",
-      "date": "2026-02-15 20:49:02 -0800",
-      "ago": "58 seconds ago"
+      "hash": "188d66718",
+      "message": "memory: log msg 7394 - parallelo agenti",
+      "date": "2026-02-15 21:19:57 -0800",
+      "ago": "5 minutes ago"
     },
     "ondinho": null,
-    "total_commits_today": 372
+    "total_commits_today": 387
   },
   "autotrader": {
     "running": true,
@@ -46,8 +46,8 @@
   },
   "alerts_pending": 0,
   "systemHealth": {
-    "cpu_percent": 25.0,
-    "memory_percent": 56.1,
+    "cpu_percent": 43.1,
+    "memory_percent": 72.6,
     "gpu_temp": null
   },
   "agents": {

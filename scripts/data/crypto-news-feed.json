@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T04:43:30.956371+00:00",
+  "timestamp": "2026-02-16T05:14:00.400691+00:00",
   "sources": [
     "coindesk",
     "cointelegraph",
@@ -9,6 +9,20 @@
   "failed_sources": [],
   "article_count": 40,
   "results": [
+    {
+      "title": "UK Prime Minister Seeks New Powers to Regulate AI Chatbots as Child Safety Concerns Mount",
+      "url": "https://decrypt.co/358138/uk-prime-minister-seeks-new-powers-regulate-ai-chatbots",
+      "source": "decrypt",
+      "description": "The move would bring AI chatbots under UK online safety laws, enabling rapid age limits and feature curbs to protect children.",
+      "published": "2026-02-16T05:13:09+00:00"
+    },
+    {
+      "title": "Aave founder pitches $50T \u2018abundance asset\u2019 boom to drive DeFi",
+      "url": "https://cointelegraph.com/news/aave-founder-defi-tokenize-50t-abundance-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Aave Labs CEO Stani Kulechov said onchain lending could help accelerate the development of solar, energy storage, robotics by putting money behind \"future-proof\" assets.",
+      "published": "2026-02-16T05:04:07+00:00"
+    },
     {
       "title": "Bitcoin Leverage Heats Up as Traders Bet on Price Rebound",
       "url": "https://decrypt.co/358134/bitcoin-leverage-heats-up-as-traders-bet-on-price-rebound",
@@ -150,13 +164,6 @@
       "published": "2026-02-15T10:04:27+00:00"
     },
     {
-      "title": "Senators ask Bessent to probe $500M UAE stake in Trump-linked WLFI",
-      "url": "https://cointelegraph.com/news/senators-urge-cfius-probe-uae-stake-trump-linked-wlfi?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Elizabeth Warren and Andy Kim call on Treasury\u2019s Scott Bessent to review a UAE-backed investment in the Trump-linked crypto firm over national security concerns.",
-      "published": "2026-02-15T07:15:57+00:00"
-    },
-    {
       "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
       "source": "bitcoinmagazine",
@@ -211,13 +218,6 @@
       "source": "decrypt",
       "description": "Blockchain lender Figure said hackers accessed customer data after an employee was targeted in a social engineering attack.",
       "published": "2026-02-14T00:04:45+00:00"
-    },
-    {
-      "title": "Trump Media Files to Launch Truth Social-Branded Bitcoin, Ethereum, Cronos ETFs",
-      "url": "https://decrypt.co/358079/trump-media-files-truth-social-bitcoin-ethereum-cronos-etfs",
-      "source": "decrypt",
-      "description": "Truth Social Funds applied for ETFs that would give investors exposure to crypto\u2014one focused on Bitcoin and Ethereum, the other on Cronos.",
-      "published": "2026-02-13T21:22:46+00:00"
     }
   ]
 }

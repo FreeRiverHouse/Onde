@@ -69,38 +69,9 @@ export function CordePanel() {
         authors = data.authors || []
       }
     } catch {
-      // Use demo data
-      books = [
-        {
-          id: 'marco-aurelio-bambini',
-          title: 'Marco Aurelio per Bambini',
-          author: 'Gianni Parola',
-          illustrator: 'Pina Pennello',
-          status: 'testo_completo',
-          progress: 40,
-          chapters: 10,
-          chaptersReady: 10,
-          imagesReady: 0,
-          imagesTotal: 10
-        },
-        {
-          id: 'milo-internet',
-          title: 'MILO e Internet',
-          author: 'EMILIO',
-          illustrator: 'Onde Futures',
-          status: 'illustrazioni',
-          progress: 90,
-          chapters: 10,
-          chaptersReady: 10,
-          imagesReady: 10,
-          imagesTotal: 10
-        }
-      ]
-      authors = [
-        { id: 'gianni-parola', name: 'Gianni Parola', role: 'writer', style: 'Narrativa per bambini', activeBooks: 1 },
-        { id: 'pina-pennello', name: 'Pina Pennello', role: 'illustrator', style: 'Acquarello europeo', activeBooks: 1 },
-        { id: 'emilio', name: 'EMILIO', role: 'writer', style: 'Tech per bambini', activeBooks: 1 }
-      ]
+      // DASH-001: No fake fallback data - show empty state
+      books = []
+      authors = []
     }
 
     setStatus({
@@ -186,6 +157,12 @@ export function CordePanel() {
           {/* Books in Progress */}
           <div className="mb-6">
             <div className="text-sm text-white/60 mb-3">Libri in Lavorazione</div>
+            {status.books.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-8 text-white/30">
+                <span className="text-2xl mb-2">📚</span>
+                <span className="text-sm">Nessun libro in lavorazione</span>
+              </div>
+            ) : (
             <div className="space-y-3">
               {status.books.map(book => (
                 <div
@@ -232,11 +209,18 @@ export function CordePanel() {
                 </div>
               ))}
             </div>
+            )}
           </div>
 
           {/* Authors */}
           <div className="mb-6">
             <div className="text-sm text-white/60 mb-3">Redazione</div>
+            {status.authors.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-6 text-white/30">
+                <span className="text-2xl mb-2">✍️</span>
+                <span className="text-sm">Nessun autore disponibile</span>
+              </div>
+            ) : (
             <div className="grid grid-cols-3 gap-2">
               {status.authors.map(author => (
                 <button
@@ -253,6 +237,7 @@ export function CordePanel() {
                 </button>
               ))}
             </div>
+            )}
           </div>
 
           {/* Feedback Section */}

@@ -172,24 +172,4 @@ export function parseWinRateTrendFromStats(
 /**
  * Generate mock 7-day win rate trend for testing
  */
-export function generateMockSparklineData(days: number = 7): DataPoint[] {
-  const data: DataPoint[] = [];
-  let winRate = 45 + Math.random() * 20; // Start between 45-65%
-
-  for (let i = days; i >= 0; i--) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    
-    // Random walk
-    winRate += (Math.random() - 0.5) * 8;
-    winRate = Math.max(20, Math.min(80, winRate));
-
-    data.push({
-      date: date.toISOString().slice(0, 10),
-      winRate: Math.round(winRate * 10) / 10,
-      trades: Math.floor(Math.random() * 5) + 1
-    });
-  }
-
-  return data;
-}
+// Mock data generators removed (DASH-001) - use real API data only

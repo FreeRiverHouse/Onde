@@ -11,6 +11,13 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
+| B1 | PROC-002 | Processo Grok-receipts: ogni task chiuso va spiegato a Grok con receipts. Grok deve accettare. Poi Grok suggerisce 2 task migliorativi. PERMANENTE. | 🚨 PROCESSO | TODO | @clawdinho |
+| B2 | DASH-001 | Eliminare TUTTI i fake data da onde.surf dashboard (betting, analytics, social). Dati reali o "no data available" | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Audit completo: 12 issues fixati — /trading, /frh, homepage whitespace, polyroborto fake PnL, eGPU rimossa, stale dates, analytics/social empty states, /corde offline msg. Deploy verificato. |
+| B3 | DASH-002 | Aggiungere grafici con TREND NEL TEMPO su onde.surf (accessi, betting PnL, analytics, agenti) | 🚨 BLOCCANTE | IN_PROGRESS | @clawdinho |
+| B4 | FIX-001 | Fixare riferimento "Mattia Biondi" → FreeRiverHouse ovunque nel codice/gists | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Verified: no "Mattia Biondi" or "mattiabiondi" in any code/config/gist files. Only references are in TASKS.md task description and memory logs. |
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
 | 0 | DEPLOY-001 | onde.la su Vercel - deploy funzionante | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Verified: onde.la returns 200, sitemap includes skin-creator |
 
 ### 🔥 ALTA PRIORITÀ - Crescita & Traffico

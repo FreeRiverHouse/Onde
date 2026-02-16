@@ -275,30 +275,4 @@ export function LatencyTrendChart({
 /**
  * Generate mock latency data for demo/testing
  */
-export function generateMockLatencyTrend(days: number = 14): LatencyTrendPoint[] {
-  const data: LatencyTrendPoint[] = [];
-  const baseAvg = 350; // Starting average in ms
-  
-  for (let i = 0; i < days; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - (days - 1 - i));
-    
-    // Add some variation
-    const variation = (Math.random() - 0.5) * 200;
-    const avgMs = Math.max(100, baseAvg + variation + Math.sin(i / 3) * 100);
-    const p95Ms = avgMs * (1.5 + Math.random() * 0.5);
-    const minMs = avgMs * (0.3 + Math.random() * 0.2);
-    const maxMs = p95Ms * (1.2 + Math.random() * 0.3);
-    
-    data.push({
-      timestamp: date.toISOString(),
-      avgMs: Math.round(avgMs),
-      p95Ms: Math.round(p95Ms),
-      minMs: Math.round(minMs),
-      maxMs: Math.round(maxMs),
-      count: Math.floor(5 + Math.random() * 20)
-    });
-  }
-  
-  return data;
-}
+// Mock data generators removed (DASH-001) - use real API data only

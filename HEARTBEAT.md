@@ -84,9 +84,25 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 ### 🤖 STEP 9: Consulenza Grok (OBBLIGATORIO se fermo o dopo task)
 
 Ogni 15 minuti, SE sei fermo o hai appena finito un task:
+
+**Opzione A - Grok via Browser (preferita):**
+Apri https://x.com/i/grok e chiedi:
+"Sono un AI agent su progetto Onde. Ho fatto [X]. Valuta e suggerisci 3 next steps."
+
+**Opzione B - Grok via xAI API (se disponibile):**
 ```bash
-gemini "Sono un AI agent che lavora su progetto Onde (sito web onde.la, dashboard onde.surf, trading Kalshi/Polymarket). Ho appena fatto: [DESCRIVI TASK]. Valuta il mio lavoro, testa mentalmente se ha senso, e suggerisci i prossimi 3 step concreti per migliorare il progetto."
+curl -s https://api.x.ai/v1/chat/completions -H "Authorization: Bearer $XAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"grok-3","messages":[{"role":"user","content":"[PROMPT]"}]}'
 ```
+
+**Opzione C - Self-review + web research:**
+Se Grok non è raggiungibile, fai self-review strutturato:
+1. Cosa ho fatto? (list)
+2. Ha funzionato? (test)
+3. Cosa manca? (gap analysis)
+4. Prossimi 3 step? (prioritize by impact)
+
 - Prendi il primo suggerimento e INIZIA SUBITO
 - Aggiungi gli altri 2 come task in TASKS.md
 - Se hai dubbi tecnici/creativi/business → chiedi a Grok PRIMA di decidere
