@@ -550,3 +550,9 @@
 | 196 | SC-004 | SEO: blog posts targeting long-tail keywords (free minecraft skin creator for kids, ai minecraft skin generator) | 🔥 SEO | IN_PROGRESS | @clawd | First post in progress |
 | 197 | SC-005 | Skin Creator: Add pose and background customization to 3D preview | ⭐ UX | TODO | - | Missing vs Nova Skin |
 | 198 | SC-006 | Skin Creator: YouTube Shorts tutorials (5/week) + TikTok export | 🔥 CRESCITA | TODO | - | Grok viral loop strategy |
+
+### 🔥 NUOVI (da Mattia 2026-02-16 09:57 — social media cadenza)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 197 | SOC-003 | 2 post al giorno su @Onde_FRH — screenshot carini dei giochi (Skin Creator, Snake, Cookie Clicker, Crafting Guide, etc.) per portare traffico a onde.la | 🔥🔥 CRESCITA | IN_PROGRESS | @clawd | Ondinho gestisce l'account @Onde_FRH. Ogni giorno 2 post con screenshot + link |
