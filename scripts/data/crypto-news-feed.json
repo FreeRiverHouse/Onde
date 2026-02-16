@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T05:44:17.180870+00:00",
+  "timestamp": "2026-02-16T06:46:46.188198+00:00",
   "sources": [
     "coindesk",
     "cointelegraph",
@@ -9,6 +9,27 @@
   "failed_sources": [],
   "article_count": 40,
   "results": [
+    {
+      "title": "Bitcoin down 22%, could it be the worst Q1 since 2018?",
+      "url": "https://cointelegraph.com/news/bitcoin-track-for-worst-q1-since-2018-first-ever-red-jan-and-feb?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "If Bitcoin posts a loss at the end of this month, it will also mark Bitcoin\u2019s first time ending both January and February in the red.",
+      "published": "2026-02-16T06:18:03+00:00"
+    },
+    {
+      "title": "Russians move $129B in crypto yearly \u2018outside our attention\u2019: Official",
+      "url": "https://cointelegraph.com/news/russian-finance-ministry-reveals-648m-daily-crypto-volume-amid-regulatory-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Russia\u2019s deputy finance minister says around 50 billion rubles worth of crypto changes hands daily, calling for crypto market regulation.",
+      "published": "2026-02-16T06:14:41+00:00"
+    },
+    {
+      "title": "Kevin O\u2019Leary wins $2.8M defamation suit against Ben Armstrong",
+      "url": "https://cointelegraph.com/news/kevin-o-leary-wins-defamation-suit-against-bitboy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "A Miami federal judge has entered a default judgment against Ben Armstrong, who failed to respond to Kevin O\u2019Leary\u2019s complaint accusing him of defamation.",
+      "published": "2026-02-16T06:07:14+00:00"
+    },
     {
       "title": "OpenAI Taps OpenClaw Founder to Lead Push Into Personal AI Agents",
       "url": "https://decrypt.co/358141/openai-openclaw-founder-lead-push-personal-ai-agents",
@@ -143,32 +164,11 @@
       "published": "2026-02-15T13:39:18+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-15T13:19:54+00:00"
-    },
-    {
-      "title": "Study suggests WLFI could act as an \u2018early warning signal\u2019 in crypto",
-      "url": "https://cointelegraph.com/news/wlfi-early-warning-signal-crypto-amberdata-study?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Trump-linked WLFI dropped more than five hours before a $6.9 billion crypto liquidation event, raising questions about early market stress signals.",
-      "published": "2026-02-15T13:04:28+00:00"
-    },
-    {
       "title": "Wall Street remains bullish on bitcoin while offshore traders retreat",
       "url": "https://www.coindesk.com/markets/2026/02/15/wall-street-remains-bullish-on-bitcoin-while-offshore-traders-retreat",
       "source": "coindesk",
       "description": "The difference in futures basis between CME and Deribit reflects varying risk appetite across regions.",
       "published": "2026-02-15T12:00:00+00:00"
-    },
-    {
-      "title": "Mirae Asset agrees to buy 92% stake in Korean exchange Korbit for $93M",
-      "url": "https://cointelegraph.com/news/mirae-asset-buy-92-percent-korbit-korea-crypto-exchange?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Mirae Asset Consulting agreed to acquire a 92.06% controlling stake in South Korean crypto exchange Korbit for about $93 million in cash.",
-      "published": "2026-02-15T10:04:27+00:00"
     },
     {
       "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
