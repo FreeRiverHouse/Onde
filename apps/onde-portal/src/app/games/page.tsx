@@ -14,6 +14,8 @@ const games = [
   { id: 'enchant', href: '/games/enchant-calc', title: 'Enchant Calc', desc: 'Enchantment Guide', emoji: '✨' },
   { id: 'name-gen', href: '/games/name-generator', title: 'Name Generator', desc: 'MC Usernames', emoji: '⚒️' },
   { id: 'crafting', href: '/games/crafting-guide', title: 'Crafting Guide', desc: 'All Recipes', emoji: '📖' },
+  { id: 'cookie', href: '/games/cookie-clicker', title: 'Cookie Clicker', desc: 'Idle Clicker', emoji: '🍪' },
+  { id: 'pet', href: '/games/virtual-pet', title: 'Virtual Pet', desc: 'Adopt & Care', emoji: '🐾' },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz', desc: 'Knowledge', emoji: '❓' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math Fun', emoji: '➕' },
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match Pairs', emoji: '🧠' },
@@ -50,6 +52,8 @@ const allGames = [
   { id: 'snake', href: '/games/snake', emoji: '🐍', title: 'Snake' },
   { id: 'ocean-run', href: '/games/ocean-run', emoji: '🏃', title: 'Ocean Run' },
   { id: 'tower', href: '/games/tower', emoji: '🏗️', title: 'Tower Stack' },
+  { id: 'cookie', href: '/games/cookie-clicker', emoji: '🍪', title: 'Cookie Clicker' },
+  { id: 'pet', href: '/games/virtual-pet', emoji: '🐾', title: 'Virtual Pet' },
 ]
 
 // Positions for floating game bubbles around the island (percentages)
@@ -148,6 +152,8 @@ export default function GamingIsland() {
               { href: '/games/pixel-art', emoji: '🖼️', title: 'Pixel Art', color: 'from-emerald-500 to-cyan-500' },
               { href: '/games/enchant-calc', emoji: '✨', title: 'Enchant Calc', color: 'from-purple-500 to-violet-600' },
               { href: '/games/name-generator', emoji: '⚒️', title: 'Name Generator', color: 'from-gray-600 to-gray-700' },
+              { href: '/games/cookie-clicker', emoji: '🍪', title: 'Cookie Clicker', color: 'from-amber-500 to-yellow-600' },
+              { href: '/games/virtual-pet', emoji: '🐾', title: 'Virtual Pet', color: 'from-pink-500 to-purple-600' },
             ].map((game) => (
               <Link 
                 key={game.href}

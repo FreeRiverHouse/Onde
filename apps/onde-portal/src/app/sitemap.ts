@@ -35,6 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/enchant-calc',
     '/games/name-generator',
     '/games/crafting-guide',
+    '/games/cookie-clicker',
+    '/games/virtual-pet',
     '/games/moonlight-magic-house',
     '/games/arcade',
     '/games/kids-chef-studio',
