@@ -88,7 +88,7 @@
 |---|----|----- |--------|--------|-------|
 | 1 | TRADE-001 | Consolidare V2+V3 Kalshi autotrader in uno solo | 🔥 Due bot che non fanno niente → uno che funziona | ✅ DONE | @kalshi-consolidation | Unified v1+v2+v3 into kalshi-autotrader-unified.py → kalshi-autotrader.py. Legacy files renamed *-legacy.py. Tested: paper mode, 1 trade executed, all features working. |
 | 2 | TRADE-002 | Fix V3: capire perché skippa tutti i trade | 🔥 Paper trading fermo | ✅ DONE | @kalshi-v3-fix-critic | Fixed: critic veto su parlay edges >20% + position sizing con bankroll piccolo. Commit 291781df |
-| 3 | TRADE-003 | Migliorare risk/reward V3 (loss 2x > win) | ⭐ PnL negativo per asimmetria | 🔶 TODO | - |
+| 3 | TRADE-003 | Migliorare risk/reward V3 (loss 2x > win) | ⭐ PnL negativo per asimmetria | ✅ DONE | @clawdinho | Added risk/reward filters: MAX_NO_PRICE 65¢, scaled edge for >50¢, max risk/reward 1.5. BUY_NO avg price 54¢→44¢, risk/reward 1.19→0.78. 67% bad trades filtered. |
 
 ---
 
@@ -418,6 +418,14 @@
 | P1 | PERM-001 | Polymarket: Microbet a raffica via phone mirror (24/7) | 🚨 PERMANENTE | 🔄 ACTIVE | @clawdinho |
 | P2 | PERM-002 | Kalshi: Paper trading continuo con autotrader v3 (24/7) | 🚨 PERMANENTE | 🔄 ACTIVE | @kalshi-paper-agent |
 | P3 | PERM-003 | Kalshi: Monitor win rate → passare a live quando profittevole | 🚨 PERMANENTE | 🔄 ACTIVE | @kalshi-winrate-monitor |
+
+### 🔥 NUOVI (da TRADE-003 risk/reward fix)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 158 | TRADE-016 | Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri | 🔥 Trading validation | 🔶 TODO | - |
+| 159 | TRADE-017 | Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement) | ⭐ Trading performance | 🔶 TODO | - |
+| 160 | TRADE-018 | Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading | ⭐ Monitoring | 🔶 TODO | - |
 
 ### PERM-001: Polymarket Microbet 24/7
 - **Cosa:** Piazzare microbet $1-2 su mercati sport/eventi via phone mirror

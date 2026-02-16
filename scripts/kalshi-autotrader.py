@@ -141,6 +141,14 @@ MIN_BET_CENTS = 5
 MAX_BET_CENTS = 500
 MAX_POSITIONS = 15
 
+# ── Risk/Reward filters (TRADE-003: fix loss 2x > win asymmetry) ──
+# BUY_NO at >50¢ means you risk more than you win. Require bigger edge to justify.
+MAX_NO_PRICE_CENTS = 65     # Hard cap: never buy NO above 65¢ (risk:reward > 1.86)
+NO_PRICE_EDGE_SCALE = True  # Scale min edge up with BUY_NO price
+# If NO price is 50-65¢, require edge >= 3% + 0.1% per cent above 50
+# e.g., 55¢ → 3.5% min edge, 60¢ → 4% min edge, 65¢ → 4.5%
+MAX_RISK_REWARD_RATIO = 1.5 # Skip if (cost / potential_win) > 1.5
+
 # ── Parlay strategy (from v3 data) ──
 PARLAY_ONLY_NO = True       # On multi-leg parlays, primarily take BUY_NO
 PARLAY_YES_EXCEPTION = True # Allow BUY_YES on 2-leg parlays if edge > 5%
@@ -1301,6 +1309,29 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
         action, side_price, edge = "BUY_YES", market.yes_price, edge_yes
     else:
         action, side_price, edge = "BUY_NO", market.no_price, abs(edge_yes)
+
+    # ── Risk/Reward filters (TRADE-003) ──
+    # 1. Hard cap on BUY_NO price
+    if action == "BUY_NO" and side_price > MAX_NO_PRICE_CENTS:
+        return TradeDecision(action="SKIP", edge=edge, kelly_size=0, contracts=0, price_cents=side_price,
+                            reason=f"BUY_NO price {side_price}¢ > {MAX_NO_PRICE_CENTS}¢ cap (bad risk/reward)",
+                            forecast=forecast, critic=critic)
+
+    # 2. Scaled edge requirement for expensive BUY_NO
+    if action == "BUY_NO" and NO_PRICE_EDGE_SCALE and side_price > 50:
+        scaled_min_edge = 0.03 + (side_price - 50) * 0.001  # 3% base + 0.1% per cent above 50
+        if edge < scaled_min_edge:
+            return TradeDecision(action="SKIP", edge=edge, kelly_size=0, contracts=0, price_cents=side_price,
+                                reason=f"BUY_NO {side_price}¢ needs {scaled_min_edge:.1%} edge, got {edge:.1%}",
+                                forecast=forecast, critic=critic)
+
+    # 3. General risk/reward ratio check
+    potential_win = 100 - side_price  # cents won if correct
+    risk_reward = side_price / potential_win if potential_win > 0 else 999
+    if risk_reward > MAX_RISK_REWARD_RATIO:
+        return TradeDecision(action="SKIP", edge=edge, kelly_size=0, contracts=0, price_cents=side_price,
+                            reason=f"Risk/reward {risk_reward:.2f} > {MAX_RISK_REWARD_RATIO} ({side_price}¢ risk / {potential_win}¢ win)",
+                            forecast=forecast, critic=critic)
 
     # Kelly sizing
     kelly_frac = calculate_kelly(final_prob if action == "BUY_YES" else (1 - final_prob), side_price)
