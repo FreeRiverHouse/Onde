@@ -182,14 +182,21 @@ def get_llm_config():
 LLM_CONFIG = get_llm_config()
 
 # Trading parameters
-MIN_EDGE = 0.01           # 1% minimum edge - AGGRESSIVE in paper mode to collect data
-# Data-driven insight (126 settled trades, 2026-02-15):
-# BUY_NO: 15.5% WR, +$2.37 (profitable)
-# BUY_YES: 4.4% WR, -$3.48 (disaster)
-# High edge (>10%): 0% WR (overconfident forecaster)
-# Strategy: on parlays, ONLY bet NO; cap max perceived edge
-PARLAY_ONLY_NO = True     # On multi-leg parlays, only take BUY_NO positions
-MAX_EDGE_CAP = 0.08       # Cap: if forecaster claims >8% edge, it's probably wrong
+# ── DATA-DRIVEN (132 settled trades, 2026-07-16) ──
+# BUY_NO overall: 76% WR, +$15.00 → AMAZING
+#   <3% edge: 78% WR (BEST bucket!)  → keep MIN_EDGE low for BUY_NO
+#   5-10%: 57% WR, >10%: 75% WR    → high edge BUY_NO is good too
+# BUY_YES overall: 19% WR, -$1.31 → BAD
+#   <3%: 12% WR, 3-5%: 9% WR       → terrible at low edge
+#   5-10%: 38% WR (+$3.78)          → the ONLY profitable bucket
+#   >10%: 7% WR                     → catastrophically overconfident
+# STRATEGY: Different thresholds for BUY_NO (low bar) vs BUY_YES (high bar)
+MIN_EDGE_BUY_NO = 0.01    # 1% min for BUY_NO — 78% WR even at tiny edges
+MIN_EDGE_BUY_YES = 0.05   # 5% min for BUY_YES — only profitable bucket
+MIN_EDGE = 0.01           # Global minimum (legacy compat, real logic in make_trade_decision)
+PARLAY_ONLY_NO = True     # On multi-leg parlays, primarily take BUY_NO positions
+PARLAY_YES_EXCEPTION = True  # Allow BUY_YES on 2-leg parlays if edge > 5%
+MAX_EDGE_CAP = 0.10       # Cap at 10% (was 6%, but BUY_NO does well at 5-10% range)
 MAX_POSITION_PCT = 0.05   # 5% max per position
 KELLY_FRACTION = 0.15     # Aggressive in paper mode - collect more data
 MIN_BET_CENTS = 5         # Minimum 5 cents per contract
@@ -656,6 +663,12 @@ def classify_market_type(market: MarketInfo) -> str:
         return "combo"
     if "parlay" in title or "combo" in title or ("and" in title and any(w in title for w in ["win", "beat", "cover", "over"])):
         return "combo"
+    # Detect multi-leg from title: comma-separated legs starting with "yes "/"no "
+    # e.g. "yes Iowa St.,no Murray St. wins by over 13.5 Points"
+    segments = [s.strip() for s in title.split(',')]
+    leg_count = sum(1 for s in segments if s.startswith('yes ') or s.startswith('no '))
+    if leg_count >= 2:
+        return "combo"
     # Detect multi-leg from title: "X and Y and Z"
     and_count = title.count(" and ")
     if and_count >= 1 and any(w in title for w in ["win", "beat", "cover", "over", "under", "score"]):
@@ -688,11 +701,25 @@ def classify_market_type(market: MarketInfo) -> str:
 
 
 def estimate_combo_legs(market: MarketInfo) -> int:
-    """Estimate the number of legs in a combo/parlay market from the title."""
-    title = market.title.lower()
+    """Estimate the number of legs in a combo/parlay market from the title.
     
-    # Count " and " separators
-    and_count = title.count(" and ")
+    Kalshi parlay titles use COMMAS to separate legs, e.g.:
+    'yes Iowa St.,no Murray St. wins by over 13.5 Points'
+    'no Belmont wins by over 11.5 Points,no Campbell wins by over 4.5 Points,...'
+    
+    Each leg starts with 'yes ' or 'no '.
+    """
+    title = market.title
+    
+    # PRIMARY: Count legs by 'yes '/'no ' prefixes after commas
+    # Split on comma and count segments that start with yes/no
+    segments = [s.strip() for s in title.split(',')]
+    leg_count = sum(1 for s in segments if s.lower().startswith('yes ') or s.lower().startswith('no '))
+    if leg_count >= 2:
+        return leg_count
+    
+    # FALLBACK: Count " and " separators (some older format)
+    and_count = title.lower().count(" and ")
     if and_count >= 1:
         return and_count + 1
     
@@ -824,46 +851,134 @@ def heuristic_forecast(market: MarketInfo) -> ForecastResult:
     
     if market_type == "combo":
         # ── COMBO/PARLAY MARKETS ──
-        # Estimate as product of individual leg probabilities
+        # Data-driven approach based on settled trades:
+        # BUY_NO at 81.8% WR means parlays are systematically overpriced (YES too high)
+        # BUY_YES at 9.7% WR confirms the overpricing
         num_legs = estimate_combo_legs(market)
         
-        # For each leg, estimate individual probability
-        # Favorites typically have 60-70% win probability
-        # Market price for combos often slightly overestimates (parlay bias)
-        
-        # Infer per-leg probability from market price
         if num_legs >= 2:
-            # If market is at X%, each leg ≈ X^(1/n) if independent
-            implied_per_leg = market_prob ** (1.0 / num_legs)
+            # ── PER-LEG ANALYSIS ──
+            # Parse individual legs from title to determine leg types
+            # Title format: "yes Team A,no Over 147.5 points scored,yes Team B"
+            segments = [s.strip() for s in market.title.split(',')]
+            leg_probs = []
+            leg_descriptions = []
             
-            # Apply favorite-longshot bias: favorites ~65% base, adjust
-            # Parlays tend to be overpriced (house edge on each leg compounds)
-            avg_leg_prob = min(0.72, max(0.55, implied_per_leg))
+            for seg in segments:
+                seg_lower = seg.lower()
+                # Classify each leg
+                if re.search(r'over\s+\d+\.?\d*\s+(?:points|goals|runs)', seg_lower):
+                    # Over/under total leg — totals are ~50/50, slight over-bias from public
+                    # Check if it's explicitly "under" (no-side)
+                    if seg_lower.startswith('no ') and 'over' in seg_lower:
+                        # "no Over X" = betting the under → slight edge (public bets overs)
+                        leg_prob = 0.52
+                    else:
+                        # "yes Over X" = betting the over → slightly overbet by public
+                        leg_prob = 0.48
+                    leg_descriptions.append(f"total({seg[:30]})")
+                elif re.search(r'wins?\s+by\s+over\s+\d', seg_lower):
+                    # Spread leg: "Team wins by over X.5 Points"
+                    spread_val = None
+                    sm = re.search(r'by\s+over\s+(\d+\.?\d*)', seg_lower)
+                    if sm:
+                        spread_val = float(sm.group(1))
+                    if spread_val is not None:
+                        k = SPORT_SPREAD_K.get(sport, 0.15)
+                        # Covering by X+ points → prob from logistic
+                        cover_prob = 1.0 / (1.0 + math.exp(k * spread_val))
+                        # If "no Team wins by over X" → betting AGAINST covering
+                        if seg_lower.startswith('no '):
+                            leg_prob = 1.0 - cover_prob
+                        else:
+                            leg_prob = cover_prob
+                        # Adjustment: public bias favors favorites covering
+                        leg_prob *= 0.97
+                    else:
+                        leg_prob = 0.50
+                    leg_descriptions.append(f"spread({seg[:30]})")
+                elif seg_lower.startswith('yes ') or seg_lower.startswith('no '):
+                    # Moneyline leg: "yes TeamName" or "no TeamName"
+                    # Without external data, assume:
+                    # "yes Team" = betting team wins = parlay maker chose favorite ≈ 60%
+                    # "no Team" = betting team loses = parlay maker chose underdog loss ≈ 55%
+                    if seg_lower.startswith('yes '):
+                        leg_prob = 0.60  # Favorites win ~60%
+                    else:
+                        leg_prob = 0.55  # "no Team" is less clear, slightly lower confidence
+                    leg_descriptions.append(f"ml({seg[:30]})")
+                else:
+                    leg_prob = 0.55
+                    leg_descriptions.append(f"unknown({seg[:30]})")
+                
+                leg_probs.append(max(0.20, min(0.85, leg_prob)))
             
-            # True combo probability = product of legs
-            # But add correlation factor (same-sport legs may be correlated)
-            correlation_boost = 1.02 ** (num_legs - 1)  # slight positive correlation
-            true_prob = (avg_leg_prob ** num_legs) * correlation_boost
+            # If we couldn't parse legs, fall back to implied per-leg
+            if len(leg_probs) < 2:
+                implied_per_leg = market_prob ** (1.0 / num_legs)
+                # Apply favorite-longshot bias correction
+                if implied_per_leg > 0.65:
+                    per_leg_adj = implied_per_leg * 1.02
+                elif implied_per_leg < 0.55:
+                    per_leg_adj = implied_per_leg * 0.92
+                else:
+                    per_leg_adj = implied_per_leg * 0.97
+                per_leg_adj = min(0.88, max(0.40, per_leg_adj))
+                leg_probs = [per_leg_adj] * num_legs
             
-            # Parlay markets on Kalshi tend to be slightly overpriced
-            # Apply a small discount
-            true_prob *= 0.95
+            # Correlation boost: same-sport legs are correlated
+            title_lower = title
+            sport_keywords = ['nba', 'nfl', 'nhl', 'mlb', 'ncaa', 'cbb', 'premier league', 'la liga', 'serie a']
+            same_sport = sum(1 for kw in sport_keywords if kw in title_lower) >= 1
+            corr_per_leg = 1.04 if same_sport else 1.02
+            correlation_boost = corr_per_leg ** (num_legs - 1)
+            
+            # True combo probability = product of individual leg probs × correlation
+            true_prob = 1.0
+            for lp in leg_probs:
+                true_prob *= lp
+            true_prob *= correlation_boost
+            
+            # Favorite-longshot bias on the OVERALL parlay price:
+            # Longshot parlays (yes < 20¢) are most overpriced, then < 30¢
+            if market.yes_price < 20:
+                # Extreme longshots: ~22% overpricing discount
+                true_prob = true_prob * 0.78
+            elif market.yes_price < 30:
+                # Longshot parlays: 15% overpricing discount
+                true_prob = true_prob * 0.85
+            elif market.yes_price > 70:
+                # Favorites in parlays slightly underpriced
+                true_prob = true_prob * 1.05
+            
+            # Additional leg penalty: each extra leg compounds overpricing
+            if num_legs >= 6:
+                true_prob *= 0.82  # 6+ legs: extreme overpricing
+            elif num_legs >= 4:
+                true_prob *= 0.88  # 4-5 legs: heavy overpricing
+            elif num_legs >= 3:
+                true_prob *= 0.93  # 3 legs: moderate overpricing
             
             prob = max(0.02, min(0.98, true_prob))
             confidence = "medium" if num_legs <= 3 else "low"
             
+            leg_detail = ", ".join(f"{lp:.0%}" for lp in leg_probs[:5])
+            if len(leg_probs) > 5:
+                leg_detail += f"... ({len(leg_probs)} total)"
+            
             reasoning_parts.append(
-                f"Combo/parlay with ~{num_legs} legs. "
-                f"Implied per-leg prob: {implied_per_leg:.1%}. "
-                f"Adjusted per-leg: {avg_leg_prob:.1%}. "
-                f"Combined: {prob:.1%} (includes parlay overpricing discount). "
-                f"Market price: {market_prob:.1%}."
+                f"Combo/parlay with {num_legs} legs (parsed from title). "
+                f"Per-leg probs: [{leg_detail}]. "
+                f"Correlation boost: {correlation_boost:.3f} ({'same-sport' if same_sport else 'mixed'}). "
+                f"Combined: {prob:.1%}. "
+                f"Market price: {market_prob:.1%}. "
+                f"{'LONGSHOT OVERPRICING applied.' if market.yes_price < 30 else ''}"
             )
             key_factors = [
                 f"{num_legs}-leg parlay",
-                f"Per-leg ~{avg_leg_prob:.0%}",
-                "Parlay overpricing bias",
-                "Compound probability"
+                f"Legs: [{leg_detail}]",
+                f"{'Longshot overpriced' if market.yes_price < 30 else 'Fair-priced parlay'}",
+                f"Corr: {correlation_boost:.2f}"
             ]
         else:
             prob = market_prob
@@ -1090,7 +1205,9 @@ def heuristic_critique(market: MarketInfo, forecast: ForecastResult) -> CriticRe
         adj_prob = 0.7 * market_prob + 0.3 * forecast.probability
     
     # Sanity check 4: Heuristic confidence is low + small edge → skip
-    if forecast.confidence == "low" and edge < 0.08:
+    # (Raised threshold: data shows <3% edge has 66.7% WR, so small edges are fine
+    #  when confidence is medium; only skip low-confidence + tiny edge)
+    if forecast.confidence == "low" and edge < 0.05:
         should_trade = False
         major_flaws.append("Low confidence heuristic + small edge")
     
@@ -1257,18 +1374,34 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
     edge_yes = final_prob - market_prob      # Edge for buying YES
     edge_no = (1 - final_prob) - (1 - market_prob)  # Edge for buying NO (= -edge_yes)
     
-    # Determine best side
-    if abs(edge_yes) < MIN_EDGE:
-        return TradeDecision(
-            action="SKIP",
-            edge=edge_yes,
-            kelly_size=0,
-            contracts=0,
-            price_cents=0,
-            reason=f"Edge too small: {edge_yes:+.1%} (need >{MIN_EDGE:.0%})",
-            forecast=forecast,
-            critic=critic
-        )
+    # Determine best side with SPLIT THRESHOLDS (data-driven)
+    # BUY_NO at <3% edge: 78% WR → low bar. BUY_YES at <5%: ~10% WR → high bar.
+    if edge_yes > 0:
+        # Would be BUY_YES → need higher threshold
+        if edge_yes < MIN_EDGE_BUY_YES:
+            return TradeDecision(
+                action="SKIP",
+                edge=edge_yes,
+                kelly_size=0,
+                contracts=0,
+                price_cents=0,
+                reason=f"BUY_YES edge too small: {edge_yes:+.1%} (need >{MIN_EDGE_BUY_YES:.0%} for YES)",
+                forecast=forecast,
+                critic=critic
+            )
+    else:
+        # Would be BUY_NO → lower threshold
+        if abs(edge_yes) < MIN_EDGE_BUY_NO:
+            return TradeDecision(
+                action="SKIP",
+                edge=edge_yes,
+                kelly_size=0,
+                contracts=0,
+                price_cents=0,
+                reason=f"BUY_NO edge too small: {abs(edge_yes):+.1%} (need >{MIN_EDGE_BUY_NO:.0%} for NO)",
+                forecast=forecast,
+                critic=critic
+            )
     
     # Check critic veto
     if not critic.should_trade:
@@ -1296,8 +1429,8 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
             critic=critic
         )
     
-    # Check confidence
-    if forecast.confidence == "low" and abs(edge_yes) < 0.10:
+    # Check confidence — but only block BUY_YES (BUY_NO works at low conf)
+    if forecast.confidence == "low" and edge_yes > 0 and abs(edge_yes) < 0.10:
         return TradeDecision(
             action="SKIP",
             edge=edge_yes,
@@ -1320,18 +1453,27 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
     market_type = classify_market_type(market)
     if edge_yes > 0:
         # YES is underpriced → buy YES
-        # But for parlays: data shows BUY_YES has 4.4% WR → skip
+        # But for parlays: data shows BUY_YES has 9.7% WR → mostly skip
         if PARLAY_ONLY_NO and market_type == "combo":
-            return TradeDecision(
-                action="SKIP",
-                edge=edge_yes,
-                kelly_size=0,
-                contracts=0,
-                price_cents=0,
-                reason=f"Parlay BUY_YES blocked (data: 4.4% WR). Only BUY_NO on parlays.",
-                forecast=forecast,
-                critic=critic
+            # Exception: allow BUY_YES on 2-leg parlays with edge > 5%
+            num_legs = estimate_combo_legs(market)
+            allow_yes = (
+                PARLAY_YES_EXCEPTION 
+                and num_legs <= 2 
+                and edge_yes > 0.05
+                and market.yes_price >= 30  # Not a longshot
             )
+            if not allow_yes:
+                return TradeDecision(
+                    action="SKIP",
+                    edge=edge_yes,
+                    kelly_size=0,
+                    contracts=0,
+                    price_cents=0,
+                    reason=f"Parlay BUY_YES blocked (data: 9.7% WR). legs={num_legs}, edge={edge_yes:.1%}. Need 2-leg + >5% edge + yes>=30¢.",
+                    forecast=forecast,
+                    critic=critic
+                )
         action = "BUY_YES"
         side_price = market.yes_price
         edge = edge_yes
@@ -1767,6 +1909,22 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 20, max_trades
     existing_tickers = set()
     for pos in positions:
         existing_tickers.add(pos.get("ticker", ""))
+    
+    # DEDUP: Also load tickers from trade log to avoid re-trading in paper mode
+    # In dry_run mode, positions aren't tracked by Kalshi API, so we track locally
+    if dry_run and TRADE_LOG_FILE.exists():
+        try:
+            with open(TRADE_LOG_FILE) as f:
+                for line in f:
+                    try:
+                        entry = json.loads(line.strip())
+                        if entry.get("action") in ("BUY_YES", "BUY_NO") and entry.get("dry_run"):
+                            existing_tickers.add(entry.get("ticker", ""))
+                    except json.JSONDecodeError:
+                        continue
+            print(f"📋 Dedup: {len(existing_tickers)} tickers already traded (paper mode)")
+        except Exception as e:
+            print(f"⚠️ Dedup file read error: {e}")
     
     for i, (market, score) in enumerate(top_markets, 1):
         if trades_executed >= max_trades:
