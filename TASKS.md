@@ -463,5 +463,5 @@
 | 172 | DASH-021 | FRH page: verificare TaskManagementPanel legge/scrive task reali | 🔥 ALTA | ✅ DONE | @clawdinho | Verified: reads from Gist via /api/tasks, no mock data |
 | 173 | DASH-022 | FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali | 🔥 ALTA | ✅ DONE | @clawdinho | Verified: uses Gist data from /api/agents/status |
 | 174 | DASH-023 | FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali | 🔥 ALTA | ✅ DONE | @clawdinho | Fixed: removed hardcoded CPU/memory, uses agentStatus.systemHealth |
-| 175 | DASH-024 | Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona | 🚨 CRITICO | ✅ DONE | @clawdinho | Build passes, gist data verified, deployed and accessible |
+| 175 | DASH-024 | Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona | 🚨 CRITICO | ✅ DONE | @clawdinho | E2E tested: 17 pages (2 public, 15 auth-protected), 33+ APIs (9 public OK, 24 auth-protected). No crashes. See docs/DASH-024-e2e-report.md |
 | 176 | DASH-025 | Deploy onde.surf dopo tutti i fix delle dashboard | 🚨 CRITICO | ✅ DONE | @clawdinho | Deployed to Cloudflare Pages: https://c2accc8e.onde-surf.pages.dev |
