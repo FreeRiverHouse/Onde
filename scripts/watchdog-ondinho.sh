@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 LOG_FILE="$SCRIPT_DIR/watchdog-ondinho.log"
 ALERT_FILE="$SCRIPT_DIR/ondinho-stalled.alert"
-ONDINHO_BOT_TOKEN="${ONDINHO_BOT_TOKEN:-$(grep ONDINHO_BOT_TOKEN "$PROJECT_DIR/.env.trading" 2>/dev/null | cut -d= -f2)}"
+ONDINHO_BOT_TOKEN="${ONDINHO_BOT_TOKEN:-$(grep ONDINHO_BOT_TOKEN "$HOME/.clawdbot/.env.trading" 2>/dev/null | cut -d= -f2)}"
 MATTIA_CHAT_ID="7505631979"
 
 log() {
