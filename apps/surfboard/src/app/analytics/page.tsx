@@ -256,14 +256,14 @@ export default function AnalyticsPage() {
             <MetricCard
               title="Page Views"
               value={metrics?.analytics?.pageviews}
-              subtitle="Today"
+              subtitle="Last 30 days"
               icon="👁️"
               color="cyan"
             />
             <MetricCard
               title="Unique Users"
               value={metrics?.analytics?.users}
-              subtitle="Today"
+              subtitle="Last 30 days"
               icon="👤"
               color="emerald"
             />
