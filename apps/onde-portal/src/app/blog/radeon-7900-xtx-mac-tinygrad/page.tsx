@@ -235,7 +235,7 @@ export default function RadeonTinygradArticle() {
             <strong className="text-white">MacBook Pro M1</strong> via
             Thunderbolt eGPU, using{' '}
             <strong className="text-white">TinyGrad</strong> with a small
-            patch. Everyone said it was impossible.{' '}
+            patch. Everyone said it was impossible — we asked Claude, Grok, ChatGPT, and Perplexity. All of them said it couldn&apos;t be done.{' '}
             <strong className="text-white/90">
               It technically works — but it&apos;s slow, impractical, and we ended up
               switching to MLX on Apple Silicon for actual production use.
@@ -290,7 +290,7 @@ export default function RadeonTinygradArticle() {
               <p className="text-white/70">
                 <strong className="text-white">AMD Radeon + TinyGrad</strong> on macOS?
                 &ldquo;Not possible&rdquo; — said everyone on Discord, Reddit,
-                and GitHub Issues
+                GitHub Issues, and every AI we asked (Claude, Grok, ChatGPT, Perplexity)
               </p>
             </div>
           </div>
