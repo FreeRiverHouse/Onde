@@ -1,7 +1,8 @@
 # X Post: Skin Creator on onde.la
-# Account: @FreeRiverHouse
+# Account: @Onde (NOT FreeRiverHouse - this goes on the Onde account)
 # Type: Single post or short thread (2-3 tweets)
 # Status: DRAFT - Needs Grok review before posting
+# NOTE: Include screenshot or short video of skin creator in action!
 
 ---
 
