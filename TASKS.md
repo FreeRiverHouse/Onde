@@ -523,7 +523,7 @@
 | 184 | VIRAL-002 | Chiedere a Grok feedback sullo Skin Creator attuale — cosa migliorare, task per renderlo ancora più figo | 🔥 CRESCITA | IN_PROGRESS | @clawd | Doc preparato: docs/strategy/viral-002-skin-creator-grok-review.md |
 | 185 | ADS-001 | Valutare e integrare banner ads kid-friendly nei giochi | ⭐ Revenue | IN_PROGRESS | @clawd | Research doc: docs/strategy/ads-001-kid-friendly-ads-research.md — needs Grok review |
 | 186 | BOOK-001 | Impaginazione professionale PDF "Il Saggio Imperatore" | 🔥 Content | ✅ DONE | @clawd | PDF 26pg, A4, cover+colophon+10 capitoli illustrati. fpdf2 layout professionale. |
-| 187 | BOOK-002 | Versione inglese "Il Saggio Imperatore" (traduzione + adattamento) | ⭐ Content | IN_PROGRESS | @clawd | Sub-agent translating to EN |
+| 187 | BOOK-002 | Versione inglese "The Wise Emperor" (traduzione + PDF) | ⭐ Content | ✅ DONE | @clawd | EN translation + Professional PDF 23pg A4. Script: generate_english_pdf.py |
 
 ### 🆕 TASK AGGIUNTI (2026-02-16 02:20 PST)
 
