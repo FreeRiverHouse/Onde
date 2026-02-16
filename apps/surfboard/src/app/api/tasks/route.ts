@@ -4,6 +4,7 @@ export const runtime = 'edge';
 
 const GIST_ID = '12a07b9ed63e19f01d2693b69f8a0e3b';
 const GIST_FILENAME = 'onde-tasks-data.json';
+const GIST_FALLBACK_URL = 'https://gist.githubusercontent.com/mattiabiondi/12a07b9ed63e19f01d2693b69f8a0e3b/raw/onde-tasks-data.json';
 
 interface Task {
   id: string;
@@ -58,7 +59,7 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching tasks:', error);
     
-    // Return fallback/mock data
+    // Return empty data gracefully (no 500 — shows "No tasks" instead of error)
     return NextResponse.json({
       timestamp: new Date().toISOString(),
       stats: {
@@ -73,9 +74,11 @@ export async function GET() {
       },
       tasks: [],
       recent_done: [],
-      error: 'Failed to fetch tasks data',
     }, {
-      status: 500,
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
     });
   }
 }

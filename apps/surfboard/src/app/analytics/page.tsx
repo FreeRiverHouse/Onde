@@ -292,12 +292,19 @@ export default function AnalyticsPage() {
                   <span>📚</span>
                   Publishing
                 </h3>
-                <div className="space-y-3">
-                  <MetricRow label="Books" value={metrics?.publishing?.booksPublished} />
-                  <MetricRow label="Audiobooks" value={metrics?.publishing?.audiobooks} />
-                  <MetricRow label="Podcasts" value={metrics?.publishing?.podcasts} />
-                  <MetricRow label="Videos" value={metrics?.publishing?.videos} />
-                </div>
+                {metrics?.publishing?.booksPublished != null || metrics?.publishing?.audiobooks != null || metrics?.publishing?.podcasts != null || metrics?.publishing?.videos != null ? (
+                  <div className="space-y-3">
+                    <MetricRow label="Books" value={metrics?.publishing?.booksPublished} />
+                    <MetricRow label="Audiobooks" value={metrics?.publishing?.audiobooks} />
+                    <MetricRow label="Podcasts" value={metrics?.publishing?.podcasts} />
+                    <MetricRow label="Videos" value={metrics?.publishing?.videos} />
+                  </div>
+                ) : (
+                  <div className="text-center py-4 text-white/30 text-sm">
+                    <p>No publishing data connected yet</p>
+                    <p className="text-xs mt-1 text-white/20">Configure data source to track publishing metrics</p>
+                  </div>
+                )}
               </div>
             </GlowCard>
 
@@ -308,12 +315,19 @@ export default function AnalyticsPage() {
                   <span>📱</span>
                   Social Media
                 </h3>
-                <div className="space-y-3">
-                  <MetricRow label="X (Twitter)" value={metrics?.social?.xFollowers} suffix="followers" />
-                  <MetricRow label="Instagram" value={metrics?.social?.igFollowers} suffix="followers" />
-                  <MetricRow label="TikTok" value={metrics?.social?.tiktokFollowers} suffix="followers" />
-                  <MetricRow label="YouTube" value={metrics?.social?.youtubeSubscribers} suffix="subscribers" />
-                </div>
+                {metrics?.social?.xFollowers != null || metrics?.social?.igFollowers != null || metrics?.social?.tiktokFollowers != null || metrics?.social?.youtubeSubscribers != null ? (
+                  <div className="space-y-3">
+                    <MetricRow label="X (Twitter)" value={metrics?.social?.xFollowers} suffix="followers" />
+                    <MetricRow label="Instagram" value={metrics?.social?.igFollowers} suffix="followers" />
+                    <MetricRow label="TikTok" value={metrics?.social?.tiktokFollowers} suffix="followers" />
+                    <MetricRow label="YouTube" value={metrics?.social?.youtubeSubscribers} suffix="subscribers" />
+                  </div>
+                ) : (
+                  <div className="text-center py-4 text-white/30 text-sm">
+                    <p>No social media data connected yet</p>
+                    <p className="text-xs mt-1 text-white/20">Social API integrations pending</p>
+                  </div>
+                )}
               </div>
             </GlowCard>
           </div>

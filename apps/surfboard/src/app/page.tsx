@@ -21,15 +21,15 @@ export default async function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero Header - Ultra Premium */}
-      <div className="mb-16 relative">
+      <div className="mb-10 relative">
         {/* Multi-layer background glow */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none">
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[900px] h-[300px] pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 via-transparent to-purple-500/30 blur-[120px] animate-pulse" />
           <div className="absolute inset-0 bg-gradient-to-b from-teal-500/20 to-transparent blur-[80px]" style={{ animationDelay: '1s' }} />
         </div>
         
         <ScrollReveal animation="fade-up" duration={800}>
-          <div className="relative pt-8">
+          <div className="relative pt-4">
             {/* Animated badge */}
             <div className="flex items-center gap-4 mb-6">
               <div className="group flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm hover:bg-emerald-500/20 transition-all duration-300 cursor-default">

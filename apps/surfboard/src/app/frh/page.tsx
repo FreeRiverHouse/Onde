@@ -241,6 +241,9 @@ export default function FRHDashboard() {
                 {agent.last_seen && (
                   <div className="mt-2 text-xs text-gray-500">
                     Last seen: {new Date(agent.last_seen).toLocaleString()}
+                    {Date.now() - new Date(agent.last_seen).getTime() > 24 * 60 * 60 * 1000 && (
+                      <span className="ml-2 text-amber-400/70">(stale)</span>
+                    )}
                   </div>
                 )}
               </div>

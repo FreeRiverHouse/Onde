@@ -232,7 +232,6 @@ export default function MissionControlPage() {
         {/* Infrastructure Status Row */}
         <div className="flex flex-wrap gap-3 mb-8">
           <StatusPill running={data?.autotrader.running ?? false} label={`Autotrader${data?.autotrader.circuit_breaker ? ' ⚠️ CB' : ''}`} />
-          <StatusPill running={data?.gpu.radeon_connected ?? false} label={`GPU${data?.gpu.radeon_connected ? ' (Radeon 7900 XTX)' : ''}`} />
           <StatusPill running={data?.ollama.running ?? false} label={`Ollama${data?.ollama.running ? ` (${data.ollama.location})` : ''}`} />
           {data?.ollama.running && data.ollama.models.length > 0 && (
             <span className="text-[10px] text-white/20 self-center font-mono">
