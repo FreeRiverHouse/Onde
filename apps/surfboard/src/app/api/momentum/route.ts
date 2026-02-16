@@ -19,14 +19,23 @@ interface MomentumData {
 }
 
 async function fetchOHLC(coinId: string): Promise<number[][]> {
-  // Fetch 2 days of hourly OHLC from CoinGecko
-  const url = `https://api.coingecko.com/api/v3/coins/${coinId}/ohlc?vs_currency=usd&days=2`;
+  // Fetch 1 day of hourly OHLC from CoinGecko (valid values: 1, 7, 14, 30, 90, 180, 365)
+  const url = `https://api.coingecko.com/api/v3/coins/${coinId}/ohlc?vs_currency=usd&days=1`;
   const res = await fetch(url, {
     headers: { 'Accept': 'application/json' },
     next: { revalidate: 60 } // Cache for 60 seconds
   });
   
   if (!res.ok) {
+    // Try fallback with simple price endpoint
+    const fallbackUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd&include_24hr_change=true`;
+    const fallbackRes = await fetch(fallbackUrl, { headers: { 'Accept': 'application/json' } });
+    if (fallbackRes.ok) {
+      const data = await fallbackRes.json();
+      const price = data[coinId]?.usd || 0;
+      // Return minimal OHLC-like array with just current price
+      return [[Date.now(), price, price, price, price]];
+    }
     throw new Error(`CoinGecko API error: ${res.status}`);
   }
   
@@ -133,9 +142,14 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Error fetching momentum:', error);
-    return NextResponse.json({ 
-      error: 'Failed to fetch momentum data',
-      details: String(error)
-    }, { status: 500 });
+    // Return empty data instead of 500 so the dashboard doesn't show errors
+    return NextResponse.json({
+      data: [],
+      lastUpdated: new Date().toISOString(),
+      error: 'Momentum data temporarily unavailable'
+    }, { 
+      status: 200,
+      headers: { 'Cache-Control': 'public, max-age=60' }
+    });
   }
 }

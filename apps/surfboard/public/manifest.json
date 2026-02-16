@@ -1,0 +1,16 @@
+{
+  "name": "Onde SurfBoard",
+  "short_name": "SurfBoard",
+  "description": "Onde Dashboard - FRH HQ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#06b6d4",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

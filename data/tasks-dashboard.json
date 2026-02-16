@@ -1,15 +1,515 @@
 {
-  "timestamp": "2026-02-15T21:24:20.959216",
+  "timestamp": "2026-02-15T21:25:54.260977",
   "stats": {
-    "total": 0,
-    "done": 0,
-    "in_progress": 0,
-    "blocked": 0,
-    "todo": 0,
-    "completion_rate": 0.0,
-    "by_priority": {},
-    "by_owner": {}
+    "total": 203,
+    "done": 181,
+    "in_progress": 5,
+    "blocked": 3,
+    "todo": 14,
+    "completion_rate": 89.2,
+    "by_priority": {
+      "P1": 4,
+      "P3": 18
+    },
+    "by_owner": {
+      "@clawdinho": 10,
+      "unassigned": 5,
+      "@mattia": 2,
+      "@kalshi-paper-agent": 1,
+      "@kalshi-winrate-monitor": 1
+    }
   },
-  "tasks": [],
-  "recent_done": []
+  "tasks": [
+    {
+      "id": "SEO-002",
+      "title": "Submit skin-creator a Google Search Console",
+      "impact": "\ud83d\udd25 Indicizzazione Google",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P1"
+    },
+    {
+      "id": "MKTG-001",
+      "title": "Post skin creator su r/Minecraft e r/Roblox",
+      "impact": "\ud83d\udd25 Marketing diretto",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P1"
+    },
+    {
+      "id": "MKTG-002",
+      "title": "YouTube Shorts demo skin creator",
+      "impact": "\ud83d\udd25 Viralit\u00e0 video",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P1"
+    },
+    {
+      "id": "SOC-001",
+      "title": "Review X presence e engagement recente",
+      "impact": "\ud83d\udcc8 Social presence",
+      "status": "BLOCKED",
+      "priority": "P1"
+    },
+    {
+      "id": "ANALYTICS-001",
+      "title": "Setup Plausible/Umami analytics",
+      "impact": "\ud83d\udcca Growth",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-005",
+      "title": "Mission Control: Activity logging from heartbeats",
+      "impact": "\ud83d\udd25 Agent monitoring",
+      "status": "BLOCKED",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "PERF-003",
+      "title": "Fix Cloudflare robots.txt conflict (duplicate User-agent blocks)",
+      "impact": "\u2b50 SEO",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-002",
+      "title": "Dashboard autotrader su onde.surf funzionante con grafici trend",
+      "impact": "\ud83d\udd25 Trading",
+      "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "MONEY-001",
+      "title": "Valutare e aggiungere ads kid-friendly su onde.la",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "SEO-017",
+      "title": "Disabilitare CF AI Audit che blocca crawler AI (ClaudeBot, GPTBot, Google-Extended)",
+      "impact": "\ud83d\udea8 BLOCCANTE",
+      "status": "TODO",
+      "owner": "@mattia",
+      "priority": "P3"
+    },
+    {
+      "id": "SOC-002",
+      "title": "Post X thread su Radeon 7900 XTX + TinyGrad on Mac",
+      "impact": "\ud83d\udd25 Social/Content",
+      "status": "BLOCKED",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "SOC-003",
+      "title": "Configurare Typefully API key per posting automatico su X",
+      "impact": "\ud83d\udd25 Social",
+      "status": "TODO",
+      "owner": "@mattia",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-010",
+      "title": "A/B test live: autotrader v2 con nuovi caps vs paper mode vecchi caps per 1 settimana",
+      "impact": "\u2b50 Trading",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-015",
+      "title": "Re-run kelly sweep dopo 30+ settled crypto trades",
+      "impact": "\u2b50 Trading",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "PM-001",
+      "title": "Creare script polymarket-navigator.py con funzioni navigate/scroll/bet/screenshot",
+      "impact": "\ud83d\udd25 Trading",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-005",
+      "title": "Opus Forecaster: automated market scanning + trading ogni heartbeat",
+      "impact": "\ud83d\udd25 Trading",
+      "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "~~TRADE-006~~",
+      "title": "~~Kalshi: deposit pi\u00f9 fondi~~",
+      "impact": "~~\ud83d\udea8 BLOCCANTE~~",
+      "status": "TODO",
+      "priority": "P3"
+    },
+    {
+      "id": "PM-003",
+      "title": "Polymarket: Sub-agent scanner mercati sport",
+      "impact": "\u2b50 Media",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "PM-004",
+      "title": "Polymarket: Collegare dashboard PolyRoborto a dati reali",
+      "impact": "\u2b50 Media",
+      "status": "TODO",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "PERM-001",
+      "title": "Polymarket: Microbet a raffica via phone mirror (24/7)",
+      "impact": "\ud83d\udea8 PERMANENTE",
+      "status": "IN_PROGRESS",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "PERM-002",
+      "title": "Kalshi: Paper trading continuo con autotrader v3 (24/7)",
+      "impact": "\ud83d\udea8 PERMANENTE",
+      "status": "IN_PROGRESS",
+      "owner": "@kalshi-paper-agent",
+      "priority": "P3"
+    },
+    {
+      "id": "PERM-003",
+      "title": "Kalshi: Monitor win rate \u2192 passare a live quando profittevole",
+      "impact": "\ud83d\udea8 PERMANENTE",
+      "status": "IN_PROGRESS",
+      "owner": "@kalshi-winrate-monitor",
+      "priority": "P3"
+    },
+    {
+      "id": "PM-002",
+      "title": "Polymarket: Aggiorna GOLDEN-CONFIG su GitHub",
+      "impact": "\ud83d\udd25 Alta",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-016",
+      "title": "Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri",
+      "impact": "\ud83d\udd25 Trading validation",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-017",
+      "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
+      "impact": "\u2b50 Trading performance",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-018",
+      "title": "Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading",
+      "impact": "\u2b50 Monitoring",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-010",
+      "title": "Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-011",
+      "title": "Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-012",
+      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-013",
+      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-014",
+      "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-015",
+      "title": "Betting page: Latency chart usa generateMockLatencyTrend \u2192 collegare a dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-016",
+      "title": "Betting page: Return Distribution usa generateMockTrades \u2192 collegare a trades reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-017",
+      "title": "Betting page: PnL by market type usa generateMockPnLData fallback \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-018",
+      "title": "Betting page: WinRate Sparkline usa generateMockSparklineData \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-019",
+      "title": "Betting page: Latency Sparkline usa generateMockLatencyHistory \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-020",
+      "title": "FRH page: verificare e fixare agent chat (invio/ricezione messaggi)",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-021",
+      "title": "FRH page: verificare TaskManagementPanel legge/scrive task reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-022",
+      "title": "FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-023",
+      "title": "FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-024",
+      "title": "Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-025",
+      "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    }
+  ],
+  "recent_done": [
+    {
+      "id": "PM-002",
+      "title": "Polymarket: Aggiorna GOLDEN-CONFIG su GitHub",
+      "impact": "\ud83d\udd25 Alta",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-016",
+      "title": "Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri",
+      "impact": "\ud83d\udd25 Trading validation",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-017",
+      "title": "Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement)",
+      "impact": "\u2b50 Trading performance",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "TRADE-018",
+      "title": "Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading",
+      "impact": "\u2b50 Monitoring",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-010",
+      "title": "Trading Trend API: sostituire Math.random() mock data con dati reali da Gist/OHLC cache",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-011",
+      "title": "Trading History API: leggere trades reali da kalshi-trades.jsonl via Gist invece di mock",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-012",
+      "title": "Agents API: sostituire demo-agent-1/2 hardcoded con dati reali da agent-status Gist",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-013",
+      "title": "Activity API: rimuovere mockActivities fallback, collegare a dati reali (git log, alerts)",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-014",
+      "title": "Betting page: WinRate trend chart usa generateMockWinRateTrend come fallback \u2192 fix con dati Gist",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-015",
+      "title": "Betting page: Latency chart usa generateMockLatencyTrend \u2192 collegare a dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-016",
+      "title": "Betting page: Return Distribution usa generateMockTrades \u2192 collegare a trades reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-017",
+      "title": "Betting page: PnL by market type usa generateMockPnLData fallback \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-018",
+      "title": "Betting page: WinRate Sparkline usa generateMockSparklineData \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-019",
+      "title": "Betting page: Latency Sparkline usa generateMockLatencyHistory \u2192 dati reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-020",
+      "title": "FRH page: verificare e fixare agent chat (invio/ricezione messaggi)",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-021",
+      "title": "FRH page: verificare TaskManagementPanel legge/scrive task reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-022",
+      "title": "FRH page: AgentsMonitoringWidget - verificare mostra stato agenti reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-023",
+      "title": "FRH page: SystemMonitoringWidget - verificare mostra metriche sistema reali",
+      "impact": "\ud83d\udd25 ALTA",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-024",
+      "title": "Testare TUTTE le pagine onde.surf end-to-end e documentare cosa funziona/non funziona",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    },
+    {
+      "id": "DASH-025",
+      "title": "Deploy onde.surf dopo tutti i fix delle dashboard",
+      "impact": "\ud83d\udea8 CRITICO",
+      "status": "DONE",
+      "owner": "@clawdinho",
+      "priority": "P3"
+    }
+  ]
 }

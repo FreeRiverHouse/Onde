@@ -24,6 +24,16 @@ interface MetricWithHistory {
 }
 
 interface MetricsData {
+  // Cloudflare Web Analytics data
+  summary?: { pageViews30d: number; pageViews7d: number }
+  daily?: Array<{ date: string; views: number }>
+  topPages?: Array<{ path: string; views: number }>
+  topReferrers?: Array<{ referrer: string; views: number }>
+  devices?: Array<{ type: string; views: number }>
+  browsers?: Array<{ browser: string; views: number }>
+  countries?: Array<{ country: string; views: number }>
+  operatingSystems?: Array<{ os: string; views: number }>
+  // Legacy fields
   publishing: {
     booksPublished: number | null
     audiobooks: number | null
@@ -254,79 +264,148 @@ export default function AnalyticsPage() {
           {/* Metrics Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <MetricCard
-              title="Page Views"
-              value={metrics?.analytics?.pageviews}
+              title="Page Views (30d)"
+              value={metrics?.summary?.pageViews30d ?? metrics?.analytics?.pageviews}
               subtitle="Last 30 days"
               icon="👁️"
               color="cyan"
             />
             <MetricCard
-              title="Unique Users"
-              value={metrics?.analytics?.users}
-              subtitle="Last 30 days"
-              icon="👤"
+              title="Page Views (7d)"
+              value={metrics?.summary?.pageViews7d}
+              subtitle="Last 7 days"
+              icon="📈"
               color="emerald"
             />
             <MetricCard
-              title="Search Clicks"
-              value={metrics?.search?.clicks}
-              subtitle="This week"
-              icon="🔍"
+              title="Mobile Views"
+              value={metrics?.devices?.find(d => d.type === 'mobile')?.views}
+              subtitle="Last 30 days"
+              icon="📱"
               color="purple"
             />
             <MetricCard
-              title="Search Impressions"
-              value={metrics?.search?.impressions}
-              subtitle="This week"
-              icon="📊"
+              title="Desktop Views"
+              value={metrics?.devices?.find(d => d.type === 'desktop')?.views}
+              subtitle="Last 30 days"
+              icon="🖥️"
               color="amber"
             />
           </div>
 
-          {/* Category Breakdowns */}
+          {/* CF Analytics Breakdowns */}
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Publishing */}
+            {/* Top Pages */}
             <GlowCard variant="cyan" noPadding noTilt>
               <div className="p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <span>📚</span>
-                  Publishing
+                  <span>📄</span>
+                  Top Pages
                 </h3>
-                {metrics?.publishing?.booksPublished != null || metrics?.publishing?.audiobooks != null || metrics?.publishing?.podcasts != null || metrics?.publishing?.videos != null ? (
-                  <div className="space-y-3">
-                    <MetricRow label="Books" value={metrics?.publishing?.booksPublished} />
-                    <MetricRow label="Audiobooks" value={metrics?.publishing?.audiobooks} />
-                    <MetricRow label="Podcasts" value={metrics?.publishing?.podcasts} />
-                    <MetricRow label="Videos" value={metrics?.publishing?.videos} />
+                {metrics?.topPages && metrics.topPages.length > 0 ? (
+                  <div className="space-y-2">
+                    {metrics.topPages.slice(0, 10).map((page, i) => (
+                      <div key={i} className="flex items-center justify-between">
+                        <span className="text-sm text-white/60 truncate max-w-[200px]" title={page.path}>
+                          {page.path}
+                        </span>
+                        <span className="text-sm font-medium text-white ml-2">
+                          {page.views.toLocaleString()}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 ) : (
-                  <div className="text-center py-4 text-white/30 text-sm">
-                    <p>No publishing data connected yet</p>
-                    <p className="text-xs mt-1 text-white/20">Configure data source to track publishing metrics</p>
-                  </div>
+                  <div className="text-center py-4 text-white/30 text-sm">No page data</div>
                 )}
               </div>
             </GlowCard>
 
-            {/* Social */}
+            {/* Top Referrers */}
             <GlowCard variant="purple" noPadding noTilt>
               <div className="p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <span>📱</span>
-                  Social Media
+                  <span>🔗</span>
+                  Top Referrers
                 </h3>
-                {metrics?.social?.xFollowers != null || metrics?.social?.igFollowers != null || metrics?.social?.tiktokFollowers != null || metrics?.social?.youtubeSubscribers != null ? (
-                  <div className="space-y-3">
-                    <MetricRow label="X (Twitter)" value={metrics?.social?.xFollowers} suffix="followers" />
-                    <MetricRow label="Instagram" value={metrics?.social?.igFollowers} suffix="followers" />
-                    <MetricRow label="TikTok" value={metrics?.social?.tiktokFollowers} suffix="followers" />
-                    <MetricRow label="YouTube" value={metrics?.social?.youtubeSubscribers} suffix="subscribers" />
+                {metrics?.topReferrers && metrics.topReferrers.length > 0 ? (
+                  <div className="space-y-2">
+                    {metrics.topReferrers.slice(0, 10).map((ref, i) => (
+                      <div key={i} className="flex items-center justify-between">
+                        <span className="text-sm text-white/60 truncate max-w-[200px]">
+                          {ref.referrer || '(direct)'}
+                        </span>
+                        <span className="text-sm font-medium text-white ml-2">
+                          {ref.views.toLocaleString()}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 ) : (
-                  <div className="text-center py-4 text-white/30 text-sm">
-                    <p>No social media data connected yet</p>
-                    <p className="text-xs mt-1 text-white/20">Social API integrations pending</p>
+                  <div className="text-center py-4 text-white/30 text-sm">No referrer data</div>
+                )}
+              </div>
+            </GlowCard>
+          </div>
+
+          {/* Browsers & Countries */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Browsers */}
+            <GlowCard variant="cyan" noPadding noTilt>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <span>🌐</span>
+                  Browsers
+                </h3>
+                {metrics?.browsers && metrics.browsers.length > 0 ? (
+                  <div className="space-y-2">
+                    {metrics.browsers.slice(0, 8).map((b, i) => (
+                      <div key={i} className="flex items-center justify-between">
+                        <span className="text-sm text-white/60">{b.browser}</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-cyan-400 rounded-full"
+                              style={{ width: `${Math.min(100, (b.views / (metrics.browsers![0]?.views || 1)) * 100)}%` }}
+                            />
+                          </div>
+                          <span className="text-sm font-medium text-white w-8 text-right">{b.views}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
+                ) : (
+                  <div className="text-center py-4 text-white/30 text-sm">No browser data</div>
+                )}
+              </div>
+            </GlowCard>
+
+            {/* Countries */}
+            <GlowCard variant="purple" noPadding noTilt>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <span>🌍</span>
+                  Countries
+                </h3>
+                {metrics?.countries && metrics.countries.length > 0 ? (
+                  <div className="space-y-2">
+                    {metrics.countries.slice(0, 8).map((c, i) => (
+                      <div key={i} className="flex items-center justify-between">
+                        <span className="text-sm text-white/60">{c.country}</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-purple-400 rounded-full"
+                              style={{ width: `${Math.min(100, (c.views / (metrics.countries![0]?.views || 1)) * 100)}%` }}
+                            />
+                          </div>
+                          <span className="text-sm font-medium text-white w-8 text-right">{c.views}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-4 text-white/30 text-sm">No country data</div>
                 )}
               </div>
             </GlowCard>
