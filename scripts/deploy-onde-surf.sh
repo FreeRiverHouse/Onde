@@ -1,62 +1,48 @@
 #!/bin/bash
-#
-# deploy-onde-surf.sh - Deploy onde.surf (Surfboard Dashboard)
-# 
-# Usage: ./scripts/deploy-onde-surf.sh
-#
+# Deploy onde.surf to Cloudflare Pages with pre-deploy checks
+# GROK-DASH-001: includes fake-data scan before deploy
+
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ONDE_ROOT="$(dirname "$SCRIPT_DIR")"
-APP_DIR="$ONDE_ROOT/apps/surfboard"
+PROJECT_DIR="$SCRIPT_DIR/.."
+SURFBOARD_DIR="$PROJECT_DIR/apps/surfboard"
 
-# Cloudflare credentials (hardcoded for reliability)
-export CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw"
-export CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f"
+echo "🚀 Deploying onde.surf..."
+echo ""
 
-echo "🏄 DEPLOY ONDE.SURF"
-echo "===================="
+# STEP 1: Pre-deploy scan for fake data
+echo "📋 Step 1: Scanning for fake data patterns..."
+"$SCRIPT_DIR/scan-fake-data.sh"
+echo ""
 
-# 1. Check we're in the right place
-if [ ! -d "$APP_DIR" ]; then
-    echo "❌ ERROR: $APP_DIR not found"
-    exit 1
-fi
-
-cd "$APP_DIR"
-
-# 2. Git sync
-echo "📥 Git pull..."
-git -C "$ONDE_ROOT" pull origin main 2>/dev/null || true
-
-# 3. Install deps if needed
-if [ ! -d "node_modules" ]; then
-    echo "📦 Installing dependencies..."
-    npm install
-fi
-
-# 4. Build
-echo "🔨 Building..."
+# STEP 2: Build
+echo "📋 Step 2: Building..."
+cd "$SURFBOARD_DIR"
 npm run build
 npm run build:cf
-
-# 5. Deploy
-echo "🚀 Deploying to Cloudflare..."
-npx wrangler pages deploy .vercel/output/static \
-    --project-name=onde-surf \
-    --commit-dirty=true
-
-# 6. Verify
-echo "✅ Verifying deployment..."
-sleep 3
-STATUS=$(curl -sI "https://onde.surf" | head -1 | cut -d' ' -f2)
-
-if [ "$STATUS" = "307" ] || [ "$STATUS" = "200" ]; then
-    echo "✅ onde.surf is UP (HTTP $STATUS)"
-else
-    echo "⚠️ onde.surf returned HTTP $STATUS - check manually"
-fi
-
 echo ""
-echo "🏄 Deploy complete!"
-echo "   URL: https://onde.surf"
+
+# STEP 3: Deploy
+echo "📋 Step 3: Deploying to Cloudflare Pages..."
+CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
+CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
+echo ""
+
+# STEP 4: Verify
+echo "📋 Step 4: Verifying deployment..."
+sleep 5
+STATUS=$(curl -sf -o /dev/null -w "%{http_code}" "https://onde.surf" 2>/dev/null || echo "000")
+HEALTH=$(curl -sf -o /dev/null -w "%{http_code}" "https://onde.surf/health" 2>/dev/null || echo "000")
+
+echo "   onde.surf → $STATUS"
+echo "   onde.surf/health → $HEALTH"
+
+if [ "$HEALTH" = "200" ]; then
+  echo ""
+  echo "✅ Deploy successful!"
+else
+  echo ""
+  echo "⚠️  Health check returned $HEALTH — investigate!"
+fi

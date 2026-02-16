@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
  * Trading Settlements API - T349
  * 
  * Combines v1 and v2 settlement statistics for the trading dashboard.
- * On Edge/Cloudflare deployment, returns placeholder data.
+ * On Edge/Cloudflare deployment, returns empty stats (no local file access).
  * Real data is available via GitHub Gist (see push-stats-to-gist.py).
  */
 
@@ -96,7 +96,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const source = searchParams.get('source') || 'all';
   
-  // On Edge runtime, return placeholder data with notice
+  // On Edge runtime, return empty stats (real data via Gist)
   const v1Stats = emptyStats();
   const v2Stats = emptyStats();
   const combined = combineStats(v1Stats, v2Stats);
