@@ -519,8 +519,16 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 183 | VIRAL-001 | Chiedere a Grok lista giochi virali/educativi per onde.la — SEO-driven, collegati a ricerche Google, da integrare nel portale esistente. Grok deve dare direzione editoriale giochi | 🔥🔥 CRESCITA | IN_PROGRESS | @clawdinho | Research completa (docs/marketing/viral-games-research.md). Primo gioco costruito: Name Generator (/games/name-generator/). Prossimi: Roblox Avatar Creator, Virtual Pet, Cookie Clicker, Crafting Guide |
+| 183 | VIRAL-001 | Chiedere a Grok lista giochi virali/educativi per onde.la — SEO-driven, collegati a ricerche Google, da integrare nel portale esistente. Grok deve dare direzione editoriale giochi | 🔥🔥 CRESCITA | IN_PROGRESS | @clawdinho | Research completa. Built: Name Generator ✅, Crafting Guide ✅, Cookie Clicker ✅, Virtual Pet ✅. Next: Roblox Avatar Creator |
 | 184 | VIRAL-002 | Chiedere a Grok feedback sullo Skin Creator attuale — cosa migliorare, task per renderlo ancora più figo | 🔥 CRESCITA | TODO | @clawd | Skin Creator già funziona bene, ma Grok può suggerire miglioramenti per aumentare retention/viralità |
 | 185 | ADS-001 | Valutare e integrare banner ads kid-friendly nei giochi (Skin Creator + altri) — roba non invadente, pubblicità per bambini | ⭐ Revenue | TODO | @clawd | Iniziare a monetizzare anche con poco traffico. Banner carini, non invasivi. Chiedere consigli a Grok su network ads kid-safe (Google AdSense for kids? Superawesome?) |
 | 186 | BOOK-001 | Impaginazione professionale PDF "Il Saggio Imperatore" — chiedere a Grok librerie/tool, layout degno di Amazon | 🔥 Content | TODO | @clawd | PDF attuale troppo basic. Serve impaginazione curata → PDF + EPUB → Amazon. Grok deve approvare prima di chiudere |
 | 187 | BOOK-002 | Versione inglese "Il Saggio Imperatore" (traduzione + adattamento) | ⭐ Content | TODO | @clawd | Depends: BOOK-001 (impaginazione italiana prima). Poi tradurre testo + rigenerare PDF/EPUB in EN |
+
+### 🆕 TASK AGGIUNTI (2026-02-16 02:20 PST)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 188 | VIRAL-002 | Build Roblox Avatar Creator game (TIER 1 from viral research, 100K+ monthly searches) | 🔥🔥 CRESCITA | TODO | @clawdinho | Next from VIRAL-001 priority list. Mirror Skin Creator success for Roblox audience |
+| 189 | VIRAL-003 | Create /games/minecraft/ hub page linking all MC tools (Skin Creator, Name Gen, Crafting Guide, Enchant Calc) | 🔥 SEO | TODO | @clawdinho | Cross-promote Minecraft ecosystem, target "free minecraft tools online" |
+| 190 | VIRAL-004 | Build Times Table Trainer (TIER 3 educational, parents actively search for this) | ⭐ CRESCITA | TODO | @clawdinho | Target: "times table practice", "multiplication game free" |
