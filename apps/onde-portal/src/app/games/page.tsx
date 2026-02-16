@@ -46,6 +46,8 @@ const allGames = [
   { id: 'scratch', href: '/games/scratch', emoji: '💻', title: 'Scratch' },
   { id: 'typing-race', href: '/games/typing-race', emoji: '🏎️', title: 'Type Race' },
   { id: 'snake', href: '/games/snake', emoji: '🐍', title: 'Snake' },
+  { id: 'ocean-run', href: '/games/ocean-run', emoji: '🏃', title: 'Ocean Run' },
+  { id: 'tower', href: '/games/tower', emoji: '🏗️', title: 'Tower Stack' },
 ]
 
 // Positions for floating game bubbles around the island (percentages)

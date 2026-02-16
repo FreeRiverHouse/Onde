@@ -77,6 +77,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/typing',
     '/games/typing-race',
     '/games/snake',
+    '/games/ocean-run',
+    '/games/tower',
     '/games/whack',
     '/games/wheel',
     '/games/word-puzzle',
