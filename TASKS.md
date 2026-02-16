@@ -537,7 +537,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 191 | UI-001 | Dark mode toggle in OGNI pagina di onde.la (non solo homepage — anche games, arcade, blog, libri, skin-creator, etc.) | 🔥🔥 UX | TODO | @clawdinho | Il toggle sole/pioggia esiste ma non è in tutte le pagine. Deve essere globale e persistente |
+| 191 | UI-001 | Dark mode toggle in OGNI pagina di onde.la (non solo homepage — anche games, arcade, blog, libri, skin-creator, etc.) | 🔥🔥 UX | IN_PROGRESS | @clawd | Il toggle sole/pioggia esiste ma non è in tutte le pagine. Deve essere globale e persistente |
 | 192 | UI-002 | Audit lingua: controllare che inglese e italiano non siano mischiati nelle pagine di onde.la — tutto deve essere coerente (EN o IT, non mix) | 🔥 UX | TODO | @clawdinho | Alcune pagine potrebbero avere mix di lingue. Fare audit completo e fixare |
 
 ### 🔥 GROK-VIRAL-002: Task Migliorativi Skin Creator (from Grok review)
