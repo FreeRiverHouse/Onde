@@ -198,6 +198,13 @@ SPORTS_EVENT_TICKERS = [
     "KXMULTISPORT",
 ]
 
+# Crypto series tickers (hourly + daily contracts, trade 24/7)
+CRYPTO_SERIES_TICKERS = [
+    "KXBTCD", "KXETHD", "KXSOLD",           # Daily range contracts
+    "KXBTCMAX100", "KXETHMAX100",            # Max price contracts
+    "KXBTCMIN100", "KXETHMIN100",            # Min price contracts
+]
+
 # ── Crypto volatility defaults (v2 calibrated) ──
 BTC_HOURLY_VOL = 0.003
 ETH_HOURLY_VOL = 0.004
@@ -1984,6 +1991,22 @@ def scan_all_markets() -> list:
         time.sleep(0.2)
     if sports_found:
         print(f"   Sports: +{sports_found} additional markets")
+
+    # Crypto series scan (hourly/daily contracts — trade 24/7)
+    crypto_found = 0
+    for ct in CRYPTO_SERIES_TICKERS:
+        path = f"/trade-api/v2/markets?limit=200&series_ticker={ct}&status=open"
+        result = kalshi_api("GET", path)
+        if "error" not in result:
+            for r in result.get("markets", []):
+                m = parse_market(r)
+                if m and m.ticker not in seen:
+                    all_markets.append(m)
+                    seen.add(m.ticker)
+                    crypto_found += 1
+        time.sleep(0.2)
+    if crypto_found:
+        print(f"   Crypto: +{crypto_found} additional markets")
 
     # Filter
     filtered = filter_markets(all_markets)
