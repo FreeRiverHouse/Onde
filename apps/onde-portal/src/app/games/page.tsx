@@ -13,6 +13,7 @@ const games = [
   { id: 'pixel-art', href: '/games/pixel-art', title: 'Pixel Art', desc: 'Image to Blocks', emoji: '🖼️' },
   { id: 'enchant', href: '/games/enchant-calc', title: 'Enchant Calc', desc: 'Enchantment Guide', emoji: '✨' },
   { id: 'name-gen', href: '/games/name-generator', title: 'Name Generator', desc: 'MC Usernames', emoji: '⚒️' },
+  { id: 'crafting', href: '/games/crafting-guide', title: 'Crafting Guide', desc: 'All Recipes', emoji: '📖' },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz', desc: 'Knowledge', emoji: '❓' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math Fun', emoji: '➕' },
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match Pairs', emoji: '🧠' },
