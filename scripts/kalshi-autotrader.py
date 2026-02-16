@@ -2413,11 +2413,14 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     print("=" * 70)
 
     # ── Check holiday ──
+    # NOTE: Crypto markets (KXBTC, KXETH, KXSOL) trade 24/7 including holidays.
+    # We only skip non-crypto markets on holidays, not the entire cycle.
+    is_holiday_today = False
+    holiday_name = ""
     if HOLIDAY_CHECK_AVAILABLE:
-        is_hol, hol_name = is_market_holiday()
-        if is_hol:
-            print(f"🎄 Market holiday: {hol_name} — skipping cycle")
-            return
+        is_holiday_today, holiday_name = is_market_holiday()
+        if is_holiday_today:
+            print(f"🎄 Market holiday: {holiday_name} — crypto-only mode (non-crypto skipped)")
 
     # ── Settlement tracker ──
     settlement = update_trade_results()
@@ -2606,6 +2609,14 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
         # Build market-specific context
         mkt_context = dict(context)
         mkt_type = classify_market_type(market)
+
+        # Skip non-crypto on holidays (crypto trades 24/7)
+        if is_holiday_today and mkt_type != "crypto":
+            print(f"   ⏭️ Holiday skip (non-crypto): {holiday_name}")
+            trades_skipped += 1
+            log_skip(market.ticker, f"holiday_{holiday_name}", {})
+            continue
+
         if mkt_type == "crypto":
             asset = "btc" if "BTC" in market.ticker.upper() else "eth"
             mkt_context["momentum"] = context.get("momentum", {}).get(asset, {})
