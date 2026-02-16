@@ -509,5 +509,5 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 181 | NAV-001 | Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile) | 🔥 ALTA | IN_PROGRESS | @clawdinho | Mattia non riesce ad accedere alle pagine da telefono perché la nav è nascosta su mobile |
-| 182 | NAV-002 | Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente) | ⭐ UX | TODO | @clawdinho | Mattia vuole accedere facilmente ad analytics dalla homepage |
+| 181 | NAV-001 | Aggiungere hamburger menu mobile su onde.surf navbar (tutti i link nav visibili da mobile) | 🔥 ALTA | ✅ DONE | @clawdinho | MobileNav hamburger già esisteva, aggiunto Trading + Health. Deploy verificato 2026-02-15 23:07 |
+| 182 | NAV-002 | Aggiungere link /analytics visibile dalla homepage onde.surf (card o bottone prominente) | ⭐ UX | ✅ DONE | @clawdinho | Analytics card già presente nella Navigation Cards Row della homepage + quick link desktop nav |
