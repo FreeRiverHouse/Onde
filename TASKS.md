@@ -421,7 +421,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 158 | TRADE-016 | Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri | 🔥 Trading validation | 🔶 TODO | - |
+| 158 | TRADE-016 | Backtest risk/reward filters su dati storici settled: confrontare WR e PnL prima/dopo filtri | 🔥 Trading validation | ✅ DONE | @clawdinho | 132 settled trades analyzed. BUY_YES=18.6% WR (terrible), BUY_NO=75.8% WR (great). Best filter: BUY_NO only + R/R≤1.5 = 30.4¢/trade (2.9x baseline). Report: data/trading/risk-reward-backtest-results.md |
 | 159 | TRADE-017 | Aggiungere trailing stop / early exit per BUY_NO in profit (cash out a +30% prima del settlement) | ⭐ Trading performance | 🔶 TODO | - |
 | 160 | TRADE-018 | Dashboard: aggiungere risk/reward ratio e prezzo medio per side (BUY_YES vs BUY_NO) nella pagina trading | ⭐ Monitoring | 🔶 TODO | - |
 
