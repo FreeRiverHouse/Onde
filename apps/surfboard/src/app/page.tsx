@@ -6,6 +6,9 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { GlowCard } from '@/components/ui/GlowCard'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GradientText } from '@/components/ui/AnimatedText'
+import { PnLTrendWidget } from '@/components/PnLTrendWidget'
+import { AgentActivityWidget } from '@/components/AgentActivityWidget'
+import { SystemHealthTrendWidget } from '@/components/SystemHealthTrendWidget'
 
 export const runtime = 'edge'
 
@@ -78,6 +81,39 @@ export default async function Dashboard() {
           <ErrorBoundary name="Enhanced Stats">
             <EnhancedStats stats={stats} />
           </ErrorBoundary>
+        </div>
+      </ScrollReveal>
+
+      {/* Trend Charts — Real-time data visualization */}
+      <ScrollReveal animation="fade-up" delay={150}>
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-5">
+            <h2 className="text-lg font-semibold text-white/80">📈 Trends</h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+          </div>
+          <div className="grid lg:grid-cols-3 gap-4">
+            <ErrorBoundary name="PnL Trend">
+              <GlowCard variant="cyan" noPadding noTilt glassIntensity="medium">
+                <div className="p-3">
+                  <PnLTrendWidget />
+                </div>
+              </GlowCard>
+            </ErrorBoundary>
+            <ErrorBoundary name="Agent Activity">
+              <GlowCard variant="purple" noPadding noTilt glassIntensity="medium">
+                <div className="p-3">
+                  <AgentActivityWidget />
+                </div>
+              </GlowCard>
+            </ErrorBoundary>
+            <ErrorBoundary name="System Health">
+              <GlowCard variant="gold" noPadding noTilt glassIntensity="medium">
+                <div className="p-3">
+                  <SystemHealthTrendWidget />
+                </div>
+              </GlowCard>
+            </ErrorBoundary>
+          </div>
         </div>
       </ScrollReveal>
 
