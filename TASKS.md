@@ -532,3 +532,10 @@
 | 188 | VIRAL-002 | Build Roblox Avatar Creator game (TIER 1 from viral research, 100K+ monthly searches) | 🔥🔥 CRESCITA | TODO | @clawdinho | Next from VIRAL-001 priority list. Mirror Skin Creator success for Roblox audience |
 | 189 | VIRAL-003 | Create /games/minecraft/ hub page linking all MC tools (Skin Creator, Name Gen, Crafting Guide, Enchant Calc) | 🔥 SEO | ✅ DONE | @clawdinho | Hub page with 6 tools, JSON-LD schema, SEO keywords, sitemap, Browse by Category on /games mobile, Explore More cross-link |
 | 190 | VIRAL-004 | Build Times Table Trainer (TIER 3 educational, parents actively search for this) | ⭐ CRESCITA | TODO | @clawdinho | Target: "times table practice", "multiplication game free" |
+
+### 🔥 NUOVI (da Mattia 2026-02-16 07:10 — dark mode + i18n)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 191 | UI-001 | Dark mode toggle in OGNI pagina di onde.la (non solo homepage — anche games, arcade, blog, libri, skin-creator, etc.) | 🔥🔥 UX | TODO | @clawdinho | Il toggle sole/pioggia esiste ma non è in tutte le pagine. Deve essere globale e persistente |
+| 192 | UI-002 | Audit lingua: controllare che inglese e italiano non siano mischiati nelle pagine di onde.la — tutto deve essere coerente (EN o IT, non mix) | 🔥 UX | TODO | @clawdinho | Alcune pagine potrebbero avere mix di lingue. Fare audit completo e fixare |
