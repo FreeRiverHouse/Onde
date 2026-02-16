@@ -307,6 +307,103 @@ def get_alert_count() -> int:
         count += 1
     return count
 
+
+def get_health_history(max_snapshots: int = 288) -> dict:
+    """
+    Load recent health history snapshots for the dashboard.
+    288 snapshots = 24 hours at 5-minute intervals.
+    Returns dict with 'snapshots' list for the AgentActivityWidget.
+    """
+    history_file = PROJECT_DIR / "data" / "trading" / "health-history.jsonl"
+    if not history_file.exists():
+        return {"snapshots": []}
+    
+    snapshots = []
+    try:
+        with open(history_file, "r") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entry = json.loads(line)
+                    snapshots.append({
+                        "timestamp": entry.get("timestamp", ""),
+                        "cycle_count": entry.get("cycle_count", 0),
+                        "trades_today": entry.get("trades_today", 0),
+                        "is_running": entry.get("is_running", False),
+                        "pnl_today_cents": entry.get("pnl_today_cents", 0),
+                        "positions_count": entry.get("positions_count", 0),
+                        "circuit_breaker_active": entry.get("circuit_breaker_active", False),
+                        "status": entry.get("status", "unknown"),
+                    })
+                except json.JSONDecodeError:
+                    continue
+    except IOError:
+        return {"snapshots": []}
+    
+    # Keep only the most recent N snapshots
+    if len(snapshots) > max_snapshots:
+        snapshots = snapshots[-max_snapshots:]
+    
+    return {"snapshots": snapshots}
+
+
+def log_health_snapshot() -> bool:
+    """
+    Log current health to history file (same as log-health-history.py but inline).
+    Called every time we push to gist to ensure consistent 5-min snapshots.
+    """
+    health_file = PROJECT_DIR / "data" / "trading" / "autotrader-health.json"
+    history_file = PROJECT_DIR / "data" / "trading" / "health-history.jsonl"
+    
+    if not health_file.exists():
+        return False
+    
+    try:
+        health = json.loads(health_file.read_text())
+    except (json.JSONDecodeError, IOError):
+        return False
+    
+    snapshot = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "is_running": health.get("is_running", False),
+        "cycle_count": health.get("cycle_count", 0),
+        "dry_run": health.get("dry_run", True),
+        "trades_today": health.get("trades_today", 0),
+        "win_rate_today": health.get("win_rate_today", 0.0),
+        "pnl_today_cents": health.get("pnl_today_cents", 0),
+        "positions_count": health.get("positions_count", 0),
+        "cash_cents": health.get("cash_cents", 0),
+        "circuit_breaker_active": health.get("circuit_breaker_active", False),
+        "consecutive_losses": health.get("consecutive_losses", 0),
+        "status": health.get("status", "unknown"),
+    }
+    
+    history_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(history_file, "a") as f:
+        f.write(json.dumps(snapshot) + "\n")
+    
+    return True
+
+def get_health_status() -> dict:
+    """Get current healthStatus for the AgentActivityWidget."""
+    health_file = PROJECT_DIR / "data" / "trading" / "autotrader-health.json"
+    if not health_file.exists():
+        return {}
+    try:
+        health = json.loads(health_file.read_text())
+        return {
+            "is_running": health.get("is_running", False),
+            "cycle_count": health.get("cycle_count", 0),
+            "trades_today": health.get("trades_today", 0),
+            "last_cycle_time": health.get("last_cycle_time"),
+            "status": health.get("status"),
+        }
+    except (json.JSONDecodeError, IOError):
+        return {}
+
+
 def build_dashboard_data() -> dict:
     """Build complete dashboard data."""
     git = get_git_activity()
@@ -328,6 +425,9 @@ def build_dashboard_data() -> dict:
                 pass
         return "idle"
     
+    # Log a health snapshot before building data (ensures fresh data for gist)
+    log_health_snapshot()
+    
     return {
         "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "tasks": get_task_stats(),
@@ -338,6 +438,8 @@ def build_dashboard_data() -> dict:
         "ollama": get_ollama_status(),
         "alerts_pending": get_alert_count(),
         "systemHealth": get_system_health(),
+        "healthHistory": get_health_history(),
+        "healthStatus": get_health_status(),
         "agents": {
             "clawdinho": {
                 "host": "FRH-M1-PRO",

@@ -210,6 +210,13 @@ export function AgentActivityWidget({ className = '' }: { className?: string }) 
 function formatTime(timestamp: string): string {
   try {
     const d = new Date(timestamp);
+    const now = new Date();
+    const diffHours = (now.getTime() - d.getTime()) / (1000 * 60 * 60);
+    
+    // Show time (HH:MM) for recent data (<48h), date for older
+    if (diffHours < 48) {
+      return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    }
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   } catch {
     return timestamp;

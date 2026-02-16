@@ -501,7 +501,7 @@
 |---|----|----- |--------|--------|-------|
 | 176 | DASH-026 | Fix health page: Onde.la API was checking nonexistent /api/books → fixed to /api/health/cron | ⭐ Health | ✅ DONE | @clawdinho | Health now shows "healthy" instead of "degraded" |
 | 177 | DASH-027 | Agent Activity widget: use healthStatus from gist when no history snapshots available | ⭐ Dashboard | ✅ DONE | @clawdinho | Shows cycle count line from current healthStatus instead of permanent "Collecting..." |
-| 178 | DASH-028 | Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend | ⭐ Dashboard | TODO | @clawdinho | Agent activity chart needs time-series data, currently only has latest cycle_count |
+| 178 | DASH-028 | Push healthHistory snapshots to gist periodically (every 5min cycle) for agent activity trend | ⭐ Dashboard | ✅ DONE | @clawdinho | Agent activity chart needs time-series data, currently only has latest cycle_count |
 | 179 | DASH-029 | Reduce empty white space on main dashboard when PostApproval/ActivityFeed are empty | ⭐ UX | ✅ DONE | @clawdinho | Reduced grid gap 6→4, margin 8→6, compacted empty states (py-3→py-1, py-8→py-3). Deployed 2026-02-15 23:10 |
 | 180 | DASH-030 | Betting page: populate btc-eth-correlation.py data and push to gist for Asset Correlation Matrix | ⭐ Dashboard | TODO | @clawdinho | Correlation matrix shows "No correlation data, run btc-eth-correlation.py" |
 
