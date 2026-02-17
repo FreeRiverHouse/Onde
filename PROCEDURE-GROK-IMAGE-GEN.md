@@ -1,123 +1,114 @@
 # 🎨 Procedura Generazione Immagini con Grok
 
-## Requisiti
-- Browser Chrome con profilo loggato su X/Twitter
-- Account X con accesso a Grok Imagine (grok.com)
-- Cartella di destinazione creata
+## Automazione con AppleScript + cliclick
 
-## Procedura ESATTA Step-by-Step
+### Requisiti
+- macOS con cliclick installato (`brew install cliclick`)
+- Chrome aperto e loggato su grok.com
+- Cartella destinazione creata
 
-### 1. SETUP INIZIALE
-```
-1. Apri Chrome
-2. Vai su https://grok.com
-3. Verifica di essere loggato (deve mostrare il tuo avatar in alto a destra)
-4. Clicca su "Imagine" nella sidebar sinistra (o vai diretto a grok.com/imagine)
-```
+### Script Automazione
 
-### 2. GENERARE UN'IMMAGINE
-```
-1. Trova il campo input "Digita per immaginare..." in basso
-2. Clicca sul campo per attivarlo
-3. Incolla o scrivi il prompt completo
-4. Premi INVIO o clicca il pulsante di invio
-5. ASPETTA 5-15 secondi per la generazione
-6. Grok genera 2 varianti dell'immagine
-```
+```bash
+#!/bin/bash
+# grok-generate.sh - Genera e salva immagine da Grok
 
-### 3. SALVARE L'IMMAGINE
-```
-1. Posiziona il mouse sopra l'immagine che vuoi salvare
-2. CLICK DESTRO sull'immagine
-3. Dal menu contestuale, clicca "Salva immagine con nome..."
-4. Nella finestra di salvataggio:
-   - Naviga alla cartella destinazione
-   - Rinomina il file (es: cap01-scena.jpg)
-   - Clicca "Salva"
-5. Ripeti per la seconda variante se necessario
-```
+PROMPT="$1"
+FILENAME="$2"
+SAVE_PATH="${3:-~/Downloads}"
 
-### 4. CONSISTENZA TRA IMMAGINI (STESSO PERSONAGGIO)
-```
-1. Dopo aver generato e salvato la prima immagine
-2. Clicca l'icona "Carica immagine" (📎) vicino al campo input
-3. Seleziona l'immagine di riferimento salvata
-4. Nel prompt scrivi: "same character but [nuova scena/azione]"
-5. Genera e salva come sopra
-```
+# 1. Copia prompt in clipboard
+echo "$PROMPT" | pbcopy
 
-### 5. UPSCALE (MIGLIORARE QUALITÀ)
-```
-1. Dopo la generazione, hover sull'immagine
-2. Cerca il pulsante "Upscale" o icona di ingrandimento
-3. Clicca per generare versione alta risoluzione
-4. Salva la versione upscalata
-```
+# 2. Click su input area e paste
+osascript << 'APPLESCRIPT'
+tell application "Google Chrome" to activate
+tell application "System Events"
+    tell process "Google Chrome"
+        set theWindow to front window
+        set {winX, winY} to position of theWindow
+        set {winW, winH} to size of theWindow
+        
+        # Click input area (bottom center)
+        set clickX to winX + (winW / 2)
+        set clickY to winY + winH - 120
+        do shell script "cliclick c:" & (clickX as integer) & "," & (clickY as integer)
+        delay 0.5
+        
+        keystroke "v" using command down
+        delay 0.3
+        keystroke return
+    end tell
+end tell
+APPLESCRIPT
 
-## Prompt Template per Libro Bambini
+# 3. Aspetta generazione (15-20 sec)
+sleep 18
 
-```
-[STILE]: Watercolor illustration, children's book style, 
-Beatrix Potter meets Italian Renaissance, warm earthy palette 
-(terracotta, olive green, warm gold, soft blue sky), 
-soft brushstrokes, whimsical but educational, 
-suitable for ages 5-8
+# 4. Scroll up e right-click su immagine
+osascript << 'APPLESCRIPT'
+tell application "Google Chrome" to activate
+tell application "System Events"
+    key code 126 using command down
+    delay 0.5
+    
+    tell process "Google Chrome"
+        set theWindow to front window
+        set {winX, winY} to position of theWindow
+        set {winW, winH} to size of theWindow
+        
+        # Right-click su area immagine (center-left)
+        set imgX to winX + (winW / 2) - 150
+        set imgY to winY + 380
+        do shell script "cliclick rc:" & (imgX as integer) & "," & (imgY as integer)
+    end tell
+end tell
+APPLESCRIPT
 
-[SCENA]: [Descrizione dettagliata della scena]
+sleep 0.5
 
-[PERSONAGGIO]: [Nome] as a [età] year old [descrizione fisica], 
-wearing [vestiti], [espressione/azione]
+# 5. Seleziona "Salva immagine" (tasto S)
+osascript -e 'tell application "System Events" to keystroke "s"'
+sleep 0.2
+osascript -e 'tell application "System Events" to keystroke return'
+sleep 0.5
 
-[AMBIENTE]: [Descrizione del setting]
-```
+# 6. Naviga a cartella e salva
+osascript << APPLESCRIPT
+tell application "System Events"
+    keystroke "$FILENAME"
+    delay 0.3
+    keystroke "g" using {command down, shift down}
+    delay 0.5
+    keystroke "$SAVE_PATH"
+    delay 0.3
+    keystroke return
+    delay 0.5
+    keystroke return
+end tell
+APPLESCRIPT
 
-## Esempio Completo - Marco Aurelio Capitolo 1
-
-```
-Watercolor illustration, children's book style, Beatrix Potter 
-meets Italian Renaissance, warm earthy palette (terracotta, 
-olive green, warm gold, soft blue sky).
-
-Young Marcus Aurelius, age 7, curly brown hair, wearing a simple 
-Roman tunic, wrestling playfully with his Greek tutor in the 
-sunny courtyard of a Roman villa. 
-
-Stone columns with climbing vines, a small fountain in the 
-background, cypress trees, warm afternoon light. 
-
-The boy looks determined but joyful, learning discipline 
-through play.
-```
-
-## Struttura Cartelle
-
-```
-~/Onde/books/[nome-libro]/
-├── images-grok/
-│   ├── cap01-[descrizione].jpg
-│   ├── cap01-[descrizione]-alt.jpg
-│   ├── cap02-[descrizione].jpg
-│   └── ...
-├── prompts/
-│   └── prompts-completi.txt
-└── reference/
-    └── stile-reference.jpg
+echo "Salvato: $SAVE_PATH/$FILENAME"
 ```
 
-## Troubleshooting
+### Prompt Template (Beatrix Potter Style)
 
-### Click non funziona
-- Assicurati che la finestra Chrome sia in focus
-- Prova a scrollare per rendere visibile l'elemento
-- Usa Tab per navigare ai campi se il mouse non funziona
+```
+Watercolor children's book illustration, Beatrix Potter style, 
+warm earthy palette (terracotta, olive green, warm gold, soft blue).
 
-### Immagine non si salva
-- Verifica permessi cartella di destinazione
-- Prova "Copia immagine" e incolla in Preview/altro editor
+[SCENA]: [descrizione]
+[PERSONAGGIO]: [nome], [età], [descrizione fisica], [azione]
+[AMBIENTE]: [setting]
+```
 
-### Sessione scaduta
-- Refresh della pagina
-- Se necessario, ri-login su X/Twitter
+### Note Importanti
+
+1. **NO "Italian Renaissance"** - solo Beatrix Potter watercolor
+2. **cliclick** è essenziale per click precisi
+3. Le coordinate dipendono dalla dimensione finestra
+4. File salvati come "videoframe_*.png" vanno rinominati
+5. Aspettare 18+ secondi per generazione
 
 ---
-*Procedura creata da Bubble Bot 🫧 - 2026-02-16*
+*Procedura testata e funzionante - Bubble Bot 🫧 - 2026-02-16*
