@@ -2,23 +2,122 @@
 # cambio-account-clawdbot-token.sh
 # Aggiorna token OAuth + modello di clawdbot dopo cambio account o switch modello.
 #
-# Problema risolto: clawdbot ha DUE file auth-profiles.json + un models.json.
-#   1) ~/.clawdbot/credentials/auth-profiles.json        (fallback)
-#   2) ~/.clawdbot/agents/main/agent/auth-profiles.json   (usato dall'agent main!)
-#   3) ~/.clawdbot/agents/main/agent/models.json          (catalogo modelli)
-# Se aggiorni solo il primo, clawdbot continua a usare il token vecchio dal secondo
-# e ricevi HTTP 429 rate_limit_error anche se Claude Code funziona.
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║  PROBLEMA RISOLTO                                                      ║
+# ║  clawdbot ha DUE file auth-profiles.json + un models.json:             ║
+# ║    1) ~/.clawdbot/credentials/auth-profiles.json      (fallback)       ║
+# ║    2) ~/.clawdbot/agents/main/agent/auth-profiles.json (USATO!)        ║
+# ║    3) ~/.clawdbot/agents/main/agent/models.json        (catalogo)      ║
+# ║  Se aggiorni solo il primo, clawdbot continua a usare il token         ║
+# ║  vecchio dal secondo → HTTP 429 rate_limit_error.                      ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
 #
-# Usage:
-#   ./cambio-account-clawdbot-token.sh                    # aggiorna solo token
-#   ./cambio-account-clawdbot-token.sh --login            # logout+login+aggiorna token
-#   ./cambio-account-clawdbot-token.sh --model sonnet     # switch a sonnet 4.6
-#   ./cambio-account-clawdbot-token.sh --model opus       # switch a opus 4.6
+# ──────────────────────────────────────────────────────────────────────────
+# USAGE
+# ──────────────────────────────────────────────────────────────────────────
+#   ./cambio-account-clawdbot-token.sh                         # aggiorna solo token
+#   ./cambio-account-clawdbot-token.sh --login                 # logout+login+aggiorna
+#   ./cambio-account-clawdbot-token.sh --model sonnet          # switch a sonnet 4.6
+#   ./cambio-account-clawdbot-token.sh --model opus            # switch a opus 4.6
 #   ./cambio-account-clawdbot-token.sh --login --model sonnet  # tutto insieme
 #
-# Modelli disponibili:
-#   sonnet  = anthropic/claude-sonnet-4-6  (veloce, rate limit alti, 5x meno costi)
-#   opus    = anthropic/claude-opus-4-6    (potente, rate limit bassi)
+# ──────────────────────────────────────────────────────────────────────────
+# MODELLI DISPONIBILI
+# ──────────────────────────────────────────────────────────────────────────
+#   sonnet = anthropic/claude-sonnet-4-6
+#            - 5x piu' economico di opus
+#            - Rate limit MOLTO piu' alti (ideale per bot con cron)
+#            - Velocita' ~3-4s per risposta
+#            - Qualita' ottima per il 95% dei task
+#
+#   opus   = anthropic/claude-opus-4-6
+#            - Il piu' potente
+#            - Rate limit bassi (si esauriscono in fretta con i cron!)
+#            - Velocita' ~8-15s per risposta
+#            - Usa solo per task complessi (coding, architettura)
+#
+# ──────────────────────────────────────────────────────────────────────────
+# GUIDA: MAC M1 CHE NON CE LA FA (429 / rate limit / lento)
+# ──────────────────────────────────────────────────────────────────────────
+#
+#   Se il tuo Mac M1 (es. MBP-di-Mattia, 192.168.1.79) da' errori 429
+#   o clawdbot non risponde, il problema e' quasi sempre uno di questi:
+#
+#   1) TOKEN SCADUTO O SBAGLIATO
+#      Il file che CONTA e':
+#        ~/.clawdbot/agents/main/agent/auth-profiles.json
+#      NON quello in ~/.clawdbot/credentials/ !
+#      → Esegui questo script per aggiornare entrambi.
+#
+#   2) MODELLO INESISTENTE NEL CATALOGO
+#      Se clawdbot.json punta a "claude-opus-4-5" ma models.json non
+#      lo ha → "Unknown model". Devi aggiornare ENTRAMBI i file.
+#      → Esegui: ./cambio-account-clawdbot-token.sh --model sonnet
+#
+#   3) TROPPI CRON + OPUS = RATE LIMIT IMMEDIATO
+#      Con piano MAX, Opus ha ~20 req/min. Se hai 10 cron job ogni
+#      2-10 minuti, esaurisci subito. Sonnet ha ~80 req/min.
+#      → SWITCH A SONNET: ./cambio-account-clawdbot-token.sh --model sonnet
+#
+#   4) ERRORI ACCUMULATI → COOLDOWN
+#      Dopo troppi 429, clawdbot mette il profilo auth in "cooldown"
+#      e rifiuta TUTTE le richieste anche se il rate limit e' tornato.
+#      Questo script resetta automaticamente errorCount e lastFailureAt.
+#
+#   5) KEYCHAIN DUPLICATO (due account)
+#      Se hai switchato account (es. magmaticxr → freeriverhouse),
+#      nel keychain restano DUE entry per "Claude Code-credentials".
+#      Questo script sincronizza entrambe.
+#
+#   PROCEDURA RAPIDA PER MAC M1:
+#   ─────────────────────────────
+#   Sul Mac M1 (via SSH o direttamente):
+#
+#     # 1. Assicurati che Claude Code sia loggato con l'account giusto
+#     claude auth login
+#
+#     # 2. Esegui lo script con switch a Sonnet (RACCOMANDATO per M1!)
+#     ./cambio-account-clawdbot-token.sh --model sonnet
+#
+#     # 3. Se non basta, login completo + switch modello
+#     ./cambio-account-clawdbot-token.sh --login --model sonnet
+#
+#     # 4. Verifica che funzioni
+#     clawdbot agent --message "ping" --session-id test --channel telegram --json
+#
+#   DA REMOTO (SSH dal Mac principale):
+#   ────────────────────────────────────
+#     # Copia lo script
+#     scp cambio-account-clawdbot-token.sh Mattia@192.168.1.79:~/
+#
+#     # Oppure aggiorna i file manualmente via python3 (vedi sotto)
+#     # NOTA: il keychain NON e' accessibile via SSH non-interattiva!
+#     # Quindi da remoto devi passare il token direttamente.
+#
+#   AGGIORNAMENTO MANUALE DA REMOTO (senza keychain):
+#   ──────────────────────────────────────────────────
+#     # Sul Mac LOCALE, leggi il token:
+#     security find-generic-password -s "Claude Code-credentials" \
+#       -a "mattiapetrucciani" -w | python3 -c \
+#       "import sys,json; print(json.loads(sys.stdin.read())['claudeAiOauth']['accessToken'])"
+#
+#     # Poi sul Mac REMOTO via SSH, aggiorna il file:
+#     ssh Mattia@192.168.1.79 "python3 -c \"
+#     import json
+#     p = '/Users/Mattia/.clawdbot/agents/main/agent/auth-profiles.json'
+#     d = json.load(open(p))
+#     d['profiles']['anthropic:claude-cli']['token'] = 'IL_TOKEN_COPIATO'
+#     d['profiles']['anthropic:claude-cli']['expires'] = 1771393156863
+#     d['usageStats']['anthropic:claude-cli']['errorCount'] = 0
+#     d['usageStats']['anthropic:claude-cli']['lastFailureAt'] = 0
+#     json.dump(d, open(p, 'w'), indent=2)
+#     print('OK')
+#     \""
+#
+#     # Poi riavvia clawdbot:
+#     ssh Mattia@192.168.1.79 "launchctl stop com.clawdbot.gateway"
+#
+# ──────────────────────────────────────────────────────────────────────────
 
 set -euo pipefail
 
@@ -101,7 +200,7 @@ json.dump(d, open(p, 'w'), indent=2)
 print('  OK')
 "
 else
-    echo -e "  ${RED}File non trovato, skip${NC}"
+    echo -e "  ${YELLOW}File non trovato, skip (normale su alcuni setup)${NC}"
 fi
 echo ""
 
@@ -121,7 +220,9 @@ json.dump(d, open(p, 'w'), indent=2)
 print('  OK (+ reset error counters)')
 "
 else
-    echo -e "  ${RED}File non trovato, skip${NC}"
+    echo -e "  ${RED}File non trovato! Clawdbot potrebbe non essere inizializzato.${NC}"
+    echo -e "  Prova: clawdbot doctor"
+    exit 1
 fi
 echo ""
 
@@ -135,14 +236,14 @@ if [[ -n "$NEW_MODEL" ]]; then
             MODEL_NAME="Claude Sonnet 4.6"
             MODEL_FULL="anthropic/claude-sonnet-4-6"
             FALLBACK="anthropic/claude-opus-4-6"
-            COST_IN=0.003; COST_OUT=0.015; COST_CR=0.0003; COST_CW=0.00375
+            echo -e "  ${CYAN}Sonnet 4.6: veloce, rate limit alti, ideale per bot con cron${NC}"
             ;;
         opus)
             MODEL_ID="claude-opus-4-6"
             MODEL_NAME="Claude Opus 4.6"
             MODEL_FULL="anthropic/claude-opus-4-6"
             FALLBACK="anthropic/claude-sonnet-4-6"
-            COST_IN=0.015; COST_OUT=0.075; COST_CR=0.00375; COST_CW=0.01875
+            echo -e "  ${CYAN}Opus 4.6: potente ma rate limit bassi, attenzione con tanti cron!${NC}"
             ;;
         *)
             echo -e "${RED}Modello sconosciuto: $NEW_MODEL (usa 'sonnet' o 'opus')${NC}"
@@ -150,7 +251,8 @@ if [[ -n "$NEW_MODEL" ]]; then
             ;;
     esac
 
-    # Ensure both models exist in models.json catalog
+    # Ensure models.json exists and has both models
+    mkdir -p "$(dirname "$MODELS_FILE")"
     if [[ -f "$MODELS_FILE" ]]; then
         python3 << PYEOF
 import json
@@ -158,8 +260,17 @@ import json
 with open('$MODELS_FILE', 'r') as f:
     data = json.load(f)
 
-anthropic = data.get('providers', {}).get('anthropic', {})
-existing_ids = [m['id'] for m in anthropic.get('models', [])]
+# Ensure providers.anthropic exists
+if 'providers' not in data:
+    data['providers'] = {}
+if 'anthropic' not in data['providers']:
+    data['providers']['anthropic'] = {
+        "baseUrl": "https://api.anthropic.com",
+        "apiKey": "anthropic",
+        "api": "anthropic-messages"
+    }
+
+anthropic = data['providers']['anthropic']
 
 sonnet = {
     "id": "claude-sonnet-4-6",
@@ -180,20 +291,53 @@ opus = {
     "maxTokens": 16000
 }
 
-new_models = []
-for m in [sonnet, opus]:
-    if m['id'] not in existing_ids:
-        new_models.append(m['id'])
-    # Always rebuild to ensure both are present
 anthropic['models'] = [sonnet, opus]
 data['providers']['anthropic'] = anthropic
 
 with open('$MODELS_FILE', 'w') as f:
     json.dump(data, f, indent=2)
 
-if new_models:
-    print(f'  Aggiunto al catalogo: {", ".join(new_models)}')
 print('  Catalogo: sonnet-4-6 + opus-4-6')
+PYEOF
+    else
+        # Create models.json from scratch
+        python3 << PYEOF
+import json
+
+data = {
+    "providers": {
+        "anthropic": {
+            "baseUrl": "https://api.anthropic.com",
+            "apiKey": "anthropic",
+            "api": "anthropic-messages",
+            "models": [
+                {
+                    "id": "claude-sonnet-4-6",
+                    "name": "Claude Sonnet 4.6",
+                    "reasoning": True,
+                    "input": ["text", "image"],
+                    "cost": {"input": 0.003, "output": 0.015, "cacheRead": 0.0003, "cacheWrite": 0.00375},
+                    "contextWindow": 200000,
+                    "maxTokens": 16000
+                },
+                {
+                    "id": "claude-opus-4-6",
+                    "name": "Claude Opus 4.6",
+                    "reasoning": True,
+                    "input": ["text", "image"],
+                    "cost": {"input": 0.015, "output": 0.075, "cacheRead": 0.00375, "cacheWrite": 0.01875},
+                    "contextWindow": 200000,
+                    "maxTokens": 16000
+                }
+            ]
+        }
+    }
+}
+
+with open('$MODELS_FILE', 'w') as f:
+    json.dump(data, f, indent=2)
+
+print('  Catalogo CREATO: sonnet-4-6 + opus-4-6')
 PYEOF
     fi
 
@@ -205,7 +349,12 @@ import json
 with open('$CONFIG_FILE', 'r') as f:
     data = json.load(f)
 
-agents = data.get('agents', {}).get('defaults', {})
+if 'agents' not in data:
+    data['agents'] = {}
+if 'defaults' not in data['agents']:
+    data['agents']['defaults'] = {}
+
+agents = data['agents']['defaults']
 agents['model'] = {
     "primary": "$MODEL_FULL",
     "fallbacks": ["$FALLBACK"]
@@ -219,7 +368,7 @@ data['agents']['defaults'] = agents
 with open('$CONFIG_FILE', 'w') as f:
     json.dump(data, f, indent=2)
 
-print(f'  Primary: $MODEL_FULL')
+print(f'  Primary:  $MODEL_FULL')
 print(f'  Fallback: $FALLBACK')
 PYEOF2
     fi
@@ -248,7 +397,13 @@ echo ""
 
 # ─── Verify ─────────────────────────────────────────────────────────────────
 echo -e "${YELLOW}Test rapido...${NC}"
-RESULT=$(clawdbot agent --message "ping - rispondi OK e che modello sei" --session-id "token-test-$(date +%s)" --channel telegram --json --timeout 60 2>&1 || true)
+# Trova il path di clawdbot (diverso su ogni Mac)
+CLAWDBOT_BIN=$(which clawdbot 2>/dev/null || echo "/usr/local/bin/clawdbot")
+if [[ ! -x "$CLAWDBOT_BIN" ]]; then
+    CLAWDBOT_BIN=$(find /opt/homebrew/bin /usr/local/bin -name "clawdbot" 2>/dev/null | head -1)
+fi
+
+RESULT=$($CLAWDBOT_BIN agent --message "ping - rispondi OK e che modello sei" --session-id "token-test-$(date +%s)" --channel telegram --json --timeout 60 2>&1 || true)
 
 if echo "$RESULT" | grep -q '"status": "ok"' && ! echo "$RESULT" | grep -q "429"; then
     RESP=$(echo "$RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['result']['payloads'][0]['text'][:200])" 2>/dev/null || echo "ok")
@@ -259,5 +414,5 @@ if echo "$RESULT" | grep -q '"status": "ok"' && ! echo "$RESULT" | grep -q "429"
 else
     echo -e "${RED}ERRORE: clawdbot non risponde.${NC}"
     echo "  Controlla: tail -20 ~/.clawdbot/logs/gateway.err.log"
-    echo "$RESULT" | grep -o '"text":"[^"]*"' | head -1
+    echo "$RESULT" | grep -o '"text":"[^"]*"' | head -1 || true
 fi
