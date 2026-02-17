@@ -1,7 +1,17 @@
 # ⚡ KALSHI GOLDEN CONFIG
 
 **Unica fonte di verità per il trading Kalshi. LEGGI QUESTO E BASTA.**
-**Ultimo aggiornamento: 2026-02-16 17:22 PST**
+**Ultimo aggiornamento: 2026-02-16 19:18 PST**
+
+---
+
+## 🚨 REGOLE FONDAMENTALI (NON DIMENTICARE MAI)
+
+1. **PAPER MODE = RACCOLTA DATI.** Non proteggere il bankroll virtuale. Più trade = più dati = algo migliore. Zero conservatismo in paper mode.
+2. **MAI lamentarsi di "soldi buttati" in paper mode.** Sono VIRTUALI. L'obiettivo è raccogliere dati per capire il win rate REALE.
+3. **Filtri bassi in paper mode.** MIN_EDGE basso, max trades alto, niente skip inutili. Servono trade SETTLEDATI per analizzare.
+4. **Segui PROC-002:** ogni task chiuso → receipt a Grok → 2 task migliorativi.
+5. **Chiedi a Grok, non a Mattia** per decisioni tecniche sull'algo.
 
 ---
 
