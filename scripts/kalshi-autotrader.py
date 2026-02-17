@@ -139,10 +139,10 @@ MIN_EDGE_BUY_YES = 0.04   # 4% min for BUY_YES (lowered for data collection in p
 MIN_EDGE = 0.02            # Global minimum (paper mode: more trades = more data)
 MAX_EDGE_CAP = 0.10        # Cap edges >10% (overconfident forecaster at >10%: 0% WR)
 MAX_POSITION_PCT = 0.05    # Max 5% of portfolio per position
-KELLY_FRACTION = 0.05      # Conservative (reduced from 0.15 per Grok: crypto too volatile for aggressive sizing)
+KELLY_FRACTION = 0.75      # Grok 4.20 uses 0.75x Kelly — aggressive but capped at MAX_BET_CENTS
 MIN_BET_CENTS = 5
-MAX_BET_CENTS = 500
-MAX_POSITIONS = 15
+MAX_BET_CENTS = 500        # $5 max per trade (5% of $100 bankroll per Grok pointer)
+MAX_POSITIONS = 15         # Max open positions (Grok rec)
 
 # ── Risk/Reward filters (TRADE-003: fix loss 2x > win asymmetry) ──
 # BUY_NO at >50¢ means you risk more than you win. Require bigger edge to justify.
