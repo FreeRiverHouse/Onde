@@ -1644,11 +1644,19 @@ def _heuristic_crypto(market: MarketInfo, context: dict = None) -> tuple:
     mom_adj = mom_dir * 0.03  # Max ±3% adjustment
     prob_above = max(0.05, min(0.95, prob_above + mom_adj))
 
-    # Sentiment adjustment
+    # Sentiment adjustment (Fear & Greed Index)
+    # F&G 10 = extreme fear → bearish bias; F&G 90 = extreme greed → bullish bias
+    # Scale: at F&G=10 → -6% adj; at F&G=90 → +6% adj; at F&G=50 → 0
     fng = (context or {}).get("sentiment", {})
     sentiment_val = fng.get("value", 50)
-    sentiment_adj = (sentiment_val - 50) / 1500  # Very small effect
+    sentiment_adj = (sentiment_val - 50) / 500  # -8% to +8% range (was /1500, way too weak)
     prob_above += sentiment_adj
+
+    # Regime adjustment: choppy + high vol = shrink toward 50% more (less directional confidence)
+    regime = (context or {}).get("regime", {})
+    if isinstance(regime, dict) and regime.get("regime") == "choppy" and regime.get("volatility") in ("high", "very_high"):
+        # In choppy high-vol, further shrink away from extremes
+        prob_above = 0.5 + (prob_above - 0.5) * 0.80  # 20% additional shrink
 
     # News sentiment adjustment
     news = (context or {}).get("news_sentiment")
