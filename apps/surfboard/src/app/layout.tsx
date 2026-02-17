@@ -122,6 +122,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a href="/social" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-all rounded-lg hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10">
                     Social
                   </a>
+                  <a href="/chat" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-all rounded-lg hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10">
+                    💬 Chat
+                  </a>
                 </nav>
                 <ThemeToggle />
                 <HeaderClient />
