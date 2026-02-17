@@ -1,0 +1,4708 @@
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T16:13:30
+📚 History entries: 1
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T16:43:38
+📚 History entries: 2
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T17:13:57
+📚 History entries: 3
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T17:44:04
+📚 History entries: 4
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T18:14:13
+📚 History entries: 5
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T18:44:21
+📚 History entries: 8
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T19:14:31
+📚 History entries: 9
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T19:44:39
+📚 History entries: 10
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T20:14:47
+📚 History entries: 11
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T20:45:05
+📚 History entries: 12
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T21:15:30
+📚 History entries: 13
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T21:46:14
+📚 History entries: 14
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T22:16:55
+📚 History entries: 15
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T22:47:40
+📚 History entries: 16
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T23:17:48
+📚 History entries: 13
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-30T23:48:00
+📚 History entries: 14
+💾 Saved snapshot to history
+
+🚨 4 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T00:18:17
+📚 History entries: 15
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T00:48:34
+📚 History entries: 14
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T00:48:34
+📚 History entries: 15
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T01:55:32
+📚 History entries: 16
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T01:55:32
+📚 History entries: 17
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T02:55:45
+📚 History entries: 18
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T03:25:50
+📚 History entries: 17
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T03:55:54
+📚 History entries: 18
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T04:25:58
+📚 History entries: 19
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T04:56:05
+📚 History entries: 20
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T05:26:10
+📚 History entries: 21
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T05:56:15
+📚 History entries: 22
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T06:26:19
+📚 History entries: 23
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T06:56:23
+📚 History entries: 24
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T07:26:29
+📚 History entries: 25
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T07:56:33
+📚 History entries: 25
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T07:56:33
+📚 History entries: 26
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T15:35:06
+📚 History entries: 27
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T16:05:12
+📚 History entries: 28
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T16:35:17
+📚 History entries: 29
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T17:05:24
+📚 History entries: 30
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T17:35:42
+📚 History entries: 31
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T18:05:58
+📚 History entries: 32
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T18:36:20
+📚 History entries: 33
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T19:06:37
+📚 History entries: 34
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T19:37:07
+📚 History entries: 35
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T20:07:43
+📚 History entries: 36
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T20:38:15
+📚 History entries: 37
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T21:18:03
+📚 History entries: 38
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T21:54:27
+📚 History entries: 39
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T22:26:19
+📚 History entries: 40
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T22:56:39
+📚 History entries: 41
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T23:26:57
+📚 History entries: 42
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-01-31T23:57:28
+📚 History entries: 43
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T00:27:44
+📚 History entries: 44
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T00:58:06
+📚 History entries: 45
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T01:28:23
+📚 History entries: 46
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T01:58:32
+📚 History entries: 47
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T02:28:41
+📚 History entries: 48
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T02:58:49
+📚 History entries: 49
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T03:28:56
+📚 History entries: 50
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T03:59:03
+📚 History entries: 51
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T04:29:09
+📚 History entries: 52
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T04:59:16
+📚 History entries: 53
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T05:29:22
+📚 History entries: 54
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T05:59:28
+📚 History entries: 55
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T06:29:34
+📚 History entries: 56
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T06:59:40
+📚 History entries: 57
+💾 Saved snapshot to history
+
+🚨 4 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T07:29:47
+📚 History entries: 58
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T07:59:53
+📚 History entries: 59
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T08:29:59
+📚 History entries: 60
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T08:29:59
+📚 History entries: 61
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T09:00:05
+📚 History entries: 62
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T09:30:10
+📚 History entries: 63
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T10:00:16
+📚 History entries: 64
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T10:30:22
+📚 History entries: 65
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T11:00:29
+📚 History entries: 66
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T11:30:35
+📚 History entries: 67
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T12:00:41
+📚 History entries: 68
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T12:30:47
+📚 History entries: 69
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T13:00:54
+📚 History entries: 70
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T13:31:00
+📚 History entries: 71
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T14:01:06
+📚 History entries: 72
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T14:31:12
+📚 History entries: 73
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T15:01:19
+📚 History entries: 74
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T15:31:24
+📚 History entries: 75
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T17:30:06
+📚 History entries: 76
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T18:00:12
+📚 History entries: 77
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T18:30:21
+📚 History entries: 78
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T19:00:31
+📚 History entries: 79
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T19:00:31
+📚 History entries: 80
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T20:10:07
+📚 History entries: 81
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T20:40:12
+📚 History entries: 82
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T21:11:35
+📚 History entries: 83
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T21:53:46
+📚 History entries: 84
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T22:24:48
+📚 History entries: 85
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T22:54:54
+📚 History entries: 86
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T23:24:59
+📚 History entries: 87
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-01T23:55:04
+📚 History entries: 88
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T00:25:09
+📚 History entries: 82
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T00:55:14
+📚 History entries: 83
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T01:25:20
+📚 History entries: 84
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T01:55:24
+📚 History entries: 85
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T02:25:29
+📚 History entries: 86
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T02:55:39
+📚 History entries: 87
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T03:25:44
+📚 History entries: 88
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T03:55:50
+📚 History entries: 89
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T04:25:55
+📚 History entries: 90
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T04:56:01
+📚 History entries: 91
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T05:26:06
+📚 History entries: 92
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T05:56:14
+📚 History entries: 93
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T06:26:20
+📚 History entries: 94
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T06:56:25
+📚 History entries: 95
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T07:26:35
+📚 History entries: 96
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T07:56:40
+📚 History entries: 97
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T08:26:45
+📚 History entries: 98
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T08:56:50
+📚 History entries: 99
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T09:26:54
+📚 History entries: 100
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T09:56:59
+📚 History entries: 101
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T09:56:59
+📚 History entries: 102
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T18:00:07
+📚 History entries: 103
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T18:30:12
+📚 History entries: 104
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T19:00:18
+📚 History entries: 105
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T19:30:24
+📚 History entries: 106
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T20:00:29
+📚 History entries: 107
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T20:30:35
+📚 History entries: 108
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T21:00:58
+📚 History entries: 109
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T21:33:17
+📚 History entries: 110
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T22:04:45
+📚 History entries: 111
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T22:34:50
+📚 History entries: 112
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T23:04:55
+📚 History entries: 113
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-02T23:34:59
+📚 History entries: 114
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T00:05:04
+📚 History entries: 115
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T00:35:08
+📚 History entries: 116
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T01:05:13
+📚 History entries: 117
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T01:35:18
+📚 History entries: 118
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T02:05:24
+📚 History entries: 119
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T02:35:28
+📚 History entries: 120
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T03:05:33
+📚 History entries: 121
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T03:05:33
+📚 History entries: 122
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T04:03:49
+📚 History entries: 123
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T04:33:53
+📚 History entries: 124
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T05:03:57
+📚 History entries: 125
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T05:34:04
+📚 History entries: 126
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T06:04:08
+📚 History entries: 127
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T06:34:11
+📚 History entries: 128
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T07:04:16
+📚 History entries: 129
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T07:40:07
+📚 History entries: 130
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T08:10:13
+📚 History entries: 131
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T08:40:19
+📚 History entries: 132
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T09:10:25
+📚 History entries: 133
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T09:40:29
+📚 History entries: 134
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T10:10:34
+📚 History entries: 135
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T10:40:38
+📚 History entries: 136
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T11:10:43
+📚 History entries: 137
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T11:40:47
+📚 History entries: 138
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T12:10:51
+📚 History entries: 139
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T12:40:56
+📚 History entries: 140
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T13:11:00
+📚 History entries: 141
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T13:41:04
+📚 History entries: 142
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T14:11:09
+📚 History entries: 143
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T14:41:13
+📚 History entries: 144
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T15:11:18
+📚 History entries: 145
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T15:41:23
+📚 History entries: 146
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T16:11:28
+📚 History entries: 147
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T16:41:33
+📚 History entries: 148
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T17:11:37
+📚 History entries: 149
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T17:41:42
+📚 History entries: 150
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T18:11:46
+📚 History entries: 151
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T18:41:51
+📚 History entries: 152
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T19:11:56
+📚 History entries: 153
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T19:42:03
+📚 History entries: 154
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T20:12:08
+📚 History entries: 155
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T20:42:12
+📚 History entries: 156
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T21:13:17
+📚 History entries: 157
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T21:45:24
+📚 History entries: 158
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T22:16:12
+📚 History entries: 159
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T22:46:17
+📚 History entries: 160
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T23:16:23
+📚 History entries: 161
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-03T23:46:27
+📚 History entries: 162
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T00:16:35
+📚 History entries: 163
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T00:46:45
+📚 History entries: 164
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T01:16:53
+📚 History entries: 165
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T01:47:01
+📚 History entries: 166
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T02:17:08
+📚 History entries: 167
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T02:47:15
+📚 History entries: 168
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T03:17:21
+📚 History entries: 169
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T03:47:27
+📚 History entries: 170
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T04:17:33
+📚 History entries: 171
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T04:47:41
+📚 History entries: 172
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T05:17:46
+📚 History entries: 173
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T05:47:50
+📚 History entries: 174
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T06:17:55
+📚 History entries: 175
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T06:47:59
+📚 History entries: 176
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T07:18:03
+📚 History entries: 177
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T07:48:07
+📚 History entries: 178
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T08:18:12
+📚 History entries: 179
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T08:48:16
+📚 History entries: 180
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T09:18:20
+📚 History entries: 181
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T09:48:24
+📚 History entries: 182
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T10:18:29
+📚 History entries: 183
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T10:48:33
+📚 History entries: 184
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T11:18:37
+📚 History entries: 185
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T11:48:42
+📚 History entries: 186
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T12:18:46
+📚 History entries: 187
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T12:48:50
+📚 History entries: 188
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T13:18:54
+📚 History entries: 189
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T13:48:58
+📚 History entries: 190
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T14:19:03
+📚 History entries: 191
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T14:49:07
+📚 History entries: 192
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T15:19:14
+📚 History entries: 193
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T15:49:22
+📚 History entries: 194
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T16:19:30
+📚 History entries: 195
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T16:49:39
+📚 History entries: 196
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T17:19:48
+📚 History entries: 197
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T17:49:53
+📚 History entries: 198
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T18:19:57
+📚 History entries: 199
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T18:50:02
+📚 History entries: 200
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T19:20:06
+📚 History entries: 201
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T19:50:10
+📚 History entries: 202
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T20:20:15
+📚 History entries: 203
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T20:50:19
+📚 History entries: 204
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T21:20:24
+📚 History entries: 205
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T21:50:31
+📚 History entries: 206
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T22:20:35
+📚 History entries: 207
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T22:50:41
+📚 History entries: 208
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T23:20:46
+📚 History entries: 209
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-04T23:50:52
+📚 History entries: 210
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T00:22:31
+📚 History entries: 211
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T00:53:59
+📚 History entries: 212
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T01:25:35
+📚 History entries: 213
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T01:57:13
+📚 History entries: 214
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T02:29:04
+📚 History entries: 215
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T02:29:04
+📚 History entries: 216
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T03:01:00
+📚 History entries: 217
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T03:32:51
+📚 History entries: 218
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T04:04:41
+📚 History entries: 219
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T04:36:32
+📚 History entries: 220
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T05:08:30
+📚 History entries: 221
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T05:40:30
+📚 History entries: 222
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T06:12:24
+📚 History entries: 223
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T06:44:16
+📚 History entries: 224
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T07:16:09
+📚 History entries: 225
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T07:47:59
+📚 History entries: 226
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T08:19:56
+📚 History entries: 227
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T08:51:56
+📚 History entries: 228
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T09:23:54
+📚 History entries: 229
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T09:55:53
+📚 History entries: 230
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T10:28:15
+📚 History entries: 231
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T10:28:15
+📚 History entries: 232
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T11:00:48
+📚 History entries: 233
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T11:33:33
+📚 History entries: 234
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T12:06:04
+📚 History entries: 235
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T12:38:32
+📚 History entries: 236
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T13:10:35
+📚 History entries: 237
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T13:42:35
+📚 History entries: 238
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T14:14:33
+📚 History entries: 239
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T14:46:34
+📚 History entries: 240
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T15:18:41
+📚 History entries: 241
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T15:50:41
+📚 History entries: 242
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T16:22:40
+📚 History entries: 243
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T16:54:39
+📚 History entries: 244
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T17:26:40
+📚 History entries: 245
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T17:58:38
+📚 History entries: 246
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T17:58:38
+📚 History entries: 247
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T18:30:35
+📚 History entries: 248
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T19:02:46
+📚 History entries: 249
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T19:35:00
+📚 History entries: 250
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+You have not agreed to the Xcode license agreements. Please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode and Apple SDKs license.
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T20:40:28
+📚 History entries: 251
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T21:13:10
+📚 History entries: 252
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T21:45:44
+📚 History entries: 253
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T22:18:45
+📚 History entries: 254
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T22:51:43
+📚 History entries: 255
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T23:24:30
+📚 History entries: 256
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T23:57:34
+📚 History entries: 257
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-05T23:57:34
+📚 History entries: 258
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T00:30:22
+📚 History entries: 259
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T01:03:41
+📚 History entries: 260
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T01:36:33
+📚 History entries: 261
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T02:09:17
+📚 History entries: 262
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T02:41:46
+📚 History entries: 263
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T03:14:39
+📚 History entries: 264
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T03:47:34
+📚 History entries: 265
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T04:20:06
+📚 History entries: 266
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T04:52:42
+📚 History entries: 267
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T05:25:49
+📚 History entries: 268
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T05:58:30
+📚 History entries: 269
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T05:58:30
+📚 History entries: 270
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T06:31:00
+📚 History entries: 271
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T07:03:29
+📚 History entries: 272
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T07:35:56
+📚 History entries: 273
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T08:07:36
+📚 History entries: 274
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T08:37:41
+📚 History entries: 275
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T09:07:46
+📚 History entries: 276
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T09:37:50
+📚 History entries: 277
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T10:07:55
+📚 History entries: 278
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T10:37:59
+📚 History entries: 279
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🧹 Removed stale alert file
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T11:08:03
+📚 History entries: 280
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T11:38:08
+📚 History entries: 281
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T12:08:12
+📚 History entries: 282
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T12:38:17
+📚 History entries: 283
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T13:08:21
+📚 History entries: 284
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T13:38:26
+📚 History entries: 285
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T14:08:30
+📚 History entries: 286
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T14:38:34
+📚 History entries: 287
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T15:08:39
+📚 History entries: 288
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T15:38:43
+📚 History entries: 289
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T16:08:49
+📚 History entries: 290
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T16:38:53
+📚 History entries: 291
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T17:09:06
+📚 History entries: 292
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T17:39:13
+📚 History entries: 293
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T18:09:18
+📚 History entries: 294
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T18:39:23
+📚 History entries: 295
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T19:09:28
+📚 History entries: 296
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T19:39:32
+📚 History entries: 297
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T20:09:38
+📚 History entries: 298
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T20:39:42
+📚 History entries: 299
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T21:10:31
+📚 History entries: 300
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T21:42:07
+📚 History entries: 301
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T22:12:55
+📚 History entries: 302
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T22:42:59
+📚 History entries: 303
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T23:13:04
+📚 History entries: 304
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-06T23:43:08
+📚 History entries: 305
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T00:13:12
+📚 History entries: 306
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T00:43:17
+📚 History entries: 307
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T01:13:21
+📚 History entries: 308
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T01:43:28
+📚 History entries: 309
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T02:13:33
+📚 History entries: 310
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T02:43:38
+📚 History entries: 311
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T03:13:42
+📚 History entries: 312
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T03:43:47
+📚 History entries: 313
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T04:13:51
+📚 History entries: 314
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T04:43:56
+📚 History entries: 315
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T05:14:00
+📚 History entries: 316
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T05:44:04
+📚 History entries: 317
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T06:14:08
+📚 History entries: 318
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T06:44:13
+📚 History entries: 319
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T07:14:17
+📚 History entries: 320
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T07:44:21
+📚 History entries: 321
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T08:15:08
+📚 History entries: 322
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T08:46:35
+📚 History entries: 323
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T09:18:02
+📚 History entries: 324
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T09:49:39
+📚 History entries: 325
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T10:21:15
+📚 History entries: 326
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T10:53:06
+📚 History entries: 327
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T11:24:47
+📚 History entries: 328
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T11:56:31
+📚 History entries: 329
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T12:28:10
+📚 History entries: 330
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T12:59:51
+📚 History entries: 331
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T12:59:51
+📚 History entries: 332
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T13:31:25
+📚 History entries: 333
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T14:02:59
+📚 History entries: 334
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T14:34:35
+📚 History entries: 335
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T15:06:11
+📚 History entries: 336
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T15:37:45
+📚 History entries: 337
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T16:09:21
+📚 History entries: 338
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T16:40:57
+📚 History entries: 339
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T17:12:37
+📚 History entries: 340
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-07T17:12:37
+📚 History entries: 341
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T16:06:37
+📚 History entries: 342
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T16:38:15
+📚 History entries: 343
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T17:09:50
+📚 History entries: 344
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T17:41:49
+📚 History entries: 345
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T18:16:55
+📚 History entries: 346
+💾 Saved snapshot to history
+
+🚨 6 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T18:54:46
+📚 History entries: 347
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T18:54:46
+📚 History entries: 348
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T19:37:47
+📚 History entries: 349
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T20:09:46
+📚 History entries: 350
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T20:41:42
+📚 History entries: 351
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T21:13:39
+📚 History entries: 352
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T21:45:35
+📚 History entries: 353
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T21:45:35
+📚 History entries: 354
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T22:33:29
+📚 History entries: 355
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T23:05:15
+📚 History entries: 356
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-08T23:37:04
+📚 History entries: 357
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T00:08:50
+📚 History entries: 358
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T00:40:32
+📚 History entries: 359
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T01:12:12
+📚 History entries: 360
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T01:43:54
+📚 History entries: 361
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T02:15:38
+📚 History entries: 362
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T02:47:20
+📚 History entries: 363
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T03:19:04
+📚 History entries: 364
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T03:50:48
+📚 History entries: 365
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T04:22:31
+📚 History entries: 366
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T04:54:11
+📚 History entries: 367
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T05:25:49
+📚 History entries: 368
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🧹 Removed stale alert file
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T05:57:31
+📚 History entries: 369
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T05:57:31
+📚 History entries: 370
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T06:34:29
+📚 History entries: 371
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T07:11:28
+📚 History entries: 372
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T07:43:08
+📚 History entries: 373
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T08:14:46
+📚 History entries: 374
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T08:46:23
+📚 History entries: 375
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T09:18:08
+📚 History entries: 376
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T09:49:47
+📚 History entries: 377
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T10:21:27
+📚 History entries: 378
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T10:53:06
+📚 History entries: 379
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T11:24:46
+📚 History entries: 380
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T11:56:28
+📚 History entries: 381
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T12:28:14
+📚 History entries: 382
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T12:59:58
+📚 History entries: 383
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T12:59:58
+📚 History entries: 384
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T13:31:46
+📚 History entries: 385
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T14:03:54
+📚 History entries: 386
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T14:36:28
+📚 History entries: 387
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T15:09:39
+📚 History entries: 388
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T15:41:49
+📚 History entries: 389
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T16:14:25
+📚 History entries: 390
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T16:46:10
+📚 History entries: 391
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T17:18:54
+📚 History entries: 392
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T17:51:37
+📚 History entries: 393
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-09T18:23:28
+📚 History entries: 394
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T17:13:15
+📚 History entries: 395
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T17:43:20
+📚 History entries: 396
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T18:13:28
+📚 History entries: 397
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T18:43:34
+📚 History entries: 398
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T19:13:40
+📚 History entries: 399
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T19:43:47
+📚 History entries: 400
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T20:13:53
+📚 History entries: 401
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T20:43:59
+📚 History entries: 402
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T21:14:04
+📚 History entries: 403
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T21:44:10
+📚 History entries: 404
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T22:14:16
+📚 History entries: 405
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T22:44:22
+📚 History entries: 406
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T23:14:36
+📚 History entries: 407
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-11T23:44:42
+📚 History entries: 408
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:15:35
+📚 History entries: 409
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 410
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 411
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 412
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 413
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 414
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 415
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🧹 Removed stale alert file
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 416
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 417
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 418
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 419
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 420
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 421
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 422
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 423
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T00:47:10
+📚 History entries: 424
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T08:17:18
+📚 History entries: 425
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T08:48:43
+📚 History entries: 426
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T09:20:16
+📚 History entries: 427
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T09:51:46
+📚 History entries: 428
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T10:23:14
+📚 History entries: 429
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T10:54:48
+📚 History entries: 430
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T11:26:12
+📚 History entries: 431
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T11:57:47
+📚 History entries: 432
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T12:29:13
+📚 History entries: 433
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T12:29:13
+📚 History entries: 434
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T13:00:39
+📚 History entries: 435
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T13:32:03
+📚 History entries: 436
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T14:03:27
+📚 History entries: 437
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T14:34:52
+📚 History entries: 438
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T15:06:19
+📚 History entries: 439
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T15:37:45
+📚 History entries: 440
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T16:09:13
+📚 History entries: 441
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T16:40:52
+📚 History entries: 442
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T17:12:17
+📚 History entries: 443
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T17:43:54
+📚 History entries: 444
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T18:15:27
+📚 History entries: 445
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T18:46:51
+📚 History entries: 446
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T19:18:28
+📚 History entries: 447
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T19:50:04
+📚 History entries: 448
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T20:21:29
+📚 History entries: 449
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T20:52:52
+📚 History entries: 450
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T21:24:48
+📚 History entries: 451
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T21:56:21
+📚 History entries: 452
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T22:27:51
+📚 History entries: 453
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  1 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T22:27:51
+📚 History entries: 454
+💾 Saved snapshot to history
+
+🚨 1 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T23:00:37
+📚 History entries: 455
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-12T23:33:16
+📚 History entries: 456
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T00:07:32
+📚 History entries: 457
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T00:41:22
+📚 History entries: 458
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T01:14:52
+📚 History entries: 459
+💾 Saved snapshot to history
+
+🚨 4 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T01:50:36
+📚 History entries: 460
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T02:26:45
+📚 History entries: 461
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T02:26:45
+📚 History entries: 462
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T03:02:34
+📚 History entries: 463
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T03:38:10
+📚 History entries: 464
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T04:16:33
+📚 History entries: 465
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T04:52:46
+📚 History entries: 466
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T05:27:35
+📚 History entries: 467
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T05:27:35
+📚 History entries: 468
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T06:03:37
+📚 History entries: 469
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T06:38:23
+📚 History entries: 470
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T07:14:05
+📚 History entries: 471
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T07:49:40
+📚 History entries: 472
+💾 Saved snapshot to history
+
+🚨 6 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T08:22:36
+📚 History entries: 473
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T08:58:06
+📚 History entries: 474
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T08:58:06
+📚 History entries: 475
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T09:34:40
+📚 History entries: 476
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T10:12:28
+📚 History entries: 477
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T10:50:06
+📚 History entries: 478
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T11:28:24
+📚 History entries: 479
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T11:28:24
+📚 History entries: 480
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T12:12:16
+📚 History entries: 481
+💾 Saved snapshot to history
+
+🚨 6 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T12:48:06
+📚 History entries: 482
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T13:23:45
+📚 History entries: 483
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T13:23:45
+📚 History entries: 484
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T14:03:46
+📚 History entries: 485
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T14:03:46
+📚 History entries: 486
+💾 Saved snapshot to history
+
+🚨 6 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T15:23:43
+📚 History entries: 487
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T15:23:43
+📚 History entries: 488
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T16:29:04
+📚 History entries: 489
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T16:29:04
+📚 History entries: 490
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T16:29:04
+📚 History entries: 491
+💾 Saved snapshot to history
+
+🚨 6 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T17:37:47
+📚 History entries: 492
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T18:17:44
+📚 History entries: 493
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T18:57:47
+📚 History entries: 494
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T18:57:47
+📚 History entries: 495
+💾 Saved snapshot to history
+
+🚨 5 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T19:32:14
+📚 History entries: 496
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T20:05:20
+📚 History entries: 497
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T20:39:49
+📚 History entries: 498
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  6 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T21:13:18
+📚 History entries: 499
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T21:46:15
+📚 History entries: 500
+💾 Saved snapshot to history
+
+🚨 4 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T22:21:11
+📚 History entries: 501
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T22:56:09
+📚 History entries: 502
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  5 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T23:27:59
+📚 History entries: 503
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-13T23:27:59
+📚 History entries: 504
+💾 Saved snapshot to history
+
+🚨 4 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T00:02:44
+📚 History entries: 505
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T00:37:38
+📚 History entries: 506
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T01:10:59
+📚 History entries: 507
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T01:45:57
+📚 History entries: 508
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T02:20:53
+📚 History entries: 509
+💾 Saved snapshot to history
+
+🚨 4 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T02:53:33
+📚 History entries: 510
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T03:28:21
+📚 History entries: 511
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T03:28:21
+📚 History entries: 512
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T04:03:29
+📚 History entries: 513
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  4 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T04:37:55
+📚 History entries: 514
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T05:21:14
+📚 History entries: 515
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T05:21:14
+📚 History entries: 516
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T09:59:43
+📚 History entries: 517
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T18:12:09
+📚 History entries: 518
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T18:49:40
+📚 History entries: 519
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T19:21:08
+📚 History entries: 520
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T19:52:30
+📚 History entries: 521
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T20:24:00
+📚 History entries: 522
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🧹 Removed stale alert file
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T20:55:29
+📚 History entries: 523
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T21:27:01
+📚 History entries: 524
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T21:58:28
+📚 History entries: 525
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T21:58:28
+📚 History entries: 526
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T22:46:02
+📚 History entries: 527
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T23:18:03
+📚 History entries: 528
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-14T23:53:17
+📚 History entries: 529
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T00:23:26
+📚 History entries: 530
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T00:53:50
+📚 History entries: 531
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T01:24:12
+📚 History entries: 532
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T01:54:17
+📚 History entries: 533
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T02:24:25
+📚 History entries: 534
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T02:54:11
+📚 History entries: 535
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T03:24:11
+📚 History entries: 536
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T03:54:12
+📚 History entries: 537
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T04:24:12
+📚 History entries: 538
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T04:54:10
+📚 History entries: 539
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T05:24:19
+📚 History entries: 540
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T05:54:34
+📚 History entries: 541
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T06:24:51
+📚 History entries: 542
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T06:55:05
+📚 History entries: 543
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T07:25:15
+📚 History entries: 544
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T07:57:14
+📚 History entries: 545
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T08:28:31
+📚 History entries: 546
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T08:59:30
+📚 History entries: 547
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T09:22:47
+📚 History entries: 548
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T09:53:49
+📚 History entries: 549
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T10:09:13
+📚 History entries: 550
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T10:41:57
+📚 History entries: 551
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T11:13:14
+📚 History entries: 552
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T11:44:31
+📚 History entries: 553
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T12:15:48
+📚 History entries: 554
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T12:47:05
+📚 History entries: 555
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T13:18:22
+📚 History entries: 556
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T13:49:38
+📚 History entries: 557
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T14:20:53
+📚 History entries: 558
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T14:52:11
+📚 History entries: 559
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T15:23:28
+📚 History entries: 560
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T15:54:43
+📚 History entries: 561
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T16:26:02
+📚 History entries: 562
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T16:57:18
+📚 History entries: 563
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T17:28:50
+📚 History entries: 564
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T17:28:50
+📚 History entries: 565
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T18:00:02
+📚 History entries: 566
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T18:31:16
+📚 History entries: 567
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T19:02:38
+📚 History entries: 568
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T19:34:14
+📚 History entries: 569
+💾 Saved snapshot to history
+
+🚨 2 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T20:05:27
+📚 History entries: 570
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T20:36:43
+📚 History entries: 571
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T21:07:55
+📚 History entries: 572
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+✅ No anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T21:39:27
+📚 History entries: 573
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T21:39:27
+📚 History entries: 574
+💾 Saved snapshot to history
+
+✅ No latency anomalies detected
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T22:56:33
+📚 History entries: 575
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T23:28:08
+📚 History entries: 576
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T23:59:39
+📚 History entries: 577
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-15T23:59:39
+📚 History entries: 578
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-16T00:31:10
+📚 History entries: 579
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-16T01:02:44
+📚 History entries: 580
+💾 Saved snapshot to history
+
+🚨 3 latency anomalies detected!
+✅ Alert created: scripts/kalshi-latency.alert
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-16T01:34:18
+📚 History entries: 581
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  3 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+📅 Profile timestamp: 2026-02-16T02:05:52
+📚 History entries: 582
+💾 Saved snapshot to history
+⏳ In cooldown period (2h)
+
+⚠️  2 anomalies detected (suppressed by cooldown)
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found
+🔍 Latency Anomaly Detector
+========================================
+⚠️  Error loading latency profile: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
+❌ No latency profile found

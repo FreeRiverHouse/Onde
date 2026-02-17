@@ -1,0 +1,267 @@
+[2026-01-28 22:47:45 UTC] Backed up 2007 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-01-28.jsonl
+[2026-01-28 22:47:47 UTC] Pushed backup to git
+[2026-01-29 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-01-29.jsonl
+[main 0d5ff7bf2] backup: kalshi trades 2026-01-29 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 2114 insertions(+)
+ create mode 100644 data/trading/kalshi-trades-2026-01-29.jsonl
+ create mode 100644 data/trading/momentum-alignment-analysis.json
+ create mode 100644 data/trading/weekend-weekday-analysis.json
+fatal: could not read Username for 'https://github.com': Device not configured
+[2026-01-30 08:05:01 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-01-30.jsonl
+[main b5f282621] backup: kalshi trades 2026-01-30 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 2037 insertions(+), 13 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-01-30.jsonl
+fatal: could not read Username for 'https://github.com': Device not configured
+[2026-02-01 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-01.jsonl
+[main f29c84178] backup: kalshi trades 2026-02-01 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 14 files changed, 2137 insertions(+), 25 deletions(-)
+ create mode 100644 data/trading/concentration-history.jsonl
+ create mode 100644 data/trading/kalshi-trades-2026-02-01.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-01.jsonl
+To github.com:FreeRiverHouse/Onde.git
+ ! [rejected]            main -> main (fetch first)
+error: failed to push some refs to 'github.com:FreeRiverHouse/Onde.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-02-02 08:05:01 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-02.jsonl
+[main a97ca2de7] backup: kalshi trades 2026-02-02 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 9 files changed, 2063 insertions(+), 10 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-02.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   14ab653bf..a97ca2de7  main -> main
+[2026-02-02 08:05:02 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-03 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-03.jsonl
+[main 26c2984e3] backup: kalshi trades 2026-02-03 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 9 files changed, 2056 insertions(+), 16 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-03.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   18039625c..26c2984e3  main -> main
+[2026-02-03 08:05:03 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-04 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-04.jsonl
+[main 279d340b3] backup: kalshi trades 2026-02-04 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 15 files changed, 2299 insertions(+), 45 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-04.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-04.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   a87dd109e..279d340b3  main -> main
+[2026-02-04 08:05:03 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-05 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-05.jsonl
+[main b1f54f30e] backup: kalshi trades 2026-02-05 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 11 files changed, 2097 insertions(+), 13 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-05.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   65dc44616..b1f54f30e  main -> main
+[2026-02-05 08:05:02 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-06 08:05:01 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-06.jsonl
+[main 6ae12f1a9] backup: kalshi trades 2026-02-06 (2016 trades)
+ Committer: Mattia <mattia@FRH-M1-PRO.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 10 files changed, 2121 insertions(+), 87 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-06.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   8c61c88b7..6ae12f1a9  main -> main
+[2026-02-06 08:05:03 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-07 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-07.jsonl
+[main 015e05551] backup: kalshi trades 2026-02-07 (2016 trades)
+ 10 files changed, 2144 insertions(+), 17 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-07.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   b100553cb..015e05551  main -> main
+[2026-02-07 08:05:02 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-09 08:05:01 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-09.jsonl
+[main bb42d5231] backup: kalshi trades 2026-02-09 (2016 trades)
+ 19 files changed, 2420 insertions(+), 44 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-09.jsonl
+ create mode 100644 data/trading/paper-trade-log.20260208_084725.jsonl.bak
+ create mode 100644 data/trading/paper-trade-log.jsonl
+ create mode 100644 data/trading/paper-trade-state.json
+ create mode 100644 data/trading/snapshots/2026-02-09.jsonl
+To github.com:FreeRiverHouse/Onde.git
+ ! [rejected]            main -> main (fetch first)
+error: failed to push some refs to 'github.com:FreeRiverHouse/Onde.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-02-12 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-12.jsonl
+[main 36a68e0b9] backup: kalshi trades 2026-02-12 (2016 trades)
+ 16 files changed, 2433 insertions(+), 44 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-12.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-11.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-12.jsonl
+To github.com:FreeRiverHouse/Onde.git
+ ! [rejected]            main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:FreeRiverHouse/Onde.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-02-13 08:05:25 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-13.jsonl
+[main b13f2fe16] backup: kalshi trades 2026-02-13 (2016 trades)
+ 15 files changed, 2439 insertions(+), 23 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-13.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-13.jsonl
+To github.com:FreeRiverHouse/Onde.git
+ ! [rejected]            main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:FreeRiverHouse/Onde.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-02-14 08:10:21 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-14.jsonl
+[main 663c902e7] backup: kalshi trades 2026-02-14 (2016 trades)
+ 15 files changed, 2421 insertions(+), 55 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-14.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-14.jsonl
+To github.com:FreeRiverHouse/Onde.git
+ ! [rejected]            main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:FreeRiverHouse/Onde.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-02-15 08:05:00 UTC] Backed up 2016 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-15.jsonl
+[main af2b1b957] backup: kalshi trades 2026-02-15 (2016 trades)
+ 11 files changed, 2044 insertions(+), 9 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-15.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   2471aa7db..af2b1b957  main -> main
+[2026-02-15 08:05:02 UTC] Pushed backup to git
+✅ Trade backup completed: 2016 trades
+[2026-02-16 08:05:00 UTC] Backed up 3948 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-16.jsonl
+[main e5ee70450] backup: kalshi trades 2026-02-16 (3948 trades)
+ 12 files changed, 6133 insertions(+), 4 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-16.jsonl
+To github.com:FreeRiverHouse/Onde.git
+   e1c81c934..e5ee70450  main -> main
+[2026-02-16 08:05:03 UTC] Pushed backup to git
+✅ Trade backup completed: 3948 trades
+[2026-02-17 08:05:00 UTC] Backed up 4098 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-17.jsonl
+[main 2e48513e7] backup: kalshi trades 2026-02-17 (4098 trades)
+ 19 files changed, 20815 insertions(+), 5 deletions(-)
+ create mode 100644 data/trading/api-reliability.jsonl
+ create mode 100644 data/trading/autotrader-uptime.json
+ create mode 100644 data/trading/autotrader-v2.log
+ create mode 100644 data/trading/autotrader-v3.log
+ create mode 100644 data/trading/error-rate-analysis.json
+ create mode 100644 data/trading/kalshi-autotrader.log
+ create mode 100644 data/trading/kalshi-decisions.jsonl
+ create mode 100644 data/trading/kalshi-trades-2026-02-17.jsonl
+ create mode 100644 data/trading/kalshi-trades-latest.jsonl
+ create mode 100644 data/trading/kalshi-unified-cycles.jsonl
+ create mode 100644 data/trading/kalshi-unified-skips.jsonl
+ create mode 100644 data/trading/kalshi-unified-trades.jsonl
+ create mode 100644 data/trading/kalshi-v3-trades.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-17.jsonl
+ create mode 100644 data/trading/trading-recommendations-history.jsonl
+ create mode 100644 data/trading/trading-recommendations.json
+ create mode 100644 data/trading/tune-history.jsonl
+ create mode 100644 data/trading/tune-report.json
+To github.com:FreeRiverHouse/Onde.git
+   e4f3fcd29..2e48513e7  main -> main
+[2026-02-17 08:05:03 UTC] Pushed backup to git
+✅ Trade backup completed: 4098 trades

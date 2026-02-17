@@ -1,0 +1,875 @@
+🚀 Starting Kalshi AutoTrader v2
+   With PROPER probability model and feedback loop!
+   Now trading: BTC (KXBTCD) + ETH (KXETHD) markets!
+   📊 API latency profiling enabled (T279)
+   🧪 DRY RUN MODE - No real trades will be executed!
+   📝 Trades logged to: scripts/kalshi-trades-dryrun.jsonl
+   📡 Health server started on http://0.0.0.0:8089/health (/metrics for Prometheus)
+   Press Ctrl+C to stop
+
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 01:29:28 UTC
+============================================================
+⏰ Schedule: 01:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 01:34:28 UTC
+============================================================
+⏰ Schedule: 01:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 01:39:29 UTC
+============================================================
+⏰ Schedule: 01:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 01:44:30 UTC
+============================================================
+⏰ Schedule: 01:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 01:49:30 UTC
+============================================================
+⏰ Schedule: 01:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 01:54:31 UTC
+============================================================
+⏰ Schedule: 01:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                      6   192.7ms  5919.3ms 34354.0ms 34354.0ms
+balance                        6   215.5ms  3840.4ms 21728.8ms 21728.8ms
+======================================================================
+TOTAL                         12   192.7ms  4879.8ms 34354.0ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • balance: slow_avg - Avg 3840ms > 1000ms threshold
+   • balance: slow_p95 - P95 21729ms > 2000ms threshold
+   • balance: high_variance - P95/Avg ratio 5.7x
+   • positions: slow_avg - Avg 5919ms > 1000ms threshold
+   • positions: slow_p95 - P95 34354ms > 2000ms threshold
+   • positions: high_variance - P95/Avg ratio 5.8x
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:00:35 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:05:36 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:10:37 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:15:37 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:20:38 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:25:39 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     12   178.0ms  3081.3ms 34354.0ms 34354.0ms
+balance                       12   215.5ms  2061.7ms 21728.8ms 21728.8ms
+======================================================================
+TOTAL                         24   178.0ms  2571.5ms 21728.8ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • balance: slow_avg - Avg 2062ms > 1000ms threshold
+   • balance: slow_p95 - P95 21729ms > 2000ms threshold
+   • balance: high_variance - P95/Avg ratio 10.5x
+   • positions: slow_avg - Avg 3081ms > 1000ms threshold
+   • positions: slow_p95 - P95 34354ms > 2000ms threshold
+   • positions: high_variance - P95/Avg ratio 11.1x
+📊 API RATE LIMITS:
+  🟢 kalshi: 24/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:30:39 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:35:40 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:40:40 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:45:41 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:50:43 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 02:55:43 UTC
+============================================================
+⏰ Schedule: 02:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     18   177.1ms  2171.4ms 34354.0ms 34354.0ms
+balance                       18   215.5ms  1575.9ms 21728.8ms 21728.8ms
+======================================================================
+TOTAL                         36   177.1ms  1873.7ms 21728.8ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • balance: slow_avg - Avg 1576ms > 1000ms threshold
+   • balance: slow_p95 - P95 21729ms > 2000ms threshold
+   • balance: high_variance - P95/Avg ratio 13.8x
+   • positions: slow_avg - Avg 2171ms > 1000ms threshold
+   • positions: slow_p95 - P95 34354ms > 2000ms threshold
+   • positions: high_variance - P95/Avg ratio 15.8x
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:00:45 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:05:46 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:10:47 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:15:48 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:20:48 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:25:49 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     24   177.1ms  1705.7ms   524.2ms 34354.0ms
+balance                       24   215.5ms  1260.4ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                         48   177.1ms  1483.0ms  1444.3ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • balance: slow_avg - Avg 1260ms > 1000ms threshold
+   • positions: slow_avg - Avg 1706ms > 1000ms threshold
+📊 API RATE LIMITS:
+  🟢 kalshi: 24/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:30:50 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:35:51 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:40:51 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:45:52 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:50:53 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 03:55:53 UTC
+============================================================
+⏰ Schedule: 03:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     30   177.1ms  1408.5ms   524.2ms 34354.0ms
+balance                       30   215.5ms  1066.5ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                         60   177.1ms  1237.5ms  1444.3ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • balance: slow_avg - Avg 1066ms > 1000ms threshold
+   • positions: slow_avg - Avg 1408ms > 1000ms threshold
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:00:54 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:05:54 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:10:55 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:15:56 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:20:56 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:25:57 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     36   177.1ms  1215.4ms   524.2ms 34354.0ms
+balance                       36   215.5ms   937.5ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                         72   177.1ms  1076.4ms   954.4ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • positions: slow_avg - Avg 1215ms > 1000ms threshold
+📊 API RATE LIMITS:
+  🟢 kalshi: 24/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:30:58 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:35:59 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:40:59 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:46:00 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:51:04 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 04:56:04 UTC
+============================================================
+⏰ Schedule: 04:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+📊 Circuit breaker event logged: release
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     42   177.1ms  1079.4ms   520.8ms 34354.0ms
+balance                       42   209.4ms   910.1ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                         84   177.1ms   994.7ms   954.4ms 34354.0ms
+
+⚠️ BOTTLENECKS DETECTED:
+   • positions: slow_avg - Avg 1079ms > 1000ms threshold
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:01:05 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:06:06 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:11:08 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:16:09 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:21:09 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:26:10 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     48   177.1ms   983.5ms   524.2ms 34354.0ms
+balance                       48   209.4ms   857.8ms  1484.7ms 21728.8ms
+======================================================================
+TOTAL                         96   177.1ms   920.7ms  1444.3ms 34354.0ms
+📊 API RATE LIMITS:
+  🟢 kalshi: 24/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:31:10 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:36:12 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:41:12 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:46:13 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:51:13 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 05:56:14 UTC
+============================================================
+⏰ Schedule: 05:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     54   177.1ms   902.2ms   524.2ms 34354.0ms
+balance                       54   209.4ms   801.2ms  1484.7ms 21728.8ms
+======================================================================
+TOTAL                        108   177.1ms   851.7ms   954.4ms 34354.0ms
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:01:15 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:06:15 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:11:17 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:16:17 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:21:18 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:26:18 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     60   177.1ms   842.2ms   682.0ms 34354.0ms
+balance                       60   209.4ms   755.9ms  1484.7ms 21728.8ms
+======================================================================
+TOTAL                        120   177.1ms   799.0ms   954.4ms 34354.0ms
+📊 API RATE LIMITS:
+  🟢 kalshi: 24/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:31:19 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:36:19 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:41:20 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:46:21 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:51:21 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 06:56:22 UTC
+============================================================
+⏰ Schedule: 06:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     66   177.1ms   790.5ms   524.2ms 34354.0ms
+balance                       66   209.4ms   712.6ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                        132   177.1ms   751.6ms   820.4ms 34354.0ms
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:01:23 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:06:24 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:11:25 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:16:26 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:21:27 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:26:27 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     72   177.1ms   761.2ms   681.7ms 34354.0ms
+balance                       72   209.4ms   692.3ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                        144   177.1ms   726.8ms   800.7ms 34354.0ms
+📊 API RATE LIMITS:
+  🟢 kalshi: 24/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:31:29 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:36:30 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:41:31 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:46:31 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:51:32 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 07:56:33 UTC
+============================================================
+⏰ Schedule: 07:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+📊 API LATENCY PROFILE:
+======================================================================
+Endpoint                   Calls      Min      Avg      P95      Max
+----------------------------------------------------------------------
+positions                     78   177.1ms   723.2ms   681.7ms 34354.0ms
+balance                       78   209.4ms   666.3ms  1444.3ms 21728.8ms
+======================================================================
+TOTAL                        156   177.1ms   694.8ms   800.7ms 34354.0ms
+📊 API RATE LIMITS:
+  🟢 kalshi: 12/1000 calls/hour
+  🟢 coingecko: 0/30 calls/hour
+  🟢 binance: 0/1200 calls/hour
+  🟢 coinbase: 0/10000 calls/hour
+  🟢 feargreed: 0/100 calls/hour
+
+💤 Sleeping 5 minutes...
+
+============================================================
+🤖 KALSHI AUTOTRADER v2 - 2026-01-31 08:01:33 UTC
+============================================================
+⏰ Schedule: 08:00 UTC not in active_hours (poor historical win rate)
+💤 Skipping this cycle (outside optimal trading window)
+
+💤 Sleeping 5 minutes...

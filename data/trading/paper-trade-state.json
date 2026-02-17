@@ -1,6 +1,6 @@
 {
   "starting_balance_cents": 10000,
-  "current_balance_cents": 9624,
+  "current_balance_cents": 7940,
   "positions": [
     {
       "ticker": "KXBTCD-26FEB1702-T68499.99",
@@ -25,20 +25,128 @@
       "edge": 0.0761,
       "expiry": "2026-02-17T09:00:00Z",
       "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB1704-T1989.99",
+      "action": "BUY_YES",
+      "price_cents": 35,
+      "contracts": 5,
+      "cost_cents": 175,
+      "opened_at": "2026-02-17T08:16:15.740895+00:00",
+      "title": "Ethereum price at Feb 17, 2026 at 4am EST?",
+      "edge": 0.0565,
+      "expiry": "2026-02-17T09:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB2017-T2309.99",
+      "action": "BUY_YES",
+      "price_cents": 5,
+      "contracts": 40,
+      "cost_cents": 200,
+      "opened_at": "2026-02-17T08:40:20.338838+00:00",
+      "title": "Ethereum price at Feb 20, 2026 at 5pm EST?",
+      "edge": 0.1,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1717-T68249.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 4,
+      "cost_cents": 200,
+      "opened_at": "2026-02-17T08:46:22.084683+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.045,
+      "expiry": "2026-02-17T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1705-T68249.99",
+      "action": "BUY_YES",
+      "price_cents": 37,
+      "contracts": 5,
+      "cost_cents": 185,
+      "opened_at": "2026-02-17T09:10:35.105441+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.0525,
+      "expiry": "2026-02-17T10:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1717-T68749.99",
+      "action": "BUY_YES",
+      "price_cents": 32,
+      "contracts": 6,
+      "cost_cents": 192,
+      "opened_at": "2026-02-17T09:16:36.436000+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.0597,
+      "expiry": "2026-02-17T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S20264E3CF78EB45-17ABEA818DC",
+      "action": "BUY_NO",
+      "price_cents": 58,
+      "contracts": 3,
+      "cost_cents": 174,
+      "opened_at": "2026-02-17T09:34:41.229230+00:00",
+      "title": "yes Tommy Paul,yes Marton Fucsovics,yes Iva Jovic,yes Elise Mertens",
+      "edge": 0.1,
+      "expiry": "2026-03-01T15:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB2017-T69249.99",
+      "action": "BUY_YES",
+      "price_cents": 34,
+      "contracts": 5,
+      "cost_cents": 170,
+      "opened_at": "2026-02-17T10:06:31.551781+00:00",
+      "title": "Bitcoin price  on Feb 20, 2026?",
+      "edge": 0.0613,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1706-T68249.99",
+      "action": "BUY_YES",
+      "price_cents": 19,
+      "contracts": 10,
+      "cost_cents": 190,
+      "opened_at": "2026-02-17T10:06:32.593861+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T11:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1706-T67999.99",
+      "action": "BUY_YES",
+      "price_cents": 22,
+      "contracts": 9,
+      "cost_cents": 198,
+      "opened_at": "2026-02-17T10:21:17.298565+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.0958,
+      "expiry": "2026-02-17T11:00:00Z",
+      "status": "open"
     }
   ],
   "stats": {
-    "total_trades": 2,
+    "total_trades": 11,
     "wins": 0,
     "losses": 0,
-    "pending": 2,
+    "pending": 11,
     "win_rate": 0.0,
     "pnl_cents": 0,
     "gross_profit_cents": 0,
     "gross_loss_cents": 0,
     "peak_balance_cents": 10000,
-    "max_drawdown_cents": 376,
-    "max_drawdown_pct": 3.76
+    "max_drawdown_cents": 2060,
+    "max_drawdown_pct": 20.6
   },
   "reset_at": "2026-02-17T06:11:21.040858+00:00",
   "reset_reason": "Kelly 0.75 overbetting fix \u2192 quarter-Kelly 0.25 + $2 max cap",
@@ -60,11 +168,92 @@
       "contracts": 6,
       "cost_cents": 180,
       "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T08:16:15.740895+00:00",
+      "ticker": "KXETHD-26FEB1704-T1989.99",
+      "action": "BUY_YES",
+      "price_cents": 35,
+      "contracts": 5,
+      "cost_cents": 175,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T08:40:20.338838+00:00",
+      "ticker": "KXETHD-26FEB2017-T2309.99",
+      "action": "BUY_YES",
+      "price_cents": 5,
+      "contracts": 40,
+      "cost_cents": 200,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T08:46:22.084683+00:00",
+      "ticker": "KXBTCD-26FEB1717-T68249.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 4,
+      "cost_cents": 200,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T09:10:35.105441+00:00",
+      "ticker": "KXBTCD-26FEB1705-T68249.99",
+      "action": "BUY_YES",
+      "price_cents": 37,
+      "contracts": 5,
+      "cost_cents": 185,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T09:16:36.436000+00:00",
+      "ticker": "KXBTCD-26FEB1717-T68749.99",
+      "action": "BUY_YES",
+      "price_cents": 32,
+      "contracts": 6,
+      "cost_cents": 192,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T09:34:41.229230+00:00",
+      "ticker": "KXMVESPORTSMULTIGAMEEXTENDED-S20264E3CF78EB45-17ABEA818DC",
+      "action": "BUY_NO",
+      "price_cents": 58,
+      "contracts": 3,
+      "cost_cents": 174,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T10:06:31.551781+00:00",
+      "ticker": "KXBTCD-26FEB2017-T69249.99",
+      "action": "BUY_YES",
+      "price_cents": 34,
+      "contracts": 5,
+      "cost_cents": 170,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T10:06:32.593861+00:00",
+      "ticker": "KXBTCD-26FEB1706-T68249.99",
+      "action": "BUY_YES",
+      "price_cents": 19,
+      "contracts": 10,
+      "cost_cents": 190,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T10:21:17.298565+00:00",
+      "ticker": "KXBTCD-26FEB1706-T67999.99",
+      "action": "BUY_YES",
+      "price_cents": 22,
+      "contracts": 9,
+      "cost_cents": 198,
+      "status": "open"
     }
   ],
-  "updated_at": "2026-02-17T08:03:10.390065+00:00",
+  "updated_at": "2026-02-17T10:21:17.298598+00:00",
   "analysis": {
-    "last_tune": "2026-02-17T08:00:03.258606+00:00",
+    "last_tune": "2026-02-17T10:00:02.508812+00:00",
     "total_paper_trades": 306,
     "edge_stats": {
       "mean": 0.34163117252381964,

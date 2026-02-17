@@ -1,0 +1,17 @@
+=== Weekly API Error Report - 2026-01-29T15:51:19Z ===
+
+📊 API Error Rates (Last 7 Days)
+============================================================
+
+🟢 KALSHI
+   Events: 15 | Errors: 0 | Error Rate: 0.0%
+
+🟢 COINGECKO
+   Events: 18 | Errors: 0 | Error Rate: 0.0%
+
+🟢 COINBASE
+   Events: 2 | Errors: 0 | Error Rate: 0.0%
+
+📁 Stats saved: /Users/mattia/Projects/Onde/data/trading/api-error-stats.json
+✅ All sources healthy (<5% error rate)
+

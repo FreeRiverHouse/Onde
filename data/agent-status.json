@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-02-17T10:20:02.046748Z",
+  "tasks": {
+    "total": 0,
+    "done": 0,
+    "in_progress": 0,
+    "todo": 0,
+    "completion_rate": 0.0
+  },
+  "memory": {
+    "entries_today": 7,
+    "file_exists": true,
+    "size_bytes": 6452,
+    "file_path": "memory/2026-02-17.md"
+  },
+  "git": {
+    "clawdinho": {
+      "hash": "62aaa0616",
+      "message": "chore: daily memory backup 2026-02-17",
+      "date": "2026-02-17 02:00:02 -0800",
+      "ago": "20 minutes ago"
+    },
+    "ondinho": null,
+    "total_commits_today": 3
+  },
+  "autotrader": {
+    "running": true,
+    "pid": "7418",
+    "circuit_breaker": false,
+    "consecutive_losses": 0,
+    "last_trade": null,
+    "uptime_hours": null
+  },
+  "gpu": {
+    "radeon_connected": false,
+    "type": null,
+    "vram_gb": null
+  },
+  "ollama": {
+    "running": true,
+    "location": "local",
+    "models": [
+      "qwen7b-16k:latest",
+      "qwen2.5:7b-instruct-q4_K_M"
+    ]
+  },
+  "alerts_pending": 1,
+  "systemHealth": {
+    "cpu_percent": 59.9,
+    "memory_percent": 73.9,
+    "gpu_temp": null
+  },
+  "healthHistory": {
+    "snapshots": []
+  },
+  "healthStatus": {},
+  "agents": {
+    "clawdinho": {
+      "host": "FRH-M1-PRO",
+      "model": "claude-opus-4-5",
+      "status": "active",
+      "current_task": null
+    },
+    "ondinho": {
+      "host": "M4-Pro",
+      "model": "claude-sonnet-4",
+      "status": "idle",
+      "current_task": null
+    }
+  }
+}

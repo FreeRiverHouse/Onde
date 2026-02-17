@@ -1,0 +1,336 @@
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['
+  File "/Users/mattia/Projects/Onde/scripts/volatility-preference-alert.py", line 168
+    (', '.join([f'{r['ratio']:.2f}' for r in recent_ratios[-5:]]))
+                      ^
+SyntaxError: f-string: f-string: unmatched '['

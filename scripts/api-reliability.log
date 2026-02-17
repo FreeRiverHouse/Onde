@@ -1,0 +1,2269 @@
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 134.78ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 227.59ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 132.29ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 175.86ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 182.95ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.48ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 169.42ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 171.01ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 119.67ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 213.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 179.32ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 99.83ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 134.97ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 272.87ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 131.89ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 174.75ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 255.22ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 142.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 186.54ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 301.31ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 100.73ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 194.19ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 212.75ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 115.65ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 109.38ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 205.21ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 104.29ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 90.52ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.53ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 138.84ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.99ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.19ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 134.65ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 217.36ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 107.17ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 162.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 140.01ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.29ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 199.02ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 165.76ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 142.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 136.08ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 186.39ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.53ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 274.87ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 167.6ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.27ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 241.07ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 161.96ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.34ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 270.41ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.07ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 209.55ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 261.08ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 169.05ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 321.63ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 181.44ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 241.9ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 127.83ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 518.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 106.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 192.64ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 239.68ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 186.42ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.08ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 179.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 125.4ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 286.42ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 241.08ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 193.3ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 96.54ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 290.3ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 180.28ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.14ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 170.61ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 134.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 420.59ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 164.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 137.17ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 207.41ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 302.44ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 165.7ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.35ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 261.18ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 281.92ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 193.33ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 236.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 184.94ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 108.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 279.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 151.2ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 203.89ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 220.51ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 197.4ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 185.81ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 129.71ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 218.49ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 128.34ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 244.35ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 436.53ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 214.0ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1446.46ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 602.27ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 158.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 168.27ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.43ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 200.76ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 175.38ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 184.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.03ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 219.32ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 293.47ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 133.12ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 229.85ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 255.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 172.82ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 142.15ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 406.08ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 116.62ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 273.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 312.02ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 180.97ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 325.53ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 244.52ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.44ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 219.84ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 289.36ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 113.83ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 164.71ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 217.75ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 432.61ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 746.39ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 879.83ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 661.25ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 202.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 101.65ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 132.9ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 207.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.19ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 202.2ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 803.68ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 350.82ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 175.3ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 2503.58ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 459.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 270.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 4697.04ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 696.94ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 336.21ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 4098.05ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 304.35ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 149.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 3174.1ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 4039.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 4758.41ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 2417.28ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 2348.44ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 224.39ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1331.4ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 2211.13ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 1588.15ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 3615.51ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 886.54ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 439.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 484.12ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 817.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 217.24ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 220.14ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 197.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 193.9ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 214.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 448.17ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 214.97ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 363.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 299.98ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 108.05ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 255.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 237.42ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 122.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 262.73ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 186.97ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 194.49ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 284.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 186.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 228.6ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 231.26ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 278.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.44ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 190.51ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 295.01ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 98.34ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 224.01ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 247.2ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 108.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 164.44ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 270.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 96.25ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 273.15ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 186.66ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 208.72ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 206.61ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 253.39ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 132.87ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 233.24ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 175.5ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.47ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... 
+📊 API Reliability Report (Last 7 days)
+
+------------------------------------------------------------
+
+BINANCE
+  Status:      🔴 Poor
+  Total checks: 66
+  BTC uptime:  0.0%
+  ETH uptime:  0.0%
+  Overall:     0.0%
+  Avg latency: 546ms
+  Errors:
+    • HTTP 451: 66
+
+COINBASE
+  Status:      🟢 Excellent
+  Total checks: 66
+  BTC uptime:  100.0%
+  ETH uptime:  100.0%
+  Overall:     100.0%
+  Avg latency: 266ms
+
+COINGECKO
+  Status:      🟢 Excellent
+  Total checks: 66
+  BTC uptime:  100.0%
+  ETH uptime:  100.0%
+  Overall:     100.0%
+  Avg latency: 377ms
+------------------------------------------------------------
+
+💡 Recommendation: Prioritize COINBASE (100.0% uptime)
+
+📁 Report saved to api-reliability-report.json
+❌ (BTC:False, ETH:False, 495.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 331.93ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 118.0ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 169.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 1177.08ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 410.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 120.5ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 144.18ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 194.88ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 258.47ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.2ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 244.8ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 536.09ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 449.43ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 116.08ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 199.38ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 193.95ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 161.63ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 272.07ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.19ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 342.7ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 150.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 101.33ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 172.41ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.68ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 202.08ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 463.31ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 118.26ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 261.82ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 130.15ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.54ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 153.77ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 229.7ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.28ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 283.04ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 305.0ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 214.54ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 347.03ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 266.29ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 299.47ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 173.85ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 258.19ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 369.73ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 152.91ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 337.26ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 98.65ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 282.05ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 194.34ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 214.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 374.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 426.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 278.22ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 352.81ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 442.42ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 317.45ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 291.42ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 151.1ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 352.87ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 160.0ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 252.32ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 207.46ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 145.23ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 158.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 203.94ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 438.25ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 733.15ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 143.11ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 154.16ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 151.3ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 164.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 169.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 135.7ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 176.87ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 263.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 214.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 200.37ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 376.7ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 165.08ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 298.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 152.18ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 603.33ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 1051.69ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 598.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 155.44ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 884.94ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 288.11ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 362.99ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 155.26ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 835.55ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 497.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 525.21ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 419.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 363.57ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 190.95ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 163.88ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 193.12ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 109.45ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 191.85ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.79ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 97.2ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 204.77ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.59ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 101.73ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 179.9ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 173.22ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 96.18ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 199.98ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 167.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 119.33ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 147.54ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 195.35ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 130.16ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 124.25ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 187.34ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 215.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 154.94ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 177.1ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 328.39ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 176.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 151.12ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.6ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 146.71ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 223.35ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 141.56ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 148.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 268.29ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 97.68ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 168.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 266.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.15ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 174.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 283.77ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 101.88ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 165.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 188.57ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 153.39ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 532.7ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 587.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 477.26ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 578.67ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 579.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 485.18ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 485.74ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 949.43ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 524.07ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 152.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 259.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.56ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 194.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 265.62ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.17ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 162.95ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 211.44ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 115.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 183.75ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 179.79ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.83ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 150.59ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 192.9ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 118.72ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 153.74ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.68ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 111.89ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 165.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 166.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 93.09ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 167.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 188.2ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 121.22ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 225.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 204.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.13ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 167.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 180.32ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.69ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 184.95ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 169.47ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 119.47ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 172.03ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.15ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 641.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 498.54ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 527.3ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 529.92ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 888.99ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 96.61ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 525.45ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 616.51ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 443.27ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 164.89ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.62ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 130.4ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 137.61ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 214.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 102.84ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 114.02ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 160.93ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 188.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 142.74ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 193.75ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 109.74ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 226.56ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 222.67ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.12ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 174.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 267.78ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 96.43ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 244.07ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 1204.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 354.24ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 188.4ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 164.65ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 209.73ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.02ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 117.48ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 227.0ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 172.1ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 119.71ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 128.93ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 171.56ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 123.17ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 234.78ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 396.13ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 113.06ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 152.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 212.95ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 157.29ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 118.39ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 128.28ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 126.44ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 210.82ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 194.82ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 115.32ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 211.49ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 115.31ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 98.5ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 265.37ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 133.19ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 338.03ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 161.49ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 201.35ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 101.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 192.4ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.83ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.36ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 128.57ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 155.66ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 109.3ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 162.11ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 224.94ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 122.93ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 178.54ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 108.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 129.41ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 217.68ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 196.33ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 126.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 136.18ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 180.02ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 131.62ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 195.59ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 172.77ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 118.83ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 232.97ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 168.57ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 197.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 215.32ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 262.51ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 159.45ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 197.23ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 184.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.56ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 237.4ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 220.79ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.32ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 149.44ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 193.76ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.01ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 495.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 439.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 466.69ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 290.62ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 508.54ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 509.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 318.75ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 162.13ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 175.56ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 240.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 431.5ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 145.17ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 194.3ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 190.68ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 138.69ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 228.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 194.47ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 155.91ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 185.86ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.59ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 155.65ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 163.1ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.88ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 161.95ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 166.22ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 182.73ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 256.11ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 217.51ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 175.18ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 143.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 197.73ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 116.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 172.32ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 104.72ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 169.73ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.03ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 111.22ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 276.45ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 191.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 140.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 227.62ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 251.94ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 117.25ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 306.96ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 239.61ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 199.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 179.65ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 163.89ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 170.84ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 170.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 221.45ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 118.95ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 593.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 1448.57ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 566.92ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1618.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 901.38ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 127.15ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 251.11ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 212.99ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.71ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 190.86ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 211.73ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 113.52ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 140.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 154.58ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.11ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 189.05ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 204.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 99.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 228.41ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 192.81ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 134.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 158.41ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 206.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 131.95ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 184.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 224.44ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.26ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 180.19ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 228.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 143.96ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 184.78ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 199.23ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 232.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 220.38ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.95ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 208.82ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 201.67ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 140.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 181.99ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 208.25ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.33ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 239.27ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 185.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 126.17ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 192.08ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 218.61ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.39ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 205.5ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 168.8ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 102.14ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 188.9ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 182.82ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.43ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 255.57ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 182.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.74ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 156.06ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 152.93ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 113.62ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 181.71ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.84ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 197.22ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 219.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 104.13ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 150.57ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 191.77ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 115.51ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 171.59ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 185.58ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 117.31ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 298.85ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 192.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 210.01ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 217.15ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 286.83ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 151.27ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... 
+📊 API Reliability Report (Last 7 days)
+
+------------------------------------------------------------
+
+BINANCE
+  Status:      🔴 Poor
+  Total checks: 134
+  BTC uptime:  0.0%
+  ETH uptime:  0.0%
+  Overall:     0.0%
+  Avg latency: 241ms
+  Errors:
+    • HTTP 451: 134
+
+COINBASE
+  Status:      🟢 Excellent
+  Total checks: 134
+  BTC uptime:  100.0%
+  ETH uptime:  100.0%
+  Overall:     100.0%
+  Avg latency: 173ms
+
+COINGECKO
+  Status:      🟢 Excellent
+  Total checks: 134
+  BTC uptime:  100.0%
+  ETH uptime:  100.0%
+  Overall:     100.0%
+  Avg latency: 280ms
+------------------------------------------------------------
+
+💡 Recommendation: Prioritize COINBASE (100.0% uptime)
+
+📁 Report saved to api-reliability-report.json
+❌ (BTC:False, ETH:False, 437.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.27ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 197.2ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1472.0ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 202.84ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 160.24ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 287.61ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 265.84ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 307.27ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 240.66ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 308.47ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 155.43ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 389.63ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 264.8ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 277.49ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 173.94ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.28ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 118.86ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 191.89ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 213.26ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 130.79ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 333.37ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 168.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 131.84ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 205.42ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 216.55ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 208.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 247.27ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 331.67ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 136.72ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 243.57ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 236.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 158.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 225.95ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 1791.58ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.8ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 279.92ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 265.03ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 147.68ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 281.05ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 251.56ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 131.9ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 195.89ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.84ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.55ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 182.14ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 231.86ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 136.41ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 213.19ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 180.85ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 139.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 228.38ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 157.67ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 327.98ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 196.25ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 160.94ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 152.49ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 206.59ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 119.26ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 197.5ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 205.53ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 117.06ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 251.73ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.97ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 116.29ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 179.86ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 206.05ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 147.21ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 256.16ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 367.13ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 175.43ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 219.0ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 128.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 186.74ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 202.81ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 389.31ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 327.15ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 291.89ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 247.91ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 261.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 191.49ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 279.05ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 151.62ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 193.21ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 271.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 252.36ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 129.38ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 145.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 508.77ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 466.4ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 245.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 267.58ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 187.49ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 120.66ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 188.18ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 200.57ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 99.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 127.06ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 195.86ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 272.25ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 97.54ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 121.18ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 272.11ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 243.78ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 196.69ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 165.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 104.59ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 139.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 229.34ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 110.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.47ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 224.71ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 108.25ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.8ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 204.72ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 153.94ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.06ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 161.49ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 111.07ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 157.59ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 304.84ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 135.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 103.37ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 303.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 164.09ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 341.05ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 170.75ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 103.52ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 109.12ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 183.8ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 197.92ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 224.19ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 195.27ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 159.35ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 181.89ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 131.76ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 150.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 112.15ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 232.51ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 267.82ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 199.59ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 201.94ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 116.05ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 109.82ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 159.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 151.31ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 107.49ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 431.89ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 162.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 217.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 130.32ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 186.75ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 108.09ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 205.39ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 97.68ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 122.54ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 122.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 98.2ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 177.5ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 241.48ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 169.26ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 114.69ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 409.74ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 163.21ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 152.52ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 194.67ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 276.04ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 185.65ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 272.01ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 210.37ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 251.22ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 281.47ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 207.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 200.09ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 277.52ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 232.64ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 311.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 307.33ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 115.34ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 226.98ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 457.51ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 277.89ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 213.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 338.27ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 187.57ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 203.21ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 277.92ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 191.16ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 259.41ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 337.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 331.35ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 220.29ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 114.86ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 259.2ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 530.97ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 342.11ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 239.59ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 224.13ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 171.37ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 198.71ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 270.66ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 260.87ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 223.25ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 261.31ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 285.32ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 132.53ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 339.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 219.8ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 121.5ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 233.31ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 251.01ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 132.48ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 186.5ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 246.01ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 128.88ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 340.24ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 340.23ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 106.77ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 202.36ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 269.32ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 130.41ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 155.3ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 347.19ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 147.55ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 465.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.98ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 196.36ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 285.71ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 250.54ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 128.01ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 201.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 149.14ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 183.09ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1065.95ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 527.78ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 437.54ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1890.95ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 680.53ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 426.39ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 265.52ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 258.07ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 197.63ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 185.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 215.82ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 184.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1235.42ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 622.3ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 653.21ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 371.3ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 264.12ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 239.84ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 1280.93ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 412.62ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 506.64ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 159.63ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.39ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 115.55ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 249.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 187.4ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 109.89ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 319.73ms)
+  • CoinGecko... ❌ (BTC:False, ETH:False, 87.6ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 102.97ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 206.67ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 327.76ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 196.95ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 229.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 180.19ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 121.47ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 264.85ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 158.14ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 111.93ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 158.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 209.89ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 123.35ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 189.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 321.69ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 113.9ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 155.46ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 250.78ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 167.18ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 185.16ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 258.66ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 139.49ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 224.26ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 182.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 148.29ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 201.28ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 235.84ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.99ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 232.67ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 161.29ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 153.57ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 168.59ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.5ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 204.28ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 299.92ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.66ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 216.57ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 142.8ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 183.81ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 246.06ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 171.01ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 134.63ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 356.57ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 177.26ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 104.28ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 196.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 187.24ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 213.31ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 114.54ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 269.02ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 118.3ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 240.12ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 176.02ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 111.96ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 205.72ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 167.61ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 142.72ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 257.05ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 264.98ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 105.97ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 247.81ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 194.81ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 292.01ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 348.57ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 401.62ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 335.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... 
+📊 API Reliability Report (Last 7 days)
+
+------------------------------------------------------------
+
+BINANCE
+  Status:      🔴 Poor
+  Total checks: 111
+  BTC uptime:  0.0%
+  ETH uptime:  0.0%
+  Overall:     0.0%
+  Avg latency: 298ms
+  Errors:
+    • HTTP 451: 111
+
+COINBASE
+  Status:      🟢 Excellent
+  Total checks: 111
+  BTC uptime:  100.0%
+  ETH uptime:  100.0%
+  Overall:     100.0%
+  Avg latency: 181ms
+
+COINGECKO
+  Status:      🟢 Excellent
+  Total checks: 111
+  BTC uptime:  99.1%
+  ETH uptime:  99.1%
+  Overall:     99.1%
+  Avg latency: 237ms
+  Errors:
+    • HTTP 429: 1
+------------------------------------------------------------
+
+💡 Recommendation: Prioritize COINBASE (100.0% uptime)
+
+📁 Report saved to api-reliability-report.json
+❌ (BTC:False, ETH:False, 168.82ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 101.12ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 142.01ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 329.43ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.92ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 155.27ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 155.82ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 121.52ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 234.63ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 227.07ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 197.89ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 246.96ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 207.55ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 204.65ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 267.12ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 264.24ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 333.93ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 149.24ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 314.48ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 305.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 144.01ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 241.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 625.54ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 239.67ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 192.32ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 273.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 141.05ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 191.76ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 188.02ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 216.34ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 188.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 210.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 152.17ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 3260.8ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 112.79ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 124.23ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 609.91ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 234.05ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 110.11ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 188.75ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 195.61ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 147.09ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 577.67ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 181.0ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 177.37ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 247.84ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 358.73ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 215.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 202.94ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 189.5ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 214.94ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 194.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 308.37ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 107.38ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 249.22ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 265.5ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 130.02ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 317.28ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 221.8ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 255.54ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 225.52ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 192.07ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 202.23ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 171.32ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 264.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 101.84ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 339.59ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 201.38ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 136.04ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 268.24ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 231.77ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 115.0ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 144.37ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 252.51ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 158.25ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 232.69ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 236.95ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 206.33ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 143.18ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 238.72ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 144.4ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 326.85ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 238.13ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 127.91ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 355.2ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 295.21ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 139.1ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 347.03ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 200.7ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 152.12ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 191.54ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 322.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 165.29ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 726.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 343.88ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 171.45ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 492.17ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 283.56ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 184.53ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 272.61ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 196.2ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 267.82ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 732.83ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 293.56ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 157.59ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 315.78ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 190.35ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 240.23ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 226.58ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 257.44ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 172.25ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 242.89ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 231.71ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 169.48ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 197.31ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 178.98ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 145.63ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 295.92ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 180.03ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 131.11ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 279.26ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 166.59ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 216.17ms)
+
+📝 Logged to api-reliability.jsonl

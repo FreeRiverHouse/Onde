@@ -1,0 +1,129 @@
+2026-01-29 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (4h old)
+✅ OHLC cache is fresh
+2026-01-29 12:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (5h old)
+✅ OHLC cache is fresh
+2026-01-29 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (11h old)
+✅ OHLC cache is fresh
+2026-01-30 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (0h old)
+✅ OHLC cache is fresh
+2026-01-30 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-01-30 12:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-01-30 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh
+2026-01-31 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (23h old)
+✅ OHLC cache is fresh
+2026-01-31 12:00:07 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (35h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-01-31 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (41h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-02-01 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (47h old)
+⚠️ OHLC cache is STALE (>24h)
+2026-02-01 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+Cleared stale alert
+2026-02-01 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (1h old)
+✅ OHLC cache is fresh
+2026-02-01 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (4h old)
+✅ OHLC cache is fresh
+2026-02-02 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (10h old)
+✅ OHLC cache is fresh
+2026-02-02 12:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (22h old)
+✅ OHLC cache is fresh
+2026-02-02 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (28h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-02-03 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-03 06:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-03 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh
+2026-02-03 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (23h old)
+✅ OHLC cache is fresh
+2026-02-04 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (29h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-02-04 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-04 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-04 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh
+2026-02-05 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (23h old)
+✅ OHLC cache is fresh
+2026-02-05 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-05 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-05 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh
+2026-02-06 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (23h old)
+✅ OHLC cache is fresh
+2026-02-06 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (29h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-02-06 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (4h old)
+✅ OHLC cache is fresh
+2026-02-06 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (10h old)
+✅ OHLC cache is fresh
+2026-02-07 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (16h old)
+✅ OHLC cache is fresh
+2026-02-07 06:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (22h old)
+✅ OHLC cache is fresh
+2026-02-08 12:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (3h old)
+✅ OHLC cache is fresh
+2026-02-08 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (8h old)
+✅ OHLC cache is fresh
+2026-02-09 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (14h old)
+✅ OHLC cache is fresh
+2026-02-09 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-11 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (59h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-02-11 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (65h old)
+⚠️ OHLC cache is STALE (>24h)
+2026-02-12 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (71h old)
+⚠️ OHLC cache is STALE (>24h)
+2026-02-12 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+Cleared stale alert
+2026-02-12 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-12 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh
+2026-02-13 00:00:19 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (23h old)
+✅ OHLC cache is fresh
+2026-02-13 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-13 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-13 18:00:08 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh
+2026-02-14 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (23h old)
+✅ OHLC cache is fresh
+2026-02-14 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (35h old)
+⚠️ OHLC cache is STALE (>24h)
+Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
+2026-02-14 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (3h old)
+✅ OHLC cache is fresh
+2026-02-15 00:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (9h old)
+✅ OHLC cache is fresh
+2026-02-15 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-15 12:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (3h old)
+✅ OHLC cache is fresh
+2026-02-15 18:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (8h old)
+✅ OHLC cache is fresh
+2026-02-16 00:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json (14h old)
+✅ OHLC cache is fresh
+2026-02-16 06:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (5h old)
+✅ OHLC cache is fresh
+2026-02-16 12:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-16 18:00:01 ⚠️ OHLC cache directory not found: /Users/mattia/Projects/Onde/data/ohlc
+2026-02-17 00:00:01 ⚠️ OHLC cache directory not found: /Users/mattia/Projects/Onde/data/ohlc

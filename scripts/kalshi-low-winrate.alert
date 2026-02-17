@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-02-17T08:00:02.873394+00:00",
+  "wins": 0,
+  "losses": 43,
+  "total": 43,
+  "win_rate": 0.0,
+  "pnl_cents": -291,
+  "pending": 0,
+  "threshold": 0.4,
+  "is_low": true
+}

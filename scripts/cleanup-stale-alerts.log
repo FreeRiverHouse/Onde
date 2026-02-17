@@ -1,0 +1,5 @@
+[2026-02-11 12:00:00] Removing stale alert: kalshi-daily-report.alert (52h old)
+[2026-02-11 12:00:01] Removing stale alert: kalshi-low-winrate.alert (59h old)
+[2026-02-11 12:00:01] Cleaned up 2 stale alert file(s)
+[2026-02-14 12:00:00] Removing stale alert: kalshi-daily-report.alert (28h old)
+[2026-02-14 12:00:00] Cleaned up 1 stale alert file(s)

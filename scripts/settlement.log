@@ -1,0 +1,8275 @@
+Processing 37 pending trades...
+
+  Processing: KXBTCD-26JAN2804-T88499.99
+    Expiry: 2026-01-28T09:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 1¢
+    Settlement price: $88,867.96
+    Result: ❌ LOSS
+    PnL: $-0.17
+
+  Processing: KXBTCD-26JAN2804-T88249.99
+    Expiry: 2026-01-28T09:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+    Settlement price: $88,867.96
+    Result: ❌ LOSS
+    PnL: $-0.16
+
+  Processing: KXBTCD-26JAN2804-T88499.99
+    Expiry: 2026-01-28T09:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 2¢
+    Settlement price: $88,867.96
+    Result: ❌ LOSS
+    PnL: $-0.14
+
+  Processing: KXBTCD-26JAN2804-T88499.99
+    Expiry: 2026-01-28T09:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 2¢
+    Settlement price: $88,867.96
+    Result: ❌ LOSS
+    PnL: $-0.14
+
+  Processing: KXBTCD-26JAN2804-T88499.99
+    Expiry: 2026-01-28T09:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 2¢
+    Settlement price: $88,867.96
+    Result: ❌ LOSS
+    PnL: $-0.12
+
+  Processing: KXBTCD-26JAN2805-T87999.99
+    Expiry: 2026-01-28T10:00:00+00:00
+    Strike: $87,999.99
+    Side: no @ 2¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,330.21
+    Result: ❌ LOSS
+    PnL: $-0.12
+
+  Processing: KXBTCD-26JAN2805-T87749.99
+    Expiry: 2026-01-28T10:00:00+00:00
+    Strike: $87,749.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,330.21
+    Result: ❌ LOSS
+    PnL: $-0.12
+
+  Processing: KXBTCD-26JAN2805-T87999.99
+    Expiry: 2026-01-28T10:00:00+00:00
+    Strike: $87,999.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,330.21
+    Result: ❌ LOSS
+    PnL: $-0.10
+
+  Processing: KXBTCD-26JAN2805-T87999.99
+    Expiry: 2026-01-28T10:00:00+00:00
+    Strike: $87,999.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,330.21
+    Result: ❌ LOSS
+    PnL: $-0.10
+
+  Processing: KXBTCD-26JAN2806-T88499.99
+    Expiry: 2026-01-28T11:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,309.67
+    Result: ❌ LOSS
+    PnL: $-0.09
+
+  Processing: KXBTCD-26JAN2806-T88249.99
+    Expiry: 2026-01-28T11:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,309.67
+    Result: ❌ LOSS
+    PnL: $-0.09
+
+  Processing: KXBTCD-26JAN2806-T88749.99
+    Expiry: 2026-01-28T11:00:00+00:00
+    Strike: $88,749.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,309.67
+    Result: ❌ LOSS
+    PnL: $-0.06
+
+  Processing: KXBTCD-26JAN2806-T88249.99
+    Expiry: 2026-01-28T11:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,309.67
+    Result: ❌ LOSS
+    PnL: $-0.08
+
+  Processing: KXBTCD-26JAN2806-T87749.99
+    Expiry: 2026-01-28T11:00:00+00:00
+    Strike: $87,749.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,309.67
+    Result: ❌ LOSS
+    PnL: $-0.07
+
+  Processing: KXBTCD-26JAN2806-T87749.99
+    Expiry: 2026-01-28T11:00:00+00:00
+    Strike: $87,749.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,309.67
+    Result: ❌ LOSS
+    PnL: $-0.07
+
+  Processing: KXBTCD-26JAN2807-T88499.99
+    Expiry: 2026-01-28T12:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,934.10
+    Result: ❌ LOSS
+    PnL: $-0.06
+
+  Processing: KXBTCD-26JAN2807-T88249.99
+    Expiry: 2026-01-28T12:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,934.10
+    Result: ❌ LOSS
+    PnL: $-0.06
+
+  Processing: KXBTCD-26JAN2807-T88499.99
+    Expiry: 2026-01-28T12:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 2¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,934.10
+    Result: ❌ LOSS
+    PnL: $-0.06
+
+  Processing: KXBTCD-26JAN2807-T88749.99
+    Expiry: 2026-01-28T12:00:00+00:00
+    Strike: $88,749.99
+    Side: no @ 2¢
+    Settlement price: $89,953.35
+    Result: ❌ LOSS
+    PnL: $-0.04
+
+  Processing: KXBTCD-26JAN2807-T88499.99
+    Expiry: 2026-01-28T12:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 1¢
+    Settlement price: $89,953.35
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2807-T88499.99
+    Expiry: 2026-01-28T12:00:00+00:00
+    Strike: $88,499.99
+    Side: no @ 1¢
+    Settlement price: $89,953.35
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2808-T88249.99
+    Expiry: 2026-01-28T13:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,877.65
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2808-T87999.99
+    Expiry: 2026-01-28T13:00:00+00:00
+    Strike: $87,999.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,877.65
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2808-T88999.99
+    Expiry: 2026-01-28T13:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,877.65
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2808-T88999.99
+    Expiry: 2026-01-28T13:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,877.65
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2808-T88999.99
+    Expiry: 2026-01-28T13:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,877.65
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2808-T88999.99
+    Expiry: 2026-01-28T13:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,877.65
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2809-T88999.99
+    Expiry: 2026-01-28T14:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 2¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $90,124.01
+    Result: ❌ LOSS
+    PnL: $-0.04
+
+  Processing: KXBTCD-26JAN2809-T88999.99
+    Expiry: 2026-01-28T14:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $90,124.01
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2809-T88999.99
+    Expiry: 2026-01-28T14:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $90,124.01
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2809-T88999.99
+    Expiry: 2026-01-28T14:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $90,124.01
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2810-T88249.99
+    Expiry: 2026-01-28T15:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,540.93
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2810-T88999.99
+    Expiry: 2026-01-28T15:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,540.93
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2810-T88999.99
+    Expiry: 2026-01-28T15:00:00+00:00
+    Strike: $88,999.99
+    Side: no @ 3¢
+  Error fetching price: HTTP Error 429: Too Many Requests
+    Settlement price: $89,540.93
+    Result: ❌ LOSS
+    PnL: $-0.03
+
+  Processing: KXBTCD-26JAN2810-T87999.99
+    Expiry: 2026-01-28T15:00:00+00:00
+    Strike: $87,999.99
+    Side: no @ 1¢
+    Settlement price: $89,511.63
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2810-T88249.99
+    Expiry: 2026-01-28T15:00:00+00:00
+    Strike: $88,249.99
+    Side: no @ 1¢
+    Settlement price: $89,511.63
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+  Processing: KXBTCD-26JAN2810-T87999.99
+    Expiry: 2026-01-28T15:00:00+00:00
+    Strike: $87,999.99
+    Side: no @ 1¢
+    Settlement price: $89,511.63
+    Result: ❌ LOSS
+    PnL: $-0.05
+
+==================================================
+Settlement Summary
+==================================================
+Newly settled: 37
+Still pending: 0
+
+Overall Stats:
+  Wins: 0
+  Losses: 43
+  Win Rate: 0.0%
+  Total PnL: $-2.91
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00
+
+==================================================
+Processing: kalshi-trades.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 43
+  Pending: 0
+  Total PnL: $-2.91
+
+==================================================
+Processing: kalshi-trades-v2.jsonl
+==================================================
+No new pending trades to process.
+
+Current stats:
+  Wins: 0
+  Losses: 0
+  Pending: 0
+  Total PnL: $0.00

@@ -1,0 +1,360 @@
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9199
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769198401857&endTime=1769803201857: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8832 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $84,222.00 (-6.23% 7d)
+   ETH: $2,743.33 (-7.13% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8832
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769284810174&endTime=1769889610174: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8959 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $77,782.96 (-12.79% 7d)
+   ETH: $2,384.57 (-19.14% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8959
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769371202013&endTime=1769976002013: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8675 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $77,027.04 (-10.84% 7d)
+   ETH: $2,313.69 (-17.76% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8675
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769457601966&endTime=1770062401966: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8842 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $78,405.80 (-10.86% 7d)
+   ETH: $2,335.52 (-20.00% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8842
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769544001570&endTime=1770148801570: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8858 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $74,899.19 (-15.16% 7d)
+   ETH: $2,206.19 (-25.87% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8858
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769630401524&endTime=1770235201524: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8821 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $73,766.92 (-17.44% 7d)
+   ETH: $2,181.54 (-27.59% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8821
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769716801156&endTime=1770321601156: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8546 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $65,181.76 (-22.27% 7d)
+   ETH: $1,922.29 (-31.13% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8546
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769803202032&endTime=1770408002032: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9084 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $70,768.46 (-15.88% 7d)
+   ETH: $2,064.83 (-24.62% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9084
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1769976003594&endTime=1770580803594: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9351 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $71,380.98 (-7.39% 7d)
+   ETH: $2,125.20 (-8.26% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9351
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770235202180&endTime=1770840002180: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9549 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $67,541.03 (-8.28% 7d)
+   ETH: $1,951.92 (-10.31% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9549
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770321602100&endTime=1770926402100: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9448 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $65,869.71 (+1.12% 7d)
+   ETH: $1,927.10 (+0.14% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9448
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770408001827&endTime=1771012801827: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9250 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $68,999.35 (-2.36% 7d)
+   ETH: $2,059.13 (-0.21% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9250
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770494401597&endTime=1771099201597: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9415 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $69,817.17 (+0.78% 7d)
+   ETH: $2,087.50 (-0.09% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9415
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770580802657&endTime=1771185602657: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9184 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $68,293.25 (-4.30% 7d)
+   ETH: $1,943.17 (-8.57% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.9182
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770667202440&endTime=1771272002440: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.9040 (very_high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $67,927.41 (-4.18% 7d)
+   ETH: $1,975.64 (-7.19% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 30%
+   Risk level: high
+   Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure

@@ -1,0 +1,21 @@
+📊 Generating Weekly Volatility Report...
+
+✅ Report saved to: /Users/mattia/Projects/Onde/data/reports/volatility-week-2026-W06.json
+
+📈 Summary for 2026-W06:
+   Assets analyzed: 2
+   Divergent: 1
+   ⚠️ BTC: Realized vol 31.2% LOWER than model. Model may be too conservative - consider tightening assumptions.
+
+🚨 Alert file created: /Users/mattia/Projects/Onde/scripts/kalshi-vol-weekly-report.alert
+📊 Generating Weekly Volatility Report...
+
+✅ Report saved to: /Users/mattia/Projects/Onde/data/reports/volatility-week-2026-W07.json
+
+📈 Summary for 2026-W07:
+   Assets analyzed: 2
+   Divergent: 2
+   ⚠️ BTC: Realized vol 40.8% LOWER than model. Model may be too conservative - consider tightening assumptions.
+   ⚠️ ETH: Realized vol 23.3% LOWER than model. Model may be too conservative - consider tightening assumptions.
+
+🚨 Alert file created: /Users/mattia/Projects/Onde/scripts/kalshi-vol-weekly-report.alert

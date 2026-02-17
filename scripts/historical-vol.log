@@ -1,0 +1,42 @@
+📊 Calculating Historical Volatility from Cached OHLC
+============================================================
+
+🔍 Analyzing BTC...
+  Model assumption: 0.5% hourly
+  7d: Not enough data (23 candles, need 42)
+  14d: Not enough data (23 candles, need 84)
+  30d: Not enough data (23 candles, need 180)
+  60d: Not enough data (23 candles, need 360)
+
+🔍 Analyzing ETH...
+  Model assumption: 0.7000000000000001% hourly
+  7d: Not enough data (23 candles, need 42)
+  14d: Not enough data (23 candles, need 84)
+  30d: Not enough data (23 candles, need 180)
+  60d: Not enough data (23 candles, need 360)
+
+✅ Results saved to: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json
+
+============================================================
+📋 RECOMMENDATIONS:
+📊 Calculating Historical Volatility from Cached OHLC
+============================================================
+
+🔍 Analyzing BTC...
+  Model assumption: 0.5% hourly
+  7d: Not enough data (23 candles, need 42)
+  14d: Not enough data (23 candles, need 84)
+  30d: Not enough data (23 candles, need 180)
+  60d: Not enough data (23 candles, need 360)
+
+🔍 Analyzing ETH...
+  Model assumption: 0.7000000000000001% hourly
+  7d: Not enough data (23 candles, need 42)
+  14d: Not enough data (23 candles, need 84)
+  30d: Not enough data (23 candles, need 180)
+  60d: Not enough data (23 candles, need 360)
+
+✅ Results saved to: /Users/mattia/Projects/Onde/data/ohlc/volatility-stats.json
+
+============================================================
+📋 RECOMMENDATIONS:

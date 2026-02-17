@@ -1,0 +1,164 @@
+Traceback (most recent call last):
+  File "/Users/mattia/Projects/Onde/scripts/cache-ohlc-data.py", line 86, in <module>
+    def load_cache(symbol: str) -> dict | None:
+TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'
+=== OHLC Cache Update - 2026-01-30T08:30:00.879290+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-01T08:30:01.405939+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-02T08:30:01.132648+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Cache is fresh, skipping
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-03T08:30:02.288364+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Cache is fresh, skipping
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-04T08:30:01.505795+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Cache is fresh, skipping
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-05T08:30:02.079441+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-06T08:30:01.675601+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Cache is fresh, skipping
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-07T08:30:01.041974+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Cache is fresh, skipping
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-09T08:30:01.969402+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-12T08:30:01.894321+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-13T08:30:42.193439+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-15T08:30:02.015884+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Rate limited, waiting 2s...
+  Rate limited, waiting 4s...
+  Rate limited, waiting 8s...
+  ERROR: No data received
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-16T08:30:01.812155+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-17T08:30:02.486203+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete

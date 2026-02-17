@@ -1,0 +1,408 @@
+🔄 Loop mode: every 300s
+[36m[09:59:36] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-17 09:59 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (0/5 losses)
+📊 Daily PnL: $-95.58 (241 trades)
+[36m[09:59:48] [I] daily_loss | paused=True, pnl={'net_pnl_cents': -9558, 'trades_today': 241, 'spent': 9558, 'won': 0}, paper_mode=True[0m
+   📝 Paper mode — ignoring daily loss limit, continuing for data collection
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Balance: $0.03
+   📝 Using virtual balance: $100.00 (paper mode)
+📊 Open positions: 9/15
+
+🔔 Managing 9 open positions...
+   📉 KXCPI-26FEB-T0.3: YES entry=21¢ now=14¢ (-33.3%) peak=-33.3%
+   📉 KXBTCMAX100-26-APR: YES entry=55¢ now=15¢ (-72.7%) peak=-72.7%
+   📉 KXVISITGREENLAND-26MAY01-JDV: YES entry=15¢ now=11¢ (-26.7%) peak=-26.7%
+   📉 KXVISITMN-26MAR01-DJT: YES entry=20¢ now=3¢ (-85.0%) peak=-85.0%
+   🔔 EXIT: KXTRUMPFIRE-27-0
+      Side: YES x2
+      Entry: 40¢ → Current: 56¢ (+40.0%)
+      Reason: TAKE_PROFIT +40% (threshold: 30%)
+      🧪 DRY RUN: Simulated exit
+[36m[09:59:50] [I] position_exit | ticker=KXTRUMPFIRE-27-0, side=yes, contracts=2, entry_price=40, exit_price=56, unrealized_pnl_pct=40.0000, reason=TAKE_PROFIT +40% (threshold: 30%), dry_run=True[0m
+   📈 KXNOEMOUT-26MAR01: NO entry=74¢ now=95¢ (+28.4%) peak=+28.4%
+   📈 KXNOEMOUT-26JUL01: NO entry=58¢ now=70¢ (+20.7%) peak=+20.7%
+   📈 KXNOEMOUT-26MAY01: NO entry=70¢ now=78¢ (+11.4%) peak=+11.4%
+   ✅ Exited 1 position(s)
+📊 Open positions after exits: 9/15
+[33m[09:59:52] [W] risk_limit_hit | limit=max_daily_trades, current=241, max=200[0m
+🛡️ Risk limit (paper mode, ignoring): Daily trade limit reached (241/200)
+📈 BTC: $68,079 | ETH: $1,974
+😱 Fear & Greed: 10 (Extreme Fear)
+📰 News: 🟢 BULLISH (90%)
+[36m[09:59:52] [I] dynamic_vol | asset=btc, hourly_vol_pct=0.5050, candles=42, candle_hours=4.0000, fallback_pct=0.9600[0m
+📊 BTC Momentum: BULL (dir=+0.50, str=0.21) 
+📊 ETH Momentum: BEAR (dir=-0.50, str=0.50) 
+   BTC Regime: choppy (70%), vol: high
+   ETH Regime: sideways (50%), vol: normal
+📡 Scanning Kalshi markets...
+   General: 4000 markets
+   Sports: +280 additional markets
+   Crypto: +535 additional markets
+   Filtered: 36/4815 pass criteria
+
+🎯 TOP 20 MARKETS:
+----------------------------------------------------------------------
+   1. [34.3] KXBTCD-26FEB2017-T68249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:48¢ Vol:74,569 DTE:3.5d
+   2. [33.6] KXBTCD-26FEB2017-T68749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:43¢ Vol:148,910 DTE:3.5d
+   3. [32.6] KXBTCD-26FEB2017-T69249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:38¢ Vol:96,486 DTE:3.5d
+   4. [31.8] KXBTCD-26FEB2017-T69749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:34¢ Vol:103,153 DTE:3.5d
+   5. [30.9] KXETHD-26FEB2017-T1989.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:44¢ Vol:3,979 DTE:3.5d
+   6. [30.5] KXBTCD-26FEB1717-T68249.99 — Bitcoin price  on Feb 17, 2026?
+      YES:46¢ Vol:44,325 DTE:0.5d
+   7. [29.4] KXBTCD-26FEB2017-T70249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:25¢ Vol:51,967 DTE:3.5d
+   8. [29.3] KXETHD-26FEB2017-T2029.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:31¢ Vol:11,706 DTE:3.5d
+   9. [28.7] KXBTCD-26FEB1717-T68749.99 — Bitcoin price  on Feb 17, 2026?
+      YES:34¢ Vol:87,979 DTE:0.5d
+  10. [28.0] KXETHD-26FEB2017-T2069.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:22¢ Vol:19,579 DTE:3.5d
+----------------------------------------------------------------------
+
+==================================================
+🔍 [1/20] KXBTCD-26FEB2017-T68249.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:48¢ NO:52¢ Vol:74,569
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 45.1% (low)
+   📝 Factors: Strike $68,250, Dist 0.3%, BTC vol
+   📊 Critic: 45.1% | Flaws: 1 | Trade: ❌
+   📋 DECISION: SKIP — Critic vetoed: Low confidence + small edge
+[36m[10:00:21] [I] trade_skipped | ticker=KXBTCD-26FEB2017-T68249.99, reason=Critic vetoed: Low confidence + small edge, edge=-0.0222[0m
+
+==================================================
+🔍 [2/20] KXBTCD-26FEB2017-T68749.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:43¢ NO:57¢ Vol:148,910
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 42.8% (low)
+   📝 Factors: Strike $68,750, Dist 1.0%, BTC vol
+   ⏭️ Quick skip: edge 0.2% too small
+
+==================================================
+🔍 [3/20] KXBTCD-26FEB2017-T69249.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:38¢ NO:62¢ Vol:96,486
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 40.8% (medium)
+   📝 Factors: Strike $69,250, Dist 1.7%, BTC vol
+   📊 Critic: 40.8% | Flaws: 0 | Trade: ✅
+   📋 DECISION: SKIP — BUY_YES edge 2.1% < 4%
+[36m[10:00:21] [I] trade_skipped | ticker=KXBTCD-26FEB2017-T69249.99, reason=BUY_YES edge 2.1% < 4%, edge=0.0206[0m
+
+==================================================
+🔍 [5/20] KXETHD-26FEB2017-T1989.99
+   Ethereum price at Feb 20, 2026 at 5pm EST?
+   YES:44¢ NO:56¢ Vol:3,979
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 43.8% (low)
+   📝 Factors: Strike $1,990, Dist 0.8%, ETH vol
+   ⏭️ Quick skip: edge 0.2% too small
+
+======================================================================
+📊 CYCLE SUMMARY
+   Forecaster: 🧮 HEURISTIC
+   Duration: 44.9s
+   Markets scanned: 36
+   Markets analyzed: 20
+   Trades executed: 0
+   Trades skipped: 4
+   📊 Paper: $84.98 (PnL: $+0.00, WR: 0.0% [0W/0L], 8 open)
+   Avg API latency: 286ms
+======================================================================
+[36m[10:00:21] [I] cycle_end | dry_run=True, forecaster=heuristic, duration_s=44.9000, markets_scanned=36, markets_analyzed=20, trades_executed=0, trades_skipped=4, tokens=0, balance=100.0000, positions=9[0m
+
+⏰ Next cycle in 300s...
+[36m[10:05:37] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-17 10:05 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (0/5 losses)
+📊 Daily PnL: $-95.58 (244 trades)
+[36m[10:05:51] [I] daily_loss | paused=True, pnl={'net_pnl_cents': -9558, 'trades_today': 244, 'spent': 9558, 'won': 0}, paper_mode=True[0m
+   📝 Paper mode — ignoring daily loss limit, continuing for data collection
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Balance: $0.03
+   📝 Using virtual balance: $100.00 (paper mode)
+📊 Open positions: 9/15
+
+🔔 Managing 9 open positions...
+   📉 KXCPI-26FEB-T0.3: YES entry=21¢ now=14¢ (-33.3%) peak=-33.3%
+   📉 KXBTCMAX100-26-APR: YES entry=55¢ now=15¢ (-72.7%) peak=-72.7%
+   📉 KXVISITGREENLAND-26MAY01-JDV: YES entry=15¢ now=11¢ (-26.7%) peak=-26.7%
+   📉 KXVISITMN-26MAR01-DJT: YES entry=20¢ now=3¢ (-85.0%) peak=-85.0%
+   🔔 EXIT: KXTRUMPFIRE-27-0
+      Side: YES x2
+      Entry: 40¢ → Current: 56¢ (+40.0%)
+      Reason: TAKE_PROFIT +40% (threshold: 30%)
+      🧪 DRY RUN: Simulated exit
+[36m[10:05:53] [I] position_exit | ticker=KXTRUMPFIRE-27-0, side=yes, contracts=2, entry_price=40, exit_price=56, unrealized_pnl_pct=40.0000, reason=TAKE_PROFIT +40% (threshold: 30%), dry_run=True[0m
+   📈 KXNOEMOUT-26MAR01: NO entry=74¢ now=95¢ (+28.4%) peak=+28.4%
+   📈 KXNOEMOUT-26JUL01: NO entry=58¢ now=70¢ (+20.7%) peak=+20.7%
+   📈 KXNOEMOUT-26MAY01: NO entry=70¢ now=78¢ (+11.4%) peak=+11.4%
+   ✅ Exited 1 position(s)
+📊 Open positions after exits: 9/15
+[33m[10:05:55] [W] risk_limit_hit | limit=max_daily_trades, current=244, max=200[0m
+🛡️ Risk limit (paper mode, ignoring): Daily trade limit reached (244/200)
+📈 BTC: $68,098 | ETH: $1,976
+😱 Fear & Greed: 10 (Extreme Fear)
+📰 News: 🟢 BULLISH (90%)
+📊 BTC Momentum: BULL (dir=+0.50, str=0.21) 
+📊 ETH Momentum: BEAR (dir=-0.50, str=0.50) 
+   BTC Regime: choppy (70%), vol: high
+   ETH Regime: sideways (50%), vol: normal
+📡 Scanning Kalshi markets...
+   General: 4000 markets
+   Sports: +248 additional markets
+   Crypto: +535 additional markets
+   Filtered: 30/4783 pass criteria
+
+🎯 TOP 20 MARKETS:
+----------------------------------------------------------------------
+   1. [34.3] KXBTCD-26FEB2017-T68249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:48¢ Vol:74,569 DTE:3.5d
+   2. [33.4] KXBTCD-26FEB2017-T68749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:42¢ Vol:148,910 DTE:3.5d
+   3. [31.8] KXBTCD-26FEB2017-T69749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:34¢ Vol:103,153 DTE:3.5d
+   4. [31.8] KXBTCD-26FEB2017-T69249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:34¢ Vol:96,636 DTE:3.5d
+   5. [30.9] KXETHD-26FEB2017-T1989.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:44¢ Vol:3,979 DTE:3.5d
+   6. [30.5] KXBTCD-26FEB1717-T68249.99 — Bitcoin price  on Feb 17, 2026?
+      YES:46¢ Vol:44,447 DTE:0.5d
+   7. [30.5] KXSOLD-26FEB2017-T84.9999 — SOL price  on Feb 20, 2026?
+      YES:50¢ Vol:2,163 DTE:3.5d
+   8. [29.4] KXBTCD-26FEB2017-T70249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:25¢ Vol:51,967 DTE:3.5d
+   9. [29.3] KXETHD-26FEB2017-T2029.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:31¢ Vol:11,706 DTE:3.5d
+  10. [28.1] KXBTCD-26FEB1717-T68749.99 — Bitcoin price  on Feb 17, 2026?
+      YES:31¢ Vol:88,062 DTE:0.5d
+----------------------------------------------------------------------
+
+==================================================
+🔍 [1/20] KXBTCD-26FEB2017-T68249.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:48¢ NO:52¢ Vol:74,569
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 45.2% (low)
+   📝 Factors: Strike $68,250, Dist 0.2%, BTC vol
+   📊 Critic: 45.2% | Flaws: 1 | Trade: ❌
+   📋 DECISION: SKIP — Critic vetoed: Low confidence + small edge
+[36m[10:06:31] [I] trade_skipped | ticker=KXBTCD-26FEB2017-T68249.99, reason=Critic vetoed: Low confidence + small edge, edge=-0.0214[0m
+
+==================================================
+🔍 [2/20] KXBTCD-26FEB2017-T68749.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:42¢ NO:58¢ Vol:148,910
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 42.9% (low)
+   📝 Factors: Strike $68,750, Dist 1.0%, BTC vol
+   ⏭️ Quick skip: edge 0.9% too small
+
+==================================================
+🔍 [4/20] KXBTCD-26FEB2017-T69249.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:34¢ NO:66¢ Vol:96,636
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 40.8% (medium)
+   📝 Factors: Strike $69,250, Dist 1.7%, BTC vol
+   📊 Critic: 40.8% | Flaws: 0 | Trade: ✅
+   📋 DECISION: BUY_YES — Edge=6.1%, Kelly=0.031, prob=40.8% vs mkt=34.0%
+[33m[10:06:31] [W] daily_exposure_cap | daily_cost_usd=97.2800, cap_usd=50.0000[0m
+   💰 BUY_YES × 5 @ 34¢ = $1.70
+   🧪 DRY RUN: Simulated
+   📊 Paper bankroll: $83.28
+[36m[10:06:31] [I] trade_executed | ticker=KXBTCD-26FEB2017-T69249.99, action=BUY_YES, contracts=5, price_cents=34, edge=0.0613, cost_cents=170, dry_run=True[0m
+
+==================================================
+🔍 [5/20] KXETHD-26FEB2017-T1989.99
+   Ethereum price at Feb 20, 2026 at 5pm EST?
+   YES:44¢ NO:56¢ Vol:3,979
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 43.9% (low)
+   📝 Factors: Strike $1,990, Dist 0.7%, ETH vol
+   ⏭️ Quick skip: edge 0.1% too small
+
+==================================================
+🔍 [7/20] KXSOLD-26FEB2017-T84.9999
+   SOL price  on Feb 20, 2026?
+   YES:50¢ NO:50¢ Vol:2,163
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 50.0% (low)
+   📝 Factors: No crypto price
+   ⏭️ Quick skip: edge 0.0% too small
+
+==================================================
+🔍 [18/20] KXBTCD-26FEB1706-T68249.99
+   Bitcoin price  on Feb 17, 2026?
+   YES:19¢ NO:81¢ Vol:3,470
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 39.5% (low)
+   📝 Factors: Strike $68,250, Dist 0.2%, BTC vol
+   📊 Critic: 25.1% | Flaws: 0 | Trade: ✅
+   📋 DECISION: BUY_YES — Edge=10.0%, Kelly=0.037, prob=29.0% vs mkt=19.0%
+[33m[10:06:32] [W] daily_exposure_cap | daily_cost_usd=99.1800, cap_usd=50.0000[0m
+   💰 BUY_YES × 10 @ 19¢ = $1.90
+   🧪 DRY RUN: Simulated
+   📊 Paper bankroll: $81.38
+[36m[10:06:32] [I] trade_executed | ticker=KXBTCD-26FEB1706-T68249.99, action=BUY_YES, contracts=10, price_cents=19, edge=0.1000, cost_cents=190, dry_run=True[0m
+
+======================================================================
+📊 CYCLE SUMMARY
+   Forecaster: 🧮 HEURISTIC
+   Duration: 56.6s
+   Markets scanned: 30
+   Markets analyzed: 20
+   Trades executed: 2
+   Trades skipped: 4
+   📊 Paper: $81.38 (PnL: $+0.00, WR: 0.0% [0W/0L], 10 open)
+   Avg API latency: 423ms
+======================================================================
+[36m[10:06:33] [I] cycle_end | dry_run=True, forecaster=heuristic, duration_s=56.6000, markets_scanned=30, markets_analyzed=20, trades_executed=2, trades_skipped=4, tokens=0, balance=100.0000, positions=9[0m
+
+⏰ Next cycle in 300s...
+[36m[10:11:47] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-17 10:11 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (0/5 losses)
+📊 Daily PnL: $-99.18 (248 trades)
+[36m[10:12:07] [I] daily_loss | paused=True, pnl={'net_pnl_cents': -9918, 'trades_today': 248, 'spent': 9918, 'won': 0}, paper_mode=True[0m
+   📝 Paper mode — ignoring daily loss limit, continuing for data collection
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Balance: $0.03
+   📝 Using virtual balance: $100.00 (paper mode)
+📊 Open positions: 9/15
+
+🔔 Managing 9 open positions...
+   📉 KXCPI-26FEB-T0.3: YES entry=21¢ now=14¢ (-33.3%) peak=-33.3%
+   📉 KXBTCMAX100-26-APR: YES entry=55¢ now=15¢ (-72.7%) peak=-72.7%
+   📉 KXVISITGREENLAND-26MAY01-JDV: YES entry=15¢ now=11¢ (-26.7%) peak=-26.7%
+   📉 KXVISITMN-26MAR01-DJT: YES entry=20¢ now=3¢ (-85.0%) peak=-85.0%
+   🔔 EXIT: KXTRUMPFIRE-27-0
+      Side: YES x2
+      Entry: 40¢ → Current: 56¢ (+40.0%)
+      Reason: TAKE_PROFIT +40% (threshold: 30%)
+      🧪 DRY RUN: Simulated exit
+[36m[10:12:09] [I] position_exit | ticker=KXTRUMPFIRE-27-0, side=yes, contracts=2, entry_price=40, exit_price=56, unrealized_pnl_pct=40.0000, reason=TAKE_PROFIT +40% (threshold: 30%), dry_run=True[0m
+   📈 KXNOEMOUT-26MAR01: NO entry=74¢ now=95¢ (+28.4%) peak=+28.4%
+   📈 KXNOEMOUT-26JUL01: NO entry=58¢ now=70¢ (+20.7%) peak=+20.7%
+   📈 KXNOEMOUT-26MAY01: NO entry=70¢ now=78¢ (+11.4%) peak=+11.4%
+   ✅ Exited 1 position(s)
+📊 Open positions after exits: 9/15
+[33m[10:12:11] [W] risk_limit_hit | limit=max_daily_trades, current=248, max=200[0m
+🛡️ Risk limit (paper mode, ignoring): Daily trade limit reached (248/200)
+📈 BTC: $68,135 | ETH: $1,975
+😱 Fear & Greed: 10 (Extreme Fear)
+📰 News: 🟢 BULLISH (90%)
+📊 BTC Momentum: BULL (dir=+0.50, str=0.21) 
+📊 ETH Momentum: BEAR (dir=-0.50, str=0.50) 
+   BTC Regime: choppy (70%), vol: high
+   ETH Regime: sideways (50%), vol: normal
+📡 Scanning Kalshi markets...
+   General: 4000 markets
+   Sports: +298 additional markets
+   Crypto: +535 additional markets
+   Filtered: 30/4833 pass criteria
+
+🎯 TOP 20 MARKETS:
+----------------------------------------------------------------------
+   1. [34.3] KXBTCD-26FEB2017-T68249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:48¢ Vol:74,569 DTE:3.5d
+   2. [33.4] KXBTCD-26FEB2017-T68749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:42¢ Vol:148,910 DTE:3.5d
+   3. [31.8] KXBTCD-26FEB2017-T69749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:34¢ Vol:103,153 DTE:3.5d
+   4. [31.8] KXBTCD-26FEB2017-T69249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:34¢ Vol:96,636 DTE:3.5d
+   5. [30.9] KXETHD-26FEB2017-T1989.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:44¢ Vol:3,979 DTE:3.5d
+   6. [30.9] KXBTCD-26FEB1717-T68249.99 — Bitcoin price  on Feb 17, 2026?
+      YES:48¢ Vol:44,470 DTE:0.5d
+   7. [29.4] KXBTCD-26FEB2017-T70249.99 — Bitcoin price  on Feb 20, 2026?
+      YES:25¢ Vol:51,967 DTE:3.5d
+   8. [29.3] KXETHD-26FEB2017-T2029.99 — Ethereum price at Feb 20, 2026 at 5pm EST?
+      YES:31¢ Vol:11,706 DTE:3.5d
+   9. [28.3] KXBTCD-26FEB1717-T68749.99 — Bitcoin price  on Feb 17, 2026?
+      YES:32¢ Vol:88,089 DTE:0.5d
+  10. [28.1] KXBTCD-26FEB2017-T70749.99 — Bitcoin price  on Feb 20, 2026?
+      YES:21¢ Vol:27,398 DTE:3.5d
+----------------------------------------------------------------------
+
+==================================================
+🔍 [1/20] KXBTCD-26FEB2017-T68249.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:48¢ NO:52¢ Vol:74,569
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 45.3% (low)
+   📝 Factors: Strike $68,250, Dist 0.2%, BTC vol
+   📊 Critic: 45.3% | Flaws: 1 | Trade: ❌
+   📋 DECISION: SKIP — BUY_NO edge 2.0% < 2%
+[36m[10:12:47] [I] trade_skipped | ticker=KXBTCD-26FEB2017-T68249.99, reason=BUY_NO edge 2.0% < 2%, edge=-0.0196[0m
+
+==================================================
+🔍 [2/20] KXBTCD-26FEB2017-T68749.99
+   Bitcoin price  on Feb 20, 2026?
+   YES:42¢ NO:58¢ Vol:148,910
+   ⚠️ Choppy+high-vol for BTC — trading anyway per Grok rec C
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 43.1% (low)
+   📝 Factors: Strike $68,750, Dist 0.9%, BTC vol
+   📊 Critic: 43.1% | Flaws: 1 | Trade: ❌
+   📋 DECISION: SKIP — BUY_YES edge 0.4% < 4%
+[36m[10:12:47] [I] trade_skipped | ticker=KXBTCD-26FEB2017-T68749.99, reason=BUY_YES edge 0.4% < 4%, edge=0.0039[0m
+
+==================================================
+🔍 [5/20] KXETHD-26FEB2017-T1989.99
+   Ethereum price at Feb 20, 2026 at 5pm EST?
+   YES:44¢ NO:56¢ Vol:3,979
+   🧮 Heuristic (crypto/unknown)...
+   📊 Forecast: 43.8% (low)
+   📝 Factors: Strike $1,990, Dist 0.8%, ETH vol
+   ⏭️ Quick skip: edge 0.2% too small
+
+======================================================================
+📊 CYCLE SUMMARY
+   Forecaster: 🧮 HEURISTIC
+   Duration: 59.1s
+   Markets scanned: 30
+   Markets analyzed: 20
+   Trades executed: 0
+   Trades skipped: 3
+   📊 Paper: $81.38 (PnL: $+0.00, WR: 0.0% [0W/0L], 10 open)
+   Avg API latency: 414ms
+======================================================================
+[36m[10:12:47] [I] cycle_end | dry_run=True, forecaster=heuristic, duration_s=59.1000, markets_scanned=30, markets_analyzed=20, trades_executed=0, trades_skipped=3, tokens=0, balance=100.0000, positions=9[0m
+
+⏰ Next cycle in 300s...
+
+⚠️  Received SIGTERM — graceful shutdown requested...
+[36m[10:14:20] [I] shutdown_requested | signal=SIGTERM[0m
+[36m[10:14:21] [I] shutdown_complete | dry_run=True, reason=signal[0m
+
+✅ Graceful shutdown complete

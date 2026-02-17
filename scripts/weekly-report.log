@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/mattia/Projects/Onde/scripts/kalshi-weekly-report.py", line 13, in <module>
+    from fpdf import FPDF
+ModuleNotFoundError: No module named 'fpdf'
+Traceback (most recent call last):
+  File "/Users/mattia/Projects/Onde/scripts/kalshi-weekly-report.py", line 13, in <module>
+    from fpdf import FPDF
+ModuleNotFoundError: No module named 'fpdf'
