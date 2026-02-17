@@ -1,8 +1,8 @@
 {
   "session_id": "backfill_20260217",
   "started_at": "2026-02-17T02:02:07.627800+00:00",
-  "starting_balance_cents": 5000,
-  "current_balance_cents": 4214,
+  "starting_balance_cents": 10000,
+  "current_balance_cents": 8446,
   "mode": "paper",
   "strategy_version": "v3-unified",
   "positions": [
@@ -185,19 +185,223 @@
       "edge": 0.1,
       "expiry": "2026-02-17T03:00:00Z",
       "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1622-T69249.99",
+      "action": "BUY_YES",
+      "price_cents": 21,
+      "contracts": 3,
+      "cost_cents": 63,
+      "opened_at": "2026-02-17T02:21:25.536190+00:00",
+      "title": "Bitcoin price  on Feb 16, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T03:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1717-T69749.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "opened_at": "2026-02-17T02:21:26.562055+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.0844,
+      "expiry": "2026-02-17T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB2017-T75749.99",
+      "action": "BUY_YES",
+      "price_cents": 5,
+      "contracts": 10,
+      "cost_cents": 50,
+      "opened_at": "2026-02-17T02:27:18.380480+00:00",
+      "title": "Bitcoin price  on Feb 20, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB2017-T75249.99",
+      "action": "BUY_YES",
+      "price_cents": 7,
+      "contracts": 7,
+      "cost_cents": 49,
+      "opened_at": "2026-02-17T02:33:13.316293+00:00",
+      "title": "Bitcoin price  on Feb 20, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB2017-T74249.99",
+      "action": "BUY_YES",
+      "price_cents": 8,
+      "contracts": 6,
+      "cost_cents": 48,
+      "opened_at": "2026-02-17T02:33:14.348054+00:00",
+      "title": "Bitcoin price  on Feb 20, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB2017-T68749.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 1,
+      "cost_cents": 50,
+      "opened_at": "2026-02-17T03:11:08.995773+00:00",
+      "title": "Bitcoin price  on Feb 20, 2026?",
+      "edge": 0.0515,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB1717-T1989.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 1,
+      "cost_cents": 50,
+      "opened_at": "2026-02-17T03:17:12.783674+00:00",
+      "title": "Ethereum price at Feb 17, 2026 at 5pm EST?",
+      "edge": 0.0565,
+      "expiry": "2026-02-17T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB2017-T1989.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 1,
+      "cost_cents": 50,
+      "opened_at": "2026-02-17T03:19:37.292847+00:00",
+      "title": "Ethereum price at Feb 20, 2026 at 5pm EST?",
+      "edge": 0.0559,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1623-T68749.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "opened_at": "2026-02-17T03:19:38.371766+00:00",
+      "title": "Bitcoin price  on Feb 16, 2026?",
+      "edge": 0.0698,
+      "expiry": "2026-02-17T04:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1623-T68999.99",
+      "action": "BUY_YES",
+      "price_cents": 7,
+      "contracts": 7,
+      "cost_cents": 49,
+      "opened_at": "2026-02-17T03:19:39.445591+00:00",
+      "title": "Bitcoin price  on Feb 16, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T04:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB1623-T1989.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "opened_at": "2026-02-17T03:25:42.147689+00:00",
+      "title": "Ethereum price at Feb 16, 2026 at 11pm EST?",
+      "edge": 0.0791,
+      "expiry": "2026-02-17T04:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB2017-T2029.99",
+      "action": "BUY_YES",
+      "price_cents": 36,
+      "contracts": 1,
+      "cost_cents": 36,
+      "opened_at": "2026-02-17T03:31:44.641191+00:00",
+      "title": "Ethereum price at Feb 20, 2026 at 5pm EST?",
+      "edge": 0.0413,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1717-T69249.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "opened_at": "2026-02-17T03:31:45.712626+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.0724,
+      "expiry": "2026-02-17T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB2017-T69749.99",
+      "action": "BUY_YES",
+      "price_cents": 37,
+      "contracts": 1,
+      "cost_cents": 37,
+      "opened_at": "2026-02-17T03:37:48.907770+00:00",
+      "title": "Bitcoin price  on Feb 20, 2026?",
+      "edge": 0.0404,
+      "expiry": "2026-02-20T22:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1700-T68499.99",
+      "action": "BUY_YES",
+      "price_cents": 26,
+      "contracts": 2,
+      "cost_cents": 52,
+      "opened_at": "2026-02-17T04:08:43.639939+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T05:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1700-T68749.99",
+      "action": "BUY_YES",
+      "price_cents": 18,
+      "contracts": 3,
+      "cost_cents": 54,
+      "opened_at": "2026-02-17T04:14:54.899252+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T05:00:00Z",
+      "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB1700-T1989.99",
+      "action": "BUY_YES",
+      "price_cents": 24,
+      "contracts": 2,
+      "cost_cents": 48,
+      "opened_at": "2026-02-17T04:14:55.946590+00:00",
+      "title": "Ethereum price at Feb 17, 2026 at 12am EST?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T05:00:00Z",
+      "status": "open"
     }
   ],
   "stats": {
-    "total_trades": 15,
+    "total_trades": 32,
     "wins": 0,
     "losses": 0,
-    "pending": 15,
+    "pending": 32,
     "win_rate": 0.0,
-    "pnl_cents": -730,
+    "pnl_cents": -1554,
     "gross_profit_cents": 0,
     "gross_loss_cents": 0,
-    "peak_balance_cents": 5000,
-    "max_drawdown_cents": 786
+    "peak_balance_cents": 10000,
+    "max_drawdown_cents": 1554
   },
   "trade_history": [
     {
@@ -208,7 +412,200 @@
       "contracts": 4,
       "cost_cents": 56,
       "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T02:21:25.536190+00:00",
+      "ticker": "KXBTCD-26FEB1622-T69249.99",
+      "action": "BUY_YES",
+      "price_cents": 21,
+      "contracts": 3,
+      "cost_cents": 63,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T02:21:26.562055+00:00",
+      "ticker": "KXBTCD-26FEB1717-T69749.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T02:27:18.380480+00:00",
+      "ticker": "KXBTCD-26FEB2017-T75749.99",
+      "action": "BUY_YES",
+      "price_cents": 5,
+      "contracts": 10,
+      "cost_cents": 50,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T02:33:13.316293+00:00",
+      "ticker": "KXBTCD-26FEB2017-T75249.99",
+      "action": "BUY_YES",
+      "price_cents": 7,
+      "contracts": 7,
+      "cost_cents": 49,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T02:33:14.348054+00:00",
+      "ticker": "KXBTCD-26FEB2017-T74249.99",
+      "action": "BUY_YES",
+      "price_cents": 8,
+      "contracts": 6,
+      "cost_cents": 48,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:11:08.995773+00:00",
+      "ticker": "KXBTCD-26FEB2017-T68749.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 1,
+      "cost_cents": 50,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:17:12.783674+00:00",
+      "ticker": "KXETHD-26FEB1717-T1989.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 1,
+      "cost_cents": 50,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:19:37.292847+00:00",
+      "ticker": "KXETHD-26FEB2017-T1989.99",
+      "action": "BUY_NO",
+      "price_cents": 50,
+      "contracts": 1,
+      "cost_cents": 50,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:19:38.371766+00:00",
+      "ticker": "KXBTCD-26FEB1623-T68749.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:19:39.445591+00:00",
+      "ticker": "KXBTCD-26FEB1623-T68999.99",
+      "action": "BUY_YES",
+      "price_cents": 7,
+      "contracts": 7,
+      "cost_cents": 49,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:25:42.147689+00:00",
+      "ticker": "KXETHD-26FEB1623-T1989.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:31:44.641191+00:00",
+      "ticker": "KXETHD-26FEB2017-T2029.99",
+      "action": "BUY_YES",
+      "price_cents": 36,
+      "contracts": 1,
+      "cost_cents": 36,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:31:45.712626+00:00",
+      "ticker": "KXBTCD-26FEB1717-T69249.99",
+      "action": "BUY_YES",
+      "price_cents": 33,
+      "contracts": 1,
+      "cost_cents": 33,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T03:37:48.907770+00:00",
+      "ticker": "KXBTCD-26FEB2017-T69749.99",
+      "action": "BUY_YES",
+      "price_cents": 37,
+      "contracts": 1,
+      "cost_cents": 37,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T04:08:43.639939+00:00",
+      "ticker": "KXBTCD-26FEB1700-T68499.99",
+      "action": "BUY_YES",
+      "price_cents": 26,
+      "contracts": 2,
+      "cost_cents": 52,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T04:14:54.899252+00:00",
+      "ticker": "KXBTCD-26FEB1700-T68749.99",
+      "action": "BUY_YES",
+      "price_cents": 18,
+      "contracts": 3,
+      "cost_cents": 54,
+      "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T04:14:55.946590+00:00",
+      "ticker": "KXETHD-26FEB1700-T1989.99",
+      "action": "BUY_YES",
+      "price_cents": 24,
+      "contracts": 2,
+      "cost_cents": 48,
+      "status": "open"
     }
   ],
-  "updated_at": "2026-02-17T02:15:32.506201+00:00"
+  "updated_at": "2026-02-17T04:14:55.947833+00:00",
+  "analysis": {
+    "last_tune": "2026-02-17T04:00:03.004076+00:00",
+    "total_paper_trades": 306,
+    "edge_stats": {
+      "mean": 0.34163117252381964,
+      "median": 0.17224772068806946,
+      "stdev": 0.29037014201838984,
+      "min": 0.09003942444252377,
+      "max": 0.9374,
+      "count": 306
+    },
+    "by_asset": {
+      "eth": {
+        "trades": 87,
+        "avg_edge": 0.1367
+      },
+      "btc": {
+        "trades": 104,
+        "avg_edge": 0.12
+      },
+      "weather": {
+        "trades": 115,
+        "avg_edge": 0.6971
+      }
+    },
+    "by_regime": {
+      "sideways": {
+        "trades": 45,
+        "avg_edge": 0.2055
+      },
+      "choppy": {
+        "trades": 146,
+        "avg_edge": 0.1036
+      },
+      "unknown": {
+        "trades": 115,
+        "avg_edge": 0.6971
+      }
+    }
+  }
 }

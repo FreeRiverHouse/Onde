@@ -241,7 +241,7 @@ MAX_DAILY_EXPOSURE_USD = 50.0    # GROK-TRADE-004: Absolute $ cap on daily new e
 
 # ── Paper trade state (bankroll/positions tracking for dashboard) ──
 PAPER_STATE_FILE = PROJECT_ROOT / "data" / "trading" / "paper-trade-state.json"
-PAPER_STARTING_BANKROLL_CENTS = 5000  # $50 virtual bankroll
+PAPER_STARTING_BANKROLL_CENTS = 10000  # $100 virtual bankroll (matches planned live bankroll)
 
 # ── Structured logging (GROK-TRADE-002) ──
 AUTOTRADER_LOG_FILE = PROJECT_ROOT / "data" / "trading" / "kalshi-autotrader.log"
