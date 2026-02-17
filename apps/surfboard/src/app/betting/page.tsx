@@ -623,7 +623,7 @@ function AnimatedNumber({
 
   return (
     <span className={`font-mono font-bold transition-all duration-300 ${glowClasses[glowColor]} ${isAnimating ? 'scale-105' : ''} ${className}`}>
-      {prefix}{displayValue.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}
+      {prefix}{(displayValue ?? 0).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}
     </span>
   );
 }
@@ -1691,7 +1691,7 @@ export default function BettingDashboard() {
                       </div>
                       <div>
                         <span className="text-gray-300 font-medium">{asset.asset}</span>
-                        <p className="text-xs text-gray-600">${asset.currentPrice.toLocaleString()}</p>
+                        <p className="text-xs text-gray-600">${asset?.currentPrice?.toLocaleString()}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -2871,7 +2871,7 @@ export default function BettingDashboard() {
                             <p className="text-sm text-gray-300 break-words">{msg.content}</p>
                           )}
                           <p className="text-xs text-gray-600 mt-1 font-mono">
-                            {new Date(msg.timestamp).toLocaleString()}
+                            {new Date(msg?.timestamp || 0).toLocaleString()}
                           </p>
                         </div>
                         <button

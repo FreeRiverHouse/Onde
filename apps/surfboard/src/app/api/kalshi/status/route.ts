@@ -1,12 +1,18 @@
 import { NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
 
 export const runtime = 'edge';
 
-// Kalshi API credentials — loaded from Cloudflare env vars (set via wrangler secret)
-const API_KEY_ID = process.env.KALSHI_API_KEY_ID || "";
-const PRIVATE_KEY_PEM = process.env.KALSHI_PRIVATE_KEY || "";
-
 const BASE_URL = "https://api.elections.kalshi.com";
+
+// Get credentials from CF env at request time (not module level)
+function getCredentials(): { apiKeyId: string; privateKeyPem: string } {
+  const { env } = getRequestContext();
+  return {
+    apiKeyId: (env as any).KALSHI_API_KEY_ID || process.env.KALSHI_API_KEY_ID || "",
+    privateKeyPem: (env as any).KALSHI_PRIVATE_KEY || process.env.KALSHI_PRIVATE_KEY || "",
+  };
+}
 
 interface KalshiStatus {
   cash: number;
@@ -38,8 +44,8 @@ function pemToBinary(pem: string): ArrayBuffer {
 }
 
 // Import RSA private key for signing
-async function importPrivateKey(): Promise<CryptoKey> {
-  const binaryKey = pemToBinary(PRIVATE_KEY_PEM);
+async function importPrivateKey(privateKeyPem: string): Promise<CryptoKey> {
+  const binaryKey = pemToBinary(privateKeyPem);
   return await crypto.subtle.importKey(
     'pkcs8',
     binaryKey,
@@ -53,8 +59,8 @@ async function importPrivateKey(): Promise<CryptoKey> {
 }
 
 // Sign request
-async function signRequest(method: string, path: string, timestamp: string): Promise<string> {
-  const privateKey = await importPrivateKey();
+async function signRequest(method: string, path: string, timestamp: string, privateKeyPem: string): Promise<string> {
+  const privateKey = await importPrivateKey(privateKeyPem);
   const message = `${timestamp}${method}${path}`;
   const encoder = new TextEncoder();
   const signature = await crypto.subtle.sign(
@@ -70,13 +76,17 @@ async function signRequest(method: string, path: string, timestamp: string): Pro
 
 // Make authenticated API request
 async function apiRequest(method: string, path: string): Promise<any> {
+  const { apiKeyId, privateKeyPem } = getCredentials();
+  if (!apiKeyId || !privateKeyPem) {
+    throw new Error('Kalshi credentials not configured');
+  }
   const timestamp = String(Date.now());
-  const signature = await signRequest(method, path, timestamp);
+  const signature = await signRequest(method, path, timestamp, privateKeyPem);
 
   const response = await fetch(`${BASE_URL}${path}`, {
     method,
     headers: {
-      'KALSHI-ACCESS-KEY': API_KEY_ID,
+      'KALSHI-ACCESS-KEY': apiKeyId,
       'KALSHI-ACCESS-SIGNATURE': signature,
       'KALSHI-ACCESS-TIMESTAMP': timestamp,
       'Content-Type': 'application/json',
