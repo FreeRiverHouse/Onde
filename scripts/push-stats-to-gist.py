@@ -1859,37 +1859,70 @@ def main():
     trades = load_trades(source)
     stats = calculate_stats(trades, source)
     
-    # Add v3 paper trading summary if available (always include for dashboard)
-    v3_trades = load_v3_trades_from_file(TRADES_FILE_V3, 'v3')
-    if v3_trades:
-        v3_buy_trades = [t for t in v3_trades if t.get('side') in ('yes', 'no')]
-        stats["v3PaperTrading"] = {
-            "totalTrades": len(v3_buy_trades),
-            "pendingTrades": len(v3_buy_trades),  # all v3 are dry run = pending
-            "dryRun": True,
-            "avgEdge": round(sum(t.get('edge', 0) for t in v3_buy_trades) / len(v3_buy_trades) * 100, 2) if v3_buy_trades else 0,
-            "avgKellySize": round(sum(t.get('kelly_size', 0) for t in v3_buy_trades) / len(v3_buy_trades), 4) if v3_buy_trades else 0,
-            "byAction": {
-                "BUY_YES": len([t for t in v3_buy_trades if t.get('side') == 'yes']),
-                "BUY_NO": len([t for t in v3_buy_trades if t.get('side') == 'no']),
-            },
-            "dateRange": {
-                "first": v3_buy_trades[0].get('timestamp', '') if v3_buy_trades else None,
-                "last": v3_buy_trades[-1].get('timestamp', '') if v3_buy_trades else None,
-            },
-            "recentTrades": [{
-                "timestamp": t.get('timestamp'),
-                "ticker": t.get('ticker'),
-                "title": t.get('title', ''),
-                "side": t.get('side'),
-                "contracts": t.get('contracts'),
-                "price_cents": t.get('price_cents', t.get('price', 0)),
-                "edge": round(t.get('edge', 0) * 100, 1),
-                "forecast_prob": round(t.get('forecast_prob', 0) * 100, 1),
-                "forecast_confidence": t.get('forecast_confidence', ''),
-            } for t in sorted(v3_buy_trades, key=lambda x: x.get('timestamp', ''), reverse=True)[:10]],
-        }
-        print(f"V3 paper trades: {len(v3_buy_trades)} trades (dry run)")
+    # Add v3 paper trading summary from paper-trade-state.json (primary source)
+    paper_state_file = Path(__file__).parent.parent / "data" / "trading" / "paper-trade-state.json"
+    paper_loaded = False
+    if paper_state_file.exists():
+        try:
+            with open(paper_state_file) as f:
+                paper_state = json.load(f)
+            ps_stats = paper_state.get("stats", {})
+            stats["v3PaperTrading"] = {
+                "totalTrades": ps_stats.get("total_trades", 0),
+                "wins": ps_stats.get("wins", 0),
+                "losses": ps_stats.get("losses", 0),
+                "pendingTrades": ps_stats.get("pending", 0),
+                "winRate": round(ps_stats.get("win_rate", 0) * 100, 1),
+                "pnlCents": ps_stats.get("pnl_cents", 0),
+                "pnlDollars": round(ps_stats.get("pnl_cents", 0) / 100, 2),
+                "bankrollCents": paper_state.get("current_balance_cents", 0),
+                "bankrollDollars": round(paper_state.get("current_balance_cents", 0) / 100, 2),
+                "startingBankrollCents": paper_state.get("starting_balance_cents", 5000),
+                "peakBalanceCents": ps_stats.get("peak_balance_cents", 0),
+                "maxDrawdownCents": ps_stats.get("max_drawdown_cents", 0),
+                "dryRun": True,
+                "mode": "paper",
+                "updatedAt": paper_state.get("updated_at", ""),
+                "openPositions": [{
+                    "ticker": p.get("ticker"),
+                    "action": p.get("action"),
+                    "price_cents": p.get("price_cents"),
+                    "contracts": p.get("contracts"),
+                    "cost_cents": p.get("cost_cents"),
+                    "edge": p.get("edge"),
+                    "opened_at": p.get("opened_at"),
+                    "title": p.get("title", ""),
+                } for p in paper_state.get("positions", [])[:20]],
+                "recentHistory": paper_state.get("trade_history", [])[-10:],
+            }
+            paper_loaded = True
+            print(f"Paper portfolio: ${paper_state.get('current_balance_cents', 0)/100:.2f} "
+                  f"({ps_stats.get('wins', 0)}W/{ps_stats.get('losses', 0)}L, "
+                  f"{len(paper_state.get('positions', []))} open)")
+        except Exception as e:
+            print(f"⚠️ Paper state load error: {e}")
+
+    # Fallback to v3 JSONL if no paper state
+    if not paper_loaded:
+        v3_trades = load_v3_trades_from_file(TRADES_FILE_V3, 'v3')
+        if v3_trades:
+            v3_buy_trades = [t for t in v3_trades if t.get('side') in ('yes', 'no')]
+            stats["v3PaperTrading"] = {
+                "totalTrades": len(v3_buy_trades),
+                "pendingTrades": len(v3_buy_trades),
+                "dryRun": True,
+                "avgEdge": round(sum(t.get('edge', 0) for t in v3_buy_trades) / len(v3_buy_trades) * 100, 2) if v3_buy_trades else 0,
+                "recentTrades": [{
+                    "timestamp": t.get('timestamp'),
+                    "ticker": t.get('ticker'),
+                    "title": t.get('title', ''),
+                    "side": t.get('side'),
+                    "contracts": t.get('contracts'),
+                    "price_cents": t.get('price_cents', t.get('price', 0)),
+                    "edge": round(t.get('edge', 0) * 100, 1),
+                } for t in sorted(v3_buy_trades, key=lambda x: x.get('timestamp', ''), reverse=True)[:10]],
+            }
+            print(f"V3 paper trades (fallback): {len(v3_buy_trades)} trades (dry run)")
     
     # Load and embed Polymarket data (always include for dashboard)
     pm_data = load_polymarket_positions()

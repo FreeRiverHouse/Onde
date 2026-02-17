@@ -239,6 +239,10 @@ MAX_CATEGORY_EXPOSURE_PCT = 0.30 # Max 30% in any single category (crypto, weath
 MAX_DAILY_TRADES = 200           # Hard cap on trades per day (relaxed for paper mode data collection)
 MAX_DAILY_EXPOSURE_USD = 50.0    # GROK-TRADE-004: Absolute $ cap on daily new exposure
 
+# ── Paper trade state (bankroll/positions tracking for dashboard) ──
+PAPER_STATE_FILE = PROJECT_ROOT / "data" / "trading" / "paper-trade-state.json"
+PAPER_STARTING_BANKROLL_CENTS = 5000  # $50 virtual bankroll
+
 # ── Structured logging (GROK-TRADE-002) ──
 AUTOTRADER_LOG_FILE = PROJECT_ROOT / "data" / "trading" / "kalshi-autotrader.log"
 
@@ -2271,11 +2275,173 @@ def update_trade_results():
             # GROK-TRADE-002: structured log for settlements
             structured_log("settlement", {"updated": updated_count, "wins": wins, "losses": losses})
 
+            # Update paper trade state with settlements
+            try:
+                paper_state = load_paper_state()
+                for line in updated_lines:
+                    try:
+                        entry = json.loads(line.strip())
+                        if entry.get("settled_at") and entry.get("ticker"):
+                            won = entry.get("result_status") == "won"
+                            paper_trade_settle(paper_state, entry["ticker"], won)
+                    except Exception:
+                        continue
+            except Exception as e:
+                print(f"⚠️ Paper state settlement update error: {e}")
+
     except Exception as e:
         print(f"⚠️ Settlement check error: {e}")
         structured_log("api_error", {"context": "settlement_check", "error": str(e)}, level="error")
 
     return {"updated": updated_count, "wins": wins, "losses": losses}
+
+
+# ============================================================================
+# PAPER TRADE STATE (bankroll/positions tracking for dashboard)
+# ============================================================================
+
+def load_paper_state() -> dict:
+    """Load paper trade state from file, or create fresh if missing."""
+    if PAPER_STATE_FILE.exists():
+        try:
+            with open(PAPER_STATE_FILE) as f:
+                state = json.load(f)
+            # Migration: ensure all fields exist
+            state.setdefault("starting_balance_cents", PAPER_STARTING_BANKROLL_CENTS)
+            state.setdefault("current_balance_cents", PAPER_STARTING_BANKROLL_CENTS)
+            state.setdefault("positions", [])
+            state.setdefault("stats", {
+                "total_trades": 0, "wins": 0, "losses": 0, "pending": 0,
+                "win_rate": 0.0, "pnl_cents": 0, "peak_balance_cents": PAPER_STARTING_BANKROLL_CENTS,
+            })
+            return state
+        except Exception:
+            pass
+
+    # Fresh state
+    return {
+        "session_id": datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S"),
+        "started_at": datetime.now(timezone.utc).isoformat(),
+        "starting_balance_cents": PAPER_STARTING_BANKROLL_CENTS,
+        "current_balance_cents": PAPER_STARTING_BANKROLL_CENTS,
+        "mode": "paper",
+        "strategy_version": "v3-unified",
+        "positions": [],
+        "stats": {
+            "total_trades": 0, "wins": 0, "losses": 0, "pending": 0,
+            "win_rate": 0.0, "pnl_cents": 0,
+            "gross_profit_cents": 0, "gross_loss_cents": 0,
+            "peak_balance_cents": PAPER_STARTING_BANKROLL_CENTS,
+            "max_drawdown_cents": 0,
+        },
+        "trade_history": [],
+    }
+
+
+def save_paper_state(state: dict):
+    """Save paper trade state to file."""
+    PAPER_STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    # Update computed fields
+    stats = state.get("stats", {})
+    total = stats.get("wins", 0) + stats.get("losses", 0)
+    stats["win_rate"] = round(stats["wins"] / total, 4) if total > 0 else 0.0
+    stats["pending"] = len(state.get("positions", []))
+    state["updated_at"] = datetime.now(timezone.utc).isoformat()
+
+    # Track peak balance / max drawdown
+    bal = state.get("current_balance_cents", 0)
+    peak = stats.get("peak_balance_cents", bal)
+    if bal > peak:
+        stats["peak_balance_cents"] = bal
+        peak = bal
+    dd = peak - bal
+    if dd > stats.get("max_drawdown_cents", 0):
+        stats["max_drawdown_cents"] = dd
+
+    with open(PAPER_STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def paper_trade_open(state: dict, ticker: str, action: str, price_cents: int, contracts: int,
+                     title: str = "", edge: float = 0.0, expiry: str = ""):
+    """Record a new paper trade: deduct cost from bankroll, add to positions."""
+    cost = contracts * price_cents
+    state["current_balance_cents"] -= cost
+
+    position = {
+        "ticker": ticker,
+        "action": action,  # BUY_YES or BUY_NO
+        "price_cents": price_cents,
+        "contracts": contracts,
+        "cost_cents": cost,
+        "opened_at": datetime.now(timezone.utc).isoformat(),
+        "title": title[:100],
+        "edge": round(edge, 4),
+        "expiry": expiry,
+        "status": "open",
+    }
+    state["positions"].append(position)
+    state["stats"]["total_trades"] = state["stats"].get("total_trades", 0) + 1
+
+    # Keep recent trade history (last 200)
+    history = state.setdefault("trade_history", [])
+    history.append({
+        "timestamp": position["opened_at"],
+        "ticker": ticker,
+        "action": action,
+        "price_cents": price_cents,
+        "contracts": contracts,
+        "cost_cents": cost,
+        "status": "open",
+    })
+    if len(history) > 200:
+        state["trade_history"] = history[-200:]
+
+    save_paper_state(state)
+
+
+def paper_trade_settle(state: dict, ticker: str, won: bool):
+    """Settle a paper trade: if won, add payout (100¢/contract); if lost, cost already deducted."""
+    settled = False
+    for pos in state.get("positions", []):
+        if pos.get("ticker") == ticker and pos.get("status") == "open":
+            pos["status"] = "won" if won else "lost"
+            pos["settled_at"] = datetime.now(timezone.utc).isoformat()
+            contracts = pos.get("contracts", 1)
+            cost = pos.get("cost_cents", 0)
+
+            if won:
+                # Payout: 100¢ per contract for winning side
+                payout = contracts * 100
+                profit = payout - cost
+                state["current_balance_cents"] += payout
+                state["stats"]["wins"] = state["stats"].get("wins", 0) + 1
+                state["stats"]["pnl_cents"] = state["stats"].get("pnl_cents", 0) + profit
+                state["stats"]["gross_profit_cents"] = state["stats"].get("gross_profit_cents", 0) + profit
+                pos["pnl_cents"] = profit
+            else:
+                # Loss: cost already deducted at open time, nothing to add back
+                state["stats"]["losses"] = state["stats"].get("losses", 0) + 1
+                state["stats"]["pnl_cents"] = state["stats"].get("pnl_cents", 0) - cost
+                state["stats"]["gross_loss_cents"] = state["stats"].get("gross_loss_cents", 0) + cost
+                pos["pnl_cents"] = -cost
+
+            # Update trade history
+            for h in reversed(state.get("trade_history", [])):
+                if h.get("ticker") == ticker and h.get("status") == "open":
+                    h["status"] = "won" if won else "lost"
+                    h["pnl_cents"] = pos["pnl_cents"]
+                    break
+
+            settled = True
+            break
+
+    if settled:
+        # Remove settled position from active positions
+        state["positions"] = [p for p in state["positions"] if not (p.get("ticker") == ticker and p.get("status") != "open")]
+        save_paper_state(state)
+
+    return settled
 
 
 # ============================================================================
@@ -2761,6 +2927,16 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
 
         if dry_run:
             print(f"   🧪 DRY RUN: Simulated")
+            # Track in paper portfolio
+            try:
+                paper_state = load_paper_state()
+                paper_trade_open(paper_state, market.ticker, decision.action,
+                                 decision.price_cents, decision.contracts,
+                                 title=market.title, edge=decision.edge,
+                                 expiry=market.expiry or "")
+                print(f"   📊 Paper bankroll: ${paper_state['current_balance_cents']/100:.2f}")
+            except Exception as e:
+                print(f"   ⚠️ Paper state update error: {e}")
         else:
             if "error" in order_result:
                 print(f"   ❌ Order failed: {order_result['error']}")
@@ -2801,6 +2977,13 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
                 if wd.action != "SKIP":
                     order = place_order(wm.ticker, wo["side"], wo["price"], wd.contracts, dry_run)
                     log_trade(wm, wd, order, dry_run)
+                    if dry_run:
+                        try:
+                            ps = load_paper_state()
+                            paper_trade_open(ps, wm.ticker, wd.action, wo["price"], wd.contracts,
+                                             title=wm.title, edge=wo["edge"], expiry=wm.expiry or "")
+                        except Exception:
+                            pass
                     trades_executed += 1
                     existing_tickers.add(wm.ticker)
 
@@ -2816,6 +2999,20 @@ def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
     print(f"   Trades skipped: {trades_skipped}")
     if not use_heuristic:
         print(f"   Tokens: {total_tokens:,} (~${total_tokens * 0.000004:.4f})")
+
+    # Paper portfolio summary
+    if dry_run:
+        try:
+            ps = load_paper_state()
+            ps_bal = ps["current_balance_cents"] / 100
+            ps_pnl = ps["stats"].get("pnl_cents", 0) / 100
+            ps_wr = ps["stats"].get("win_rate", 0) * 100
+            ps_w = ps["stats"].get("wins", 0)
+            ps_l = ps["stats"].get("losses", 0)
+            ps_open = len(ps.get("positions", []))
+            print(f"   📊 Paper: ${ps_bal:.2f} (PnL: ${ps_pnl:+.2f}, WR: {ps_wr:.1f}% [{ps_w}W/{ps_l}L], {ps_open} open)")
+        except Exception:
+            pass
 
     # Latency summary
     avg_lat = get_avg_latency("markets_search")
