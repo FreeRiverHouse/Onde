@@ -1813,6 +1813,13 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
     final_prob = 0.6 * forecast.probability + 0.4 * critic.adjusted_probability
     market_prob = market.market_prob
     edge_yes = final_prob - market_prob
+    
+    # Subtract round-trip fees/slippage (Grok review #2: edge overstated by 1-3%)
+    ROUND_TRIP_FEE = 0.007  # ~0.7% taker fees on Kalshi
+    if edge_yes > 0:
+        edge_yes -= ROUND_TRIP_FEE
+    elif edge_yes < 0:
+        edge_yes += ROUND_TRIP_FEE  # For BUY_NO, edge_yes is negative
 
     # Split thresholds
     if edge_yes > 0:
