@@ -1,0 +1,21 @@
+📊 **Kalshi Daily Summary** (2026-02-16)
+
+🎯 **Trades Today:** 0
+💰 **Total Wagered:** $0.00
+
+**Settled Results:**
+✅ Won: 0
+❌ Lost: 0
+⏳ Pending: 0
+
+**Win Rate:** 0.0%
+**Daily PnL:** $+0.00
+
+
+**Streaks:**
+Current: ❄️ 3L
+🏆 Best Win: 12
+💀 Worst Loss: 44
+
+---
+_Autotrader v2 • Black-Scholes Model_

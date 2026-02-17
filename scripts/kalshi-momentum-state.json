@@ -1,0 +1,102 @@
+{
+  "btc": "bearish",
+  "eth": "bearish",
+  "last_alert": 1771113638.5730948,
+  "direction_history": {
+    "btc": [
+      {
+        "timestamp": 1771063180.212367,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771106575.142949,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771106920.13267,
+        "old": "bearish",
+        "new": "bullish"
+      }
+    ],
+    "eth": [
+      {
+        "timestamp": 1771063180.212367,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771095291.604717,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771095919.639136,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771096549.7419991,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771097180.068811,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771106575.142949,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771106920.13267,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771107593.4656708,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771107906.420346,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771110938.09231,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771111009.519991,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771112610.171238,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771112683.619566,
+        "old": "bearish",
+        "new": "bullish"
+      },
+      {
+        "timestamp": 1771113638.573558,
+        "old": "bullish",
+        "new": "bearish"
+      },
+      {
+        "timestamp": 1771113713.5219631,
+        "old": "bearish",
+        "new": "bullish"
+      }
+    ]
+  },
+  "last_whipsaw_alert": 1771106575.143401
+}

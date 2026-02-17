@@ -1,0 +1,18 @@
+{
+  "sentiment_both": {
+    "timestamp": "2026-02-16T07:33:26.312395",
+    "result": {
+      "sentiment": "neutral",
+      "confidence": 0.5,
+      "reasons": [
+        "No significant news detected"
+      ],
+      "events": [],
+      "event_warning": null,
+      "timestamp": "2026-02-16T07:33:26.312390+00:00",
+      "should_trade": true,
+      "edge_adjustment": 0.0,
+      "news_count": 9
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "session_id": "20260208_164725",
+  "started_at": "2026-02-08T16:47:25.989023+00:00",
+  "starting_balance_cents": 5000,
+  "current_balance_cents": 5000,
+  "mode": "live",
+  "strategy_version": "v2.1-improved",
+  "safety_guards": {
+    "min_forecast_strike_gap": 2.0,
+    "max_market_conviction": 0.85,
+    "min_our_prob": 0.05,
+    "uncertainty_override": 5.0,
+    "kelly_fraction": 0.03,
+    "min_edge": 0.12
+  },
+  "stats": {
+    "total_trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "pending": 0,
+    "win_rate": 0.0,
+    "pnl_cents": 0,
+    "gross_profit_cents": 0,
+    "gross_loss_cents": 0,
+    "current_streak": 0,
+    "streak_type": "none",
+    "max_drawdown_cents": 0,
+    "peak_balance_cents": 5000
+  },
+  "positions": [],
+  "recent_trades": [],
+  "weather_stats": {
+    "trades": 1,
+    "wins": 0,
+    "losses": 1,
+    "win_rate": 0.0,
+    "pnl_cents": -228,
+    "by_city": {},
+    "filtered_count": 0
+  },
+  "crypto_stats": {
+    "trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "win_rate": 0.0,
+    "pnl_cents": 0,
+    "by_asset": {}
+  },
+  "last_cycle": "2026-02-16T02:16:21.511253+00:00",
+  "cycle_count": 44,
+  "last_updated": "2026-02-16T02:18:00.741669+00:00",
+  "uptime_human": "3:47:57",
+  "circuit_breaker_active": false,
+  "status": "\u2705 running",
+  "analysis": {
+    "last_tune": "2026-02-17T00:00:02.155440+00:00",
+    "total_paper_trades": 306,
+    "edge_stats": {
+      "mean": 0.34163117252381964,
+      "median": 0.17224772068806946,
+      "stdev": 0.29037014201838984,
+      "min": 0.09003942444252377,
+      "max": 0.9374,
+      "count": 306
+    },
+    "by_asset": {
+      "eth": {
+        "trades": 87,
+        "avg_edge": 0.1367
+      },
+      "btc": {
+        "trades": 104,
+        "avg_edge": 0.12
+      },
+      "weather": {
+        "trades": 115,
+        "avg_edge": 0.6971
+      }
+    },
+    "by_regime": {
+      "sideways": {
+        "trades": 45,
+        "avg_edge": 0.2055
+      },
+      "choppy": {
+        "trades": 146,
+        "avg_edge": 0.1036
+      },
+      "unknown": {
+        "trades": 115,
+        "avg_edge": 0.6971
+      }
+    }
+  }
+}
