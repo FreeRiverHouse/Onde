@@ -174,7 +174,7 @@ MAX_PRICE_CENTS = 50   # Grok rec C: raise to 50¢ for more volume (breakeven WR
 # ── Circuit breaker / daily loss ──
 CIRCUIT_BREAKER_THRESHOLD = 5  # Pause after N consecutive losses
 CIRCUIT_BREAKER_COOLDOWN_HOURS = 4
-DAILY_LOSS_LIMIT_CENTS = 500   # $5 daily loss limit
+DAILY_LOSS_LIMIT_CENTS = 1500  # $15 daily loss limit (15% of $100 bankroll per Grok pointer)
 
 # ── Weather markets (v2's T422) ──
 WEATHER_ENABLED = os.getenv("WEATHER_ENABLED", "false").lower() in ("true", "1", "yes")
@@ -206,8 +206,8 @@ CRYPTO_SERIES_TICKERS = [
 ]
 
 # ── Crypto volatility defaults (v2 calibrated) ──
-BTC_HOURLY_VOL = 0.006   # ~0.6% hourly std dev (was 0.3%, too low per Grok: actual ~0.5-0.7%)
-ETH_HOURLY_VOL = 0.007   # ~0.7% hourly std dev (was 0.4%, ETH slightly more volatile)
+BTC_HOURLY_VOL = 0.0096  # ~0.96% hourly std dev (Grok review: actual avg from Babypips data)
+ETH_HOURLY_VOL = 0.0118  # ~1.18% hourly std dev (Grok review: actual avg, more volatile than BTC)
 CRYPTO_FAT_TAIL_MULTIPLIER = 1.0  # Disabled after v2 disaster analysis
 
 # ── Logging paths ──
@@ -1667,7 +1667,7 @@ def _heuristic_crypto(market: MarketInfo, context: dict = None) -> tuple:
 
     # Calibration scaling (Grok rec: predicted 71.5% → actual 46.2%, ratio ~0.65)
     # Shrink probabilities toward 50% to reduce overconfidence
-    CALIBRATION_FACTOR = 0.65
+    CALIBRATION_FACTOR = 0.75  # Grok review: 0.65 too conservative, optimal 0.70-0.80
     prob_above = 0.5 + (prob_above - 0.5) * CALIBRATION_FACTOR
     prob_above = max(0.05, min(0.95, prob_above))
 
