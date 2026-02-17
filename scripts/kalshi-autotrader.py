@@ -1086,6 +1086,67 @@ def get_crypto_ohlc(coin_id: str = "bitcoin", days: int = 7) -> list:
 
 
 # ============================================================================
+# DYNAMIC VOLATILITY (PROC-002 Task 5.1 — fetch from CoinGecko)
+# ============================================================================
+
+_vol_cache = {}  # {asset: (timestamp, hourly_vol)}
+
+def get_dynamic_hourly_vol(asset: str = "btc") -> float:
+    """Compute realized hourly vol from CoinGecko 7d OHLC data.
+    Returns hourly std dev of log returns. Falls back to static constants."""
+    global _vol_cache
+    
+    # Cache for 1 hour
+    now = time.time()
+    if asset in _vol_cache and (now - _vol_cache[asset][0]) < 3600:
+        return _vol_cache[asset][1]
+    
+    coin_id = "bitcoin" if asset == "btc" else "ethereum"
+    fallback = BTC_HOURLY_VOL if asset == "btc" else ETH_HOURLY_VOL
+    
+    try:
+        ohlc = get_crypto_ohlc(coin_id, days=7)
+        if not ohlc or len(ohlc) < 24:
+            return fallback
+        
+        # CoinGecko 7d OHLC gives ~4h candles (42 candles for 7 days)
+        # Compute log returns from close prices
+        closes = [c[4] for c in ohlc if c[4] and c[4] > 0]
+        if len(closes) < 10:
+            return fallback
+        
+        log_returns = [math.log(closes[i] / closes[i-1]) for i in range(1, len(closes))]
+        if not log_returns:
+            return fallback
+        
+        # Std dev of log returns
+        mean_ret = sum(log_returns) / len(log_returns)
+        variance = sum((r - mean_ret) ** 2 for r in log_returns) / len(log_returns)
+        candle_vol = math.sqrt(variance)
+        
+        # Scale to hourly: CoinGecko 7d gives ~4h candles
+        # hourly_vol = candle_vol / sqrt(candle_hours)
+        total_hours = (ohlc[-1][0] - ohlc[0][0]) / (1000 * 3600)  # ms to hours
+        candle_hours = total_hours / len(log_returns) if len(log_returns) > 0 else 4
+        hourly_vol = candle_vol / math.sqrt(max(1, candle_hours))
+        
+        # Sanity bounds: 0.3% - 5% hourly
+        hourly_vol = max(0.003, min(0.05, hourly_vol))
+        
+        _vol_cache[asset] = (now, hourly_vol)
+        structured_log("dynamic_vol", {
+            "asset": asset, "hourly_vol_pct": round(hourly_vol * 100, 3),
+            "candles": len(closes), "candle_hours": round(candle_hours, 1),
+            "fallback_pct": round(fallback * 100, 3)
+        })
+        return hourly_vol
+        
+    except Exception as e:
+        structured_log("dynamic_vol_error", {"asset": asset, "error": str(e)}, level="warning")
+        return fallback
+
+
+# ============================================================================
 # MOMENTUM & REGIME DETECTION (from v2)
 # ============================================================================
 
@@ -1587,7 +1648,8 @@ def _heuristic_crypto(market: MarketInfo, context: dict = None) -> tuple:
 
     # Get hourly vol using EWMA (GROK-TRADE-006: dynamic vol estimation)
     # EWMA gives more weight to recent returns, captures vol clustering in crypto
-    hourly_vol = {"btc": BTC_HOURLY_VOL, "eth": ETH_HOURLY_VOL}.get(asset, 0.005)
+    # PROC-002 Task 5.1: use dynamic vol from CoinGecko, fallback to static
+    hourly_vol = get_dynamic_hourly_vol(asset) if asset in ("btc", "eth") else 0.005
     ohlc_data = (context or {}).get("ohlc", {}).get(asset, [])
     if ohlc_data and len(ohlc_data) >= 10:
         try:
