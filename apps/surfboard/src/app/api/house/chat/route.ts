@@ -136,6 +136,7 @@ export async function POST(req: NextRequest) {
     )
   `).run()
 
+  // ── Input Validation (HOUSE-009) ──
   let body: { content?: string; reply_to?: number }
   try {
     body = await req.json()
@@ -143,20 +144,52 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  if (!body.content?.trim()) {
-    return NextResponse.json({ error: 'Content required' }, { status: 400 })
+  if (!body.content || typeof body.content !== 'string') {
+    return NextResponse.json({ error: 'Content required (string)', field: 'content' }, { status: 400 })
   }
+
+  const content = body.content
+    .trim()
+    .replace(/<[^>]*>/g, '') // Strip HTML tags (basic XSS prevention)
+
+  if (!content) {
+    return NextResponse.json({ error: 'Content cannot be empty or only whitespace' }, { status: 400 })
+  }
+
+  const MAX_CONTENT_LENGTH = 2000
+  if (content.length > MAX_CONTENT_LENGTH) {
+    return NextResponse.json(
+      { error: 'Content too long', max: MAX_CONTENT_LENGTH, actual: content.length },
+      { status: 400 }
+    )
+  }
+
+  if (body.reply_to !== undefined && body.reply_to !== null) {
+    if (typeof body.reply_to !== 'number' || body.reply_to < 1 || !Number.isInteger(body.reply_to)) {
+      return NextResponse.json({ error: 'reply_to must be a positive integer', field: 'reply_to' }, { status: 400 })
+    }
+  }
+
+  // ── Extract mentions (HOUSE-010 prep) ──
+  const VALID_NAMES = ['Mattia', 'Clawdinho', 'Ondinho', 'Bubble']
+  const mentionRegex = /@(Mattia|Clawdinho|Ondinho|Bubble)/gi
+  const mentions = [...new Set(
+    (content.match(mentionRegex) || []).map(m => {
+      const name = m.slice(1)
+      return VALID_NAMES.find(n => n.toLowerCase() === name.toLowerCase()) || name
+    })
+  )]
 
   const result = await db.prepare(
     'INSERT INTO house_messages (sender, content, reply_to) VALUES (?, ?, ?)'
-  ).bind(sender, body.content.trim(), body.reply_to || null).run()
+  ).bind(sender, content, body.reply_to || null).run()
 
   // Fetch the inserted message
   const msg = await db.prepare(
     'SELECT * FROM house_messages WHERE id = ?'
   ).bind(result.meta.last_row_id).first()
 
-  const res = NextResponse.json({ ok: true, message: msg })
+  const res = NextResponse.json({ ok: true, message: { ...msg, mentions } })
   res.headers.set('RateLimit-Limit', String(RATE_LIMIT))
   res.headers.set('RateLimit-Remaining', String(rateResult.remaining))
   return res
