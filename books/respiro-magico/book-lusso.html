@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital@0;1&display=swap');
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 13pt;
+    line-height: 1.7;
+    color: #2c1810;
+    background: #faf8f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cover Page */
+.cover {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8d4c0 50%, #dcc5a9 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B7355' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+.cover h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48pt;
+    font-weight: 700;
+    color: #5c3d2e;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.cover h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 22pt;
+    color: #8b7355;
+    font-style: italic;
+    margin: 15px 0 0 0;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+.cover .subtitle {
+    font-size: 11pt;
+    color: #a08060;
+    margin-top: 60px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+.cover .publisher {
+    position: absolute;
+    bottom: 50px;
+    font-size: 10pt;
+    color: #8b7355;
+    letter-spacing: 1px;
+}
+
+.cover .ornament {
+    font-size: 24pt;
+    color: #c4a77d;
+    margin: 30px 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Chapter Pages */
+.chapter {
+    page-break-before: always;
+    padding: 40px 50px;
+    min-height: 100vh;
+    background: #fdfcfa;
+    position: relative;
+}
+
+.chapter::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid #e0d5c5;
+    pointer-events: none;
+}
+
+.chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11pt;
+    color: #a08060;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.chapter h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28pt;
+    font-weight: 600;
+    color: #5c3d2e;
+    text-align: center;
+    margin: 0 0 30px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0d5c5;
+}
+
+.chapter img {
+    width: 100%;
+    max-height: 45vh;
+    object-fit: contain;
+    margin: 25px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(92, 61, 46, 0.15);
+}
+
+.chapter p {
+    text-align: justify;
+    margin: 18px 0;
+    text-indent: 1.5em;
+    hyphens: auto;
+}
+
+.chapter p:first-of-type {
+    text-indent: 0;
+}
+
+.chapter p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    padding-right: 10px;
+    color: #8b7355;
+    font-weight: 700;
+}
+
+.quote {
+    font-style: italic;
+    color: #6b5344;
+    text-align: center;
+    margin: 30px 40px;
+    padding: 20px;
+    border-left: 3px solid #c4a77d;
+    background: rgba(196, 167, 125, 0.1);
+}
+
+.final-quote {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(196,167,125,0.1) 0%, rgba(224,213,197,0.2) 100%);
+    border-radius: 10px;
+}
+
+.final-quote p {
+    font-style: italic;
+    font-size: 14pt;
+    color: #5c3d2e;
+    text-indent: 0 !important;
+}
+
+.final-quote .author {
+    font-style: normal;
+    font-size: 11pt;
+    color: #8b7355;
+    margin-top: 15px;
+}
+
+/* Page numbers */
+.page-number {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+    font-size: 10pt;
+    color: #a08060;
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="ornament">❧</div>
+    <h1>Marco Aurelio</h1>
+    <h2>L'Imperatore Filosofo</h2>
+    <p class="subtitle">Un viaggio nella saggezza stoica per piccoli lettori</p>
+    <div class="ornament">❧</div>
+    <p class="publisher">Onde Editrice · MMXXVI</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Primo</p>
+    <h2>Il Piccolo Lottatore</h2>
+    <img src="images-grok/cap01-pina-wrestling-villa.jpg" alt="Marcus bambino">
+    <p>Tanto tempo fa, nella splendida Roma antica, viveva un bambino di nome Marco. Aveva i capelli ricci e gli occhi curiosi che brillavano sempre di domande.</p>
+    <p>Marco amava lottare nel cortile della villa con il suo maestro greco. Non per vincere, ma per imparare. "La disciplina," diceva il maestro, "è il primo passo verso la saggezza."</p>
+    <p>Ogni sera, prima di dormire, Marco pensava a cosa aveva imparato quel giorno. Era già un piccolo filosofo, anche se non lo sapeva ancora.</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Secondo</p>
+    <h2>Una Nuova Famiglia</h2>
+    <img src="images-grok/cap02-pina-adoption.jpg" alt="Adozione">
+    <p>Un giorno speciale arrivò nella vita di Marco. L'imperatore Antonino Pio lo scelse come suo figlio adottivo. Marco aveva solo 17 anni, ma tutti vedevano in lui qualcosa di speciale.</p>
+    <p>"Non è il potere che conta," gli disse Antonino prendendolo per mano, "ma come lo usi per aiutare gli altri."</p>
+    <p>Marco non dimenticò mai quelle parole. Le scrisse nel suo cuore come la lezione più importante.</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Terzo</p>
+    <h2>Le Meditazioni all'Alba</h2>
+    <img src="images-grok/cap03-pina-meditation.jpg" alt="Meditazione">
+    <p>Ogni mattina, prima che il sole sorgesse sulla città eterna, Marco si sedeva in silenzio sul balcone del palazzo. Con in mano un piccolo diario, scriveva i suoi pensieri più profondi.</p>
+    <p>Lo chiamava "A Me Stesso" — un libro di consigli che dava a se stesso per diventare una persona migliore.</p>
+    <div class="quote">"Controlla i tuoi pensieri, e controllerai la tua vita."</div>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Quarto</p>
+    <h2>La Grande Prova</h2>
+    <img src="images-grok/cap04-pina-plague.jpg" alt="Epidemia">
+    <p>Una terribile malattia colpì Roma. Molti imperatori si sarebbero nascosti nel palazzo, ma Marco no. Uscì tra la gente portando cibo e medicine.</p>
+    <p>Aiutava i malati, confortava chi aveva perso i propri cari, e dava speranza a tutti.</p>
+    <div class="quote">"Le difficoltà non sono ostacoli, ma opportunità per dimostrare chi siamo veramente."</div>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Quinto</p>
+    <h2>Nella Tenda del Filosofo</h2>
+    <img src="images-grok/cap05-pina-tent.jpg" alt="Frontiera">
+    <p>Marco dovette andare lontano, ai confini dell'impero dove i soldati combattevano per proteggere Roma. Non amava la guerra, ma sapeva che a volte bisogna difendere chi si ama.</p>
+    <p>Anche nelle notti fredde, alla luce tremolante di una lampada ad olio, continuava a scrivere i suoi pensieri. Le stelle brillavano fuori dalla tenda mentre la sua penna danzava sulla pagina.</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Sesto</p>
+    <h2>Il Maestro sotto l'Ulivo</h2>
+    <img src="images-grok/cap06-pina-teaching.jpg" alt="Insegnamento">
+    <p>Quando poteva, Marco amava sedersi all'ombra di un vecchio ulivo e insegnare ai giovani romani. Non parlava di guerre o conquiste, ma di gentilezza e saggezza.</p>
+    <p>"Non perdere tempo a lamentarti," diceva ai suoi studenti. "Usa quel tempo per migliorare te stesso e il mondo intorno a te."</p>
+    <p>I ragazzi ascoltavano rapiti, e quelle parole rimanevano nei loro cuori per sempre.</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Settimo</p>
+    <h2>La Mano Tesa al Nemico</h2>
+    <img src="images-grok/cap07-pina-mercy.jpg" alt="Clemenza">
+    <p>Dopo una battaglia, i soldati portarono davanti a Marco un capo nemico sconfitto. Tutti si aspettavano una punizione terribile.</p>
+    <p>Ma Marco fece qualcosa di sorprendente: tese la mano per aiutarlo ad alzarsi.</p>
+    <div class="quote">"Il vero coraggio non sta nel vincere, ma nel saper perdonare."</div>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Ottavo</p>
+    <h2>Guardando l'Orizzonte</h2>
+    <img src="images-grok/cap08-pina-acceptance.jpg" alt="Accettazione">
+    <p>Negli ultimi anni, Marco amava salire sulle colline al tramonto. Guardava il sole scendere lentamente, tingendo il cielo di oro e porpora.</p>
+    <p>Pensava a tutto ciò che aveva vissuto — le gioie e i dolori, le vittorie e le sconfitte — e sorrideva. Aveva fatto del suo meglio.</p>
+    <p>"Accetta ciò che non puoi cambiare," sussurrava al vento, "e trova la pace nel presente."</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Nono</p>
+    <h2>Le Parole che Vivono</h2>
+    <img src="images-grok/cap09-pina-legacy.jpg" alt="Eredità">
+    <p>Secoli dopo, in un monastero silenzioso, un monaco copiava con cura le parole di Marco Aurelio alla luce delle candele.</p>
+    <p>Le "Meditazioni" viaggiarono attraverso il tempo, tradotte in tutte le lingue del mondo. Le parole scritte da un imperatore romano continuavano ad aiutare persone di ogni epoca.</p>
+    <p>La saggezza vera non conosce confini di tempo.</p>
+</div>
+
+<div class="chapter">
+    <p class="chapter-number">Capitolo Decimo</p>
+    <h2>Un Regalo per Te</h2>
+    <img src="images-grok/cap10-pina-modern-child.jpg" alt="Bambino moderno">
+    <p>Oggi, sotto un ulivo proprio come quello dove sedeva Marco, un bambino sfoglia un libro con la copertina consumata dal tempo. È il libro delle Meditazioni.</p>
+    <p>Le parole scritte duemila anni fa parlano ancora al suo cuore, come se Marco fosse lì accanto a lui.</p>
+    
+    <div class="final-quote">
+        <p>"La felicità della tua vita dipende dalla qualità dei tuoi pensieri."</p>
+        <p class="author">— Marco Aurelio</p>
+    </div>
+    
+    <p style="text-align: center; margin-top: 40px; font-style: italic; text-indent: 0;">E tu, piccolo lettore, cosa scriveresti nel tuo diario della saggezza?</p>
+</div>
+
+</body>
+</html>
