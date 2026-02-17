@@ -2364,6 +2364,10 @@ def save_paper_state(state: dict):
     dd = peak - bal
     if dd > stats.get("max_drawdown_cents", 0):
         stats["max_drawdown_cents"] = dd
+    # Also track percentage drawdown (Grok review bug #4)
+    dd_pct = (dd / peak * 100) if peak > 0 else 0
+    if dd_pct > stats.get("max_drawdown_pct", 0):
+        stats["max_drawdown_pct"] = round(dd_pct, 2)
 
     with open(PAPER_STATE_FILE, "w") as f:
         json.dump(state, f, indent=2)
@@ -2372,7 +2376,18 @@ def save_paper_state(state: dict):
 def paper_trade_open(state: dict, ticker: str, action: str, price_cents: int, contracts: int,
                      title: str = "", edge: float = 0.0, expiry: str = ""):
     """Record a new paper trade: deduct cost from bankroll, add to positions."""
+    # Check max positions limit (Grok review bug #3)
+    open_positions = [p for p in state.get("positions", []) if p.get("status") == "open"]
+    if len(open_positions) >= MAX_POSITIONS:
+        print(f"  ⚠️ Max positions ({MAX_POSITIONS}) reached, skipping {ticker}")
+        return
+    
     cost = contracts * price_cents
+    # Don't allow negative balance (Grok review: overbetting fix)
+    if state["current_balance_cents"] - cost < 0:
+        print(f"  ⚠️ Insufficient balance for {ticker} (need {cost}c, have {state['current_balance_cents']}c)")
+        return
+    
     state["current_balance_cents"] -= cost
 
     position = {
@@ -2441,10 +2456,10 @@ def paper_trade_settle(state: dict, ticker: str, won: bool):
                     break
 
             settled = True
-            break
+            # Don't break — settle ALL matching positions for this ticker
 
     if settled:
-        # Remove settled position from active positions
+        # Remove settled positions from active positions
         state["positions"] = [p for p in state["positions"] if not (p.get("ticker") == ticker and p.get("status") != "open")]
         save_paper_state(state)
 
