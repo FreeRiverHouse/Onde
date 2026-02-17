@@ -192,5 +192,41 @@ export async function POST(req: NextRequest) {
   const res = NextResponse.json({ ok: true, message: { ...msg, mentions } })
   res.headers.set('RateLimit-Limit', String(RATE_LIMIT))
   res.headers.set('RateLimit-Remaining', String(rateResult.remaining))
+
+  // ── Webhook dispatch (HOUSE-011) ─────────────────────────────────────────
+  // Fire webhooks asynchronously to mentioned bots
+  if (mentions.length > 0) {
+    const ctx = getRequestContext()
+    // @ts-ignore - Cloudflare waitUntil
+    if (ctx?.waitUntil) {
+      const webhookPromises = mentions
+        .filter((name: string) => name !== sender) // Don't ping self
+        .map(async (name: string) => {
+          const webhookUrl = await env.WEBHOOKS_KV?.get(`webhook:${name}`)
+          if (webhookUrl) {
+            try {
+              await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  type: 'house_mention',
+                  sender,
+                  recipient: name,
+                  content,
+                  messageId: msg.id,
+                  timestamp: msg.created_at,
+                  url: `https://onde.surf/house/chat`,
+                }),
+              })
+            } catch (e) {
+              console.error(`Webhook failed for ${name}:`, e)
+            }
+          }
+        })
+      // @ts-ignore
+      ctx.waitUntil(Promise.all(webhookPromises))
+    }
+  }
+
   return res
 }
