@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getMetricWithHistory } from '@/lib/metrics'
 import { getDB } from '@/lib/db'
+import { getRequestContext } from '@cloudflare/next-on-pages'
 
 export const runtime = 'edge'
-
-interface Env {
-  DB: D1Database
-}
 
 // GET /api/metrics/history?key=books_published&days=30
 export async function GET(request: NextRequest) {
@@ -22,8 +19,7 @@ export async function GET(request: NextRequest) {
       )
     }
     
-    // @ts-expect-error - Cloudflare context
-    const env = (request as { env?: Env }).env || (globalThis as { env?: Env }).env
+    const { env } = getRequestContext()
     
     if (!env?.DB) {
       return NextResponse.json(

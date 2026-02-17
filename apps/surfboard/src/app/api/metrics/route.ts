@@ -1,20 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getDashboardMetrics, recordMetricsBatch } from '@/lib/metrics'
 import { getDB } from '@/lib/db'
+import { getRequestContext } from '@cloudflare/next-on-pages'
 
 export const runtime = 'edge'
-
-// Env type for Cloudflare
-interface Env {
-  DB: D1Database
-}
 
 // GET /api/metrics - Get dashboard metrics
 export async function GET(request: NextRequest) {
   try {
-    // Access the env from the request context
-    // @ts-expect-error - Cloudflare context
-    const env = (request as { env?: Env }).env || (globalThis as { env?: Env }).env
+    const { env } = getRequestContext()
     
     if (!env?.DB) {
       return NextResponse.json(
@@ -59,8 +53,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    // @ts-expect-error - Cloudflare context
-    const env = (request as { env?: Env }).env || (globalThis as { env?: Env }).env
+    const { env } = getRequestContext()
     
     if (!env?.DB) {
       return NextResponse.json(
