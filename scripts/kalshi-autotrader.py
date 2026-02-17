@@ -1254,6 +1254,28 @@ def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
     if vol_class in ("high", "very_high"):
         result["dynamic_min_edge"] += 0.02  # Extra penalty for high volatility (was 0.01)
 
+    # PROC-002 Task 5.2: Vol regime classifier — scale MIN_EDGE and Kelly by vol factor
+    # Compare dynamic vol to assumed vol, adjust thresholds
+    for asset_key in ("btc", "eth"):
+        assumed = BTC_HOURLY_VOL if asset_key == "btc" else ETH_HOURLY_VOL
+        current = get_dynamic_hourly_vol(asset_key)
+        vol_factor = current / assumed if assumed > 0 else 1.0
+        if vol_factor > 1.5:
+            # High vol regime: tighten edge, reduce Kelly
+            result["dynamic_min_edge"] *= (1 + (vol_factor - 1) * 0.4)
+            result["vol_kelly_scale"] = 1.0 / vol_factor  # de-risk
+            result["vol_regime"] = "high_vol"
+        elif vol_factor < 0.7:
+            # Low vol regime: loosen edge slightly, increase Kelly
+            result["dynamic_min_edge"] *= 0.8
+            result["vol_kelly_scale"] = min(1.2, 1.0 / vol_factor)
+            result["vol_regime"] = "low_vol"
+        else:
+            result["vol_kelly_scale"] = 1.0
+            result["vol_regime"] = "normal_vol"
+        result["vol_factor"] = round(vol_factor, 2)
+        break  # Use first asset for now (most positions are BTC)
+
     # Store ATR info for asset-specific filtering (Grok recommendation #4)
     result["avg_candle_range_pct"] = avg_range
     result["btc_high_vol_skip"] = (avg_range > 0.02)  # ATR > 2% = skip BTC trades (1% was too aggressive, normal BTC ATR ~1.2%)
@@ -1950,8 +1972,17 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
                             reason=f"Risk/reward {risk_reward:.2f} > {MAX_RISK_REWARD_RATIO} ({side_price}¢ risk / {potential_win}¢ win)",
                             forecast=forecast, critic=critic)
 
-    # Kelly sizing
+    # Kelly sizing (PROC-002 Task 5.2: apply vol regime scaling)
     kelly_frac = calculate_kelly(final_prob if action == "BUY_YES" else (1 - final_prob), side_price)
+    # Scale Kelly by vol regime factor (computed in detect_market_regime)
+    asset = "btc" if "btc" in market.ticker.lower() or "BTC" in market.ticker else "eth"
+    dyn_vol = get_dynamic_hourly_vol(asset)
+    assumed_vol = BTC_HOURLY_VOL if asset == "btc" else ETH_HOURLY_VOL
+    vol_factor = dyn_vol / assumed_vol if assumed_vol > 0 else 1.0
+    if vol_factor > 1.5:
+        kelly_frac /= vol_factor  # de-risk in high vol
+    elif vol_factor < 0.7:
+        kelly_frac *= min(1.2, 1.0 / vol_factor)  # slightly more aggressive in low vol
     if kelly_frac <= 0:
         return TradeDecision(action="SKIP", edge=edge, kelly_size=0, contracts=0, price_cents=side_price,
                             reason="Kelly says no bet", forecast=forecast, critic=critic)
