@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>Pizza Gelato Rush v9</title>
+<title>Pizza Gelato Rush v8</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
@@ -22,7 +22,7 @@ canvas{display:block;position:fixed;top:0;left:0}
 <h1>🛵 PIZZA GELATO RUSH</h1>
 <h2>Ultra-Detailed Vespa Edition</h2>
 <button class="sb" id="go">RACE!</button>
-<div class="v">v9.0 — Cinematic Edition — Made with ❤️ by Onde</div>
+<div class="v">v8.0 — Made with ❤️ by Onde</div>
 </div></div>
 <canvas id="C"></canvas>
 <script>
@@ -371,24 +371,11 @@ function drawPup(pu,sx,sy,sc,t){
 function drawRoad(idx,px,py,pw,qx,qy,qw){
   const alt=(Math.floor(idx/3)%2===0);
   X.fillStyle=alt?'#2d5a16':'#275214';X.beginPath();X.moveTo(qx-qw*3,qy);X.lineTo(qx+qw*3,qy);X.lineTo(px+pw*3,py);X.lineTo(px-pw*3,py);X.closePath();X.fill();
-  // Rumble strips (red/white curbs HC2 style)
   X.fillStyle=alt?'#cc2222':'#eee';trapez(px,py,pw*1.12,qx,qy,qw*1.12);
-  // Road surface with subtle gradient
-  const roadG=X.createLinearGradient(px-pw,py,px+pw,py);
-  roadG.addColorStop(0,alt?'#2a2a2a':'#282828');
-  roadG.addColorStop(.3,alt?'#3a3a3a':'#353535');
-  roadG.addColorStop(.5,alt?'#404040':'#3a3a3a');
-  roadG.addColorStop(.7,alt?'#3a3a3a':'#353535');
-  roadG.addColorStop(1,alt?'#2a2a2a':'#282828');
-  X.fillStyle=roadG;trapez(px,py,pw,qx,qy,qw);
-  // Center line (dashed yellow)
-  if(alt){X.fillStyle='#ffcc00';trapez(px,py,pw*.01,qx,qy,qw*.01)}
-  // Lane markings (white dashed)
-  if(alt){X.fillStyle='#ddd';for(const f of [-.38,.38])trapez(px+pw*f,py,pw*.007,qx+qw*f,qy,qw*.007)}
-  // Edge lines (solid white)
-  X.fillStyle='#fff';for(const s of [-1,1])trapez(px+pw*s*.97,py,pw*.009,qx+qw*s*.97,qy,qw*.009);
-  // Road sheen (subtle specular on road surface)
-  if(!alt){X.save();X.globalAlpha=.04;X.fillStyle='rgba(255,230,180,.3)';trapez(px,py,pw*.3,qx,qy,qw*.3);X.restore()}
+  X.fillStyle=alt?'#383838':'#333';trapez(px,py,pw,qx,qy,qw);
+  if(alt){X.fillStyle='#ffcc00';trapez(px,py,pw*.008,qx,qy,qw*.008)}
+  if(alt){X.fillStyle='#ddd';for(const f of [-.38,.38])trapez(px+pw*f,py,pw*.006,qx+qw*f,qy,qw*.006)}
+  X.fillStyle='#fff';for(const s of [-1,1])trapez(px+pw*s*.97,py,pw*.008,qx+qw*s*.97,qy,qw*.008);
 }
 
 // SKY
@@ -407,39 +394,8 @@ function drawSky(t){
   X.restore();
   // Stars
   X.fillStyle='rgba(255,255,255,.6)';for(let i=0;i<40;i++){X.globalAlpha=(.5+Math.sin(t*.002+i)*.5)*.5;X.fillRect((i*137.5)%SW,(i*97.3)%(SH*.25),1.5,1.5)}X.globalAlpha=1;
-  // Volumetric clouds (multi-layer)
-  X.save();for(let i=0;i<8;i++){
-    const speed=.005*(i%3+1)+(i%2)*.003;
-    const cx2=((i*180+t*speed)%(SW+300))-150;
-    const cy2=SH*.1+Math.sin(i*2.5)*25+i*5;
-    const cw=60+i*18+Math.sin(t*.001+i)*10;
-    const ch2=16+i*4;
-    X.globalAlpha=.25+i*.03;
-    // Cloud body (multiple overlapping ellipses)
-    for(let j=0;j<3;j++){
-      const ox=(j-1)*cw*.3,oy=Math.sin(j*2)*ch2*.2;
-      const cg=X.createRadialGradient(cx2+ox,cy2+oy,0,cx2+ox,cy2+oy,cw*.6);
-      cg.addColorStop(0,'rgba(255,210,160,.55)');
-      cg.addColorStop(.5,'rgba(255,180,130,.3)');
-      cg.addColorStop(1,'rgba(255,150,100,0)');
-      X.fillStyle=cg;X.beginPath();X.ellipse(cx2+ox,cy2+oy,cw*.6,ch2,0,0,TAU);X.fill();
-    }
-  }X.restore();
-  // God rays from sun
-  X.save();X.globalAlpha=.06+Math.sin(t*.0008)*.02;X.globalCompositeOperation='lighter';
-  const sunRX=SW*.75,sunRY=SH*.22;
-  for(let i=0;i<6;i++){
-    const ra=-PI*.3+i*PI*.12+Math.sin(t*.0005+i)*.05;
-    const rLen=SH*.6;
-    X.beginPath();X.moveTo(sunRX,sunRY);
-    X.lineTo(sunRX+Math.cos(ra-0.02)*rLen,sunRY+Math.sin(ra-0.02)*rLen);
-    X.lineTo(sunRX+Math.cos(ra+0.02)*rLen,sunRY+Math.sin(ra+0.02)*rLen);
-    X.closePath();
-    const rg=X.createLinearGradient(sunRX,sunRY,sunRX+Math.cos(ra)*rLen,sunRY+Math.sin(ra)*rLen);
-    rg.addColorStop(0,'rgba(255,230,180,.4)');rg.addColorStop(1,'rgba(255,200,100,0)');
-    X.fillStyle=rg;X.fill();
-  }
-  X.restore();
+  // Clouds
+  X.save();X.globalAlpha=.4;for(let i=0;i<6;i++){const cx2=((i*220+t*.008*(i%3+1))%(SW+200))-100,cy2=SH*.15+Math.sin(i*2.5)*30;const cg=X.createRadialGradient(cx2,cy2,0,cx2,cy2,80+i*15);cg.addColorStop(0,'rgba(255,200,150,.5)');cg.addColorStop(1,'rgba(255,150,100,0)');X.fillStyle=cg;X.beginPath();X.ellipse(cx2,cy2,80+i*15,20+i*3,0,0,TAU);X.fill()}X.restore();
 }
 
 // BACKGROUND
@@ -553,7 +509,6 @@ function drawParts(){
     if(p.tp==='spark'){X.fillStyle=p.col;X.fillRect(p.x-p.sz/2,p.y-p.sz/2,p.sz,p.sz)}
     else if(p.tp==='smoke'){X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.sz*(1-p.life/p.ml+.5),0,TAU);X.fill()}
     else if(p.tp==='neon'){X.shadowColor=p.col;X.shadowBlur=8;X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.sz,0,TAU);X.fill()}
-    else if(p.tp==='leaf'){X.save();X.translate(p.x,p.y);X.rotate(p.life*.1);X.fillStyle=p.col;X.beginPath();X.ellipse(0,0,p.sz,p.sz*.4,0,0,TAU);X.fill();X.restore()}
     else{X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.sz,0,TAU);X.fill()}
     X.restore();
   }
@@ -705,7 +660,7 @@ function render(){
   const camX=P.x;
   const camZ=P.z;
   const segI=Math.floor(camZ/SL)%SEGS;
-  const camY=CH+seg[segI].h;
+  const camY=CH+seg[segI].hill;
   
   X.save();
   X.translate(G.shX,G.shY);
@@ -726,7 +681,7 @@ function render(){
     const si=(segI+i)%SEGS;
     const s=seg[si];
     const wz=camZ+i*SL;
-    const wy=s.h;
+    const wy=s.hill;
     
     cx+=s.c*2;
     
@@ -772,7 +727,7 @@ function render(){
       // Find curve-adjusted x
       let adjX=camX;for(let j=0;j<Math.min(dz/SL,DD);j++)adjX+=seg[(segI+j)%SEGS].c*2;
       const si2=pu.seg%SEGS;
-      const pp=proj(adjX+pu.off,seg[si2].h,camZ+dz,camX,camZ,camY);
+      const pp=proj(adjX+pu.off,seg[si2].hill,camZ+dz,camX,camZ,camY);
       if(pp&&pp.sy<SH)drawList.push({z:camZ+dz,fn:()=>drawPup(pu,pp.sx,pp.sy,pp.sc,G.t)});
     }
   }
@@ -783,7 +738,7 @@ function render(){
     if(dz>0&&dz<DD*SL){
       let adjX=camX;for(let j=0;j<Math.min(dz/SL,DD);j++)adjX+=seg[(segI+j)%SEGS].c*2;
       const aiSeg=Math.floor(ai.z/SL)%SEGS;
-      const ap=proj(adjX+ai.x,seg[aiSeg].h,camZ+dz,camX,camZ,camY);
+      const ap=proj(adjX+ai.x,seg[aiSeg].hill,camZ+dz,camX,camZ,camY);
       if(ap&&ap.sy<SH){
         const aiFn=ai.vt==='vespa'?
           ()=>drawVespa(ap.sx,ap.sy,ap.sc,ai.lean,ai.col,ai.spd,false,ai.name,G.t):
@@ -831,93 +786,7 @@ function render(){
     X.restore();
   }
   
-  // === HEAT HAZE on road (shimmering mirage) ===
-  if(G.phase==='race'||G.phase==='countdown'){
-    X.save();X.globalAlpha=.04;X.globalCompositeOperation='lighter';
-    for(let i=0;i<8;i++){
-      const hx=SW*.2+Math.sin(G.t*.003+i*1.7)*SW*.3;
-      const hy=SH*.52+Math.sin(G.t*.005+i*2.3)*SH*.08;
-      const hr=40+Math.sin(G.t*.004+i)*20;
-      const hg=X.createRadialGradient(hx,hy,0,hx,hy,hr);
-      hg.addColorStop(0,'rgba(255,200,100,.6)');hg.addColorStop(1,'rgba(255,150,50,0)');
-      X.fillStyle=hg;X.beginPath();X.arc(hx,hy,hr,0,TAU);X.fill();
-    }
-    X.restore();
-  }
-  
-  // === ROAD WET REFLECTIONS (subtle) ===
-  if(G.phase==='race'){
-    X.save();X.globalAlpha=.03+Math.sin(G.t*.002)*.01;X.globalCompositeOperation='lighter';
-    const refG=X.createLinearGradient(SW*.3,SH*.6,SW*.7,SH*.9);
-    refG.addColorStop(0,'rgba(255,200,100,.3)');refG.addColorStop(.5,'rgba(255,255,255,.2)');
-    refG.addColorStop(1,'rgba(255,200,100,0)');
-    X.fillStyle=refG;X.beginPath();X.moveTo(SW*.35,SH*.55);X.lineTo(SW*.65,SH*.55);X.lineTo(SW*.8,SH*.95);X.lineTo(SW*.2,SH*.95);X.closePath();X.fill();
-    X.restore();
-  }
-  
-  // === WIND PARTICLES (leaves, dust) ===
-  if(G.phase==='race'&&P.spd>2){
-    const windCount=Math.min(5,Math.floor(P.spd*.8));
-    for(let i=0;i<windCount;i++){
-      if(Math.random()<.4){
-        const wx=Math.random()*SW;
-        const wy=SH*.3+Math.random()*SH*.5;
-        const wc=['#8B6914','#556B2F','#CD853F','#DEB887'][Math.floor(Math.random()*4)];
-        spawnP(wx,wy,(-3-P.spd*.5)*(Math.random()*.5+.5),(Math.random()-.5)*2,35+Math.random()*20,wc,2+Math.random()*3,'leaf');
-      }
-    }
-  }
-  
   X.restore(); // shake
-  
-  // === POST-PROCESSING PASS ===
-  
-  // Vignette (cinematic dark edges)
-  X.save();
-  const vigR=Math.max(SW,SH)*.7;
-  const vigG=X.createRadialGradient(SW/2,SH/2,vigR*.4,SW/2,SH/2,vigR);
-  vigG.addColorStop(0,'rgba(0,0,0,0)');
-  vigG.addColorStop(.6,'rgba(0,0,0,0)');
-  vigG.addColorStop(.85,'rgba(0,0,0,.15)');
-  vigG.addColorStop(1,'rgba(0,0,0,.4)');
-  X.fillStyle=vigG;X.fillRect(0,0,SW,SH);
-  X.restore();
-  
-  // Golden hour color grade
-  X.save();X.globalAlpha=.06;X.globalCompositeOperation='multiply';
-  const gradeG=X.createLinearGradient(0,0,0,SH);
-  gradeG.addColorStop(0,'#ff9966');gradeG.addColorStop(.5,'#ffcc80');gradeG.addColorStop(1,'#cc6633');
-  X.fillStyle=gradeG;X.fillRect(0,0,SW,SH);
-  X.restore();
-  
-  // Bloom on bright areas (top of screen = sky bloom)
-  X.save();X.globalAlpha=.04;X.globalCompositeOperation='lighter';
-  const bloomG=X.createRadialGradient(SW*.75,SH*.22,0,SW*.75,SH*.22,SH*.4);
-  bloomG.addColorStop(0,'rgba(255,240,200,.5)');bloomG.addColorStop(.3,'rgba(255,200,100,.3)');
-  bloomG.addColorStop(1,'rgba(255,150,50,0)');
-  X.fillStyle=bloomG;X.fillRect(0,0,SW,SH);
-  X.restore();
-  
-  // Speed-dependent chromatic aberration hint
-  if(P.kmh>200){
-    X.save();
-    const abStr=Math.min(3,(P.kmh-200)/200*3);
-    X.globalAlpha=.08;X.globalCompositeOperation='lighter';
-    X.fillStyle='rgba(255,0,0,.15)';X.fillRect(-abStr,0,SW,SH);
-    X.fillStyle='rgba(0,0,255,.15)';X.fillRect(abStr,0,SW,SH);
-    X.restore();
-  }
-  
-  // Film grain (subtle)
-  if(G.phase==='race'){
-    X.save();X.globalAlpha=.03;
-    for(let i=0;i<80;i++){
-      const gx=Math.random()*SW,gy=Math.random()*SH;
-      const gv=Math.random()>.5?'#fff':'#000';
-      X.fillStyle=gv;X.fillRect(gx,gy,1.5,1.5);
-    }
-    X.restore();
-  }
   
   // Flash
   if(G.flash>0){X.save();X.globalAlpha=G.flash/10*.3;X.fillStyle='#fff';X.fillRect(0,0,SW,SH);X.restore()}
