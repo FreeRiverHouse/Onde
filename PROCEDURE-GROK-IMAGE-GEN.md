@@ -18,10 +18,23 @@
 osascript -e 'tell application "Google Chrome" to execute front window'\''s active tab javascript "Array.from(document.images).filter(i => i.src.includes(\"imagine-public\") && !i.src.includes(\"thumbnail\")).map(i => i.src).join(\"\\n\")"'
 ```
 
-### Step 3: Scarica con curl
+### Step 3: Scarica immagine
+
+**Metodo A - URL diretti (se disponibili):**
 ```bash
-# Scarica immagine direttamente
 curl -o "nome-file.jpg" "URL_IMMAGINE"
+```
+
+**Metodo B - Base64 (più affidabile):**
+Le immagini generate spesso sono inline come data:image/jpeg;base64.
+```bash
+# Estrai e salva prima immagine base64
+osascript -e 'tell application "Google Chrome" to execute front window'\''s active tab javascript "
+    var imgs = Array.from(document.images).filter(function(i){
+        return i.src.indexOf(\"data:image/jpeg;base64\") === 0 && i.naturalWidth > 700
+    });
+    if (imgs.length > 0) { imgs[0].src; } else { \"none\"; }
+"' | sed 's/data:image\/jpeg;base64,//' | base64 -d > nome-file.jpg
 ```
 
 ### Script Completo
