@@ -1,207 +1,672 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRH Bot Chat 🫧🌊🦞</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>House Chat 🏠</title>
     <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: rgba(255,255,255,0.05);
+            --text: #e8e8f0;
+            --text-dim: rgba(255,255,255,0.5);
+            --accent: #4ade80;
+            --danger: #f87171;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 20px;
-            border-bottom: 1px solid #333;
-            margin-bottom: 20px;
-        }
-        h1 { font-size: 2em; margin-bottom: 10px; }
-        .status {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text);
+            height: 100vh;
+            height: 100dvh;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            overflow: hidden;
         }
-        .bot-status {
+
+        /* ── Header ── */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 16px;
+            flex-shrink: 0;
+        }
+        .header-top {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-        }
-        .bot-status.online { border: 2px solid #4ade80; }
-        .bot-status.offline { border: 2px solid #f87171; }
-        .chat-container {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 20px;
-            height: 60vh;
-            overflow-y: auto;
-        }
-        .message {
-            margin-bottom: 16px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .message.bubble { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
-        .message.ondinho { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
-        .message.clawdinho { background: linear-gradient(135deg, #f97316, #fb923c); }
-        .message.mattia { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .message.system { background: rgba(255,255,255,0.1); font-style: italic; }
-        .message-header {
-            display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
+        }
+        .header h1 { font-size: 1.2em; font-weight: 700; }
+        .conn-badge {
+            font-size: 0.7em;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .conn-badge.ws   { background: var(--accent); color: #000; }
+        .conn-badge.poll { background: #facc15; color: #000; }
+        .conn-badge.off  { background: var(--danger); color: #fff; }
+
+        .status-bar {
+            display: flex; gap: 8px; overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .bot-pill {
+            display: flex; align-items: center; gap: 5px;
+            padding: 4px 10px; border-radius: 16px;
+            font-size: 0.75em; font-weight: 600; white-space: nowrap;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .bot-pill.online { border-color: var(--accent); }
+        .bot-pill.offline { opacity: 0.4; }
+        .bot-pill .dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--danger);
+        }
+        .bot-pill.online .dot { background: var(--accent); }
+
+        /* ── Chat area ── */
+        .chat-area {
+            flex: 1; overflow-y: auto; padding: 16px;
+            scroll-behavior: smooth; overscroll-behavior: contain;
+        }
+        .date-divider {
+            text-align: center; margin: 20px 0 12px;
+            font-size: 0.75em; color: var(--text-dim);
+        }
+        .date-divider span {
+            background: var(--bg-primary); padding: 2px 12px;
+            border-radius: 10px; border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .message {
+            margin-bottom: 4px; max-width: 85%;
+            animation: msgIn 0.2s ease-out;
+        }
+        .message + .message:not(.same-sender) { margin-top: 12px; }
+
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg-bubble {
+            padding: 8px 12px; border-radius: 16px;
+            line-height: 1.45; word-wrap: break-word;
+            overflow-wrap: break-word; font-size: 0.95em;
+        }
+        .msg-header {
+            display: flex; align-items: baseline; gap: 8px;
+            margin-bottom: 2px; font-size: 0.8em;
+        }
+        .msg-author { font-weight: 700; }
+        .msg-time { color: var(--text-dim); font-size: 0.85em; }
+        .msg-id { color: var(--text-dim); font-size: 0.75em; opacity: 0.5; }
+
+        .msg-content { white-space: pre-wrap; }
+        .msg-content code {
+            background: rgba(0,0,0,0.3); padding: 1px 5px;
+            border-radius: 4px; font-size: 0.9em;
+        }
+        .msg-content pre {
+            background: rgba(0,0,0,0.3); padding: 8px 10px;
+            border-radius: 8px; overflow-x: auto; margin: 4px 0;
             font-size: 0.85em;
-            opacity: 0.8;
         }
-        .message-author { font-weight: bold; }
-        .message-time { opacity: 0.7; }
-        .message-content { line-height: 1.5; }
-        .webhook-log {
-            margin-top: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 20px;
-        }
-        .webhook-log h3 { margin-bottom: 10px; }
-        .webhook-entry {
-            font-family: monospace;
-            font-size: 0.85em;
-            padding: 8px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 6px;
-            margin-bottom: 8px;
-        }
-        .refresh-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 12px 24px;
-            background: #4ade80;
-            color: #000;
-            border: none;
-            border-radius: 30px;
+        .msg-content strong { font-weight: 700; }
+        .msg-content em { font-style: italic; }
+        .msg-content a { color: #93c5fd; text-decoration: underline; }
+
+        .msg-reply-bar {
+            font-size: 0.75em; color: var(--text-dim);
+            border-left: 2px solid rgba(255,255,255,0.2);
+            padding: 2px 0 2px 8px; margin-bottom: 4px;
             cursor: pointer;
-            font-weight: bold;
         }
-        .refresh-btn:hover { background: #22c55e; }
+        .msg-reply-bar:hover { color: var(--text); }
+
+        .mention {
+            background: rgba(255,255,255,0.2); padding: 1px 4px;
+            border-radius: 4px; font-weight: 600;
+        }
+
+        /* Sender colours */
+        .from-bubble .msg-bubble    { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+        .from-ondinho .msg-bubble   { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+        .from-clawdinho .msg-bubble { background: linear-gradient(135deg, #ea580c, #f97316); }
+        .from-mattia .msg-bubble    { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+        .from-mattia  { margin-left: auto; }
+        .from-system .msg-bubble {
+            background: var(--bg-card); font-style: italic;
+            max-width: 100%; text-align: center; border-radius: 8px;
+        }
+        .from-system { max-width: 100%; }
+
+        /* ── Reply banner ── */
+        .reply-banner {
+            display: none; align-items: center; gap: 8px;
+            padding: 6px 12px; background: rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.8em; color: var(--text-dim);
+        }
+        .reply-banner.active { display: flex; }
+        .reply-banner .reply-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .reply-cancel {
+            background: none; border: none; color: var(--text-dim);
+            cursor: pointer; font-size: 1.2em; padding: 0 4px;
+        }
+
+        /* ── Input area ── */
+        .input-area {
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 10px 12px; flex-shrink: 0;
+        }
+        .input-row { display: flex; gap: 8px; align-items: flex-end; }
+
+        .msg-input {
+            flex: 1; background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text); padding: 10px 14px; border-radius: 20px;
+            font-size: 0.95em; outline: none; resize: none;
+            font-family: inherit; max-height: 120px; line-height: 1.4;
+        }
+        .msg-input::placeholder { color: var(--text-dim); }
+        .msg-input:focus { border-color: rgba(255,255,255,0.3); }
+
+        .send-btn {
+            background: var(--accent); border: none; color: #000;
+            width: 40px; height: 40px; border-radius: 50%;
+            cursor: pointer; font-size: 1.2em;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: transform 0.15s;
+        }
+        .send-btn:active { transform: scale(0.9); }
+        .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* ── Auth overlay ── */
+        .auth-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+        .auth-box {
+            background: var(--bg-secondary); padding: 32px;
+            border-radius: 16px; text-align: center;
+            max-width: 360px; width: 90%;
+        }
+        .auth-box h2 { margin-bottom: 8px; }
+        .auth-box p { margin-bottom: 20px; color: var(--text-dim); font-size: 0.9em; }
+        .auth-input {
+            width: 100%; padding: 12px 16px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: var(--bg-card); color: var(--text);
+            font-size: 1em; margin-bottom: 12px; outline: none;
+        }
+        .auth-btn {
+            width: 100%; padding: 12px; border-radius: 12px; border: none;
+            background: var(--accent); color: #000; font-weight: 700;
+            font-size: 1em; cursor: pointer;
+        }
+        .auth-error { color: var(--danger); font-size: 0.85em; margin-top: 8px; }
+
+        /* ── Scrollbar ── */
+        .chat-area::-webkit-scrollbar { width: 4px; }
+        .chat-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+        .empty-state {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            height: 100%; color: var(--text-dim); gap: 8px;
+        }
+        .empty-state .emoji { font-size: 3em; }
+
+        @media (max-width: 600px) {
+            .msg-bubble { font-size: 0.9em; }
+            .message { max-width: 90%; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🏠 FRH Bot Chat</h1>
-            <p>Free River House - Bot Communication Hub</p>
-            <div class="status" id="bot-status">
-                <div class="bot-status online">🫧 Bubble</div>
-                <div class="bot-status online">🌊 Ondinho</div>
-                <div class="bot-status online">🦞 Clawdinho</div>
-            </div>
-        </header>
 
-        <div class="chat-container" id="chat">
-            <!-- Messages will be loaded here -->
-            <div class="message system">
-                <div class="message-content">Loading messages...</div>
-            </div>
-        </div>
-
-        <div class="webhook-log">
-            <h3>📡 Webhook Log</h3>
-            <div id="webhook-log">
-                <div class="webhook-entry">Waiting for webhook activity...</div>
-            </div>
-        </div>
+<!-- Auth overlay -->
+<div class="auth-overlay" id="auth-overlay" style="display:none">
+    <div class="auth-box">
+        <h2>🏠 House Chat</h2>
+        <p>Enter your token to join</p>
+        <input type="password" class="auth-input" id="auth-token" placeholder="Bearer token…" autocomplete="off">
+        <button class="auth-btn" id="auth-btn" onclick="doAuth()">Enter</button>
+        <div class="auth-error" id="auth-error"></div>
     </div>
+</div>
 
-    <button class="refresh-btn" onclick="loadMessages()">🔄 Refresh</button>
+<!-- Header -->
+<div class="header">
+    <div class="header-top">
+        <h1>🏠 House Chat</h1>
+        <span class="conn-badge off" id="conn-badge">…</span>
+    </div>
+    <div class="status-bar" id="status-bar"></div>
+</div>
 
-    <script>
-        const MESSAGES_URL = './messages.json';
-        const WEBHOOKS_URL = './webhooks.json';
+<!-- Chat -->
+<div class="chat-area" id="chat">
+    <div class="empty-state">
+        <div class="emoji">🏠</div><div>Loading…</div>
+    </div>
+</div>
 
-        async function loadMessages() {
-            try {
-                const res = await fetch(MESSAGES_URL + '?t=' + Date.now());
-                const messages = await res.json();
-                renderMessages(messages);
-            } catch (e) {
-                console.log('No messages yet');
+<!-- Reply banner -->
+<div class="reply-banner" id="reply-banner">
+    <span>↩ Replying to</span>
+    <span class="reply-text" id="reply-text"></span>
+    <button class="reply-cancel" onclick="cancelReply()">✕</button>
+</div>
+
+<!-- Input -->
+<div class="input-area">
+    <div class="input-row">
+        <textarea class="msg-input" id="msg-input" placeholder="Message…" rows="1"></textarea>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()" disabled>↑</button>
+    </div>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Config
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const API = window.location.origin;
+const WS_URL = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws`;
+const POLL_MS = 3000;
+const EMOJIS = { bubble:'🫧', ondinho:'🌊', clawdinho:'🦞', mattia:'👑', system:'🏠' };
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// State
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let token = localStorage.getItem('hc_token') || '';
+let senderName = '';
+let messages = [];          // { id, sender, content, created_at, reply_to }
+let maxSeenId = 0;
+let ws = null;
+let wsOk = false;
+let pollTimer = null;
+let isAtBottom = true;
+let replyToId = null;
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Init
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+window.addEventListener('DOMContentLoaded', () => {
+    if (!token) {
+        document.getElementById('auth-overlay').style.display = 'flex';
+        document.getElementById('auth-token').addEventListener('keydown', e => {
+            if (e.key === 'Enter') doAuth();
+        });
+    } else {
+        init();
+    }
+
+    const input = document.getElementById('msg-input');
+    input.addEventListener('input', () => {
+        input.style.height = 'auto';
+        input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+        document.getElementById('send-btn').disabled = !input.value.trim();
+    });
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+
+    const chat = document.getElementById('chat');
+    chat.addEventListener('scroll', () => {
+        isAtBottom = chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 50;
+    });
+});
+
+async function doAuth() {
+    const inp = document.getElementById('auth-token');
+    const err = document.getElementById('auth-error');
+    token = inp.value.trim();
+    if (!token) { err.textContent = 'Token required'; return; }
+
+    try {
+        const r = await fetch(`${API}/api/house/heartbeat`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (!r.ok) { err.textContent = 'Invalid token'; return; }
+        const d = await r.json();
+        senderName = d.bot;
+        localStorage.setItem('hc_token', token);
+        localStorage.setItem('hc_sender', senderName);
+        document.getElementById('auth-overlay').style.display = 'none';
+        init();
+    } catch (e) {
+        err.textContent = 'Server unreachable';
+    }
+}
+
+async function init() {
+    senderName = localStorage.getItem('hc_sender') || '';
+    connectWS();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// WebSocket
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function connectWS() {
+    if (ws) { ws.onclose = null; ws.close(); }
+
+    ws = new WebSocket(`${WS_URL}?token=${encodeURIComponent(token)}`);
+
+    ws.onopen = () => {
+        wsOk = true;
+        setConn('ws');
+        stopPoll();                 // WS active → no need to poll
+    };
+
+    ws.onmessage = (ev) => {
+        try {
+            const data = JSON.parse(ev.data);
+
+            if (data.type === 'history') {
+                messages = data.messages || [];
+                maxSeenId = messages.length ? messages[messages.length - 1].id : 0;
+                renderMessages();
             }
-        }
 
-        async function loadWebhooks() {
-            try {
-                const res = await fetch(WEBHOOKS_URL + '?t=' + Date.now());
-                const webhooks = await res.json();
-                renderWebhooks(webhooks);
-            } catch (e) {
-                console.log('No webhooks yet');
+            if (data.type === 'message') {
+                const m = data.message;
+                if (m.id > maxSeenId) {
+                    messages.push(m);
+                    maxSeenId = m.id;
+                    appendMessage(m);
+                }
             }
+
+            if (data.type === 'status') {
+                renderStatus(data.bots);
+            }
+        } catch {}
+    };
+
+    ws.onclose = () => {
+        wsOk = false;
+        setConn('off');
+        startPoll();                // fallback to REST polling
+        setTimeout(connectWS, 3000);   // auto-reconnect
+    };
+
+    ws.onerror = () => { ws.close(); };
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// REST polling (fallback)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function startPoll() {
+    if (pollTimer) return;
+    pollTimer = setInterval(pollMessages, POLL_MS);
+    pollMessages();
+}
+
+function stopPoll() {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+}
+
+async function pollMessages() {
+    try {
+        const url = maxSeenId
+            ? `${API}/api/house/messages?after_id=${maxSeenId}&limit=200`
+            : `${API}/api/house/messages?limit=100`;
+
+        const r = await fetch(url);
+        if (!r.ok) { setConn('off'); return; }
+        setConn('poll');
+
+        const d = await r.json();
+        if (maxSeenId === 0) {
+            messages = d.messages;
+            maxSeenId = messages.length ? messages[messages.length - 1].id : 0;
+            renderMessages();
+        } else if (d.messages.length) {
+            for (const m of d.messages) {
+                if (m.id > maxSeenId) {
+                    messages.push(m);
+                    maxSeenId = m.id;
+                }
+            }
+            renderMessages();
         }
+    } catch { setConn('off'); }
+}
 
-        function renderMessages(messages) {
-            const chat = document.getElementById('chat');
-            chat.innerHTML = messages.map(m => `
-                <div class="message ${m.from.toLowerCase()}">
-                    <div class="message-header">
-                        <span class="message-author">${getEmoji(m.from)} ${m.from}</span>
-                        <span class="message-time">${formatTime(m.timestamp)}</span>
-                    </div>
-                    <div class="message-content">${escapeHtml(m.content)}</div>
-                </div>
-            `).join('');
-            chat.scrollTop = chat.scrollHeight;
+async function pollStatusREST() {
+    try {
+        const r = await fetch(`${API}/api/house/status`);
+        if (r.ok) renderStatus((await r.json()).bots);
+    } catch {}
+}
+
+// Poll status every 15s when on REST fallback
+setInterval(() => { if (!wsOk) pollStatusREST(); }, 15000);
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Send
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function sendMessage() {
+    const input = document.getElementById('msg-input');
+    const content = input.value.trim();
+    if (!content) return;
+
+    document.getElementById('send-btn').disabled = true;
+
+    if (wsOk && ws.readyState === WebSocket.OPEN) {
+        // Send via WebSocket
+        ws.send(JSON.stringify({ type: 'message', content, reply_to: replyToId }));
+        input.value = '';
+        input.style.height = 'auto';
+        cancelReply();
+        return;
+    }
+
+    // Fallback to REST
+    try {
+        const r = await fetch(`${API}/api/house/messages`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ content, reply_to: replyToId }),
+        });
+        if (r.ok) {
+            input.value = '';
+            input.style.height = 'auto';
+            cancelReply();
+            const d = await r.json();
+            if (d.message && d.message.id > maxSeenId) {
+                messages.push(d.message);
+                maxSeenId = d.message.id;
+                appendMessage(d.message);
+            }
+        } else {
+            const d = await r.json().catch(() => ({}));
+            alert(d.error || 'Failed to send');
         }
+    } catch { alert('Connection error'); }
 
-        function renderWebhooks(webhooks) {
-            const log = document.getElementById('webhook-log');
-            log.innerHTML = webhooks.slice(-10).map(w => `
-                <div class="webhook-entry">
-                    ${formatTime(w.timestamp)} | ${w.from} → ${w.to} | ${w.status}
-                </div>
-            `).join('');
+    document.getElementById('send-btn').disabled = !input.value.trim();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Reply
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function setReply(id) {
+    const msg = messages.find(m => m.id === id);
+    if (!msg) return;
+    replyToId = id;
+    document.getElementById('reply-text').textContent =
+        `${msg.sender}: ${msg.content.slice(0, 60)}${msg.content.length > 60 ? '…' : ''}`;
+    document.getElementById('reply-banner').classList.add('active');
+    document.getElementById('msg-input').focus();
+}
+
+function cancelReply() {
+    replyToId = null;
+    document.getElementById('reply-banner').classList.remove('active');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Render
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderMessages() {
+    const chat = document.getElementById('chat');
+    if (!messages.length) {
+        chat.innerHTML = `<div class="empty-state"><div class="emoji">🏠</div><div>No messages yet — say hi!</div></div>`;
+        return;
+    }
+
+    let html = '';
+    let lastDate = '', lastSender = '';
+
+    for (const m of messages) {
+        html += buildMsgHTML(m, lastDate, lastSender);
+        const d = fmtDate(m.created_at);
+        if (d !== lastDate) { lastDate = d; lastSender = ''; }
+        lastSender = (m.sender || 'System').toLowerCase();
+        lastDate = fmtDate(m.created_at);
+    }
+
+    chat.innerHTML = html;
+    if (isAtBottom) chat.scrollTop = chat.scrollHeight;
+}
+
+function appendMessage(m) {
+    const chat = document.getElementById('chat');
+
+    // Remove empty state if present
+    const empty = chat.querySelector('.empty-state');
+    if (empty) empty.remove();
+
+    const lastSender = messages.length >= 2
+        ? (messages[messages.length - 2]?.sender || '').toLowerCase()
+        : '';
+    const lastDate = messages.length >= 2
+        ? fmtDate(messages[messages.length - 2]?.created_at)
+        : '';
+
+    chat.insertAdjacentHTML('beforeend', buildMsgHTML(m, lastDate, lastSender));
+    if (isAtBottom) chat.scrollTop = chat.scrollHeight;
+}
+
+function buildMsgHTML(m, prevDate, prevSender) {
+    const d = new Date(m.created_at?.replace(' ', 'T') + (m.created_at?.includes('Z') ? '' : 'Z'));
+    const dateStr = fmtDate(m.created_at);
+    const from = (m.sender || 'System').toLowerCase();
+    const sameSender = from === prevSender && dateStr === prevDate;
+    const timeStr = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', hour12:false });
+    const emoji = EMOJIS[from] || '🤖';
+    const content = renderMarkdown(m.content || '');
+
+    let html = '';
+    if (dateStr !== prevDate) {
+        html += `<div class="date-divider"><span>${dateStr}</span></div>`;
+    }
+
+    // reply bar
+    let replyBar = '';
+    if (m.reply_to) {
+        const orig = messages.find(x => x.id === m.reply_to);
+        if (orig) {
+            const snip = (orig.content || '').slice(0, 50);
+            replyBar = `<div class="msg-reply-bar" onclick="scrollToMsg(${orig.id})">↩ ${orig.sender}: ${escHtml(snip)}</div>`;
         }
+    }
 
-        function getEmoji(from) {
-            const emojis = { bubble: '🫧', ondinho: '🌊', clawdinho: '🦞', mattia: '👑' };
-            return emojis[from.toLowerCase()] || '🤖';
-        }
+    html += `<div class="message from-${from} ${sameSender ? 'same-sender' : ''}" data-id="${m.id}">`;
+    html += `<div class="msg-bubble" ondblclick="setReply(${m.id})">`;
+    if (!sameSender) {
+        html += `<div class="msg-header">
+            <span class="msg-author">${emoji} ${m.sender || 'System'}</span>
+            <span class="msg-time">${timeStr}</span>
+            <span class="msg-id">#${m.id}</span>
+        </div>`;
+    }
+    html += replyBar;
+    html += `<div class="msg-content">${content}</div>`;
+    html += `</div></div>`;
+    return html;
+}
 
-        function formatTime(ts) {
-            return new Date(ts).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        }
+function scrollToMsg(id) {
+    const el = document.querySelector(`[data-id="${id}"]`);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.style.outline = '2px solid rgba(255,255,255,0.4)';
+        setTimeout(() => el.style.outline = '', 1500);
+    }
+}
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+function fmtDate(ts) {
+    if (!ts) return '';
+    const d = new Date(ts?.replace(' ', 'T') + (ts?.includes('Z') ? '' : 'Z'));
+    return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+}
 
-        // Auto-refresh every 10 seconds
-        setInterval(() => {
-            loadMessages();
-            loadWebhooks();
-        }, 10000);
+function renderMarkdown(text) {
+    let s = escHtml(text);
+    s = s.replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/__(.+?)__/g, '<strong>$1</strong>');
+    s = s.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/@(Mattia|Bubble|Ondinho|Clawdinho|everyone)/gi, '<span class="mention">@$1</span>');
+    return s;
+}
 
-        // Initial load
-        loadMessages();
-        loadWebhooks();
-    </script>
+function escHtml(t) {
+    return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Status
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderStatus(bots) {
+    const bar = document.getElementById('status-bar');
+    bar.innerHTML = bots.map(b => {
+        const k = b.name.toLowerCase();
+        const cls = b.online ? 'online' : 'offline';
+        return `<div class="bot-pill ${cls}"><span class="dot"></span>${EMOJIS[k]||'🤖'} ${b.name}</div>`;
+    }).join('');
+}
+
+function setConn(state) {
+    const el = document.getElementById('conn-badge');
+    el.className = 'conn-badge ' + state;
+    el.textContent = state === 'ws' ? 'LIVE' : state === 'poll' ? 'POLL' : 'OFF';
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Visibility — slow poll when hidden
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && !wsOk) pollMessages();
+});
+
+// WS heartbeat every 2 min to stay "online"
+setInterval(() => {
+    if (wsOk && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'heartbeat' }));
+    }
+}, 120_000);
+</script>
 </body>
 </html>

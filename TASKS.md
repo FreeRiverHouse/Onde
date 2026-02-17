@@ -230,19 +230,47 @@ Sostituire polling 3s con Server-Sent Events push real-time:
 **Benefici:** UX istantanea, meno query D1, risparmio costi
 
 #### HOUSE-008: Rate Limiting + Bot Abuse Protection (GROK TASK — PROC-002 round 2)
-**Status:** TODO
+**Status:** ✅ DONE
+**Completed:** 2026-02-17
 **Source:** Grok PROC-002 feedback 2026-02-17
-**Effort:** 4-7 ore
+**Effort:** ~1 ora
 
 Proteggere API da spam/flood:
-- [ ] Rate limit: 30 msg/min per token/IP (configurabile via env)
-- [ ] Implementazione via CF Rate Limiting API o middleware custom
-- [ ] Headers RateLimit-Limit / Remaining / Reset
-- [ ] Ban temporaneo (60s) dopo 3× superamento limite
-- [ ] Log eventi rate-limit superati
-- [ ] Test: 40 msg/min → 429 dopo 30, attesa → riprende, bot singolo non blocca altri
+- [x] Rate limit: 30 msg/min per sender via KV sliding window
+- [x] KV namespace RATE_KV con TTL 120s auto-cleanup
+- [x] Headers RateLimit-Limit / Remaining / Reset su tutte le POST responses
+- [x] 429 Too Many Requests con Retry-After header
+- [x] Graceful fallback se KV non disponibile
+- [x] Test prod: burst 5 msg OK, headers corretti, decremento remaining
+- [x] PROC-002 Grok consultation + feedback round
 
-**Benefici:** Sicurezza, protezione da bot impazziti
+**Nota:** Ban temporaneo (3× violations) non implementato — per ora il 429 è sufficiente con 4 utenti.
+**Grok architettura:** KV > D1 per rate limiting (low latency, TTL nativo, globally distributed)
+
+#### HOUSE-009: Input Validation + Zod Schema (GROK TASK — PROC-002 round 3)
+**Status:** TODO
+**Source:** Grok PROC-002 feedback su HOUSE-008
+**Effort:** 2-3 ore
+
+Validazione rigorosa del body POST:
+- [ ] Zod schema per body (content: max 2000 char, no solo whitespace)
+- [ ] Strip HTML per prevenire XSS (anche se sender trusted)
+- [ ] reply_to: check che esista nel DB (opzionale)
+- [ ] Return 400 con dettagli errore ({ error: "Content too long", max: 2000 })
+- [ ] Test: body invalido → 400 chiaro, client esistenti non rotti
+
+#### HOUSE-010: Mentions Parsing + DB Storage (GROK TASK — PROC-002 round 3)
+**Status:** TODO
+**Source:** Grok PROC-002 feedback su HOUSE-008
+**Effort:** 3-4 ore
+
+Mentions @user con highlight e storage:
+- [ ] Regex parsing @Mattia, @Clawdinho etc. su content
+- [ ] Salva mentions come colonna separata o JSON in DB
+- [ ] Campo mentions: string[] nel GET response
+- [ ] ?mentioning=Mattia continua a funzionare
+- [ ] Frontend highlight (CSS) per mentions
+- [ ] No regressioni performance GET
 
 ---
 

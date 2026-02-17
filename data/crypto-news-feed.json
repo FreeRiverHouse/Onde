@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-17T10:00:04.467269+00:00",
+  "timestamp": "2026-02-17T18:00:03.808377+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,18 +11,165 @@
   "article_count": 30,
   "results": [
     {
-      "title": "SBI Holdings targets majority stake in Singapore crypto exchange Coinhako",
-      "url": "https://cointelegraph.com/news/sbi-holdings-majority-stake-singapore-crypto-exchange-coinhako?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Japan\u2019s SBI Holdings has signed a letter of intent to buy a controlling stake in Singapore-licensed crypto exchange Coinhako.",
-      "published": "2026-02-17T07:45:49+00:00"
+      "title": "Satoshi\u2019s Exercise for the Reader",
+      "url": "https://bitcoinmagazine.com/print/satoshis-exercise-for-the-reader",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Satoshi\u2019s Exercise for the Reader The Bitcoin whitepaper is clear about Bitcoin\u2019s core feature: it is permissionless. Anyone in the world can pay anyone by joining the peer-to-peer network and broadcasting a transaction. Proof of Work consensus even empowers anybody to become a block producer, and means that the only way to reverse a payment is to overpower everyone else [&#8230;] This post Satoshi\u2019s Exercise for the Reader first appeared on Bitcoin Magazine and is written by Gl",
+      "published": "2026-02-17T17:50:41+00:00"
     },
     {
-      "title": "Stablecoins gain ground for paychecks and daily spending: BVNK report",
-      "url": "https://cointelegraph.com/news/bvnk-survey-finds-growing-use-of-stablecoins-for-income-and-everyday-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Top crypto treasury companies Strategy and Bitmine add to BTC, ETH stacks",
+      "url": "https://cointelegraph.com/news/top-crypto-treasury-companies-strategy-and-bitmine-add-to-btc-eth-stacks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "A global survey of 4,658 crypto users found 39% receive income in stablecoins and 27% use them for payments, with stronger adoption in emerging markets.",
-      "published": "2026-02-17T07:00:00+00:00"
+      "description": "The buys lift Strategy holdings to 717,131 BTC and Bitmine to 4.37 million ETH, expanding corporate crypto treasuries despite continued market weakness.",
+      "published": "2026-02-17T17:46:15+00:00"
+    },
+    {
+      "title": "Macro headwinds test Bitcoin price as $70K crumbles amid US market volatility",
+      "url": "https://cointelegraph.com/news/macro-headwinds-test-bitcoin-price-as-dollar70k-crumbles-amid-us-market-volatility?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin bulls\u2019 attempt to break above $70,000 stalled after a key US macroeconomic \u201cfear\u201d metric broke a critical threshold. Is a revisit to BTC's yearly lows back in play?",
+      "published": "2026-02-17T17:15:00+00:00"
+    },
+    {
+      "title": "Tom Lee Expects 'Defining Year for Ethereum' as BitMine Buys ETH Amid 'Rock Bottom' Vibes",
+      "url": "https://decrypt.co/358322/tom-lee-defining-year-ethereum-bitmine-buys-eth-rock-bottom-vibes",
+      "source": "decrypt",
+      "description": "BitMine Immersion Technologies is sitting on a nearly $8 billion unrealized loss, but Tom Lee remains optimistic about Ethereum.",
+      "published": "2026-02-17T16:54:18+00:00"
+    },
+    {
+      "title": "Nakamoto to acquire BTC Inc, UTXO in $107M all-stock deal",
+      "url": "https://cointelegraph.com/news/nakamoto-inc-btc-inc-utxo-acquisitions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Nakamoto will acquire BTC Inc and UTXO in an all-stock deal, consolidating Bitcoin media, events and asset management under one Nasdaq-listed company.",
+      "published": "2026-02-17T16:53:20+00:00"
+    },
+    {
+      "title": "Gemini post-IPO shakeup sees exit of three top executives",
+      "url": "https://cointelegraph.com/news/gemini-space-station-executives-departing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The exchange's chief legal officer, chief operating officer and chief financial officer are out and Cameron Winkelvoss will take on more responsibilities.",
+      "published": "2026-02-17T16:43:53+00:00"
+    },
+    {
+      "title": "South Korea lifts 9-year corporate crypto ban: What the policy change means",
+      "url": "https://cointelegraph.com/news/south-korea-lifts-9-year-corporate-crypto-ban-what-the-policy-change-means?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "South Korea reopens crypto to corporations with strict caps and asset limits. This is part of a broader strategy that includes stablecoin legislation and potential spot crypto ETFs.",
+      "published": "2026-02-17T16:27:57+00:00"
+    },
+    {
+      "title": "Is the Netherlands Taxing Unrealized Crypto Gains? It's Complicated",
+      "url": "https://decrypt.co/358312/is-the-netherlands-taxing-unrealized-crypto-gains-its-complicated",
+      "source": "decrypt",
+      "description": "From 2028, the Netherlands will update how tax is calculated on unrealized gains. Crypto critics are in uproar\u2014but the reality is nuanced.",
+      "published": "2026-02-17T16:15:59+00:00"
+    },
+    {
+      "title": "Strategy\u2019s Bitcoin Buying Accelerates as $48 Billion BTC Stash Sits Underwater",
+      "url": "https://decrypt.co/358313/strategys-bitcoin-buying-accelerates-48-billion-btc-stash-underwater",
+      "source": "decrypt",
+      "description": "Strategy reported its fourth-largest Bitcoin purchase of the year, a week after Michael Saylor's defense of the company's became a meme.",
+      "published": "2026-02-17T16:13:42+00:00"
+    },
+    {
+      "title": "Bitcoin price ignores $168M Strategy buy, and falls as Iran tensions escalate",
+      "url": "https://cointelegraph.com/news/bitcoin-price-ignores-dollar168m-strategy-buy-and-falls-as-iran-tensions-escalate?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "BTC price fell below the key $70,000 level as tensions between the US and Iran ramped up and a broad risk-asset sell-off liquidated late BTC long positions.",
+      "published": "2026-02-17T16:13:21+00:00"
+    },
+    {
+      "title": "Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing",
+      "url": "https://bitcoinmagazine.com/news/ai-warda-raises-ibit-bitcoin-etf-stake",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing Abu Dhabi\u2019s Al Warda Investments increased its bitcoin exposure via BlackRock\u2019s IBIT to 8.2 million shares by the end of 2025. This post Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-17T15:58:51+00:00"
+    },
+    {
+      "title": "ZeroLend Latest DeFi Platform to Shut Down Amid Liquidity, Revenue Pressures",
+      "url": "https://decrypt.co/358304/zerolend-latest-defi-platform-to-shut-down-amid-liquidity-revenue-pressures",
+      "source": "decrypt",
+      "description": "ZeroLend cited an inability to \"generate sustainable revenue\" as it became the latest DeFi platform to wind down amid the ongoing slump.",
+      "published": "2026-02-17T15:33:31+00:00"
+    },
+    {
+      "title": "'See You in Court': CFTC Chair Defends Jurisdiction as States Fight Prediction Markets",
+      "url": "https://decrypt.co/358301/cftc-chair-exclusive-jurisdiction-prediction-markets",
+      "source": "decrypt",
+      "description": "CFTC Chairman Michael Selig hit back at states that have been challenging its authority to regulate prediction markets.",
+      "published": "2026-02-17T15:07:57+00:00"
+    },
+    {
+      "title": "Starknet adds EY Nightfall to enable private payments on Ethereum rails",
+      "url": "https://cointelegraph.com/news/starknet-taps-ey-nightfall-institutional-grade-privacy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "StarkWare is integrating EY\u2019s Nightfall privacy protocol into Starknet to give institutions private payments and DeFi access on public Ethereum-aligned rails, while preserving auditability.",
+      "published": "2026-02-17T15:00:00+00:00"
+    },
+    {
+      "title": "Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC",
+      "url": "https://bitcoinmagazine.com/news/strategy-mstr-buys-168m-in-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC Strategy bought $168.4 million in Bitcoin last week, continuing its long-running accumulation strategy. This post Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-17T14:39:23+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-17T14:29:42+00:00"
+    },
+    {
+      "title": "Monad hires former FalconX, BVNK and Optimism executives",
+      "url": "https://cointelegraph.com/news/monad-hires-ex-falconx-bvnk-and-optimism-executives-to-drive-institutional-expansion-post-mainnet-embargo-feb-17?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The appointments add traditional finance and institutional crypto experience as the layer-1 blockchain scales its post-launch strategy.",
+      "published": "2026-02-17T14:00:00+00:00"
+    },
+    {
+      "title": "Binance holds 65% of CEX stablecoin reserves as outflows cool: CryptoQuant",
+      "url": "https://cointelegraph.com/news/stablecoin-outflows-slow-binance-65-cex-usdt-usdc-reserves?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Stablecoin outflows slow to $2 billion as Binance consolidates 65% of CEX liquidity, signaling capital concentration even amid the ongoing crypto bear market.",
+      "published": "2026-02-17T13:55:26+00:00"
+    },
+    {
+      "title": "Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management",
+      "url": "https://bitcoinmagazine.com/featured/nakamoto-to-acquire-btcinc-utxo-management",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management Nakamoto Inc. announced today that it has entered into merger agreements to acquire BTC Inc. and UTXO Management GP, LLC. This post Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management first appeared on Bitcoin Magazine and is written by Nik and Micah Zimmerman.",
+      "published": "2026-02-17T13:38:09+00:00"
+    },
+    {
+      "title": "Morning Minute: Harvard Sells Bitcoin for Ethereum",
+      "url": "https://decrypt.co/358291/morning-minute-harvard-sells-bitcoin-for-ethereum",
+      "source": "decrypt",
+      "description": "Harvard's rotation from Bitcoin to ETH has raised the primary question\u2014what do they know?",
+      "published": "2026-02-17T13:32:31+00:00"
+    },
+    {
+      "title": "Congressman Calls for Review of Overseas Support for Autonomous Vehicles",
+      "url": "https://decrypt.co/358267/congressman-overseas-support-autonomous-vehicles",
+      "source": "decrypt",
+      "description": "The request marks a shift from Capitol Hill questioning to formal regulatory pressure, as lawmakers raise concerns about safety, accountability, and national security.",
+      "published": "2026-02-17T13:01:02+00:00"
+    },
+    {
+      "title": "Hardware Wallet Owners Hit With Snail Mail Phishing Campaign",
+      "url": "https://decrypt.co/358290/hardware-wallet-owners-hit-with-snail-mail-phishing-campaign",
+      "source": "decrypt",
+      "description": "The paper mailers mimic Ledger and Trezor branding and device update themes to push users toward malicious verification sites.",
+      "published": "2026-02-17T12:47:08+00:00"
+    },
+    {
+      "title": "Ireland's Data Watchdog Joins Global Regulators Probing X Over AI Image Risks",
+      "url": "https://decrypt.co/358270/irelands-data-watchdog-joins-global-regulators-probing-x-over-ai-image-risks",
+      "source": "decrypt",
+      "description": "The probe will examine Grok\u2019s AI image processing for lawful use, built-in safeguards, and impact assessments.",
+      "published": "2026-02-17T10:40:17+00:00"
     },
     {
       "title": "Steak 'n Shake Says Bitcoin Has Lifted Sales 'Dramatically' in 9 Months",
@@ -30,97 +177,6 @@
       "source": "decrypt",
       "description": "The fast-food chain says bitcoin payments have boosted sales, as it channels crypto receipts into a growing corporate reserve.",
       "published": "2026-02-17T06:47:41+00:00"
-    },
-    {
-      "title": "Polygon daily fees flip Ethereum amid prediction market boom",
-      "url": "https://cointelegraph.com/news/polygon-flips-ethereum-in-daily-transaction-fees?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Polygon briefly surpassed Ethereum in daily fees as Polymarket activity surged, highlighting shifting user demand toward Layer-2 networks.",
-      "published": "2026-02-17T06:45:00+00:00"
-    },
-    {
-      "title": "DeFi lender ZeroLend shuts down, blames illiquid chains",
-      "url": "https://cointelegraph.com/news/crypto-protocol-zerolend-shuts-down-no-longer-sustainable?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "ZeroLend founder \u201cRyker\u201d says several blockchains the lending protocol operates on are now \u201cinactive,\u201d leading to periods where it has operated at a loss.",
-      "published": "2026-02-17T06:19:28+00:00"
-    },
-    {
-      "title": "Kraken Backs 'Trump Accounts' for Wyoming Newborns",
-      "url": "https://decrypt.co/358258/kraken-wyomings-trump-accounts",
-      "source": "decrypt",
-      "description": "The move reflects a broader effort by crypto firms to lock in regulatory goodwill through long-term political and geographic alignment.",
-      "published": "2026-02-17T05:44:08+00:00"
-    },
-    {
-      "title": "Crypto sentiment hits extreme fear as Matrixport flags possible bottom",
-      "url": "https://cointelegraph.com/news/extreme-fear-sentiment-suggests-market-inflection-point-matrixport?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "With Bitcoin sentiment at four-year lows, analysts have flagged historic oversold signals and potential seller exhaustion.",
-      "published": "2026-02-17T05:16:56+00:00"
-    },
-    {
-      "title": "Bitcoin\u2019s Long-Term Holders Show Signs of Strain After February Sell-Off",
-      "url": "https://decrypt.co/358260/bitcoins-long-term-holders-signs-of-strain-february-sell-off",
-      "source": "decrypt",
-      "description": "Bitcoin's long-term holders show weakening accumulation, with on-chain data pointing to $54,000 as the next support if $65,000 breaks.",
-      "published": "2026-02-17T04:30:46+00:00"
-    },
-    {
-      "title": "Kraken sponsors Trump Accounts in Wyoming, citing crypto alignment",
-      "url": "https://cointelegraph.com/news/kraken-sponsors-2026-trump-accounts-in-wyoming-citing-crypto-alignment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The Wyoming-based crypto exchange said it wanted to give back to the state it calls home, which it chose for its \u201cresponsible\u201d approach to crypto regulation.",
-      "published": "2026-02-17T04:18:37+00:00"
-    },
-    {
-      "title": "Crypto.com receives ISO/IEC 42001 AI certification as it expands its AI business",
-      "url": "https://cointelegraph.com/news/crypto-com-ai-certification-push-ahead-with-ai-expansion?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Crypto.com is expanding AI services as one of its three core business lines, amid broader industry adoption of the technology.",
-      "published": "2026-02-17T04:17:56+00:00"
-    },
-    {
-      "title": "Crypto phishers are sending letters to Trezor, Ledger users again",
-      "url": "https://cointelegraph.com/news/scammers-send-physical-letters-trezor-ledger-users-again?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "It's not the first time scammers have used snail mail to target victims of hardware wallet company data breaches from years ago.",
-      "published": "2026-02-17T03:22:34+00:00"
-    },
-    {
-      "title": "Philippines' Digital Bank Maya Looks to US Market for Up to $1B IPO",
-      "url": "https://decrypt.co/358255/philippines-digital-bank-maya-us-1b-ipo",
-      "source": "decrypt",
-      "description": "A U.S. venue could offer deeper capital access as investors weigh the bank\u2019s regulated crypto business against its core banking operations.",
-      "published": "2026-02-17T03:17:07+00:00"
-    },
-    {
-      "title": "Logan Paul sells Pok\u00e9mon card for $16.5M, years after fractional NFT row",
-      "url": "https://cointelegraph.com/news/logan-paul-sells-pokemon-card-record-16-million?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Paul once fractionalized ownership of the rare Pok\u00e9mon card on Liquid Marketplace in 2022 before the website went offline, leading to a lawsuit as investors demanded returns.",
-      "published": "2026-02-17T02:04:57+00:00"
-    },
-    {
-      "title": "Germany\u2018s central bank president touts stablecoin and CBDC benefits for EU",
-      "url": "https://cointelegraph.com/news/germany-central-bank-president-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Joachim Nagel said euro-pegged stablecoins would offer the bloc more independence from US dollar-pegged coins soon to be allowed under the GENIUS Act.",
-      "published": "2026-02-16T21:56:24+00:00"
-    },
-    {
-      "title": "Crypto Trading Isn\u2019t Coming to Elon Musk's X (Yet), Says Product Head",
-      "url": "https://decrypt.co/358229/crypto-trading-isnt-coming-elon-musk-x",
-      "source": "decrypt",
-      "description": "The company\u2019s \u201cSmart Cashtag\u201d feature is aimed at crypto enthusiasts, but the platform won't facilitate trades directly.",
-      "published": "2026-02-16T20:27:46+00:00"
-    },
-    {
-      "title": "Bitcoin on Pace for Longest Losing Streak Since 2018 Bear Market",
-      "url": "https://decrypt.co/358184/bitcoin-longest-losing-streak-2018-bear-market",
-      "source": "decrypt",
-      "description": "The selling simply won't stop. If February closes red, Bitcoin will register five consecutive red months, the longest streak in seven years.",
-      "published": "2026-02-16T19:10:17+00:00"
     },
     {
       "title": "Metaplanet Reports $619 Million Loss as Bitcoin Holdings Take Hit",
@@ -137,39 +193,11 @@
       "published": "2026-02-16T18:21:12+00:00"
     },
     {
-      "title": "Vitalik Buterin: Hedging on Prediction Markets Could 'Replace Fiat Currency'",
-      "url": "https://decrypt.co/358165/vitalik-buterin-hedging-on-prediction-markets-could-replace-fiat-currency",
-      "source": "decrypt",
-      "description": "The Ethereum co-founder argues that prediction markets\u2019 current focus on short-term crypto bets is putting them on a path to \u2018corposlop.\u2019",
-      "published": "2026-02-16T17:30:21+00:00"
-    },
-    {
-      "title": "Metaplanet Posts $605 Million Loss After Spending Billions on Bitcoin",
-      "url": "https://decrypt.co/358163/metaplanet-605-million-loss-billions-bitcoin",
-      "source": "decrypt",
-      "description": "The firm signaled that it\u2019s embracing preferred shares.",
-      "published": "2026-02-16T17:27:52+00:00"
-    },
-    {
       "title": "Payjoin Foundation Gains 501(c)(3) Status, Enabling Tax-Deductible Donations for Bitcoin Privacy Development",
       "url": "https://bitcoinmagazine.com/business/payjoin-foundation-gains-501c3-status-enabling-tax-deductible-donations-for-bitcoin-privacy-development",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Payjoin Foundation Gains 501(c)(3) Status, Enabling Tax-Deductible Donations for Bitcoin Privacy Development Payjoin Foundation, the nonprofit behind the Payjoin Dev Kit, has secured 501(c)(3) status from the IRS, making U.S. donations tax-deductible and accelerating development of privacy-enhancing Bitcoin protocols. This post Payjoin Foundation Gains 501(c)(3) Status, Enabling Tax-Deductible Donations for Bitcoin Privacy Development first appeared on Bitcoin Magazine and is wr",
       "published": "2026-02-16T16:49:49+00:00"
-    },
-    {
-      "title": "Bitcoin 'Boom-Bust' Era Is Over as Institutions Take the Lead: WisdomTree",
-      "url": "https://decrypt.co/358152/bitcoin-boom-bust-era-over-institutions-take-lead-wisdomtree",
-      "source": "decrypt",
-      "description": "Crypto's adolescence is over\u2014and institutional capital is changing the rules of engagement, says WisdomTree's latest market analysis.",
-      "published": "2026-02-16T16:40:48+00:00"
-    },
-    {
-      "title": "Harvard Cuts Bitcoin ETF Stake, Adds Ethereum Exposure in Q4 Filing",
-      "url": "https://decrypt.co/358162/harvard-cuts-bitcoin-etf-stake-adds-ethereum-exposure-in-q4-filing",
-      "source": "decrypt",
-      "description": "Harvard Management Company trimmed its Bitcoin ETF position while starting a new stake in a spot Ethereum fund.",
-      "published": "2026-02-16T16:31:02+00:00"
     },
     {
       "title": "Trump Family-Backed American Bitcoin Keeps Stacking Bitcoin, Holdings Pass 6,000 BTC",
@@ -191,34 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Reclaims $70,000 After Deep February Slide After a rough sell-off that dragged BTC near $60,000, the bitcoin price has rebounded above $70,000. This post Bitcoin Price Reclaims $70,000 After Deep February Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-15T05:00:44+00:00"
-    },
-    {
-      "title": "How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners",
-      "url": "https://bitcoinmagazine.com/business/how-silent-link-solves-sim-swap-risks-and-roaming-hassles-for-traveling-bitcoiners",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners Silent.Link eliminates SIM-swap attacks via eSIM backup codes and automates seamless roaming across 160+ countries, bypassing censorship like China's Great Firewall. This post How Silent.Link Solves SIM-Swap Risks and Roaming Hassles for Traveling Bitcoiners first appeared on Bitcoin Magazine and is written by Juan Galt.",
-      "published": "2026-02-13T21:11:47+00:00"
-    },
-    {
-      "title": "Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump\u00a0",
-      "url": "https://bitcoinmagazine.com/markets/coinbase-surges-18-strategy-mstr-jumps",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump Crypto-linked stocks jumped as Coinbase (COIN) surged 18% and Strategy (MSTR) rose 10%, fueled by a rebound in Bitcoin and renewed investor interest in digital-asset exposure. This post Coinbase (COIN) Surges 18%, Strategy (MSTR) Jumps 10% as Crypto Stocks Jump first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T20:58:12+00:00"
-    },
-    {
-      "title": "White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill",
-      "url": "https://bitcoinmagazine.com/news/white-house-trillions-waiting-crypto",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill The White House executive director said trillions are poised to enter Bitcoin and crypto, emphasizing ongoing work on a market structure bill. This post White House Executive Director: Trillions Are Waiting To Enter Bitcoin And Crypto, Working Hard on Market Structure Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T18:22:28+00:00"
-    },
-    {
-      "title": "Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years",
-      "url": "https://bitcoinmagazine.com/news/brazil-proposes-national-bitcoin-reserve",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years Brazilian lawmakers have reintroduced a bill proposing the creation of a Strategic Sovereign Bitcoin Reserve (RESBit) to acquire one million Bitcoin over five years. This post Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-13T16:58:53+00:00"
     }
   ]
 }

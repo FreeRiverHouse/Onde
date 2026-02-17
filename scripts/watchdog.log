@@ -16423,3 +16423,111 @@
 [2026-02-17 02:15:00] ✅ Autotrader started with PID 5472
 [2026-02-17 02:20:00] ✅ Autotrader is running
 [2026-02-17 02:20:00] ✅ Autotrader is running
+[2026-02-17 07:50:01] ⚠️ Autotrader NOT running!
+[2026-02-17 07:50:01] ⚠️ Autotrader NOT running!
+[2026-02-17 07:50:01] 🛑 CIRCUIT BREAKER TRIPPED - 4 restarts/hour
+[2026-02-17 07:50:01] 🛑 CIRCUIT BREAKER TRIPPED - 4 restarts/hour
+[2026-02-17 07:50:01] 🛑 NOT restarting - circuit breaker active
+[2026-02-17 07:50:01] 🛑 NOT restarting - circuit breaker active
+[2026-02-17 07:55:00] ⚠️ Autotrader NOT running!
+[2026-02-17 07:55:00] ⚠️ Autotrader NOT running!
+[2026-02-17 07:55:00] 🛑 CIRCUIT BREAKER TRIPPED - 4 restarts/hour
+[2026-02-17 07:55:00] 🛑 CIRCUIT BREAKER TRIPPED - 4 restarts/hour
+[2026-02-17 07:55:00] 🛑 NOT restarting - circuit breaker active
+[2026-02-17 07:55:00] 🛑 NOT restarting - circuit breaker active
+[2026-02-17 08:00:02] ✅ Autotrader is running
+[2026-02-17 08:00:02] ✅ Autotrader is running
+[2026-02-17 08:00:02] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 08:00:02] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 08:05:01] ⚠️ Autotrader NOT running!
+[2026-02-17 08:05:01] ⚠️ Autotrader NOT running!
+[2026-02-17 08:05:01] 📢 Crash alert created
+[2026-02-17 08:05:01] 📢 Crash alert created
+[2026-02-17 08:05:01] 🚀 Starting Kalshi Autotrader...
+[2026-02-17 08:05:01] 🚀 Starting Kalshi Autotrader...
+[2026-02-17 08:05:01] ✅ Autotrader started with PID 42017
+[2026-02-17 08:05:01] ✅ Autotrader started with PID 42017
+[2026-02-17 08:10:01] ⚠️ Autotrader NOT running!
+[2026-02-17 08:10:01] ⚠️ Autotrader NOT running!
+[2026-02-17 08:10:01] 📢 Crash alert skipped (cooldown active)
+[2026-02-17 08:10:01] 📢 Crash alert skipped (cooldown active)
+[2026-02-17 08:10:01] 🚀 Starting Kalshi Autotrader...
+[2026-02-17 08:10:01] 🚀 Starting Kalshi Autotrader...
+[2026-02-17 08:10:01] ✅ Autotrader started with PID 42286
+[2026-02-17 08:10:01] ✅ Autotrader started with PID 42286
+[2026-02-17 08:15:01] ⚠️ Autotrader NOT running!
+[2026-02-17 08:15:01] ⚠️ Autotrader NOT running!
+[2026-02-17 08:15:01] 📢 Crash alert skipped (cooldown active)
+[2026-02-17 08:15:01] 📢 Crash alert skipped (cooldown active)
+[2026-02-17 08:15:01] 🚀 Starting Kalshi Autotrader...
+[2026-02-17 08:15:01] 🚀 Starting Kalshi Autotrader...
+[2026-02-17 08:15:01] ✅ Autotrader started with PID 42605
+[2026-02-17 08:15:01] ✅ Autotrader started with PID 42605
+[2026-02-17 08:20:01] ✅ Autotrader is running
+[2026-02-17 08:20:01] ✅ Autotrader is running
+[2026-02-17 08:25:01] ✅ Autotrader is running
+[2026-02-17 08:25:01] ✅ Autotrader is running
+[2026-02-17 08:30:01] ✅ Autotrader is running
+[2026-02-17 08:30:01] ✅ Autotrader is running
+[2026-02-17 08:35:00] ✅ Autotrader is running
+[2026-02-17 08:35:00] ✅ Autotrader is running
+[2026-02-17 08:40:00] ✅ Autotrader is running
+[2026-02-17 08:40:00] ✅ Autotrader is running
+[2026-02-17 08:45:01] ✅ Autotrader is running
+[2026-02-17 08:45:01] ✅ Autotrader is running
+[2026-02-17 08:50:01] ✅ Autotrader is running
+[2026-02-17 08:50:01] ✅ Autotrader is running
+[2026-02-17 08:55:01] ✅ Autotrader is running
+[2026-02-17 08:55:01] ✅ Autotrader is running
+[2026-02-17 09:00:00] ✅ Autotrader is running
+[2026-02-17 09:00:00] ✅ Autotrader is running
+[2026-02-17 09:05:00] ✅ Autotrader is running
+[2026-02-17 09:05:00] ✅ Autotrader is running
+[2026-02-17 09:10:01] ✅ Autotrader is running
+[2026-02-17 09:10:01] ✅ Autotrader is running
+[2026-02-17 09:15:01] ✅ Autotrader is running
+[2026-02-17 09:15:01] ✅ Autotrader is running
+[2026-02-17 09:20:00] ✅ Autotrader is running
+[2026-02-17 09:20:00] ✅ Autotrader is running
+[2026-02-17 09:20:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:20:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:25:00] ✅ Autotrader is running
+[2026-02-17 09:25:00] ✅ Autotrader is running
+[2026-02-17 09:25:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:25:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:30:01] ✅ Autotrader is running
+[2026-02-17 09:30:01] ✅ Autotrader is running
+[2026-02-17 09:30:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:30:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:35:00] ✅ Autotrader is running
+[2026-02-17 09:35:00] ✅ Autotrader is running
+[2026-02-17 09:35:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:35:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:40:01] ✅ Autotrader is running
+[2026-02-17 09:40:01] ✅ Autotrader is running
+[2026-02-17 09:40:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:40:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:45:00] ✅ Autotrader is running
+[2026-02-17 09:45:00] ✅ Autotrader is running
+[2026-02-17 09:45:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:45:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:50:00] ✅ Autotrader is running
+[2026-02-17 09:50:00] ✅ Autotrader is running
+[2026-02-17 09:50:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:50:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:55:01] ✅ Autotrader is running
+[2026-02-17 09:55:01] ✅ Autotrader is running
+[2026-02-17 09:55:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 09:55:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 10:00:00] ✅ Autotrader is running
+[2026-02-17 10:00:00] ✅ Autotrader is running
+[2026-02-17 10:00:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 10:00:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 10:05:01] ✅ Autotrader is running
+[2026-02-17 10:05:01] ✅ Autotrader is running
+[2026-02-17 10:05:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 10:05:01] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 10:10:00] ✅ Autotrader is running
+[2026-02-17 10:10:00] ✅ Autotrader is running
+[2026-02-17 10:10:00] 🌟 Stable for >1h - resetting backoff
+[2026-02-17 10:10:00] 🌟 Stable for >1h - resetting backoff

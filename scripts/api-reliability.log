@@ -2267,3 +2267,21 @@ COINGECKO
   • Coinbase... ✅ (BTC:True, ETH:True, 216.17ms)
 
 📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 222.09ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 385.41ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 122.5ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 191.59ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 306.63ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 159.31ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 312.96ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 209.68ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 161.76ms)
+
+📝 Logged to api-reliability.jsonl
