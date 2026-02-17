@@ -142,7 +142,19 @@ MAX_POSITION_PCT = 0.05    # Max 5% of portfolio per position
 KELLY_FRACTION = 0.25      # Quarter-Kelly: conservative (Grok uses 0.75 but we need data first)
 MIN_BET_CENTS = 5
 MAX_BET_CENTS = 200        # $2 max per trade (2% of $100 bankroll — conservative until profitable)
-MAX_POSITIONS = 15         # Max open positions (Grok rec)
+MAX_POSITIONS = 15         # Max open positions (Grok rec) — overridden by dynamic_max_positions()
+
+
+def dynamic_max_positions(balance: float) -> int:
+    """PROC-002 Task 3.1: Scale max positions with balance. Min 5, max 20."""
+    if balance <= 50:
+        return 5
+    elif balance <= 100:
+        return int(5 + (balance - 50) * 0.2)  # 5-15
+    elif balance <= 200:
+        return int(15 + (balance - 100) * 0.05)  # 15-20
+    else:
+        return 20
 
 # ── Risk/Reward filters (TRADE-003: fix loss 2x > win asymmetry) ──
 # BUY_NO at >50¢ means you risk more than you win. Require bigger edge to justify.
@@ -2512,8 +2524,10 @@ def paper_trade_open(state: dict, ticker: str, action: str, price_cents: int, co
     """Record a new paper trade: deduct cost from bankroll, add to positions."""
     # Check max positions limit (Grok review bug #3)
     open_positions = [p for p in state.get("positions", []) if p.get("status") == "open"]
-    if len(open_positions) >= MAX_POSITIONS:
-        print(f"  ⚠️ Max positions ({MAX_POSITIONS}) reached, skipping {ticker}")
+    current_balance = state.get("current_balance_cents", 10000) / 100
+    dyn_max = dynamic_max_positions(current_balance)
+    if len(open_positions) >= dyn_max:
+        print(f"  ⚠️ Max positions ({dyn_max}, balance ${current_balance:.0f}) reached, skipping {ticker}")
         return
     
     cost = contracts * price_cents
@@ -2841,7 +2855,8 @@ def run_cycle(dry_run: bool = True, max_markets: int = 30, max_trades: int = 10)
     # ── Positions ──
     positions = get_positions()
     num_positions = len(positions)
-    print(f"📊 Open positions: {num_positions}/{MAX_POSITIONS}")
+    dyn_max_pos = dynamic_max_positions(balance)
+    print(f"📊 Open positions: {num_positions}/{dyn_max_pos} (dynamic, balance ${balance:.0f})")
 
     # ── Position Management: Trailing Stop / Early Exit (TRADE-017) ──
     if TRAILING_STOP_ENABLED and positions:
@@ -2852,9 +2867,9 @@ def run_cycle(dry_run: bool = True, max_markets: int = 30, max_trades: int = 10)
             # Refresh positions after exits
             positions = get_positions()
             num_positions = len(positions)
-            print(f"📊 Open positions after exits: {num_positions}/{MAX_POSITIONS}")
+            print(f"📊 Open positions after exits: {num_positions}/{dyn_max_pos}")
 
-    if num_positions >= MAX_POSITIONS:
+    if num_positions >= dyn_max_pos:
         print("⚠️ Max positions reached")
         return
 
