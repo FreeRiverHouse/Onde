@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>Pizza Gelato Rush v10</title>
+<title>Pizza Gelato Rush v9</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
@@ -22,7 +22,7 @@ canvas{display:block;position:fixed;top:0;left:0}
 <h1>🛵 PIZZA GELATO RUSH</h1>
 <h2>Ultra-Detailed Vespa Edition</h2>
 <button class="sb" id="go">RACE!</button>
-<div class="v">v10.0 — Drift &amp; Sound Edition — Made with ❤️ by Onde</div>
+<div class="v">v9.0 — Cinematic Edition — Made with ❤️ by Onde</div>
 </div></div>
 <canvas id="C"></canvas>
 <script>
@@ -94,94 +94,7 @@ C.addEventListener('mousedown',e=>{if(G.phase==='title'||G.phase==='finish'){sta
 C.addEventListener('mouseup',()=>{inp.L=inp.R=inp.N=false});
 document.getElementById('go').addEventListener('click',e=>{e.stopPropagation();startGame()});
 
-// === WEBAUDIO ENGINE SOUND (TG-015) ===
-let audioCtx=null,engOsc=null,engGain=null,engOsc2=null,engGain2=null,boostOsc=null,boostGain=null;
-let audioStarted=false;
-
-function initAudio(){
-  if(audioStarted)return;
-  try{
-    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    // Main engine tone (sawtooth for throaty vespa sound)
-    engOsc=audioCtx.createOscillator();engGain=audioCtx.createGain();
-    engOsc.type='sawtooth';engOsc.frequency.value=80;engGain.gain.value=0;
-    const engFilter=audioCtx.createBiquadFilter();
-    engFilter.type='lowpass';engFilter.frequency.value=600;engFilter.Q.value=2;
-    engOsc.connect(engFilter);engFilter.connect(engGain);engGain.connect(audioCtx.destination);
-    engOsc.start();
-    // Secondary harmonic (adds richness)
-    engOsc2=audioCtx.createOscillator();engGain2=audioCtx.createGain();
-    engOsc2.type='square';engOsc2.frequency.value=160;engGain2.gain.value=0;
-    const engFilter2=audioCtx.createBiquadFilter();
-    engFilter2.type='lowpass';engFilter2.frequency.value=400;engFilter2.Q.value=1;
-    engOsc2.connect(engFilter2);engFilter2.connect(engGain2);engGain2.connect(audioCtx.destination);
-    engOsc2.start();
-    // Nitro boost whoosh (white noise filtered)
-    boostOsc=audioCtx.createOscillator();boostGain=audioCtx.createGain();
-    boostOsc.type='sawtooth';boostOsc.frequency.value=40;boostGain.gain.value=0;
-    const boostFilter=audioCtx.createBiquadFilter();
-    boostFilter.type='bandpass';boostFilter.frequency.value=200;boostFilter.Q.value=0.5;
-    boostOsc.connect(boostFilter);boostFilter.connect(boostGain);boostGain.connect(audioCtx.destination);
-    boostOsc.start();
-    audioStarted=true;
-  }catch(e){console.warn('Audio init failed:',e)}
-}
-
-function updateAudio(spd,maxS,boosting){
-  if(!audioStarted||!audioCtx)return;
-  const t=audioCtx.currentTime;
-  const ratio=Math.max(0,spd/maxS);
-  // Engine pitch: 80Hz idle → 280Hz at max speed
-  const basePitch=80+ratio*200;
-  engOsc.frequency.setTargetAtTime(basePitch+Math.sin(t*12)*3,t,0.05);
-  engOsc2.frequency.setTargetAtTime(basePitch*2+Math.sin(t*8)*5,t,0.05);
-  // Volume: quiet idle, louder at speed
-  const vol=0.02+ratio*0.06;
-  engGain.gain.setTargetAtTime(vol,t,0.08);
-  engGain2.gain.setTargetAtTime(vol*0.3,t,0.08);
-  // Boost sound
-  boostGain.gain.setTargetAtTime(boosting?0.04:0,t,0.1);
-  boostOsc.frequency.setTargetAtTime(boosting?60+ratio*100:40,t,0.05);
-}
-
-function playSfx(type){
-  if(!audioCtx)return;
-  const osc=audioCtx.createOscillator();
-  const g=audioCtx.createGain();
-  osc.connect(g);g.connect(audioCtx.destination);
-  const t=audioCtx.currentTime;
-  if(type==='pickup'){
-    osc.type='sine';osc.frequency.setValueAtTime(600,t);osc.frequency.exponentialRampToValueAtTime(1200,t+0.1);
-    g.gain.setValueAtTime(0.08,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.2);
-    osc.start(t);osc.stop(t+0.2);
-  }else if(type==='crash'){
-    osc.type='square';osc.frequency.setValueAtTime(200,t);osc.frequency.exponentialRampToValueAtTime(50,t+0.15);
-    g.gain.setValueAtTime(0.06,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.15);
-    osc.start(t);osc.stop(t+0.15);
-  }else if(type==='countdown'){
-    osc.type='sine';osc.frequency.setValueAtTime(440,t);
-    g.gain.setValueAtTime(0.05,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.15);
-    osc.start(t);osc.stop(t+0.15);
-  }else if(type==='go'){
-    osc.type='sine';osc.frequency.setValueAtTime(880,t);
-    g.gain.setValueAtTime(0.06,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.3);
-    osc.start(t);osc.stop(t+0.3);
-  }else if(type==='drift'){
-    osc.type='sawtooth';osc.frequency.setValueAtTime(100,t);osc.frequency.linearRampToValueAtTime(50,t+0.3);
-    g.gain.setValueAtTime(0.03,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.3);
-    osc.start(t);osc.stop(t+0.3);
-  }
-}
-
-// === DRIFT MECHANICS (TG-017) ===
-// Drift state: triggered when turning hard at high speed
-const drift={active:false,dir:0,timer:0,combo:0,comboT:0,totalScore:0};
-
-// === CAMERA PITCH (TG-013) ===
-let camPitch=0;
-
 function startGame(){
-  initAudio();
   if(G.phase==='countdown'||G.phase==='race')return;
   document.getElementById('ov').style.display='none';
   buildTrack();initAI();
@@ -621,24 +534,6 @@ function drawHUD(t){
   drawMMap(15,SH-130,100,110);
   // Touch hints
   if(G.phase==='race'){X.globalAlpha=.15;X.font='14px sans-serif';X.textAlign='center';X.fillStyle='#fff';X.fillText('\u25C0 LEFT',SW*.15,SH-20);X.fillText('NITRO \u25B2',SW*.5,SH-20);X.fillText('RIGHT \u25B6',SW*.85,SH-20);X.globalAlpha=1}
-  // Drift indicator
-  if(drift.active){
-    X.save();X.textAlign='center';
-    X.font='bold 24px sans-serif';X.fillStyle='#ffcc00';
-    X.globalAlpha=.7+Math.sin(G.t*.02)*.3;
-    X.fillText('DRIFT!',SW/2,SH*.35);
-    const dScore=Math.floor(drift.timer*100);
-    X.font='bold 18px sans-serif';X.fillStyle='#ff9900';
-    X.fillText('+'+dScore,SW/2,SH*.40);
-    X.restore();
-  }
-  // Drift combo display
-  if(drift.combo>1&&drift.comboT>0){
-    X.save();X.textAlign='center';X.globalAlpha=Math.min(1,drift.comboT/30);
-    X.font='bold 20px sans-serif';X.fillStyle='#ff6600';
-    X.fillText('COMBO x'+drift.combo+'!',SW/2,SH*.30);
-    X.restore();
-  }
   X.restore();
 }
 
@@ -682,56 +577,21 @@ function update(dt){
   G.t+=dt;
   
   if(G.phase==='countdown'){
-    const prevN=G.cdN;
     G.cdT+=dt/60;
-    if(G.cdT>=1){G.cdT=0;G.cdN--;
-      if(G.cdN<0){G.phase='race';playSfx('go')}
-      else playSfx('countdown');
-    }
+    if(G.cdT>=1){G.cdT=0;G.cdN--;if(G.cdN<0)G.phase='race'}
     return;
   }
   if(G.phase!=='race')return;
   
   G.raceT+=dt/60;
   
-  // Steering (TG-017: speed-dependent steer lerp)
-  const spdRatio=P.spd/12;
-  const stSpd=.035*(1-spdRatio*.4); // less responsive at high speed
+  // Steering
+  const stSpd=.035;
   if(inp.L)P.st=Math.max(-1,P.st-stSpd*dt);
   else if(inp.R)P.st=Math.min(1,P.st+stSpd*dt);
   else P.st*=1-.02*dt;
   
   P.lean+=(P.st-P.lean)*.08*dt;
-  
-  // === DRIFT MECHANICS (TG-017) ===
-  const driftThreshold=.6; // steer amount to trigger drift
-  const driftSpeedMin=5; // minimum speed for drift
-  if(Math.abs(P.st)>driftThreshold&&P.spd>driftSpeedMin&&!drift.active){
-    drift.active=true;drift.dir=Math.sign(P.st);drift.timer=0;
-    playSfx('drift');
-  }
-  if(drift.active){
-    drift.timer+=dt/60;
-    // Drift adds lateral slide (opposite to turn = oversteer feel)
-    P.x+=drift.dir*P.spd*3*dt;
-    // Drift slows less than braking but adds control challenge
-    P.spd*=1-.001*dt;
-    // End drift when steer released or speed drops
-    if(Math.abs(P.st)<.3||P.spd<3){
-      drift.active=false;
-      const driftScore=Math.floor(drift.timer*100);
-      if(driftScore>5){
-        G.score+=driftScore;
-        drift.combo++;drift.comboT=120;
-        drift.totalScore+=driftScore;
-        // Drift particles burst
-        for(let i=0;i<10;i++)spawnP(SW/2+drift.dir*20,SH*.72,(Math.random()-.5)*4+drift.dir*3,-Math.random()*3,25,'#ffcc00',2+Math.random()*2,'spark');
-      }
-    }
-    // Drift tire smoke
-    if(Math.random()<.6)spawnP(SW/2-drift.dir*15,SH*.72,(Math.random()-.5)*2+drift.dir*2,.5+Math.random(),18,'rgba(255,255,255,.5)',4+Math.random()*3,'smoke');
-  }
-  if(drift.comboT>0){drift.comboT-=dt;if(drift.comboT<=0)drift.combo=0}
   
   // Nitro
   P.boost=inp.N&&P.nitro>0;
@@ -741,14 +601,6 @@ function update(dt){
   const accel=P.boost?0.5:0.3;
   const maxS=P.boost?12:8;
   if(P.spd<maxS)P.spd=Math.min(maxS,P.spd+accel*dt);
-  
-  // === CAMERA PITCH (TG-013) ===
-  const curHill=seg[segI].h;
-  const targetPitch=curHill*0.015;
-  camPitch+=(targetPitch-camPitch)*0.08*dt;
-  
-  // === UPDATE AUDIO ===
-  updateAudio(P.spd,maxS,P.boost);
   
   // Curve affect
   const segI=Math.floor(P.z/SL)%SEGS;
@@ -787,9 +639,6 @@ function update(dt){
       else if(pu.type==='gelato'){P.nitro=Math.min(NMAX,P.nitro+40);G.score+=150}
       else{P.inv=true;P.invT=5;G.score+=200}
       G.flash=10;
-      playSfx('pickup');
-      // Haptic feedback on mobile
-      if(navigator.vibrate)navigator.vibrate(15);
       for(let i=0;i<15;i++)spawnP(SW/2,SH*.6,(Math.random()-.5)*8,-Math.random()*6,40,pu.type==='pizza'?'#ff9900':pu.type==='gelato'?'#00ccff':'#8B4513',3,'spark');
     }
   }
@@ -817,26 +666,16 @@ function update(dt){
     const adz=((ai.z-P.z)%TL+TL)%TL;
     if(adz<SL&&Math.abs(ai.x-P.x)<180&&!P.inv){
       P.spd*=.9;
-      G.shX=(Math.random()-.5)*12;G.shY=(Math.random()-.5)*12;
-      for(let i=0;i<12;i++)spawnP(SW/2,SH*.65,(Math.random()-.5)*6,-Math.random()*5,30,'#ff6600',2+Math.random(),'spark');
-      playSfx('crash');
-      if(navigator.vibrate)navigator.vibrate([30,20,30]);
+      G.shX=(Math.random()-.5)*8;G.shY=(Math.random()-.5)*8;
+      for(let i=0;i<8;i++)spawnP(SW/2,SH*.65,(Math.random()-.5)*5,-Math.random()*4,30,'#ff6600',2,'spark');
     }
   }
   
   // Position calc
-  const prevPos=P.pos;
   const allDist=[{d:P.lap*TL+P.dist%TL,who:'p'}];
   for(const ai of ais)allDist.push({d:ai.lap*TL+ai.dist%TL,who:'ai'});
   allDist.sort((a,b)=>b.d-a.d);
   P.pos=allDist.findIndex(a=>a.who==='p')+1;
-  // TG-018: Screen shake on overtake
-  if(P.pos<prevPos&&prevPos>0){
-    G.shX+=(Math.random()-.5)*6;G.shY+=(Math.random()-.5)*4;
-    G.score+=50*(prevPos-P.pos);
-    for(let i=0;i<8;i++)spawnP(SW/2+(Math.random()-.5)*60,SH*.5,(Math.random()-.5)*5,-2-Math.random()*3,30,'#f1c40f',2+Math.random()*2,'spark');
-    playSfx('pickup');
-  }
   
   // Screen shake decay
   G.shX*=.9;G.shY*=.9;
@@ -869,7 +708,7 @@ function render(){
   const camY=CH+seg[segI].h;
   
   X.save();
-  X.translate(G.shX,G.shY+camPitch);
+  X.translate(G.shX,G.shY);
   
   // Sky
   drawSky(G.t);
