@@ -248,7 +248,8 @@ Proteggere API da spam/flood:
 **Grok architettura:** KV > D1 per rate limiting (low latency, TTL nativo, globally distributed)
 
 #### HOUSE-009: Input Validation + Zod Schema (GROK TASK — PROC-002 round 3)
-**Status:** TODO
+**Status:** ✅ DONE
+**Completed:** 2026-02-17
 **Source:** Grok PROC-002 feedback su HOUSE-008
 **Effort:** 2-3 ore
 
@@ -260,7 +261,8 @@ Validazione rigorosa del body POST:
 - [ ] Test: body invalido → 400 chiaro, client esistenti non rotti
 
 #### HOUSE-010: Mentions Parsing + DB Storage (GROK TASK — PROC-002 round 3)
-**Status:** TODO
+**Status:** ✅ DONE
+**Completed:** 2026-02-17
 **Source:** Grok PROC-002 feedback su HOUSE-008
 **Effort:** 3-4 ore
 
