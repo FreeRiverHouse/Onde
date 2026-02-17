@@ -1,97 +1,74 @@
 # 🎨 Procedura Generazione Immagini con Grok
 
-## Automazione con AppleScript + cliclick
+## Metodo JavaScript (FUNZIONANTE ✅)
 
-### Requisiti
-- macOS con cliclick installato (`brew install cliclick`)
-- Chrome aperto e loggato su grok.com
-- Cartella destinazione creata
+### Prerequisiti
+- macOS con Chrome
+- Chrome loggato su grok.com
+- JavaScript abilitato per AppleScript: Chrome > View > Developer > Allow JavaScript from Apple Events
 
-### Script Automazione
+### Step 1: Genera immagine manualmente
+1. Vai su https://grok.com/imagine
+2. Inserisci prompt
+3. Aspetta generazione (~20-30 sec)
 
+### Step 2: Estrai URL immagini via JS
 ```bash
-#!/bin/bash
-# grok-generate.sh - Genera e salva immagine da Grok
-
-PROMPT="$1"
-FILENAME="$2"
-SAVE_PATH="${3:-~/Downloads}"
-
-# 1. Copia prompt in clipboard
-echo "$PROMPT" | pbcopy
-
-# 2. Click su input area e paste
-osascript << 'APPLESCRIPT'
-tell application "Google Chrome" to activate
-tell application "System Events"
-    tell process "Google Chrome"
-        set theWindow to front window
-        set {winX, winY} to position of theWindow
-        set {winW, winH} to size of theWindow
-        
-        # Click input area (bottom center)
-        set clickX to winX + (winW / 2)
-        set clickY to winY + winH - 120
-        do shell script "cliclick c:" & (clickX as integer) & "," & (clickY as integer)
-        delay 0.5
-        
-        keystroke "v" using command down
-        delay 0.3
-        keystroke return
-    end tell
-end tell
-APPLESCRIPT
-
-# 3. Aspetta generazione (15-20 sec)
-sleep 18
-
-# 4. Scroll up e right-click su immagine
-osascript << 'APPLESCRIPT'
-tell application "Google Chrome" to activate
-tell application "System Events"
-    key code 126 using command down
-    delay 0.5
-    
-    tell process "Google Chrome"
-        set theWindow to front window
-        set {winX, winY} to position of theWindow
-        set {winW, winH} to size of theWindow
-        
-        # Right-click su area immagine (center-left)
-        set imgX to winX + (winW / 2) - 150
-        set imgY to winY + 380
-        do shell script "cliclick rc:" & (imgX as integer) & "," & (imgY as integer)
-    end tell
-end tell
-APPLESCRIPT
-
-sleep 0.5
-
-# 5. Seleziona "Salva immagine" (tasto S)
-osascript -e 'tell application "System Events" to keystroke "s"'
-sleep 0.2
-osascript -e 'tell application "System Events" to keystroke return'
-sleep 0.5
-
-# 6. Naviga a cartella e salva
-osascript << APPLESCRIPT
-tell application "System Events"
-    keystroke "$FILENAME"
-    delay 0.3
-    keystroke "g" using {command down, shift down}
-    delay 0.5
-    keystroke "$SAVE_PATH"
-    delay 0.3
-    keystroke return
-    delay 0.5
-    keystroke return
-end tell
-APPLESCRIPT
-
-echo "Salvato: $SAVE_PATH/$FILENAME"
+# Lista tutte le immagini generate (filtra per imagine-public.x.ai)
+osascript -e 'tell application "Google Chrome" to execute front window'\''s active tab javascript "Array.from(document.images).filter(i => i.src.includes(\"imagine-public\") && !i.src.includes(\"thumbnail\")).map(i => i.src).join(\"\\n\")"'
 ```
 
-### Prompt Template (Beatrix Potter Style)
+### Step 3: Scarica con curl
+```bash
+# Scarica immagine direttamente
+curl -o "nome-file.jpg" "URL_IMMAGINE"
+```
+
+### Script Completo
+```bash
+#!/bin/bash
+# grok-download.sh - Scarica immagini generate da Grok
+
+SAVE_PATH="${1:-~/Downloads}"
+FILENAME="${2:-grok-image}"
+
+# Ottieni URL immagini dalla pagina corrente
+URLS=$(osascript -e 'tell application "Google Chrome" to execute front window'\''s active tab javascript "Array.from(document.images).filter(i => i.src.includes(\"imagine-public\") && !i.src.includes(\"thumbnail\") && !i.src.includes(\"width=500\")).map(i => i.src).join(\"\\n\")"')
+
+# Scarica ogni immagine
+COUNT=1
+echo "$URLS" | while read -r URL; do
+    if [ -n "$URL" ]; then
+        OUTPUT="${SAVE_PATH}/${FILENAME}-${COUNT}.jpg"
+        echo "Downloading: $OUTPUT"
+        curl -s -o "$OUTPUT" "$URL"
+        ((COUNT++))
+    fi
+done
+
+echo "Done!"
+```
+
+---
+
+## Metodo AppleScript (DEPRECATO ⚠️)
+
+> **NOTA:** Questo metodo ha problemi con le coordinate - spesso salva immagini sbagliate dal feed invece delle generate.
+
+### Requisiti
+- cliclick installato (`brew install cliclick`)
+
+### Problema Noto
+Le coordinate click dipendono da:
+- Dimensione finestra Chrome
+- Presenza/assenza sidebar Grok
+- Posizione scroll della pagina
+
+Le immagini generate appaiono nell'area risposta, ma il feed laterale mostra altre immagini che vengono clickate per errore.
+
+---
+
+## Prompt Template (Beatrix Potter Style)
 
 ```
 Watercolor children's book illustration, Beatrix Potter style, 
@@ -102,13 +79,23 @@ warm earthy palette (terracotta, olive green, warm gold, soft blue).
 [AMBIENTE]: [setting]
 ```
 
-### Note Importanti
-
-1. **NO "Italian Renaissance"** - solo Beatrix Potter watercolor
-2. **cliclick** è essenziale per click precisi
-3. Le coordinate dipendono dalla dimensione finestra
-4. File salvati come "videoframe_*.png" vanno rinominati
-5. Aspettare 18+ secondi per generazione
+### Esempio
+```
+Watercolor children's book, Beatrix Potter style. 
+Young Roman boy Marcus, 8 years old, curly brown hair, 
+wrestling playfully with his teacher in a sunny villa courtyard 
+with cypress trees and a marble fountain.
+```
 
 ---
-*Procedura testata e funzionante - Bubble Bot 🫧 - 2026-02-16*
+
+## Note Importanti
+
+1. **NO "Italian Renaissance"** - solo Beatrix Potter watercolor
+2. **Usa metodo JS** - più affidabile delle coordinate
+3. URL pattern: `https://imagine-public.x.ai/imagine-public/images/{uuid}.jpg`
+4. Grok genera anche VIDEO (URL: `.../share-videos/{uuid}.mp4`)
+5. Aspettare 20-30 sec per generazione completa
+
+---
+*Aggiornato: 2026-02-16 - Bubble Bot 🫧*
