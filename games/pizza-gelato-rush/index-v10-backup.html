@@ -22,7 +22,7 @@ canvas{display:block;position:fixed;top:0;left:0}
 <h1>🛵 PIZZA GELATO RUSH</h1>
 <h2>Ultra-Detailed Vespa Edition</h2>
 <button class="sb" id="go">RACE!</button>
-<div class="v">v11.0 — HC2 Graphics Edition — Made with ❤️ by Onde</div>
+<div class="v">v10.0 — Drift &amp; Sound Edition — Made with ❤️ by Onde</div>
 </div></div>
 <canvas id="C"></canvas>
 <script>
@@ -454,20 +454,10 @@ function drawPup(pu,sx,sy,sc,t){
   X.restore();
 }
 
-// ROAD SEGMENT — Horizon Chase 2 style striped grass
+// ROAD SEGMENT
 function drawRoad(idx,px,py,pw,qx,qy,qw){
   const alt=(Math.floor(idx/3)%2===0);
-  // === HC2 STRIPED GRASS (Horizon Chase 2 style) ===
-  // High-contrast alternating bands — vivid, bold, arcade-style
-  const grassL=alt?'#4aad2a':'#2d7a14'; // light vs dark green (HIGH contrast)
-  // Main grass fill (full screen width)
-  X.fillStyle=grassL;X.beginPath();X.moveTo(qx-qw*4,qy);X.lineTo(qx+qw*4,qy);X.lineTo(px+pw*4,py);X.lineTo(px-pw*4,py);X.closePath();X.fill();
-  // Sun-lit shimmer on right side (warm golden hour glow)
-  if(alt){X.save();X.globalAlpha=.12;X.fillStyle='#a8e06a';
-  X.beginPath();X.moveTo(qx+qw*1.5,qy);X.lineTo(qx+qw*4,qy);X.lineTo(px+pw*4,py);X.lineTo(px+pw*1.5,py);X.closePath();X.fill();X.restore()}
-  // Shadow band on left side (depth feel)
-  if(!alt){X.save();X.globalAlpha=.06;X.fillStyle='#000';
-  X.beginPath();X.moveTo(qx-qw*4,qy);X.lineTo(qx-qw*1.5,qy);X.lineTo(px-pw*1.5,py);X.lineTo(px-pw*4,py);X.closePath();X.fill();X.restore()}
+  X.fillStyle=alt?'#2d5a16':'#275214';X.beginPath();X.moveTo(qx-qw*3,qy);X.lineTo(qx+qw*3,qy);X.lineTo(px+pw*3,py);X.lineTo(px-pw*3,py);X.closePath();X.fill();
   // Rumble strips (red/white curbs HC2 style)
   X.fillStyle=alt?'#cc2222':'#eee';trapez(px,py,pw*1.12,qx,qy,qw*1.12);
   // Road surface with subtle gradient
