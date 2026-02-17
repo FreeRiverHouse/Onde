@@ -97,34 +97,17 @@ except Exception:
 # CONFIGURATION
 # ============================================================================
 
-API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a"
-PRIVATE_KEY = """-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEArvbCjuzAtVbmxZjlm5jglJTy6ZI8kOEGIktgl1KEgzgGr5mF
-PE42QKSPdV2NQrvp14fIn2Y+sQ5Us2xrpJ348LiwB5QxfIG63cjblRZ7xvXH6svY
-vVke4NShnB8l3uSdJrIvzbnlNEy86+vPaw+GjsODlKhQwm5v4rVEizG1yHxlC20e
-SSPG7xyHxuNgDKLCCqERlwiDAhhM75KpPYlJ5OtFkSxNKbGn3PEv7veUbHB485y3
-yAc/v6CxCYzbRmwIl9xXQp2F9unYkEJO3UEaxFvTO+G6RL10Q9whbWKrQpKCW0GI
-XDRIima44BkT9MOAy5c1q2zXypwddsfUo4O32wIDAQABAoIBADlOFvEq9/8s5E7J
-wkJRMxVXJ6x6uh2VpiWrXIqTe1VjD0WKWcojr79CZr5BEthNpcxy67HRkiz5jaJq
-m2MCXpuxUe5Zik/GSccEV28gOxAyRfVQKL/zpZpr6jaxOP0lEZev+to9zaVwkNwQ
-kxH0ttShksIo0rKr6zdsuXOBp5FvKaO/Cb9YFBjsSc0dzsWWtRBonh9EMrUKoP97
-cjbN04vvBv9Xz8f+VmdyLJdLv3BrpdjAtI0oeAvDJjd6ruR1+OR06omSlW6XBPQy
-1Ugzr6BZQ/9txGoblyHcpNGLyf+iS4n3IqPFhLkERBylsl2XWF77Ucy386exlYtZ
-JIjYS+ECgYEA5krxSpQ4j9e54Sj/d1aID7jeLNy4BfjVcYEfvXSHFap6SsY42aZC
-zwjL6tQ8aCAGgrjdkiq8GDdsPf8AG0w99o/jlUbDtaxy5fUgViguqu4P31lXKLc8
-IUed89Qlt0sk9cQXxPBANVjFTSfIhGNNZ6si25zNECpxIQky7Vq7SksCgYEAwn6w
-jDQUf8VQtHVeelb8T+/rxVO1NQWSZ90GbiZL3oEWIA7vBmnBCffPfrD82tbXrnOh
-BGm5PphNnUPbeLovPzcSQaZllDcvq0iXuhrymG8iewCunKttrbQ42dA8QTh7nsl8
-Bj8SkJr9CayU1tlMJDz/f+YsO4G3jDOWXCCXzrECgYB5m1NlTXW8x27ZbhvQubnp
-i3aO/BKU3LxhTo0jLxhyIW6oc5nrnLckuoFrxJ0NYvPtLY+bMsPWidW3uyMkRxNl
-UsAbwJ1yHtkhg1qLBHb4PfPVvkifMHspG7dV3U35R04CFYVzsmZFhVXSk1J4TjO+
-rYkfrOJAShkpF8FzwviplwKBgQCTzo3C7u1JMJ2llrCnDqYO5cjqnDPQyJw7vHff
-i9EKllVHJbI20HW4apBQupZehPlCBXOvk90ImdwaEPCgbfXr96EzLQ5zNgFPDQrp
-jwMgHw04JwuL2qeuY5D0ztCLzC3+PSa45IPqSy7ThElUgazguU5+V2D0FB92N9oj
-x0028QKBgElTmOkG9w7V8MUhBQdI79TERvrls9r0kDeqzC3LqRHkJFuYueFP2C6p
-+OjRdeYnhHLtOH3+UkpCxUB4G0l5YVJtBcJUtNFSJMBKfaxqrd7awX2TZImfvgkb
-YJZnQlMSeGK5ezv10pi0K5q7luyW8TNfknr5uafM5vq2c/LLcAJn
------END RSA PRIVATE KEY-----"""
+# Credentials — loaded from environment or .kalshi-private-key.pem
+API_KEY_ID = os.environ.get("KALSHI_API_KEY_ID", "4308d1ca-585e-4b73-be82-5c0968b9a59a")
+_key_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.kalshi-private-key.pem')
+if os.path.exists(_key_file):
+    with open(_key_file) as _f:
+        PRIVATE_KEY = _f.read().strip()
+elif os.environ.get("KALSHI_PRIVATE_KEY"):
+    PRIVATE_KEY = os.environ["KALSHI_PRIVATE_KEY"]
+else:
+    print("❌ Kalshi private key not found! Set KALSHI_PRIVATE_KEY env or create .kalshi-private-key.pem")
+    sys.exit(1)
 
 BASE_URL = "https://api.elections.kalshi.com"
 
@@ -2403,7 +2386,9 @@ def update_trade_results():
                     # Check if market settled
                     result = kalshi_api("GET", f"/trade-api/v2/markets/{entry['ticker']}")
                     if "error" not in result:
-                        market_result = result.get("result", "")
+                        # API returns {"market": {"result": "yes"/"no", ...}}
+                        market_data = result.get("market", result)
+                        market_result = market_data.get("result", "")
                         if market_result:
                             action = entry.get("action", "")
                             side = "yes" if action == "BUY_YES" else "no"
@@ -2847,14 +2832,38 @@ def run_cycle(dry_run: bool = True, max_markets: int = 30, max_trades: int = 10)
 
     # ── Balance ──
     balance = get_balance()
-    print(f"💰 Balance: ${balance:.2f}")
-    if dry_run and balance < 1.0:
-        balance = VIRTUAL_BALANCE
-        print(f"   📝 Using virtual balance: ${balance:.2f} (paper mode)")
+    print(f"💰 Real balance: ${balance:.2f}")
+    if dry_run:
+        # In paper mode, use the paper state balance (tracks P&L from settlements)
+        paper_st = load_paper_state()
+        paper_balance = paper_st.get("current_balance_cents", PAPER_STARTING_BANKROLL_CENTS) / 100.0
+        if paper_balance > 0:
+            balance = paper_balance
+        elif balance < 1.0:
+            balance = VIRTUAL_BALANCE
+        print(f"   📝 Paper balance: ${balance:.2f}")
 
     # ── Positions ──
-    positions = get_positions()
-    num_positions = len(positions)
+    # In paper mode, use paper state positions (not real API positions which may
+    # contain stale real-money positions like KXTRUMPFIRE)
+    if dry_run:
+        paper_state = load_paper_state()
+        paper_positions = [p for p in paper_state.get("positions", []) if p.get("status") == "open"]
+        # Convert paper positions to the format manage_positions expects
+        positions = []
+        for pp in paper_positions:
+            contracts = pp.get("contracts", 1)
+            is_no = pp.get("action") == "BUY_NO"
+            positions.append({
+                "ticker": pp.get("ticker", ""),
+                "position": -contracts if is_no else contracts,
+                "market_exposure": pp.get("cost_cents", 0),
+                "total_traded": pp.get("cost_cents", 0),
+            })
+        num_positions = len(positions)
+    else:
+        positions = get_positions()
+        num_positions = len(positions)
     dyn_max_pos = dynamic_max_positions(balance)
     print(f"📊 Open positions: {num_positions}/{dyn_max_pos} (dynamic, balance ${balance:.0f})")
 
@@ -2865,8 +2874,13 @@ def run_cycle(dry_run: bool = True, max_markets: int = 30, max_trades: int = 10)
         if exits > 0:
             print(f"   ✅ Exited {exits} position(s)")
             # Refresh positions after exits
-            positions = get_positions()
-            num_positions = len(positions)
+            if dry_run:
+                paper_state = load_paper_state()
+                positions = [p for p in paper_state.get("positions", []) if p.get("status") == "open"]
+                num_positions = len(positions)
+            else:
+                positions = get_positions()
+                num_positions = len(positions)
             print(f"📊 Open positions after exits: {num_positions}/{dyn_max_pos}")
 
     if num_positions >= dyn_max_pos:

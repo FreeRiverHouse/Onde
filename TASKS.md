@@ -143,15 +143,106 @@ I task devono AUMENTARE (ogni feedback → 2 nuovi task).
 - [ ] Alert se un bot non risponde per >15 min
 - [ ] Watchdog cross-bot: ogni bot controlla gli altri
 
-### OPS-002: Cross-Bot Communication
-**Owner:** Bubble 🫧
-**Status:** NEW
-**Priority:** P1
+### OPS-002: House Chat — Inter-Bot Communication via sessions_send
+**Owner:** Clawdinho 🔵
+**Status:** IN_PROGRESS
+**Priority:** P0
 
-**TODO:**
-- [ ] Webhook per bot-to-bot messaging automatico
-- [ ] Escalation automatica se task bloccato
-- [ ] Report consolidato giornaliero
+**Obiettivo:** Chat di gruppo funzionante su onde.surf/house dove Mattia + tutti i bot (Clawdinho, Ondinho, Bubble) possono comunicare in real-time. Under the hood usa `sessions_send` del Gateway Clawdbot.
+
+**Architettura:**
+- Frontend: pagina web su onde.surf (sezione House) con chat UI
+- Backend: Gateway HTTP API (`/agent`) + `sessions_send` per inter-agent comms
+- Storage: messages.json (file-based) + real-time via Gateway API
+- Auth: Gateway authentication per API calls
+
+**Sub-tasks:**
+
+#### HOUSE-001: Gateway Config — Multi-Agent + sessions_send
+**Status:** TODO
+- [ ] Aggiungere agent entries per ondinho e bubble in clawdbot.json
+- [ ] Abilitare `tools.agentToAgent.enabled: true`
+- [ ] Configurare `allow: ["main", "ondinho", "bubble"]`
+- [ ] Verificare che `sessions_send` funzioni tra agent
+- [ ] Test: Clawdinho manda messaggio a Ondinho, riceve risposta
+
+#### HOUSE-002: Chat Backend API
+**Status:** TODO
+- [ ] Endpoint POST per mandare messaggi (proxy a Gateway `/agent`)
+- [ ] Endpoint GET per leggere messaggi recenti
+- [ ] Message persistence (append to messages.json)
+- [ ] Supporto per messaggi da Mattia (via web UI)
+- [ ] Supporto per messaggi tra bot (via sessions_send)
+
+#### HOUSE-003: Chat Frontend UI
+**Status:** TODO
+- [ ] Upgrade index.html con input box per mandare messaggi
+- [ ] Real-time polling (ogni 3s) o WebSocket
+- [ ] Indicatore online/offline per ogni bot
+- [ ] Supporto markdown nel rendering messaggi
+- [ ] Mobile responsive
+- [ ] Diversi colori per bot (già fatto: bubble=blu, ondinho=cyan, clawdinho=arancio, mattia=viola)
+
+#### HOUSE-004: Bot Integration
+**Status:** TODO
+- [ ] Ogni bot può postare nella House chat via API
+- [ ] Ogni bot riceve notifiche quando menzionato (@clawdinho, @ondinho, @bubble)
+- [ ] Auto-post: status updates, task completati, errori critici
+- [ ] Mattia può mandare comandi ai bot via chat web
+
+#### HOUSE-005: Deploy su onde.surf
+**Status:** TODO
+- [ ] Hostare su onde.surf/house (Cloudflare Pages o simile)
+- [ ] CORS config per API calls al Gateway
+- [ ] Auth basica per accesso (solo Mattia)
+- [ ] SSL/HTTPS
+
+#### HOUSE-006: SQLite Migration (GROK TASK 1 — PROC-002)
+**Status:** ✅ DONE
+**Completed:** 2026-02-17
+**Source:** Grok feedback 2026-02-17
+**Effort:** 2-3 ore
+
+Migrato a Cloudflare D1 (SQLite) su prod:
+- [x] D1 database con tabella house_messages (id, created_at, sender, content, reply_to)
+- [x] D1 tabella house_heartbeats per status online/offline
+- [x] API REST: GET /api/house/chat, POST con Bearer token auth
+- [x] API status: GET/POST /api/house/chat/status
+- [x] Frontend Next.js su onde.surf/house/chat (polling 3s, @mention highlights, token login)
+- [x] Deploy via deploy-onde-surf.sh
+- [x] 11/11 test passati (auth, CRUD, polling, replies, errors, site integrity)
+- [x] PROC-002 Grok review completata
+
+**PROC-002 Grok Feedback:** Rate limiting mancante, token rotation da migliorare, message retention/cleanup necessario, CORS/security headers da verificare.
+
+#### HOUSE-007: Real-time Chat via SSE (GROK TASK — PROC-002 round 2)
+**Status:** TODO
+**Source:** Grok PROC-002 feedback 2026-02-17
+**Effort:** 6-10 ore
+
+Sostituire polling 3s con Server-Sent Events push real-time:
+- [ ] Endpoint GET /api/house/chat/events → SSE stream
+- [ ] Frontend EventSource, aggiorna messaggi live senza polling
+- [ ] Fallback: se EventSource fallisce → polling 10s
+- [ ] Mantiene @mention highlights e reply visuali
+- [ ] Test: nuovo msg < 2s, multi-tab sync, riconnessione auto dopo network drop
+
+**Benefici:** UX istantanea, meno query D1, risparmio costi
+
+#### HOUSE-008: Rate Limiting + Bot Abuse Protection (GROK TASK — PROC-002 round 2)
+**Status:** TODO
+**Source:** Grok PROC-002 feedback 2026-02-17
+**Effort:** 4-7 ore
+
+Proteggere API da spam/flood:
+- [ ] Rate limit: 30 msg/min per token/IP (configurabile via env)
+- [ ] Implementazione via CF Rate Limiting API o middleware custom
+- [ ] Headers RateLimit-Limit / Remaining / Reset
+- [ ] Ban temporaneo (60s) dopo 3× superamento limite
+- [ ] Log eventi rate-limit superati
+- [ ] Test: 40 msg/min → 429 dopo 30, attesa → riprende, bot singolo non blocca altri
+
+**Benefici:** Sicurezza, protezione da bot impazziti
 
 ---
 

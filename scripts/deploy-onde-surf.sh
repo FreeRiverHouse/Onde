@@ -25,8 +25,20 @@ echo ""
 
 # STEP 3: Deploy
 echo "📋 Step 3: Deploying to Cloudflare Pages..."
-CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
-CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+  # Load from local env file if not already set
+  if [ -f "$PROJECT_DIR/.env.deploy" ]; then
+    source "$PROJECT_DIR/.env.deploy"
+  else
+    echo "❌ CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID must be set!"
+    echo "   Set them in environment or create .env.deploy with:"
+    echo "   CLOUDFLARE_API_TOKEN=your-token"
+    echo "   CLOUDFLARE_ACCOUNT_ID=your-account-id"
+    exit 1
+  fi
+fi
+CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN" \
+CLOUDFLARE_ACCOUNT_ID="$CLOUDFLARE_ACCOUNT_ID" \
 npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
 echo ""
 

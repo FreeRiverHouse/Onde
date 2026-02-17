@@ -10,9 +10,18 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ONDE_ROOT="$(dirname "$SCRIPT_DIR")"
 APP_DIR="$ONDE_ROOT/apps/onde-portal"
 
-# Cloudflare credentials (hardcoded for reliability)
-export CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw"
-export CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f"
+# Cloudflare credentials — load from .env.deploy or environment
+if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+  if [ -f "$ONDE_ROOT/.env.deploy" ]; then
+    source "$ONDE_ROOT/.env.deploy"
+  else
+    echo "❌ CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID must be set!"
+    echo "   Set them in environment or create .env.deploy"
+    exit 1
+  fi
+fi
+export CLOUDFLARE_API_TOKEN
+export CLOUDFLARE_ACCOUNT_ID
 
 echo "🌊 DEPLOY ONDE.LA"
 echo "=================="
