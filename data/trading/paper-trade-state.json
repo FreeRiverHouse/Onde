@@ -1,6 +1,6 @@
 {
   "starting_balance_cents": 10000,
-  "current_balance_cents": 7940,
+  "current_balance_cents": 7758,
   "positions": [
     {
       "ticker": "KXBTCD-26FEB1702-T68499.99",
@@ -133,20 +133,32 @@
       "edge": 0.0958,
       "expiry": "2026-02-17T11:00:00Z",
       "status": "open"
+    },
+    {
+      "ticker": "KXETHD-26FEB1706-T1969.99",
+      "action": "BUY_YES",
+      "price_cents": 26,
+      "contracts": 7,
+      "cost_cents": 182,
+      "opened_at": "2026-02-17T10:30:57.306941+00:00",
+      "title": "Ethereum price at Feb 17, 2026 at 6am EST?",
+      "edge": 0.1,
+      "expiry": "2026-02-17T11:00:00Z",
+      "status": "open"
     }
   ],
   "stats": {
-    "total_trades": 11,
+    "total_trades": 12,
     "wins": 0,
     "losses": 0,
-    "pending": 11,
+    "pending": 12,
     "win_rate": 0.0,
     "pnl_cents": 0,
     "gross_profit_cents": 0,
     "gross_loss_cents": 0,
     "peak_balance_cents": 10000,
-    "max_drawdown_cents": 2060,
-    "max_drawdown_pct": 20.6
+    "max_drawdown_cents": 2242,
+    "max_drawdown_pct": 22.42
   },
   "reset_at": "2026-02-17T06:11:21.040858+00:00",
   "reset_reason": "Kelly 0.75 overbetting fix \u2192 quarter-Kelly 0.25 + $2 max cap",
@@ -249,11 +261,20 @@
       "contracts": 9,
       "cost_cents": 198,
       "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T10:30:57.306941+00:00",
+      "ticker": "KXETHD-26FEB1706-T1969.99",
+      "action": "BUY_YES",
+      "price_cents": 26,
+      "contracts": 7,
+      "cost_cents": 182,
+      "status": "open"
     }
   ],
-  "updated_at": "2026-02-17T10:21:17.298598+00:00",
+  "updated_at": "2026-02-17T10:30:57.306998+00:00",
   "analysis": {
-    "last_tune": "2026-02-17T10:00:02.508812+00:00",
+    "last_tune": "2026-02-17T11:00:02.338861+00:00",
     "total_paper_trades": 306,
     "edge_stats": {
       "mean": 0.34163117252381964,
