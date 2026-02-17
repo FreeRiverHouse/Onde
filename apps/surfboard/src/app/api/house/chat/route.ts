@@ -71,6 +71,35 @@ export async function GET(req: NextRequest) {
   })
 }
 
+// ── Rate Limiting (HOUSE-008) ──
+// Sliding window via KV: 30 messages per minute per sender
+const RATE_LIMIT = 30
+const RATE_WINDOW_MS = 60_000
+const RATE_TTL_S = 120 // KV TTL: window + margin
+
+async function checkRateLimit(kv: any, sender: string): Promise<{ allowed: boolean; remaining: number; resetMs: number }> {
+  if (!kv) return { allowed: true, remaining: RATE_LIMIT, resetMs: 0 } // graceful fallback if KV unavailable
+
+  const now = Date.now()
+  const key = `rate_${sender}`
+  const raw = await kv.get(key)
+  let timestamps: number[] = raw ? JSON.parse(raw) : []
+
+  // Filter to sliding window
+  timestamps = timestamps.filter((ts: number) => now - ts < RATE_WINDOW_MS)
+
+  if (timestamps.length >= RATE_LIMIT) {
+    const oldestInWindow = Math.min(...timestamps)
+    return { allowed: false, remaining: 0, resetMs: oldestInWindow + RATE_WINDOW_MS - now }
+  }
+
+  // Record this request
+  timestamps.push(now)
+  await kv.put(key, JSON.stringify(timestamps), { expirationTtl: RATE_TTL_S })
+
+  return { allowed: true, remaining: RATE_LIMIT - timestamps.length, resetMs: 0 }
+}
+
 // POST /api/house/chat — send a message
 export async function POST(req: NextRequest) {
   const sender = authenticate(req)
@@ -81,6 +110,20 @@ export async function POST(req: NextRequest) {
   const { env } = getRequestContext()
   const db = env.DB
   if (!db) return NextResponse.json({ error: 'DB unavailable' }, { status: 500 })
+
+  // Rate limit check
+  const rateResult = await checkRateLimit(env.RATE_KV, sender)
+  if (!rateResult.allowed) {
+    const res = NextResponse.json(
+      { error: 'Rate limit exceeded (30 msg/min)', retryAfterMs: rateResult.resetMs },
+      { status: 429 }
+    )
+    res.headers.set('RateLimit-Limit', String(RATE_LIMIT))
+    res.headers.set('RateLimit-Remaining', '0')
+    res.headers.set('RateLimit-Reset', String(Math.ceil(rateResult.resetMs / 1000)))
+    res.headers.set('Retry-After', String(Math.ceil(rateResult.resetMs / 1000)))
+    return res
+  }
 
   // Ensure table exists
   await db.prepare(`
@@ -113,5 +156,8 @@ export async function POST(req: NextRequest) {
     'SELECT * FROM house_messages WHERE id = ?'
   ).bind(result.meta.last_row_id).first()
 
-  return NextResponse.json({ ok: true, message: msg })
+  const res = NextResponse.json({ ok: true, message: msg })
+  res.headers.set('RateLimit-Limit', String(RATE_LIMIT))
+  res.headers.set('RateLimit-Remaining', String(rateResult.remaining))
+  return res
 }
