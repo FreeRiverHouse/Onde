@@ -1,0 +1,54 @@
+{
+  "updated_at": "2026-02-17T07:30:04.037135+00:00",
+  "last_24h": {
+    "uptime_pct": 100.0,
+    "healthy_checks": 384,
+    "restart_events": 0,
+    "total_checks": 384,
+    "hours_analyzed": 24
+  },
+  "last_7d": {
+    "uptime_pct": 98.31,
+    "healthy_checks": 2975,
+    "restart_events": 51,
+    "total_checks": 3026,
+    "hours_analyzed": 168
+  },
+  "daily": {
+    "2026-02-16": {
+      "uptime_pct": 100.0,
+      "healthy": 566,
+      "restarts": 0
+    },
+    "2026-02-15": {
+      "uptime_pct": 92.11,
+      "healthy": 595,
+      "restarts": 51
+    },
+    "2026-02-14": {
+      "uptime_pct": 100.0,
+      "healthy": 356,
+      "restarts": 0
+    },
+    "2026-02-13": {
+      "uptime_pct": 100.0,
+      "healthy": 518,
+      "restarts": 0
+    },
+    "2026-02-12": {
+      "uptime_pct": 100.0,
+      "healthy": 576,
+      "restarts": 0
+    },
+    "2026-02-11": {
+      "uptime_pct": 100.0,
+      "healthy": 364,
+      "restarts": 0
+    },
+    "2026-02-09": {
+      "uptime_pct": 100.0,
+      "healthy": 252,
+      "restarts": 0
+    }
+  }
+}

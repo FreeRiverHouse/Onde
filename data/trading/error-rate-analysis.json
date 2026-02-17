@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-02-17T07:30:02.273722Z",
+  "overall": {
+    "total_calls": 119,
+    "total_errors": 5,
+    "error_rate_pct": 4.2
+  },
+  "last_24h": {
+    "total_calls": 0,
+    "errors": 0,
+    "error_rate_pct": 0
+  },
+  "daily_breakdown": [
+    {
+      "date": "2026-02-03",
+      "total": 7,
+      "errors": 1,
+      "error_rate": 14.3
+    },
+    {
+      "date": "2026-02-05",
+      "total": 54,
+      "errors": 4,
+      "error_rate": 7.4
+    },
+    {
+      "date": "2026-02-06",
+      "total": 5,
+      "errors": 0,
+      "error_rate": 0.0
+    },
+    {
+      "date": "2026-02-07",
+      "total": 7,
+      "errors": 0,
+      "error_rate": 0.0
+    },
+    {
+      "date": "2026-02-08",
+      "total": 3,
+      "errors": 0,
+      "error_rate": 0.0
+    },
+    {
+      "date": "2026-02-09",
+      "total": 2,
+      "errors": 0,
+      "error_rate": 0.0
+    },
+    {
+      "date": "2026-02-13",
+      "total": 3,
+      "errors": 0,
+      "error_rate": 0.0
+    }
+  ],
+  "high_error_hours": [
+    {
+      "hour": "2026-02-03 21:00",
+      "total": 7,
+      "errors": 1,
+      "error_rate": 14.3,
+      "error_types": {
+        "resting": 1
+      }
+    },
+    {
+      "hour": "2026-02-05 02:00",
+      "total": 6,
+      "errors": 1,
+      "error_rate": 16.7,
+      "error_types": {
+        "resting": 1
+      }
+    },
+    {
+      "hour": "2026-02-05 12:00",
+      "total": 3,
+      "errors": 1,
+      "error_rate": 33.3,
+      "error_types": {
+        "resting": 1
+      }
+    },
+    {
+      "hour": "2026-02-05 20:00",
+      "total": 5,
+      "errors": 2,
+      "error_rate": 40.0,
+      "error_types": {
+        "resting": 2
+      }
+    }
+  ],
+  "threshold_pct": 10.0
+}

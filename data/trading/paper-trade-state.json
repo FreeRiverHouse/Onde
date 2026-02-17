@@ -1,6 +1,6 @@
 {
   "starting_balance_cents": 10000,
-  "current_balance_cents": 9804,
+  "current_balance_cents": 9624,
   "positions": [
     {
       "ticker": "KXBTCD-26FEB1702-T68499.99",
@@ -13,19 +13,32 @@
       "edge": 0.0833,
       "expiry": "2026-02-17T07:00:00Z",
       "status": "open"
+    },
+    {
+      "ticker": "KXBTCD-26FEB1704-T68499.99",
+      "action": "BUY_YES",
+      "price_cents": 30,
+      "contracts": 6,
+      "cost_cents": 180,
+      "opened_at": "2026-02-17T08:03:10.390035+00:00",
+      "title": "Bitcoin price  on Feb 17, 2026?",
+      "edge": 0.0761,
+      "expiry": "2026-02-17T09:00:00Z",
+      "status": "open"
     }
   ],
   "stats": {
-    "total_trades": 1,
+    "total_trades": 2,
     "wins": 0,
     "losses": 0,
-    "pending": 1,
+    "pending": 2,
     "win_rate": 0.0,
     "pnl_cents": 0,
     "gross_profit_cents": 0,
     "gross_loss_cents": 0,
     "peak_balance_cents": 10000,
-    "max_drawdown_cents": 196
+    "max_drawdown_cents": 376,
+    "max_drawdown_pct": 3.76
   },
   "reset_at": "2026-02-17T06:11:21.040858+00:00",
   "reset_reason": "Kelly 0.75 overbetting fix \u2192 quarter-Kelly 0.25 + $2 max cap",
@@ -38,7 +51,56 @@
       "contracts": 7,
       "cost_cents": 196,
       "status": "open"
+    },
+    {
+      "timestamp": "2026-02-17T08:03:10.390035+00:00",
+      "ticker": "KXBTCD-26FEB1704-T68499.99",
+      "action": "BUY_YES",
+      "price_cents": 30,
+      "contracts": 6,
+      "cost_cents": 180,
+      "status": "open"
     }
   ],
-  "updated_at": "2026-02-17T06:12:12.192921+00:00"
+  "updated_at": "2026-02-17T08:03:10.390065+00:00",
+  "analysis": {
+    "last_tune": "2026-02-17T08:00:03.258606+00:00",
+    "total_paper_trades": 306,
+    "edge_stats": {
+      "mean": 0.34163117252381964,
+      "median": 0.17224772068806946,
+      "stdev": 0.29037014201838984,
+      "min": 0.09003942444252377,
+      "max": 0.9374,
+      "count": 306
+    },
+    "by_asset": {
+      "eth": {
+        "trades": 87,
+        "avg_edge": 0.1367
+      },
+      "btc": {
+        "trades": 104,
+        "avg_edge": 0.12
+      },
+      "weather": {
+        "trades": 115,
+        "avg_edge": 0.6971
+      }
+    },
+    "by_regime": {
+      "sideways": {
+        "trades": 45,
+        "avg_edge": 0.2055
+      },
+      "choppy": {
+        "trades": 146,
+        "avg_edge": 0.1036
+      },
+      "unknown": {
+        "trades": 115,
+        "avg_edge": 0.6971
+      }
+    }
+  }
 }
