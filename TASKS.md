@@ -75,19 +75,36 @@ I task devono AUMENTARE (ogni feedback → 2 nuovi task).
 
 ## 🟡 GAME — Pizza Gelato Rush
 
-### PGR-001: Grafica HC2-Level — Motorino su Percorso Circolare
-**Owner:** Ondinho 🟢 guida, Bubble 🫧 esegue
+### ⛔ REGOLA ASSOLUTA: NEVER USE WEB PROTOTYPE!!!
+**Da 2026-02-17 09:57 PST — Ordine diretto di Mattia**
+- ❌ MAI web prototype (web-prototype/index.html) 
+- ✅ SOLO Unity app standalone
+- Chi usa web prototype = task RIFIUTATO
+
+### PGR-001: Grafica HC2-Level — App Unity Standalone
+**Owner:** Ondinho 🟢
+**QA:** Bubble 🫧 (PROC002B)
 **Status:** IN_PROGRESS
 **Priority:** P0
 
-**Obiettivo:** Motorino su percorso circolare con grafica livello Horizon Chase 2
+**Obiettivo:** App Unity standalone con grafica livello Horizon Chase 2
 
-**TODO:**
-- [ ] Screenshot ogni 10 min — comparare con HC2 reference
-- [ ] Cel-shading / toon shader implementato
-- [ ] Low-poly environment con colori vibranti
-- [ ] Skybox tramonto come HC2
-- [ ] Camera follow smooth
+**PROC002B Loop:**
+1. Ondinho fix in Unity
+2. Screenshot a Bubble
+3. Bubble analizza + chiede a Grok
+4. Bubble crea task
+5. Repeat
+
+**TODO Grafica (must fix before anything else):**
+- [ ] Erba con striature/pattern/variazioni colore
+- [ ] Edifici dettagliati (non blocky)  
+- [ ] Alberi con ombre e dettagli
+- [ ] Parallax/layering nello sfondo
+- [ ] Curve visibili nella strada
+- [ ] Dettagli bordo strada (guard rail, cartelli)
+- [ ] Lighting/shading realistico
+- [ ] Screenshot review Mattia ✅
 
 ---
 
