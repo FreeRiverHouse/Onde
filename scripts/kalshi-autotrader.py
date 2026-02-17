@@ -134,9 +134,9 @@ VIRTUAL_BALANCE = 100.0  # Virtual balance for paper mode when real balance < $1
 
 # ── Trading parameters (data-driven from v3's 132 settled trades analysis) ──
 # BUY_NO: 76% WR overall → low bar.  BUY_YES: 19% WR overall → high bar.
-MIN_EDGE_BUY_NO  = 0.03   # 3% min for BUY_NO  (our strength: 50% WR)
-MIN_EDGE_BUY_YES = 0.08   # 8% min for BUY_YES (higher bar: only 33% WR, Grok rec)
-MIN_EDGE = 0.03            # Global minimum
+MIN_EDGE_BUY_NO  = 0.02   # 2% min for BUY_NO  (paper mode: collect data aggressively)
+MIN_EDGE_BUY_YES = 0.04   # 4% min for BUY_YES (lowered for data collection in paper mode)
+MIN_EDGE = 0.02            # Global minimum (paper mode: more trades = more data)
 MAX_EDGE_CAP = 0.10        # Cap edges >10% (overconfident forecaster at >10%: 0% WR)
 MAX_POSITION_PCT = 0.05    # Max 5% of portfolio per position
 KELLY_FRACTION = 0.05      # Conservative (reduced from 0.15 per Grok: crypto too volatile for aggressive sizing)
@@ -1834,10 +1834,9 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
         return TradeDecision(action="SKIP", edge=edge_yes, kelly_size=0, contracts=0, price_cents=0,
                             reason=f"Too many flaws: {', '.join(critic.major_flaws[:2])}",
                             forecast=forecast, critic=critic)
-    if forecast.confidence == "low" and edge_yes > 0 and abs(edge_yes) < 0.10:
-        return TradeDecision(action="SKIP", edge=edge_yes, kelly_size=0, contracts=0, price_cents=0,
-                            reason=f"Low conf + moderate YES edge ({edge_yes:+.1%})",
-                            forecast=forecast, critic=critic)
+    # Low-confidence filter disabled in paper mode — we need data on all edge levels
+    # if forecast.confidence == "low" and edge_yes > 0 and abs(edge_yes) < 0.10:
+    #     return TradeDecision(action="SKIP", ...)
 
     # Cap edges
     if abs(edge_yes) > MAX_EDGE_CAP:
@@ -2614,7 +2613,7 @@ def get_daily_trades_cost() -> int:
 # MAIN TRADING CYCLE
 # ============================================================================
 
-def run_cycle(dry_run: bool = True, max_markets: int = 20, max_trades: int = 5):
+def run_cycle(dry_run: bool = True, max_markets: int = 30, max_trades: int = 10):
     """
     One complete trading cycle:
     1. Check safety (circuit breaker, daily loss, holiday)
