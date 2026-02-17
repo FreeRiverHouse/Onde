@@ -1730,10 +1730,16 @@ def _heuristic_crypto(market: MarketInfo, context: dict = None) -> tuple:
 
     # Sentiment adjustment (Fear & Greed Index)
     # F&G 10 = extreme fear → bearish bias; F&G 90 = extreme greed → bullish bias
-    # Scale: at F&G=10 → -6% adj; at F&G=90 → +6% adj; at F&G=50 → 0
+    # FIXED: Previous /500 was too weak (only -8% at extreme fear)
+    # New: at F&G=10 → -16% adj; at F&G=90 → +16% adj; at F&G=50 → 0
+    # Extreme fear (F&G < 20) gets EXTRA penalty since markets trend DOWN in fear
     fng = (context or {}).get("sentiment", {})
     sentiment_val = fng.get("value", 50)
-    sentiment_adj = (sentiment_val - 50) / 500  # -8% to +8% range (was /1500, way too weak)
+    sentiment_adj = (sentiment_val - 50) / 250  # -20% to +20% range (was /500 = -8%, way too weak)
+    # Extra bearish penalty in extreme fear — the market trends DOWN hard
+    if sentiment_val < 20:
+        extreme_fear_penalty = (20 - sentiment_val) / 100  # up to -20% extra at F&G=0
+        sentiment_adj -= extreme_fear_penalty
     prob_above += sentiment_adj
 
     # Regime adjustment: choppy + high vol = shrink toward 50% more (less directional confidence)
@@ -1895,6 +1901,21 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
                         balance: float) -> TradeDecision:
     """Compare probability vs market price and decide. Uses split thresholds (v3 data-driven)."""
     final_prob = 0.6 * forecast.probability + 0.4 * critic.adjusted_probability
+
+    # PROC-002 Task 6.2: Overconfidence decay — shrink toward 50% for markets closing >48h out
+    try:
+        close_str = getattr(market, 'expiry', '') or ''
+        if close_str:
+            close_dt = datetime.fromisoformat(close_str.replace("Z", "+00:00"))
+            hours_to_close = (close_dt - datetime.now(timezone.utc)).total_seconds() / 3600
+            if hours_to_close > 48:
+                decay_rate = 0.003  # -0.3% per hour past 48h
+                decay_hours = min(hours_to_close - 48, 200)  # cap at 200h extra
+                decay = decay_rate * decay_hours
+                final_prob = final_prob * (1 - decay) + 0.5 * decay  # shrink toward 50%
+                final_prob = max(0.01, min(0.99, final_prob))
+    except Exception:
+        pass  # Don't break on parsing errors
     market_prob = market.market_prob
     edge_yes = final_prob - market_prob
     
@@ -1974,7 +1995,20 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
 
     # Kelly sizing (PROC-002 Task 5.2: apply vol regime scaling)
     kelly_frac = calculate_kelly(final_prob if action == "BUY_YES" else (1 - final_prob), side_price)
-    # Scale Kelly by vol regime factor (computed in detect_market_regime)
+
+    # PROC-002 Task 4.2: Recovery mode — halve Kelly when drawdown > 10%
+    if DRAWDOWN_PEAK_BALANCE > 0 and balance < DRAWDOWN_PEAK_BALANCE:
+        current_drawdown = (DRAWDOWN_PEAK_BALANCE - balance) / DRAWDOWN_PEAK_BALANCE
+        if current_drawdown > 0.20:
+            kelly_frac *= 0.25  # Severe drawdown: quarter Kelly
+            structured_log("recovery_mode", {"drawdown_pct": round(current_drawdown * 100, 1),
+                                             "kelly_scale": 0.25}, level="warning")
+        elif current_drawdown > 0.10:
+            kelly_frac *= 0.50  # Moderate drawdown: halve Kelly
+            structured_log("recovery_mode", {"drawdown_pct": round(current_drawdown * 100, 1),
+                                             "kelly_scale": 0.50}, level="warning")
+
+    # PROC-002 Task 5.2: Scale Kelly by vol regime factor
     asset = "btc" if "btc" in market.ticker.lower() or "BTC" in market.ticker else "eth"
     dyn_vol = get_dynamic_hourly_vol(asset)
     assumed_vol = BTC_HOURLY_VOL if asset == "btc" else ETH_HOURLY_VOL
