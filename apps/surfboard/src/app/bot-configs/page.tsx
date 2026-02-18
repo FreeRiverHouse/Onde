@@ -391,13 +391,19 @@ function Dashboard() {
 
   const handleSwitch = async (macId: string, model: string) => {
     try {
+      // 'refresh-token' is a special action, not a model switch
+      const isRefresh = model === 'refresh-token'
+      const body = isRefresh
+        ? { macId, action: 'refresh-token' }
+        : { macId, action: 'switch', model }
       const res = await fetch('/api/bot-configs/command', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ macId, action: 'switch', model }),
+        body: JSON.stringify(body),
       })
       if (res.ok) {
-        showToast(`✅ Comando inviato a ${macId} — applicato al prossimo heartbeat`)
+        const label = isRefresh ? '🔑 Refresh token' : `switch → ${model.split('/').pop()}`
+        showToast(`✅ Comando inviato a ${macId} [${label}] — applicato al prossimo heartbeat`)
       } else {
         showToast('❌ Errore invio comando')
       }

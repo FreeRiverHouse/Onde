@@ -54,28 +54,47 @@ def get_clawdbot_config():
     return primary, fallbacks
 
 
+def get_keychain_token(account: str) -> str:
+    """Read OAuth access token from macOS keychain for given account name."""
+    try:
+        raw = subprocess.check_output(
+            ["security", "find-generic-password", "-s", "Claude Code-credentials", "-a", account, "-w"],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        d = json.loads(raw)
+        return d.get("claudeAiOauth", {}).get("accessToken", "")
+    except Exception:
+        return ""
+
+
 def get_auth_status():
     auth = read_json(AGENT_AUTH)
     try:
         profile = auth["profiles"]["anthropic:claude-cli"]
-        token   = profile.get("token", "")
+        # Support both old "token" key and new "access" key (gateway updated structure)
+        token   = profile.get("access", profile.get("token", ""))
         stats   = auth.get("usageStats", {}).get("anthropic:claude-cli", {})
         cooldown     = stats.get("cooldownUntil")
         error_count  = stats.get("errorCount", 0)
     except (KeyError, TypeError):
         token, cooldown, error_count = "", None, 0
 
-    # Determine account from token suffix
     token_end = token[-12:] if len(token) >= 12 else token
-    if token_end == "hRg-PCbGEAAA":
-        account = "freeriverhouse@gmail.com"
-        tier    = "default_claude_max_5x"
-    elif token_end == "DWw-pWTs5AAA":
+
+    # Identify account by comparing active token against keychain tokens
+    # Magmaticxr is the "bad" account - if we detect it, report it
+    mgx_token = get_keychain_token("Claude Code")  # magmaticxr
+    frh_token = get_keychain_token(KEYCHAIN_ACCT)  # freeriverhouse (account "mattia")
+
+    if mgx_token and token == mgx_token:
         account = "magmaticxr@gmail.com"
         tier    = "default_claude_max_20x"
+    elif frh_token and token == frh_token:
+        account = "freeriverhouse@gmail.com"
+        tier    = "default_claude_max_5x"
     else:
-        account = read_keychain_account()
-        tier    = "unknown"
+        # Token refreshed independently - infer from keychain rateLimitTier
+        account, tier = read_keychain_account()
 
     return {
         "account":    account,
@@ -87,15 +106,24 @@ def get_auth_status():
 
 
 def read_keychain_account():
+    """Return (email, tier) from keychain for the primary account."""
     try:
         raw = subprocess.check_output(
             ["security", "find-generic-password", "-s", "Claude Code-credentials", "-a", KEYCHAIN_ACCT, "-w"],
             stderr=subprocess.DEVNULL
         ).decode().strip()
         d = json.loads(raw)
-        return d.get("claudeAiOauth", {}).get("account", KEYCHAIN_ACCT)
+        oauth = d.get("claudeAiOauth", {})
+        tier = oauth.get("rateLimitTier", "unknown")
+        # No 'account' email field in keychain - map KEYCHAIN_ACCT to known email
+        email_map = {
+            "mattia": "freeriverhouse@gmail.com",
+            "mattiapetrucciani": "freeriverhouse@gmail.com",
+        }
+        email = email_map.get(KEYCHAIN_ACCT, f"{KEYCHAIN_ACCT}@?")
+        return email, tier
     except Exception:
-        return KEYCHAIN_ACCT
+        return "freeriverhouse@gmail.com", "unknown"
 
 
 def get_nvidia_usage() -> dict:
@@ -260,8 +288,7 @@ def auto_fix_token_if_wrong(auth: dict):
     è stato usato con l'account magmaticxr. Il fix script aggiorna sia auth-profiles.json
     sia il keychain 'Claude Code', quindi il gateway terrà freeriverhouse anche dopo il restart.
     """
-    BAD_TOKENS = {"DWw-pWTs5AAA"}  # magmaticxr = rate limited 100% 7d
-    if auth.get("tokenEnd") in BAD_TOKENS:
+    if auth.get("account") == "magmaticxr@gmail.com":
         print(f"  [auto-fix] token sbagliato rilevato ({auth['tokenEnd']}), eseguo fix...")
         if Path(str(SWITCH_SCRIPT)).exists():
             result = subprocess.run(
