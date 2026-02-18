@@ -1,3 +1,6 @@
 [submodule "tools/frh-house-chat"]
 	path = tools/frh-house-chat
 	url = https://github.com/FreeRiverHouse/frh-house-chat.git
+[submodule "tools/house-chat"]
+	path = tools/house-chat
+	url = https://github.com/FreeRiverHouse/frh-house-chat.git
