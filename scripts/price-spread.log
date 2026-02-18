@@ -27409,3 +27409,706 @@ TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'
     ⚠️  Only 1 source(s), cannot compare
 
 ✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 18:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,346.99
+    • Coingecko: $67,253.00
+    → Spread: 0.1398%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,967.23
+    • Coingecko: $1,966.47
+    → Spread: 0.0389%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 18:30:03 UTC
+
+  BTC:
+    • Coinbase: $67,700.30
+    • Coingecko: $67,698.00
+    → Spread: 0.0034%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,988.07
+    • Coingecko: $1,987.05
+    → Spread: 0.0511%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 18:45:02 UTC
+
+  BTC:
+    • Coinbase: $67,737.88
+    • Coingecko: $67,944.00
+    → Spread: 0.3043%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,992.43
+    • Coingecko: $2,001.53
+    → Spread: 0.4565%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 19:00:03 UTC
+
+  BTC:
+    • Coinbase: $68,074.51
+    • Coingecko: $68,135.00
+    → Spread: 0.0889%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,999.20
+    • Coingecko: $2,002.29
+    → Spread: 0.1543%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 19:15:02 UTC
+
+  BTC:
+    • Coinbase: $68,008.52
+    • Coingecko: $68,017.00
+    → Spread: 0.0125%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $2,006.71
+    • Coingecko: $2,007.52
+    → Spread: 0.0401%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 19:30:03 UTC
+
+  BTC:
+    • Coinbase: $68,005.41
+    • Coingecko: $67,939.00
+    → Spread: 0.0978%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $2,006.93
+    • Coingecko: $2,004.67
+    → Spread: 0.1130%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 19:45:02 UTC
+
+  BTC:
+    • Coinbase: $67,880.43
+    • Coingecko: $67,856.00
+    → Spread: 0.0360%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $2,001.90
+    • Coingecko: $2,000.51
+    → Spread: 0.0697%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 20:00:03 UTC
+
+  BTC:
+    • Coinbase: $67,750.96
+    • Coingecko: $67,807.00
+    → Spread: 0.0827%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,997.21
+    • Coingecko: $1,998.63
+    → Spread: 0.0708%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 20:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,561.21
+    • Coingecko: $67,566.00
+    → Spread: 0.0071%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,992.44
+    • Coingecko: $1,993.07
+    → Spread: 0.0314%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 20:30:03 UTC
+
+  BTC:
+    • Coinbase: $67,712.26
+    • Coingecko: $67,688.00
+    → Spread: 0.0358%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,994.95
+    • Coingecko: $1,994.06
+    → Spread: 0.0446%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 20:45:02 UTC
+
+  BTC:
+    • Coinbase: $67,628.54
+    • Coingecko: $67,847.00
+    → Spread: 0.3230%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,991.12
+    • Coingecko: $1,999.01
+    → Spread: 0.3960%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 21:00:03 UTC
+
+  BTC:
+    • Coinbase: $67,730.96
+    • Coingecko: $67,738.00
+    → Spread: 0.0104%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,994.06
+    • Coingecko: $1,994.35
+    → Spread: 0.0148%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 21:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,841.51
+    • Coingecko: $67,779.00
+    → Spread: 0.0922%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $2,000.17
+    • Coingecko: $1,996.20
+    → Spread: 0.1989%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 21:30:02 UTC
+
+  BTC:
+    • Coinbase: $67,534.99
+    • Coingecko: $67,580.00
+    → Spread: 0.0666%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,994.53
+    • Coingecko: $1,994.89
+    → Spread: 0.0183%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 21:45:01 UTC
+
+  BTC:
+    • Coinbase: $67,545.82
+    • Coingecko: $67,555.00
+    → Spread: 0.0136%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,995.53
+    • Coingecko: $1,995.56
+    → Spread: 0.0018%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 22:00:03 UTC
+
+  BTC:
+    • Coinbase: $67,610.96
+    • Coingecko: $67,637.00
+    → Spread: 0.0385%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,998.32
+    • Coingecko: $1,998.23
+    → Spread: 0.0043%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 22:15:02 UTC
+
+  BTC:
+    • Coinbase: $67,528.77
+    • Coingecko: $67,545.00
+    → Spread: 0.0240%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,998.21
+    • Coingecko: $1,998.21
+    → Spread: 0.0000%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 22:30:02 UTC
+
+  BTC:
+    • Coinbase: $67,645.99
+    • Coingecko: $67,629.00
+    → Spread: 0.0251%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,998.56
+    • Coingecko: $1,998.17
+    → Spread: 0.0193%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 22:45:02 UTC
+
+  BTC:
+    • Coinbase: $67,631.49
+    • Coingecko: $67,622.00
+    → Spread: 0.0140%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,999.35
+    • Coingecko: $1,999.14
+    → Spread: 0.0103%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 23:00:02 UTC
+
+  BTC:
+    • Coinbase: $67,495.05
+    • Coingecko: $67,512.00
+    → Spread: 0.0251%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,992.35
+    • Coingecko: $1,992.93
+    → Spread: 0.0294%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 23:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,385.82
+    • Coingecko: $67,392.00
+    → Spread: 0.0092%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,990.99
+    • Coingecko: $1,990.05
+    → Spread: 0.0475%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 23:30:03 UTC
+
+  BTC:
+    • Coinbase: $67,532.26
+    • Coingecko: $67,473.00
+    → Spread: 0.0878%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,994.92
+    • Coingecko: $1,993.07
+    → Spread: 0.0928%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-17 23:45:01 UTC
+
+  BTC:
+    • Coinbase: $67,473.84
+    • Coingecko: $67,469.00
+    → Spread: 0.0072%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,993.23
+    • Coingecko: $1,993.85
+    → Spread: 0.0309%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 00:00:02 UTC
+
+  BTC:
+    • Coinbase: $67,452.13
+    • Coingecko: $67,507.00
+    → Spread: 0.0813%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,990.44
+    • Coingecko: $1,992.35
+    → Spread: 0.0957%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 00:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,589.98
+    • Coingecko: $67,572.00
+    → Spread: 0.0266%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,995.52
+    • Coingecko: $1,994.71
+    → Spread: 0.0404%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 00:30:02 UTC
+
+  BTC:
+    • Coinbase: $67,451.01
+    • Coingecko: $67,462.00
+    → Spread: 0.0163%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,990.68
+    • Coingecko: $1,990.79
+    → Spread: 0.0053%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 00:45:02 UTC
+
+  BTC:
+    • Coinbase: $67,438.35
+    • Coingecko: $67,500.00
+    → Spread: 0.0914%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,991.77
+    • Coingecko: $1,993.45
+    → Spread: 0.0843%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 01:00:02 UTC
+
+  BTC:
+    • Coinbase: $67,296.60
+    • Coingecko: $67,301.00
+    → Spread: 0.0065%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,981.28
+    • Coingecko: $1,981.39
+    → Spread: 0.0058%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 01:15:00 UTC
+
+  BTC:
+    • Coinbase: $67,097.68
+    • Coingecko: $67,088.00
+    → Spread: 0.0144%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,973.48
+    • Coingecko: $1,973.53
+    → Spread: 0.0023%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 01:30:02 UTC
+
+  BTC:
+    • Coinbase: $67,110.59
+    • Coingecko: $67,066.00
+    → Spread: 0.0665%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,976.40
+    • Coingecko: $1,974.28
+    → Spread: 0.1076%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 01:45:01 UTC
+
+  BTC:
+    • Coinbase: $67,081.37
+    • Coingecko: $67,064.00
+    → Spread: 0.0259%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,975.19
+    • Coingecko: $1,974.73
+    → Spread: 0.0235%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 02:00:03 UTC
+
+  BTC:
+    • Coinbase: $67,108.40
+    • Coingecko: $67,106.00
+    → Spread: 0.0036%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,976.07
+    • Coingecko: $1,975.98
+    → Spread: 0.0043%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 02:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,243.04
+    • Coingecko: $67,310.00
+    → Spread: 0.0996%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,984.32
+    • Coingecko: $1,986.12
+    → Spread: 0.0910%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 02:30:01 UTC
+
+  BTC:
+    • Coinbase: $67,181.15
+    • Coingecko: $67,226.00
+    → Spread: 0.0668%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,982.88
+    • Coingecko: $1,984.29
+    → Spread: 0.0709%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 02:45:01 UTC
+
+  BTC:
+    • Coinbase: $67,337.99
+    • Coingecko: $67,336.00
+    → Spread: 0.0030%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,990.36
+    • Coingecko: $1,990.04
+    → Spread: 0.0158%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 03:00:02 UTC
+
+  BTC:
+    • Coinbase: $67,295.99
+    • Coingecko: $67,293.00
+    → Spread: 0.0045%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,986.83
+    • Coingecko: $1,986.82
+    → Spread: 0.0003%
+    ✅ Normal spread
+
+✅ All spreads normal
+🔎 Price Spread Anomaly Detector
+   Threshold: 1.0%
+   Mode: single check
+
+🔍 Checking prices at 2026-02-18 03:15:01 UTC
+
+  BTC:
+    • Coinbase: $67,367.21
+    • Coingecko: $67,361.00
+    → Spread: 0.0092%
+    ✅ Normal spread
+
+  ETH:
+    • Coinbase: $1,988.07
+    • Coingecko: $1,987.60
+    → Spread: 0.0234%
+    ✅ Normal spread
+
+✅ All spreads normal

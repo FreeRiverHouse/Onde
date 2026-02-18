@@ -580,3 +580,226 @@ Using cached news (age: ? min)
    Avg API latency: 321ms
 ======================================================================
 [36m[15:56:13] [I] cycle_end | dry_run=True, forecaster=heuristic, duration_s=51.1000, markets_scanned=49, markets_analyzed=20, trades_executed=0, trades_skipped=8, tokens=0, balance=100.0000, positions=9[0m
+🔄 Loop mode: every 300s
+[36m[02:32:53] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 02:32 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=23¢ (-32.4%) peak=-32.4%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=57¢ (+14.0%) peak=+14.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=64¢ (+10.3%) peak=+10.3%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=69¢ (+15.0%) peak=+15.0%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=69¢ (+16.9%) peak=+16.9%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[02:38:21] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 02:38 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=24¢ (-29.4%) peak=-29.4%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=55¢ (+10.0%) peak=+10.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=62¢ (+6.9%) peak=+6.9%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=68¢ (+13.3%) peak=+13.3%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=66¢ (+11.9%) peak=+11.9%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[02:43:48] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 02:43 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=25¢ (-26.5%) peak=-26.5%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=55¢ (+10.0%) peak=+10.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=63¢ (+8.6%) peak=+8.6%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=69¢ (+15.0%) peak=+15.0%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=66¢ (+11.9%) peak=+11.9%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[02:49:16] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 02:49 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=24¢ (-29.4%) peak=-29.4%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=57¢ (+14.0%) peak=+14.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=63¢ (+8.6%) peak=+8.6%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=69¢ (+15.0%) peak=+15.0%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=68¢ (+15.3%) peak=+15.3%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[02:54:43] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 02:54 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=25¢ (-26.5%) peak=-26.5%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=56¢ (+12.0%) peak=+12.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=63¢ (+8.6%) peak=+8.6%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=70¢ (+16.7%) peak=+16.7%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=67¢ (+13.6%) peak=+13.6%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[03:00:10] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 03:00 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=25¢ (-26.5%) peak=-26.5%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=55¢ (+10.0%) peak=+10.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=63¢ (+8.6%) peak=+8.6%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=70¢ (+16.7%) peak=+16.7%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=66¢ (+11.9%) peak=+11.9%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[03:05:37] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 03:05 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=26¢ (-23.5%) peak=-23.5%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=55¢ (+10.0%) peak=+10.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=62¢ (+6.9%) peak=+6.9%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=68¢ (+13.3%) peak=+13.3%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=64¢ (+8.5%) peak=+8.5%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[03:11:05] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 03:11 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=25¢ (-26.5%) peak=-26.5%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=54¢ (+8.0%) peak=+8.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=63¢ (+8.6%) peak=+8.6%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=68¢ (+13.3%) peak=+13.3%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=66¢ (+11.9%) peak=+11.9%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=8¢ (-11.1%) peak=-11.1%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+[36m[03:16:33] [I] cycle_start | dry_run=True, max_markets=20, max_trades=5[0m
+======================================================================
+🤖 KALSHI AUTOTRADER — Unified
+📅 2026-02-18 03:16 UTC
+🧪 DRY RUN (PAPER)
+======================================================================
+🔒 Circuit breaker: OK (2/5 losses)
+📊 Daily PnL: $+0.00 (0 trades)
+⚠️  No LLM API — using HEURISTIC forecaster
+💰 Real balance: $0.03
+   📝 Paper balance: $74.39
+📊 Open positions: 10/9 (dynamic, balance $74)
+
+🔔 Managing 10 open positions...
+   📉 KXETHD-26FEB2017-T2309.99: YES entry=5¢ now=4¢ (-20.0%) peak=-20.0%
+   📉 KXBTCD-26FEB2017-T69249.99: YES entry=34¢ now=26¢ (-23.5%) peak=-23.5%
+   📈 KXBTCD-26FEB2017-T67749.99: NO entry=50¢ now=54¢ (+8.0%) peak=+8.0%
+   📈 KXBTCD-26FEB2017-T68249.99: NO entry=58¢ now=62¢ (+6.9%) peak=+6.9%
+   📈 KXBTCD-26FEB2017-T68749.99: NO entry=60¢ now=68¢ (+13.3%) peak=+13.3%
+   📈 KXBTCD-26FEB1817-T67999.99: NO entry=59¢ now=64¢ (+8.5%) peak=+8.5%
+   📉 KXETHD-26FEB2017-T2149.99: YES entry=9¢ now=7¢ (-22.2%) peak=-22.2%
+⚠️ Max positions reached
+
+⏰ Next cycle in 300s...
+
+⚠️  Received SIGTERM — graceful shutdown requested...
+[36m[03:21:18] [I] shutdown_requested | signal=SIGTERM[0m
+[36m[03:21:18] [I] shutdown_complete | dry_run=True, reason=signal[0m
+
+✅ Graceful shutdown complete

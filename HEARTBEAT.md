@@ -1,4 +1,6 @@
 # HEARTBEAT.md
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
-# Add tasks below when you want the agent to check something periodically.
+# ⛔ PAUSA FINO A NUOVO ORDINE (dal 2026-02-17)
+# L'utente ha chiesto di non fare nulla in modo proattivo.
+# Non controllare email, calendario, notifiche, ecc.
+# Rispondi HEARTBEAT_OK a ogni heartbeat finché non viene revocata la pausa.

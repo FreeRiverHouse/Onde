@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-17T18:00:03.808377+00:00",
+  "timestamp": "2026-02-18T03:00:03.646092+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,6 +11,139 @@
   "article_count": 30,
   "results": [
     {
+      "title": "eToro shares pop 20% as crypto revenues bolster Q4 earnings",
+      "url": "https://cointelegraph.com/news/etoro-shares-pop-crypto-revenues-bolster-q4-earnings?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "eToro CEO Yoni Assia says he is positioning the trading platform \u201cfor a financial system that is increasingly moving on-chain,\u201d after its crypto revenues boosted earnings in Q4.",
+      "published": "2026-02-18T02:53:16+00:00"
+    },
+    {
+      "title": "Zora debuts attention markets on Solana, betting on social trends",
+      "url": "https://cointelegraph.com/news/zora-launches-attention-markets-solana?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The ZORA token gained 6.2% to $0.022 over the last 24 hours as Zora announced its new attention markets product.",
+      "published": "2026-02-18T01:27:00+00:00"
+    },
+    {
+      "title": "Federal Appeals Court Rejects Kalshi Bid to Pause Nevada Enforcement",
+      "url": "https://decrypt.co/358364/federal-appeals-court-rejects-kalshi-bid-pause-nevada",
+      "source": "decrypt",
+      "description": "The ruling clears a path for state action, leaving predictions-market operator Kalshi with limited options, according to one legal expert.",
+      "published": "2026-02-18T00:06:36+00:00"
+    },
+    {
+      "title": "Why Bitcoin Open Interest Has Seen\u00a0Its Largest Decline in Almost 3 Years",
+      "url": "https://decrypt.co/358273/bitcoin-open-interest-largest-decline-april-2023",
+      "source": "decrypt",
+      "description": "Bitcoin open interest has plunged 55% from its October 2025 peak, marking the steepest decline since April 2023 as traders unwind leverage.",
+      "published": "2026-02-17T23:31:56+00:00"
+    },
+    {
+      "title": "Ether bulls target $2.5K as staking ETF launch, RWA market cap reflect growth",
+      "url": "https://cointelegraph.com/news/ether-bulls-target-2-5k-as-staking-etf-launch-rwa-market-cap-reflect-growth?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Ether adoption grows as major endowments shift capital, BlackRock launches a staking ETF and Ethereum's real-world asset dominance highlights TradFi investor interest.",
+      "published": "2026-02-17T23:09:19+00:00"
+    },
+    {
+      "title": "Precious Metals Royalties Firm to Offer Dividends in Tether's Tokenized Gold",
+      "url": "https://decrypt.co/358356/precious-metals-royalties-firm-dividends-tether-tokenized-gold",
+      "source": "decrypt",
+      "description": "Elemental Royalty said investors will be able to receive dividends in Tether\u2019s XAUT, establishing a novel use case for tokenized gold.",
+      "published": "2026-02-17T22:23:54+00:00"
+    },
+    {
+      "title": "Stripe-Owned Bridge Gains National Bank Trust Charter to Boost Stablecoin Offerings",
+      "url": "https://decrypt.co/358355/stripe-owned-bridge-national-bank-trust-charter-stablecoin-offerings",
+      "source": "decrypt",
+      "description": "Bridge, the stablecoin firm of payments giant Stripe, was awarded conditional approval for a national trust banking charter.",
+      "published": "2026-02-17T22:13:49+00:00"
+    },
+    {
+      "title": "Stripe-owned Bridge gets OCC conditional approval for national bank charter",
+      "url": "https://cointelegraph.com/news/bridge-stripe-occ-approval-national-trust-bank?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "While still subject to final approval, the regulator's nod would enable Bridge to offer stablecoin and digital asset services to businesses.",
+      "published": "2026-02-17T21:50:57+00:00"
+    },
+    {
+      "title": "Quantoz gains Visa nod to issue stablecoin-linked debit cards in Europe",
+      "url": "https://cointelegraph.com/news/quantoz-gains-visa-principal-membership-to-issue-stablecoin-linked-debit-cards-in-europe?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The Dutch electronic money issuer will act as a BIN sponsor for fintech partners, linking regulated dollar- and euro-denominated tokens to mainstream card rails.",
+      "published": "2026-02-17T21:45:23+00:00"
+    },
+    {
+      "title": "Coinbase CEO Brian Armstrong Addresses \u201cPaper Bitcoin\u201d Claims, Claims Bitcoin ETFs Are Fully Backed",
+      "url": "https://bitcoinmagazine.com/news/coinbase-ceo-addresses-paper-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Coinbase CEO Brian Armstrong Addresses \u201cPaper Bitcoin\u201d Claims, Claims Bitcoin ETFs Are Fully Backed Coinbase CEO Brian Armstrong dismissed \u201cpaper Bitcoin\u201d claims, insisting spot Bitcoin ETFs are fully backed, while defending Coinbase\u2019s dominant custody role and calling U.S. regulatory clarity the next key step for the industry. This post Coinbase CEO Brian Armstrong Addresses \u201cPaper Bitcoin\u201d Claims, Claims Bitcoin ETFs Are Fully Backed first appeared on Bitcoin Magazine and is w",
+      "published": "2026-02-17T21:24:20+00:00"
+    },
+    {
+      "title": "HIVE Digital posts 219% revenue jump as miner-AI hybrid strategy gains traction",
+      "url": "https://cointelegraph.com/news/hive-revenue-surge-artificial-intelligence-expansion-bitcoin-mining-pressure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Third-quarter results show revenue growth despite lower Bitcoin prices, alongside new AI computing contracts, as HIVE continues to expand beyond its core mining business.",
+      "published": "2026-02-17T21:15:10+00:00"
+    },
+    {
+      "title": "Abu Dhabi Funds Boosted BlackRock Bitcoin ETF Exposure to $1 Billion by End of 2025: Filings",
+      "url": "https://decrypt.co/358351/abu-dhabi-funds-blackrock-bitcoin-etf-exposure-1-billion",
+      "source": "decrypt",
+      "description": "Abu Dhabi funds added to their Bitcoin exposure in Q4, jumping to more than $1 billion worth of IBIT at the conclusion of the year.",
+      "published": "2026-02-17T21:12:46+00:00"
+    },
+    {
+      "title": "Bitcoin Miner Bitdeer Overtakes MARA, Establishing Hash Rate Lead: JPMorgan",
+      "url": "https://decrypt.co/358344/bitcoin-miner-bitdeer-overtakes-mara-hash-rate-lead-jpmorgan",
+      "source": "decrypt",
+      "description": "Bitcoin miner Bitdeer has overtaken MARA in terms of self-mining hash rate among publicly traded companies, according to JPMorgan analysts.",
+      "published": "2026-02-17T20:35:28+00:00"
+    },
+    {
+      "title": "New Bitcoin whales are trapped underwater, but for how long?",
+      "url": "https://cointelegraph.com/news/new-bitcoin-whales-are-trapped-underwater-but-for-how-long?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The gap between new and old Bitcoin whales continues to widen as BTC trades below $68,000. Will young whales continue to accumulate, or will older whales capitulate first?",
+      "published": "2026-02-17T20:30:00+00:00"
+    },
+    {
+      "title": "Traders pinpoint three price targets for Bitcoin if $70K holds as resistance",
+      "url": "https://cointelegraph.com/news/traders-pinpoint-three-price-targets-for-bitcoin-if-dollar70k-holds-as-resistance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Traders map out their desired price targets for Bitcoin if the $70,000 level continues to function as a resistance zone. Is there any hope for the bulls?",
+      "published": "2026-02-17T19:45:00+00:00"
+    },
+    {
+      "title": "Bitcoin chart pattern, whale activity warn of another 20% price drop",
+      "url": "https://cointelegraph.com/news/bitcoin-chart-pattern-whale-activity-warn-of-another-20-price-drop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin has formed a classic bearish pattern on its daily chart, and if confirmed, a price drop to $56,000 could be on the cards.",
+      "published": "2026-02-17T19:15:00+00:00"
+    },
+    {
+      "title": "Kraken integrates with ICE Chat to expand institutional OTC access",
+      "url": "https://cointelegraph.com/news/kraken-integrates-with-ice-chat-to-expand-institutional-otc-access?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The integration gives ICE Chat users direct access to the exchange's OTC crypto liquidity, embedding digital asset trading within established institutional workflows.",
+      "published": "2026-02-17T19:03:45+00:00"
+    },
+    {
+      "title": "Gemini Stock Dives as Winklevoss-Led Crypto Exchange Dumps Executives",
+      "url": "https://decrypt.co/358325/gemini-stock-dives-winklevoss-crypto-exchange-dumps-executives",
+      "source": "decrypt",
+      "description": "Shares in publicly traded crypto exchange Gemini are plunging as the firm parts ways with three executives following broader layoffs.",
+      "published": "2026-02-17T18:40:42+00:00"
+    },
+    {
+      "title": "Abu Dhabi\u2019s Mubadala Boosts Bitcoin ETF Holdings to $630 Million",
+      "url": "https://bitcoinmagazine.com/news/abu-dhabis-boosts-bitcoin-holdings-to-630",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Abu Dhabi\u2019s Mubadala Boosts Bitcoin ETF Holdings to $630 Million Abu Dhabi investment vehicles together held over 20 million shares of BlackRock\u2019s Bitcoin IBIT at the close of last year, with a combined value exceeding $1.1 billion. This post Abu Dhabi\u2019s Mubadala Boosts Bitcoin ETF Holdings to $630 Million first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-17T18:28:06+00:00"
+    },
+    {
       "title": "Satoshi\u2019s Exercise for the Reader",
       "url": "https://bitcoinmagazine.com/print/satoshis-exercise-for-the-reader",
       "source": "bitcoinmagazine",
@@ -18,46 +151,11 @@
       "published": "2026-02-17T17:50:41+00:00"
     },
     {
-      "title": "Top crypto treasury companies Strategy and Bitmine add to BTC, ETH stacks",
-      "url": "https://cointelegraph.com/news/top-crypto-treasury-companies-strategy-and-bitmine-add-to-btc-eth-stacks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The buys lift Strategy holdings to 717,131 BTC and Bitmine to 4.37 million ETH, expanding corporate crypto treasuries despite continued market weakness.",
-      "published": "2026-02-17T17:46:15+00:00"
-    },
-    {
-      "title": "Macro headwinds test Bitcoin price as $70K crumbles amid US market volatility",
-      "url": "https://cointelegraph.com/news/macro-headwinds-test-bitcoin-price-as-dollar70k-crumbles-amid-us-market-volatility?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin bulls\u2019 attempt to break above $70,000 stalled after a key US macroeconomic \u201cfear\u201d metric broke a critical threshold. Is a revisit to BTC's yearly lows back in play?",
-      "published": "2026-02-17T17:15:00+00:00"
-    },
-    {
       "title": "Tom Lee Expects 'Defining Year for Ethereum' as BitMine Buys ETH Amid 'Rock Bottom' Vibes",
       "url": "https://decrypt.co/358322/tom-lee-defining-year-ethereum-bitmine-buys-eth-rock-bottom-vibes",
       "source": "decrypt",
       "description": "BitMine Immersion Technologies is sitting on a nearly $8 billion unrealized loss, but Tom Lee remains optimistic about Ethereum.",
       "published": "2026-02-17T16:54:18+00:00"
-    },
-    {
-      "title": "Nakamoto to acquire BTC Inc, UTXO in $107M all-stock deal",
-      "url": "https://cointelegraph.com/news/nakamoto-inc-btc-inc-utxo-acquisitions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Nakamoto will acquire BTC Inc and UTXO in an all-stock deal, consolidating Bitcoin media, events and asset management under one Nasdaq-listed company.",
-      "published": "2026-02-17T16:53:20+00:00"
-    },
-    {
-      "title": "Gemini post-IPO shakeup sees exit of three top executives",
-      "url": "https://cointelegraph.com/news/gemini-space-station-executives-departing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The exchange's chief legal officer, chief operating officer and chief financial officer are out and Cameron Winkelvoss will take on more responsibilities.",
-      "published": "2026-02-17T16:43:53+00:00"
-    },
-    {
-      "title": "South Korea lifts 9-year corporate crypto ban: What the policy change means",
-      "url": "https://cointelegraph.com/news/south-korea-lifts-9-year-corporate-crypto-ban-what-the-policy-change-means?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "South Korea reopens crypto to corporations with strict caps and asset limits. This is part of a broader strategy that includes stablecoin legislation and potential spot crypto ETFs.",
-      "published": "2026-02-17T16:27:57+00:00"
     },
     {
       "title": "Is the Netherlands Taxing Unrealized Crypto Gains? It's Complicated",
@@ -74,39 +172,11 @@
       "published": "2026-02-17T16:13:42+00:00"
     },
     {
-      "title": "Bitcoin price ignores $168M Strategy buy, and falls as Iran tensions escalate",
-      "url": "https://cointelegraph.com/news/bitcoin-price-ignores-dollar168m-strategy-buy-and-falls-as-iran-tensions-escalate?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "BTC price fell below the key $70,000 level as tensions between the US and Iran ramped up and a broad risk-asset sell-off liquidated late BTC long positions.",
-      "published": "2026-02-17T16:13:21+00:00"
-    },
-    {
       "title": "Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing",
       "url": "https://bitcoinmagazine.com/news/ai-warda-raises-ibit-bitcoin-etf-stake",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing Abu Dhabi\u2019s Al Warda Investments increased its bitcoin exposure via BlackRock\u2019s IBIT to 8.2 million shares by the end of 2025. This post Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-17T15:58:51+00:00"
-    },
-    {
-      "title": "ZeroLend Latest DeFi Platform to Shut Down Amid Liquidity, Revenue Pressures",
-      "url": "https://decrypt.co/358304/zerolend-latest-defi-platform-to-shut-down-amid-liquidity-revenue-pressures",
-      "source": "decrypt",
-      "description": "ZeroLend cited an inability to \"generate sustainable revenue\" as it became the latest DeFi platform to wind down amid the ongoing slump.",
-      "published": "2026-02-17T15:33:31+00:00"
-    },
-    {
-      "title": "'See You in Court': CFTC Chair Defends Jurisdiction as States Fight Prediction Markets",
-      "url": "https://decrypt.co/358301/cftc-chair-exclusive-jurisdiction-prediction-markets",
-      "source": "decrypt",
-      "description": "CFTC Chairman Michael Selig hit back at states that have been challenging its authority to regulate prediction markets.",
-      "published": "2026-02-17T15:07:57+00:00"
-    },
-    {
-      "title": "Starknet adds EY Nightfall to enable private payments on Ethereum rails",
-      "url": "https://cointelegraph.com/news/starknet-taps-ey-nightfall-institutional-grade-privacy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "StarkWare is integrating EY\u2019s Nightfall privacy protocol into Starknet to give institutions private payments and DeFi access on public Ethereum-aligned rails, while preserving auditability.",
-      "published": "2026-02-17T15:00:00+00:00"
     },
     {
       "title": "Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC",
@@ -116,67 +186,11 @@
       "published": "2026-02-17T14:39:23+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-17T14:29:42+00:00"
-    },
-    {
-      "title": "Monad hires former FalconX, BVNK and Optimism executives",
-      "url": "https://cointelegraph.com/news/monad-hires-ex-falconx-bvnk-and-optimism-executives-to-drive-institutional-expansion-post-mainnet-embargo-feb-17?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The appointments add traditional finance and institutional crypto experience as the layer-1 blockchain scales its post-launch strategy.",
-      "published": "2026-02-17T14:00:00+00:00"
-    },
-    {
-      "title": "Binance holds 65% of CEX stablecoin reserves as outflows cool: CryptoQuant",
-      "url": "https://cointelegraph.com/news/stablecoin-outflows-slow-binance-65-cex-usdt-usdc-reserves?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Stablecoin outflows slow to $2 billion as Binance consolidates 65% of CEX liquidity, signaling capital concentration even amid the ongoing crypto bear market.",
-      "published": "2026-02-17T13:55:26+00:00"
-    },
-    {
       "title": "Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management",
       "url": "https://bitcoinmagazine.com/featured/nakamoto-to-acquire-btcinc-utxo-management",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management Nakamoto Inc. announced today that it has entered into merger agreements to acquire BTC Inc. and UTXO Management GP, LLC. This post Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management first appeared on Bitcoin Magazine and is written by Nik and Micah Zimmerman.",
       "published": "2026-02-17T13:38:09+00:00"
-    },
-    {
-      "title": "Morning Minute: Harvard Sells Bitcoin for Ethereum",
-      "url": "https://decrypt.co/358291/morning-minute-harvard-sells-bitcoin-for-ethereum",
-      "source": "decrypt",
-      "description": "Harvard's rotation from Bitcoin to ETH has raised the primary question\u2014what do they know?",
-      "published": "2026-02-17T13:32:31+00:00"
-    },
-    {
-      "title": "Congressman Calls for Review of Overseas Support for Autonomous Vehicles",
-      "url": "https://decrypt.co/358267/congressman-overseas-support-autonomous-vehicles",
-      "source": "decrypt",
-      "description": "The request marks a shift from Capitol Hill questioning to formal regulatory pressure, as lawmakers raise concerns about safety, accountability, and national security.",
-      "published": "2026-02-17T13:01:02+00:00"
-    },
-    {
-      "title": "Hardware Wallet Owners Hit With Snail Mail Phishing Campaign",
-      "url": "https://decrypt.co/358290/hardware-wallet-owners-hit-with-snail-mail-phishing-campaign",
-      "source": "decrypt",
-      "description": "The paper mailers mimic Ledger and Trezor branding and device update themes to push users toward malicious verification sites.",
-      "published": "2026-02-17T12:47:08+00:00"
-    },
-    {
-      "title": "Ireland's Data Watchdog Joins Global Regulators Probing X Over AI Image Risks",
-      "url": "https://decrypt.co/358270/irelands-data-watchdog-joins-global-regulators-probing-x-over-ai-image-risks",
-      "source": "decrypt",
-      "description": "The probe will examine Grok\u2019s AI image processing for lawful use, built-in safeguards, and impact assessments.",
-      "published": "2026-02-17T10:40:17+00:00"
-    },
-    {
-      "title": "Steak 'n Shake Says Bitcoin Has Lifted Sales 'Dramatically' in 9 Months",
-      "url": "https://decrypt.co/358264/steak-n-shake-bitcoin-lifted-sales-dramatically-nine-months",
-      "source": "decrypt",
-      "description": "The fast-food chain says bitcoin payments have boosted sales, as it channels crypto receipts into a growing corporate reserve.",
-      "published": "2026-02-17T06:47:41+00:00"
     },
     {
       "title": "Metaplanet Reports $619 Million Loss as Bitcoin Holdings Take Hit",
@@ -205,20 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Trump Family-Backed American Bitcoin Keeps Stacking Bitcoin, Holdings Pass 6,000 BTC American Bitcoin (ABTC) has pushed its Bitcoin reserves past 6,000 BTC. This post Trump Family-Backed American Bitcoin Keeps Stacking Bitcoin, Holdings Pass 6,000 BTC first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-16T16:20:25+00:00"
-    },
-    {
-      "title": "Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift",
-      "url": "https://bitcoinmagazine.com/news/harvard-trims-bitcoin-position",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift Harvard trimmed its Bitcoin holdings by 21% in the fourth quarter while establishing its first-ever position in Ethereum. This post Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-16T14:23:38+00:00"
-    },
-    {
-      "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Reclaims $70,000 After Deep February Slide After a rough sell-off that dragged BTC near $60,000, the bitcoin price has rebounded above $70,000. This post Bitcoin Price Reclaims $70,000 After Deep February Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-15T05:00:44+00:00"
     }
   ]
 }

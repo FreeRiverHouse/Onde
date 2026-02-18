@@ -54,6 +54,9 @@ export default function HouseChat() {
   const [sender, setSender] = useState('')
   const [connected, setConnected] = useState(false)
   const [lastId, setLastId] = useState(0)
+  const [connectError, setConnectError] = useState('')
+  const [connecting, setConnecting] = useState(false)
+  const [showToken, setShowToken] = useState(false)
   const chatRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -67,6 +70,9 @@ export default function HouseChat() {
   }, [])
 
   const verifyToken = async (t: string) => {
+    if (!t.trim()) { setConnectError('Token required'); return }
+    setConnecting(true)
+    setConnectError('')
     try {
       const res = await fetch('/api/house/chat/status', {
         method: 'POST',
@@ -77,8 +83,15 @@ export default function HouseChat() {
         setSender(data.sender)
         setConnected(true)
         localStorage.setItem('house-chat-token', t)
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setConnectError(res.status === 401 ? 'Invalid token' : `Error ${res.status}: ${data.error || 'Unknown'}`)
       }
-    } catch { /* ignore */ }
+    } catch (e) {
+      setConnectError('Network error — check connection')
+    } finally {
+      setConnecting(false)
+    }
   }
 
   // Poll messages
@@ -186,19 +199,32 @@ export default function HouseChat() {
             🏠 House Chat
           </h1>
           <p className="text-white/50 mb-6">Enter your access token</p>
-          <input
-            type="password"
-            value={token}
-            onChange={e => setToken(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && verifyToken(token)}
-            placeholder="Bearer token..."
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-white/30 mb-4"
-          />
+          <div className="relative mb-4">
+            <input
+              type={showToken ? 'text' : 'password'}
+              value={token}
+              onChange={e => { setToken(e.target.value); setConnectError('') }}
+              onKeyDown={e => e.key === 'Enter' && verifyToken(token)}
+              placeholder="Bearer token..."
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-10 text-white placeholder-white/30 focus:outline-none focus:border-white/30"
+            />
+            <button
+              type="button"
+              onClick={() => setShowToken(v => !v)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/70 transition text-xs"
+            >
+              {showToken ? 'hide' : 'show'}
+            </button>
+          </div>
+          {connectError && (
+            <p className="text-red-400 text-sm mb-3">{connectError}</p>
+          )}
           <button
             onClick={() => verifyToken(token)}
-            className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
+            disabled={connecting}
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 rounded-xl hover:opacity-90 transition disabled:opacity-50"
           >
-            Connect
+            {connecting ? 'Connecting...' : 'Connect'}
           </button>
         </div>
       </div>

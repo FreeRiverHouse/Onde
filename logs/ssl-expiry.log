@@ -1,0 +1,15 @@
+[2026-01-31 08:36:12] === SSL Expiry Check Started ===
+[2026-01-31 08:36:12] ERROR: Could not check SSL for onde.la
+[2026-01-31 08:36:12] ERROR: Could not check SSL for onde.surf
+[2026-01-31 08:36:12] ERROR: Could not check SSL for skin-studio.pages.dev
+[2026-01-31 08:36:12] ERROR: Could not check SSL for clawd.bot
+[2026-01-31 08:36:12] Errors encountered: onde.la: failed to check onde.surf: failed to check skin-studio.pages.dev: failed to check clawd.bot: failed to check
+[2026-01-31 08:36:12] === SSL Expiry Check Complete ===
+[2026-01-31 08:36:12] 
+[2026-01-31 08:36:31] === SSL Expiry Check Started ===
+[2026-01-31 08:36:32] onde.la: 69 days until expiry
+[2026-01-31 08:36:32] onde.surf: 69 days until expiry
+[2026-01-31 08:36:32] skin-studio.pages.dev: 89 days until expiry
+[2026-01-31 08:36:32] clawd.bot: 89 days until expiry
+[2026-01-31 08:36:32] === SSL Expiry Check Complete ===
+[2026-01-31 08:36:32] 

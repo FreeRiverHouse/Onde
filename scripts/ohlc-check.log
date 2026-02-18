@@ -127,3 +127,7 @@ Alert created: /Users/mattia/Projects/Onde/scripts/ohlc-cache-stale.alert
 ✅ OHLC cache is fresh
 2026-02-16 18:00:01 ⚠️ OHLC cache directory not found: /Users/mattia/Projects/Onde/data/ohlc
 2026-02-17 00:00:01 ⚠️ OHLC cache directory not found: /Users/mattia/Projects/Onde/data/ohlc
+2026-02-17 12:00:00 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (11h old)
+✅ OHLC cache is fresh
+2026-02-17 18:00:01 OHLC cache newest: /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json (17h old)
+✅ OHLC cache is fresh

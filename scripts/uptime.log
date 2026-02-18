@@ -79432,3 +79432,2139 @@ Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime
   skin-studio:
     24h: 100.0% uptime, 240ms avg
     7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:15:01.680909+00:00
+  Checking onde.la... ✅ 200 (306ms)
+  Checking onde.surf... ✅ 200 (504ms)
+  Checking skin-studio... ✅ 200 (154ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 283ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 260ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:20:01.074581+00:00
+  Checking onde.la... ✅ 200 (230ms)
+  Checking onde.surf... ✅ 200 (369ms)
+  Checking skin-studio... ✅ 200 (256ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 282ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 262ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:25:01.670751+00:00
+  Checking onde.la... ✅ 200 (427ms)
+  Checking onde.surf... ✅ 200 (559ms)
+  Checking skin-studio... ✅ 200 (927ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 284ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 265ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:30:02.969260+00:00
+  Checking onde.la... ✅ 200 (256ms)
+  Checking onde.surf... ✅ 200 (387ms)
+  Checking skin-studio... ✅ 200 (304ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 283ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 248ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.9% (3117 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:35:01.766387+00:00
+  Checking onde.la... ✅ 200 (235ms)
+  Checking onde.surf... ✅ 200 (310ms)
+  Checking skin-studio... ✅ 200 (177ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 283ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:40:01.403111+00:00
+  Checking onde.la... ✅ 200 (246ms)
+  Checking onde.surf... ✅ 200 (396ms)
+  Checking skin-studio... ✅ 200 (260ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 282ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:45:02.209826+00:00
+  Checking onde.la... ✅ 200 (241ms)
+  Checking onde.surf... ✅ 200 (263ms)
+  Checking skin-studio... ✅ 200 (202ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 282ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:50:01.438284+00:00
+  Checking onde.la... ✅ 200 (243ms)
+  Checking onde.surf... ✅ 200 (195ms)
+  Checking skin-studio... ✅ 200 (289ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 282ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T18:55:01.929153+00:00
+  Checking onde.la... ✅ 200 (196ms)
+  Checking onde.surf... ✅ 200 (185ms)
+  Checking skin-studio... ✅ 200 (235ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 281ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:00:03.405240+00:00
+  Checking onde.la... ✅ 200 (244ms)
+  Checking onde.surf... ✅ 200 (483ms)
+  Checking skin-studio... ✅ 200 (210ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 280ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 247ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:05:01.724564+00:00
+  Checking onde.la... ✅ 200 (373ms)
+  Checking onde.surf... ✅ 200 (249ms)
+  Checking skin-studio... ✅ 200 (133ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 281ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 246ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:10:01.169469+00:00
+  Checking onde.la... ✅ 200 (206ms)
+  Checking onde.surf... ✅ 200 (351ms)
+  Checking skin-studio... ✅ 200 (192ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 281ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 245ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:15:02.281384+00:00
+  Checking onde.la... ✅ 200 (213ms)
+  Checking onde.surf... ✅ 200 (307ms)
+  Checking skin-studio... ✅ 200 (158ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 280ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:20:01.799488+00:00
+  Checking onde.la... ✅ 200 (343ms)
+  Checking onde.surf... ✅ 200 (199ms)
+  Checking skin-studio... ✅ 200 (168ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 280ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:25:00.991084+00:00
+  Checking onde.la... ✅ 200 (201ms)
+  Checking onde.surf... ✅ 200 (207ms)
+  Checking skin-studio... ✅ 200 (235ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 280ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.91% (3141 healthy, 67 restarts)
+🕐 Recording uptime check at 2026-02-17T19:30:03.009356+00:00
+  Checking onde.la... ✅ 200 (294ms)
+  Checking onde.surf... ✅ 200 (468ms)
+  Checking skin-studio... ✅ 200 (365ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 280ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:35:01.314404+00:00
+  Checking onde.la... ✅ 200 (221ms)
+  Checking onde.surf... ✅ 200 (187ms)
+  Checking skin-studio... ✅ 200 (242ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 279ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:40:00.890695+00:00
+  Checking onde.la... ✅ 200 (191ms)
+  Checking onde.surf... ✅ 200 (411ms)
+  Checking skin-studio... ✅ 200 (179ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:45:01.940383+00:00
+  Checking onde.la... ✅ 200 (453ms)
+  Checking onde.surf... ✅ 200 (248ms)
+  Checking skin-studio... ✅ 200 (241ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 280ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:50:01.186447+00:00
+  Checking onde.la... ✅ 200 (195ms)
+  Checking onde.surf... ✅ 200 (250ms)
+  Checking skin-studio... ✅ 200 (182ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 279ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T19:55:01.612776+00:00
+  Checking onde.la... ✅ 200 (209ms)
+  Checking onde.surf... ✅ 200 (195ms)
+  Checking skin-studio... ✅ 200 (257ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 279ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:00:03.403137+00:00
+  Checking onde.la... ✅ 200 (367ms)
+  Checking onde.surf... ✅ 200 (260ms)
+  Checking skin-studio... ✅ 200 (310ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 279ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:05:01.133146+00:00
+  Checking onde.la... ✅ 200 (184ms)
+  Checking onde.surf... ✅ 200 (269ms)
+  Checking skin-studio... ✅ 200 (148ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 279ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:10:01.609829+00:00
+  Checking onde.la... ✅ 200 (201ms)
+  Checking onde.surf... ✅ 200 (267ms)
+  Checking skin-studio... ✅ 200 (349ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:15:01.249666+00:00
+  Checking onde.la... ✅ 200 (270ms)
+  Checking onde.surf... ✅ 200 (239ms)
+  Checking skin-studio... ✅ 200 (256ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:20:01.733090+00:00
+  Checking onde.la... ✅ 200 (237ms)
+  Checking onde.surf... ✅ 200 (229ms)
+  Checking skin-studio... ✅ 200 (277ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:25:01.178938+00:00
+  Checking onde.la... ✅ 200 (258ms)
+  Checking onde.surf... ✅ 200 (244ms)
+  Checking skin-studio... ✅ 200 (163ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 244ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:30:03.339772+00:00
+  Checking onde.la... ✅ 200 (250ms)
+  Checking onde.surf... ✅ 200 (346ms)
+  Checking skin-studio... ✅ 200 (191ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.93% (3165 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:35:00.936636+00:00
+  Checking onde.la... ✅ 200 (256ms)
+  Checking onde.surf... ✅ 200 (173ms)
+  Checking skin-studio... ✅ 200 (180ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:40:01.527627+00:00
+  Checking onde.la... ✅ 200 (184ms)
+  Checking onde.surf... ✅ 200 (338ms)
+  Checking skin-studio... ✅ 200 (186ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:45:02.090967+00:00
+  Checking onde.la... ✅ 200 (175ms)
+  Checking onde.surf... ✅ 200 (291ms)
+  Checking skin-studio... ✅ 200 (186ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:50:01.353909+00:00
+  Checking onde.la... ✅ 200 (201ms)
+  Checking onde.surf... ✅ 200 (193ms)
+  Checking skin-studio... ✅ 200 (270ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T20:55:00.901214+00:00
+  Checking onde.la... ✅ 200 (333ms)
+  Checking onde.surf... ✅ 200 (180ms)
+  Checking skin-studio... ✅ 200 (335ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:00:03.446714+00:00
+  Checking onde.la... ✅ 200 (316ms)
+  Checking onde.surf... ✅ 200 (255ms)
+  Checking skin-studio... ✅ 200 (257ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 243ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:05:01.668034+00:00
+  Checking onde.la... ✅ 200 (183ms)
+  Checking onde.surf... ✅ 200 (261ms)
+  Checking skin-studio... ✅ 200 (154ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:10:01.131552+00:00
+  Checking onde.la... ✅ 200 (181ms)
+  Checking onde.surf... ✅ 200 (239ms)
+  Checking skin-studio... ✅ 200 (170ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:15:01.559793+00:00
+  Checking onde.la... ✅ 200 (375ms)
+  Checking onde.surf... ✅ 200 (241ms)
+  Checking skin-studio... ✅ 200 (164ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:20:00.731304+00:00
+  Checking onde.la... ✅ 200 (218ms)
+  Checking onde.surf... ✅ 200 (187ms)
+  Checking skin-studio... ✅ 200 (279ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:25:01.211631+00:00
+  Checking onde.la... ✅ 200 (328ms)
+  Checking onde.surf... ✅ 200 (178ms)
+  Checking skin-studio... ✅ 200 (216ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:30:02.911371+00:00
+  Checking onde.la... ✅ 200 (252ms)
+  Checking onde.surf... ✅ 200 (274ms)
+  Checking skin-studio... ✅ 200 (228ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.94% (3189 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:35:01.238104+00:00
+  Checking onde.la... ✅ 200 (206ms)
+  Checking onde.surf... ✅ 200 (263ms)
+  Checking skin-studio... ✅ 200 (145ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:40:01.593681+00:00
+  Checking onde.la... ✅ 200 (295ms)
+  Checking onde.surf... ✅ 200 (243ms)
+  Checking skin-studio... ✅ 200 (281ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:45:01.291573+00:00
+  Checking onde.la... ✅ 200 (191ms)
+  Checking onde.surf... ✅ 200 (277ms)
+  Checking skin-studio... ✅ 200 (212ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:50:01.420174+00:00
+  Checking onde.la... ✅ 200 (358ms)
+  Checking onde.surf... ✅ 200 (455ms)
+  Checking skin-studio... ✅ 200 (502ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T21:55:00.842384+00:00
+  Checking onde.la... ✅ 200 (244ms)
+  Checking onde.surf... ✅ 200 (195ms)
+  Checking skin-studio... ✅ 200 (182ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:00:03.762385+00:00
+  Checking onde.la... ✅ 200 (231ms)
+  Checking onde.surf... ✅ 200 (307ms)
+  Checking skin-studio... ✅ 200 (228ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 242ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:05:01.545656+00:00
+  Checking onde.la... ✅ 200 (227ms)
+  Checking onde.surf... ✅ 200 (297ms)
+  Checking skin-studio... ✅ 200 (146ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:10:01.361111+00:00
+  Checking onde.la... ✅ 200 (346ms)
+  Checking onde.surf... ✅ 200 (475ms)
+  Checking skin-studio... ✅ 200 (232ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:15:01.899263+00:00
+  Checking onde.la... ✅ 200 (327ms)
+  Checking onde.surf... ✅ 200 (206ms)
+  Checking skin-studio... ✅ 200 (192ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:20:00.910560+00:00
+  Checking onde.la... ✅ 200 (190ms)
+  Checking onde.surf... ✅ 200 (242ms)
+  Checking skin-studio... ✅ 200 (265ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 241ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:25:01.170651+00:00
+  Checking onde.la... ✅ 200 (216ms)
+  Checking onde.surf... ✅ 200 (158ms)
+  Checking skin-studio... ✅ 200 (138ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.96% (3213 healthy, 67 restarts)
+🕐 Recording uptime check at 2026-02-17T22:30:02.482548+00:00
+  Checking onde.la... ✅ 200 (591ms)
+  Checking onde.surf... ✅ 200 (391ms)
+  Checking skin-studio... ✅ 200 (190ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:35:00.914353+00:00
+  Checking onde.la... ✅ 200 (213ms)
+  Checking onde.surf... ✅ 200 (233ms)
+  Checking skin-studio... ✅ 200 (137ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 239ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:40:01.277830+00:00
+  Checking onde.la... ✅ 200 (192ms)
+  Checking onde.surf... ✅ 200 (179ms)
+  Checking skin-studio... ✅ 200 (256ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 239ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:45:02.045219+00:00
+  Checking onde.la... ✅ 200 (227ms)
+  Checking onde.surf... ✅ 200 (177ms)
+  Checking skin-studio... ✅ 200 (140ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 238ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:50:01.097742+00:00
+  Checking onde.la... ✅ 200 (221ms)
+  Checking onde.surf... ✅ 200 (218ms)
+  Checking skin-studio... ✅ 200 (365ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 239ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T22:55:01.571008+00:00
+  Checking onde.la... ✅ 200 (337ms)
+  Checking onde.surf... ✅ 200 (257ms)
+  Checking skin-studio... ✅ 200 (211ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 239ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:00:02.331751+00:00
+  Checking onde.la... ✅ 200 (465ms)
+  Checking onde.surf... ✅ 200 (209ms)
+  Checking skin-studio... ✅ 200 (329ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 240ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:05:01.104825+00:00
+  Checking onde.la... ✅ 200 (417ms)
+  Checking onde.surf... ✅ 200 (247ms)
+  Checking skin-studio... ✅ 200 (162ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 266ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 239ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:10:01.481637+00:00
+  Checking onde.la... ✅ 200 (240ms)
+  Checking onde.surf... ✅ 200 (372ms)
+  Checking skin-studio... ✅ 200 (199ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 239ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:15:01.097704+00:00
+  Checking onde.la... ✅ 200 (281ms)
+  Checking onde.surf... ✅ 200 (344ms)
+  Checking skin-studio... ✅ 200 (164ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 238ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:20:01.421728+00:00
+  Checking onde.la... ✅ 200 (382ms)
+  Checking onde.surf... ✅ 200 (257ms)
+  Checking skin-studio... ✅ 200 (186ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 267ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 238ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:25:01.835833+00:00
+  Checking onde.la... ✅ 200 (341ms)
+  Checking onde.surf... ✅ 200 (409ms)
+  Checking skin-studio... ✅ 200 (181ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 238ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:30:02.967368+00:00
+  Checking onde.la... ✅ 200 (440ms)
+  Checking onde.surf... ✅ 200 (270ms)
+  Checking skin-studio... ✅ 200 (215ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 268ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 238ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.97% (3237 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:35:01.257133+00:00
+  Checking onde.la... ✅ 200 (178ms)
+  Checking onde.surf... ✅ 200 (440ms)
+  Checking skin-studio... ✅ 200 (179ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 237ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:40:00.978523+00:00
+  Checking onde.la... ✅ 200 (296ms)
+  Checking onde.surf... ✅ 200 (436ms)
+  Checking skin-studio... ✅ 200 (209ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 237ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:45:01.711676+00:00
+  Checking onde.la... ✅ 200 (214ms)
+  Checking onde.surf... ✅ 200 (516ms)
+  Checking skin-studio... ✅ 200 (235ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 237ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:50:01.493508+00:00
+  Checking onde.la... ✅ 200 (433ms)
+  Checking onde.surf... ✅ 200 (425ms)
+  Checking skin-studio... ✅ 200 (259ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 237ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-17T23:55:01.503164+00:00
+  Checking onde.la... ✅ 200 (185ms)
+  Checking onde.surf... ✅ 200 (313ms)
+  Checking skin-studio... ✅ 200 (142ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 236ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:00:02.710257+00:00
+  Checking onde.la... ✅ 200 (276ms)
+  Checking onde.surf... ✅ 200 (244ms)
+  Checking skin-studio... ✅ 200 (264ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 278ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 237ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:05:01.400829+00:00
+  Checking onde.la... ✅ 200 (161ms)
+  Checking onde.surf... ✅ 200 (278ms)
+  Checking skin-studio... ✅ 200 (147ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 236ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:10:01.203878+00:00
+  Checking onde.la... ✅ 200 (212ms)
+  Checking onde.surf... ✅ 200 (189ms)
+  Checking skin-studio... ✅ 200 (283ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 277ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 236ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:15:01.356234+00:00
+  Checking onde.la... ✅ 200 (170ms)
+  Checking onde.surf... ✅ 200 (301ms)
+  Checking skin-studio... ✅ 200 (144ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 236ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:20:01.436339+00:00
+  Checking onde.la... ✅ 200 (239ms)
+  Checking onde.surf... ✅ 200 (218ms)
+  Checking skin-studio... ✅ 200 (258ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 236ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:25:00.805195+00:00
+  Checking onde.la... ✅ 200 (321ms)
+  Checking onde.surf... ✅ 200 (173ms)
+  Checking skin-studio... ✅ 200 (169ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 236ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:30:02.451662+00:00
+  Checking onde.la... ✅ 200 (275ms)
+  Checking onde.surf... ✅ 200 (332ms)
+  Checking skin-studio... ✅ 200 (208ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 235ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  97.99% (3261 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:35:01.434282+00:00
+  Checking onde.la... ✅ 200 (183ms)
+  Checking onde.surf... ✅ 200 (421ms)
+  Checking skin-studio... ✅ 200 (143ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 276ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 235ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:40:01.424467+00:00
+  Checking onde.la... ✅ 200 (194ms)
+  Checking onde.surf... ✅ 200 (265ms)
+  Checking skin-studio... ✅ 200 (210ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 235ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:45:01.966094+00:00
+  Checking onde.la... ✅ 200 (274ms)
+  Checking onde.surf... ✅ 200 (259ms)
+  Checking skin-studio... ✅ 200 (235ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 235ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:50:00.913111+00:00
+  Checking onde.la... ✅ 200 (294ms)
+  Checking onde.surf... ✅ 200 (313ms)
+  Checking skin-studio... ✅ 200 (175ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 234ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T00:55:01.077644+00:00
+  Checking onde.la... ✅ 200 (181ms)
+  Checking onde.surf... ✅ 200 (277ms)
+  Checking skin-studio... ✅ 200 (143ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 234ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:00:02.785481+00:00
+  Checking onde.la... ✅ 200 (308ms)
+  Checking onde.surf... ✅ 200 (353ms)
+  Checking skin-studio... ✅ 200 (189ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 275ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 234ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:05:01.267617+00:00
+  Checking onde.la... ✅ 200 (163ms)
+  Checking onde.surf... ✅ 200 (181ms)
+  Checking skin-studio... ✅ 200 (226ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:10:01.485306+00:00
+  Checking onde.la... ✅ 200 (176ms)
+  Checking onde.surf... ✅ 200 (177ms)
+  Checking skin-studio... ✅ 200 (220ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:15:00.853291+00:00
+  Checking onde.la... ✅ 200 (318ms)
+  Checking onde.surf... ✅ 200 (202ms)
+  Checking skin-studio... ✅ 200 (192ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 274ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:20:00.915881+00:00
+  Checking onde.la... ✅ 200 (185ms)
+  Checking onde.surf... ✅ 200 (204ms)
+  Checking skin-studio... ✅ 200 (248ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:25:00.947244+00:00
+  Checking onde.la... ✅ 200 (202ms)
+  Checking onde.surf... ✅ 200 (264ms)
+  Checking skin-studio... ✅ 200 (133ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:30:02.324229+00:00
+  Checking onde.la... ✅ 200 (232ms)
+  Checking onde.surf... ✅ 200 (188ms)
+  Checking skin-studio... ✅ 200 (273ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 273ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.24% (262 healthy, 16 restarts)
+  Last 7d:  98.0% (3285 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:35:00.627621+00:00
+  Checking onde.la... ✅ 200 (192ms)
+  Checking onde.surf... ✅ 200 (157ms)
+  Checking skin-studio... ✅ 200 (205ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:40:01.607415+00:00
+  Checking onde.la... ✅ 200 (182ms)
+  Checking onde.surf... ✅ 200 (173ms)
+  Checking skin-studio... ✅ 200 (266ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 272ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:45:01.096809+00:00
+  Checking onde.la... ✅ 200 (209ms)
+  Checking onde.surf... ✅ 200 (264ms)
+  Checking skin-studio... ✅ 200 (142ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 232ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:50:00.931775+00:00
+  Checking onde.la... ✅ 200 (157ms)
+  Checking onde.surf... ✅ 200 (183ms)
+  Checking skin-studio... ✅ 200 (255ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 233ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T01:55:01.177836+00:00
+  Checking onde.la... ✅ 200 (265ms)
+  Checking onde.surf... ✅ 200 (404ms)
+  Checking skin-studio... ✅ 200 (139ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 232ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:00:03.737049+00:00
+  Checking onde.la... ✅ 200 (276ms)
+  Checking onde.surf... ✅ 200 (352ms)
+  Checking skin-studio... ✅ 200 (202ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 232ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:05:00.858470+00:00
+  Checking onde.la... ✅ 200 (150ms)
+  Checking onde.surf... ✅ 200 (258ms)
+  Checking skin-studio... ✅ 200 (144ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:10:01.088035+00:00
+  Checking onde.la... ✅ 200 (249ms)
+  Checking onde.surf... ✅ 200 (269ms)
+  Checking skin-studio... ✅ 200 (216ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:15:01.431635+00:00
+  Checking onde.la... ✅ 200 (273ms)
+  Checking onde.surf... ✅ 200 (289ms)
+  Checking skin-studio... ✅ 200 (180ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:20:01.336298+00:00
+  Checking onde.la... ✅ 200 (174ms)
+  Checking onde.surf... ✅ 200 (198ms)
+  Checking skin-studio... ✅ 200 (268ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:25:01.466192+00:00
+  Checking onde.la... ✅ 200 (167ms)
+  Checking onde.surf... ✅ 200 (456ms)
+  Checking skin-studio... ✅ 200 (226ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:30:01.806883+00:00
+  Checking onde.la... ✅ 200 (210ms)
+  Checking onde.surf... ✅ 200 (290ms)
+  Checking skin-studio... ✅ 200 (227ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+Uptime stats saved to /Users/mattia/Projects/Onde/data/trading/autotrader-uptime.json
+  Last 24h: 94.96% (264 healthy, 14 restarts)
+  Last 7d:  98.02% (3309 healthy, 67 restarts)
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:35:01.098802+00:00
+  Checking onde.la... ✅ 200 (341ms)
+  Checking onde.surf... ✅ 200 (250ms)
+  Checking skin-studio... ✅ 200 (157ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:40:01.438852+00:00
+  Checking onde.la... ✅ 200 (327ms)
+  Checking onde.surf... ✅ 200 (165ms)
+  Checking skin-studio... ✅ 200 (268ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:45:01.593171+00:00
+  Checking onde.la... ✅ 200 (191ms)
+  Checking onde.surf... ✅ 200 (264ms)
+  Checking skin-studio... ✅ 200 (161ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:50:01.487429+00:00
+  Checking onde.la... ✅ 200 (203ms)
+  Checking onde.surf... ✅ 200 (285ms)
+  Checking skin-studio... ✅ 200 (166ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 230ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T02:55:00.645032+00:00
+  Checking onde.la... ✅ 200 (327ms)
+  Checking onde.surf... ✅ 200 (173ms)
+  Checking skin-studio... ✅ 200 (284ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T03:00:02.447008+00:00
+  Checking onde.la... ✅ 200 (466ms)
+  Checking onde.surf... ✅ 200 (451ms)
+  Checking skin-studio... ✅ 200 (223ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 270ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 231ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T03:05:00.818354+00:00
+  Checking onde.la... ✅ 200 (177ms)
+  Checking onde.surf... ✅ 200 (304ms)
+  Checking skin-studio... ✅ 200 (154ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 100.0% uptime, 269ms avg
+    7d:  100.0% uptime, 0 incidents
+  onde.surf:
+    24h: 100.0% uptime, 271ms avg
+    7d:  100.0% uptime, 0 incidents
+  skin-studio:
+    24h: 100.0% uptime, 230ms avg
+    7d:  100.0% uptime, 0 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T03:10:01.035917+00:00
+  Checking onde.la... ❌ 0 (10000ms)
+  Checking onde.surf... ❌ 0 (10000ms)
+  Checking skin-studio... ❌ 0 (14ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 99.5% uptime, 269ms avg
+    7d:  99.5% uptime, 1 incidents
+  onde.surf:
+    24h: 99.5% uptime, 271ms avg
+    7d:  99.5% uptime, 1 incidents
+  skin-studio:
+    24h: 99.5% uptime, 230ms avg
+    7d:  99.5% uptime, 1 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T03:15:01.544443+00:00
+  Checking onde.la... ✅ 200 (222ms)
+  Checking onde.surf... ✅ 200 (361ms)
+  Checking skin-studio... ✅ 200 (202ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 99.5% uptime, 269ms avg
+    7d:  99.5% uptime, 1 incidents
+  onde.surf:
+    24h: 99.5% uptime, 272ms avg
+    7d:  99.5% uptime, 1 incidents
+  skin-studio:
+    24h: 99.5% uptime, 230ms avg
+    7d:  99.5% uptime, 1 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T03:20:01.723590+00:00
+  Checking onde.la... ✅ 200 (143ms)
+  Checking onde.surf... ✅ 200 (318ms)
+  Checking skin-studio... ✅ 200 (196ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 99.5% uptime, 268ms avg
+    7d:  99.5% uptime, 1 incidents
+  onde.surf:
+    24h: 99.5% uptime, 272ms avg
+    7d:  99.5% uptime, 1 incidents
+  skin-studio:
+    24h: 99.5% uptime, 230ms avg
+    7d:  99.5% uptime, 1 incidents
+/Users/mattia/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+🕐 Recording uptime check at 2026-02-18T03:25:02.806576+00:00
+  Checking onde.la... ✅ 200 (361ms)
+  Checking onde.surf... ✅ 200 (151ms)
+  Checking skin-studio... ✅ 200 (312ms)
+💾 Saved to /Users/mattia/Projects/Onde/data/uptime/uptime-history.json
+⚠️ No GitHub token available, skipping gist upload
+
+📊 Uptime Summary:
+  onde.la:
+    24h: 99.5% uptime, 269ms avg
+    7d:  99.5% uptime, 1 incidents
+  onde.surf:
+    24h: 99.5% uptime, 271ms avg
+    7d:  99.5% uptime, 1 incidents
+  skin-studio:
+    24h: 99.5% uptime, 230ms avg
+    7d:  99.5% uptime, 1 incidents

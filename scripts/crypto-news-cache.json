@@ -1,15 +1,16 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-02-17T17:07:36.236430",
+    "timestamp": "2026-02-17T22:05:06.728470",
     "result": {
       "sentiment": "neutral",
       "confidence": 0.5,
       "reasons": [
-        "No significant news detected"
+        "regulatory clarity",
+        "ban"
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-02-17T17:07:36.236423+00:00",
+      "timestamp": "2026-02-17T22:05:06.728460+00:00",
       "should_trade": true,
       "edge_adjustment": 0.0,
       "news_count": 9

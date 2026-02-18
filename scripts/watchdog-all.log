@@ -26707,3 +26707,678 @@ PASS: onde.la /privacy/ - HTTP 200
   ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
 
 🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 11:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 12:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 13:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 14:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 15:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 16:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 17:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 18:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!
+========== WATCHDOG START ==========
+🌐 Testing main sites...
+PASS: onde.la (main) - HTTP 200
+PASS: onde.la /libri - HTTP 200
+PASS: onde.la /catalogo - HTTP 200
+PASS: onde.la /about - HTTP 200
+PASS: onde.la content - Content contains 'Onde'
+PASS: onde.surf (dashboard) - HTTP 200
+🎮 Testing games and apps...
+PASS: Games page - HTTP 200
+PASS: Giochi page (IT) - HTTP 200
+PASS: Moonlight House - HTTP 200
+PASS: Moonlight House content - Content contains 'Moonlight'
+🔌 Testing API endpoints...
+PASS: onde.la /health - HTTP 200
+🔗 Testing internal links...
+PASS: onde.la / - HTTP 200
+PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+PASS: onde.la /about/ - HTTP 200
+PASS: onde.la /apple-icon.svg - HTTP 200
+PASS: onde.la /blog/ - HTTP 200
+PASS: onde.la /books/meditations-cover.webp - HTTP 200
+PASS: onde.la /favicon-16.png - HTTP 200
+PASS: onde.la /favicon-32.png - HTTP 200
+PASS: onde.la /favicon.ico - HTTP 200
+PASS: onde.la /feed.atom - HTTP 200
+PASS: onde.la /feed.xml - HTTP 200
+PASS: onde.la /games/ - HTTP 200
+PASS: onde.la /games/skin-creator/ - HTTP 200
+PASS: onde.la /icon.svg - HTTP 200
+PASS: onde.la /libri/ - HTTP 200
+PASS: onde.la /manifest.json - HTTP 200
+PASS: onde.la /privacy/ - HTTP 200
+
+==========================================
+📊 WATCHDOG REPORT - 2026-02-17 19:00
+==========================================
+
+✅ PASSED (31):
+  ✅ onde.la (main) (https://onde.la) - HTTP 200
+  ✅ onde.la /libri (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /catalogo (https://onde.la/catalogo/) - HTTP 200
+  ✅ onde.la /about (https://onde.la/about/) - HTTP 200
+  ✅ onde.la content - Content OK
+  ✅ onde.surf (dashboard) (https://onde.surf/login) - HTTP 200
+  ✅ Games page (https://onde.la/games/) - HTTP 200
+  ✅ Giochi page (IT) (https://onde.la/giochi/) - HTTP 200
+  ✅ Moonlight House (https://moonlight-house.pages.dev) - HTTP 200
+  ✅ Moonlight House content - Content OK
+  ✅ onde.la /health (https://onde.la/health/) - HTTP 200
+  ✅ onde.la / (https://onde.la/) - HTTP 200
+  ✅ onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js (https://onde.la/_next/static/chunks/webpack-7b54091e1037b28e.js) - HTTP 200
+  ✅ onde.la /_next/static/css/50e339ad9c6172e7.css (https://onde.la/_next/static/css/50e339ad9c6172e7.css) - HTTP 200
+  ✅ onde.la /_next/static/css/a655e6fb87977356.css (https://onde.la/_next/static/css/a655e6fb87977356.css) - HTTP 200
+  ✅ onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 (https://onde.la/_next/static/media/eaead17c7dbfcd5d-s.p.woff2) - HTTP 200
+  ✅ onde.la /about/ (https://onde.la/about/) - HTTP 200
+  ✅ onde.la /apple-icon.svg (https://onde.la/apple-icon.svg) - HTTP 200
+  ✅ onde.la /blog/ (https://onde.la/blog/) - HTTP 200
+  ✅ onde.la /books/meditations-cover.webp (https://onde.la/books/meditations-cover.webp) - HTTP 200
+  ✅ onde.la /favicon-16.png (https://onde.la/favicon-16.png) - HTTP 200
+  ✅ onde.la /favicon-32.png (https://onde.la/favicon-32.png) - HTTP 200
+  ✅ onde.la /favicon.ico (https://onde.la/favicon.ico) - HTTP 200
+  ✅ onde.la /feed.atom (https://onde.la/feed.atom) - HTTP 200
+  ✅ onde.la /feed.xml (https://onde.la/feed.xml) - HTTP 200
+  ✅ onde.la /games/ (https://onde.la/games/) - HTTP 200
+  ✅ onde.la /games/skin-creator/ (https://onde.la/games/skin-creator/) - HTTP 200
+  ✅ onde.la /icon.svg (https://onde.la/icon.svg) - HTTP 200
+  ✅ onde.la /libri/ (https://onde.la/libri/) - HTTP 200
+  ✅ onde.la /manifest.json (https://onde.la/manifest.json) - HTTP 200
+  ✅ onde.la /privacy/ (https://onde.la/privacy/) - HTTP 200
+
+🎉 All services healthy!

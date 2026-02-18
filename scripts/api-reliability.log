@@ -2285,3 +2285,57 @@ COINGECKO
   • Coinbase... ✅ (BTC:True, ETH:True, 161.76ms)
 
 📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 216.6ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 274.7ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 240.85ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 244.48ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 211.25ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 283.9ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 315.03ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 267.36ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 211.37ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 238.22ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 286.99ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 136.78ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 417.12ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 188.25ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 192.43ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 280.42ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 199.23ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 154.88ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 257.04ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 187.16ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 188.86ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 172.82ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 221.73ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 214.75ms)
+
+📝 Logged to api-reliability.jsonl
+🔍 Checking API reliability...
+  • Binance... ❌ (BTC:False, ETH:False, 379.74ms)
+  • CoinGecko... ✅ (BTC:True, ETH:True, 199.09ms)
+  • Coinbase... ✅ (BTC:True, ETH:True, 258.94ms)
+
+📝 Logged to api-reliability.jsonl

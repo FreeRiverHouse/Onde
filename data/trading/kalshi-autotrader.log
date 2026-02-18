@@ -1602,3 +1602,18 @@
 {"timestamp": "2026-02-17T17:59:09.986014+00:00", "level": "INFO", "event": "position_exit", "data": {"ticker": "KXBTCD-26FEB1713-T67499.99", "side": "no", "contracts": 3, "entry_price": 51, "exit_price": 99, "unrealized_pnl_pct": 94.1, "reason": "TAKE_PROFIT +94% (threshold: 30%)", "dry_run": true}}
 {"timestamp": "2026-02-17T17:59:10.905070+00:00", "level": "INFO", "event": "position_exit", "data": {"ticker": "KXBTCD-26FEB1713-T67749.99", "side": "no", "contracts": 3, "entry_price": 59, "exit_price": 99, "unrealized_pnl_pct": 67.8, "reason": "TAKE_PROFIT +68% (threshold: 30%)", "dry_run": true}}
 {"timestamp": "2026-02-17T17:59:11.964614+00:00", "level": "INFO", "event": "position_exit", "data": {"ticker": "KXBTCD-26FEB1713-T67249.99", "side": "no", "contracts": 3, "entry_price": 52, "exit_price": 99, "unrealized_pnl_pct": 90.4, "reason": "TAKE_PROFIT +90% (threshold: 30%)", "dry_run": true}}
+{"timestamp": "2026-02-18T02:32:53.918986+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T02:38:21.795054+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T02:43:48.875216+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T02:49:16.292240+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T02:54:43.036219+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:00:10.165233+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:05:37.616314+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:11:05.477392+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:16:33.689117+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:21:18.452854+00:00", "level": "INFO", "event": "shutdown_requested", "data": {"signal": "SIGTERM"}}
+{"timestamp": "2026-02-18T03:21:18.871778+00:00", "level": "INFO", "event": "shutdown_complete", "data": {"dry_run": true, "reason": "signal"}}
+{"timestamp": "2026-02-18T03:21:25.464718+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:22:35.519577+00:00", "level": "INFO", "event": "shutdown_requested", "data": {"signal": "SIGTERM"}}
+{"timestamp": "2026-02-18T03:22:36.019499+00:00", "level": "INFO", "event": "shutdown_complete", "data": {"dry_run": true, "reason": "signal"}}
+{"timestamp": "2026-02-18T03:22:37.835756+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
