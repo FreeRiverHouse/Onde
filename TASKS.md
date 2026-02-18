@@ -82,6 +82,7 @@ I task devono AUMENTARE (ogni feedback → 2 nuovi task).
 - Chi usa web prototype = task RIFIUTATO
 
 ### PGR-001: Grafica HC2-Level — App Unity Standalone
+**Locked by:** @clawd
 **Owner:** Ondinho 🟢
 **QA:** Bubble 🫧 (PROC002B)
 **Status:** IN_PROGRESS
