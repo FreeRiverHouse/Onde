@@ -1617,3 +1617,31 @@
 {"timestamp": "2026-02-18T03:22:35.519577+00:00", "level": "INFO", "event": "shutdown_requested", "data": {"signal": "SIGTERM"}}
 {"timestamp": "2026-02-18T03:22:36.019499+00:00", "level": "INFO", "event": "shutdown_complete", "data": {"dry_run": true, "reason": "signal"}}
 {"timestamp": "2026-02-18T03:22:37.835756+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:28:06.385385+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:33:34.277246+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:39:02.232081+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:44:30.541043+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:44:42.159563+00:00", "level": "INFO", "event": "settlement", "data": {"updated": 1, "wins": 0, "losses": 1}}
+{"timestamp": "2026-02-18T03:49:59.004680+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T03:55:26.103204+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:00:53.308689+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:06:21.107310+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:11:50.093974+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:17:16.372449+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:22:43.498944+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:28:10.184985+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:33:36.457516+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:39:02.258092+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:44:27.545198+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:49:56.730911+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T04:55:23.265771+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:00:50.986528+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:06:17.524763+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:11:48.579293+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:17:15.552028+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:22:42.267054+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:28:08.251419+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:33:36.987869+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:39:03.447485+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:44:29.540610+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}
+{"timestamp": "2026-02-18T05:49:57.700354+00:00", "level": "INFO", "event": "cycle_start", "data": {"dry_run": true, "max_markets": 20, "max_trades": 5}}

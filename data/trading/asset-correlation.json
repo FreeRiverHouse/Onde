@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-02-17T12:00:04.413067",
+  "status": "success",
+  "correlation": {
+    "value": 0.8888,
+    "period_days": 7,
+    "interpretation": "high",
+    "data_points": 169
+  },
+  "adjustment": {
+    "crypto_group_limit": 40,
+    "adjustment_reason": "High correlation (0.7-0.9) - Some diversification benefit but still correlated",
+    "risk_level": "medium"
+  },
+  "current_prices": {
+    "btc": 67832.76,
+    "eth": 1998.62,
+    "btc_7d_change_pct": -1.71,
+    "eth_7d_change_pct": -0.9
+  },
+  "data_source": "coingecko"
+}
