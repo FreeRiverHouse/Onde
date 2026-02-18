@@ -11,3 +11,4 @@ surf/chat/.env
 __pycache__/
 *.pyc
 *.backup.*
+apps/surfboard/.next/
