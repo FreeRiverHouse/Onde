@@ -131,8 +131,8 @@ I task devono AUMENTARE (ogni feedback → 2 nuovi task).
 ## 🔵 OPS — Monitoring & Infrastructure
 
 ### OPS-001: Heartbeat Reliability
-**Owner:** Bubble 🫧
-**Status:** NEW
+**Owner:** Ondinho 🌊 (@clawd)
+**Status:** IN_PROGRESS
 **Priority:** P0
 
 **Obiettivo:** Nessun bot può "dormire" o sparire. Heartbeat ogni 10 min obbligatorio.
