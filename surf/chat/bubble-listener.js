@@ -10,7 +10,7 @@ const fs    = require('fs');
 const path  = require('path');
 
 // ── Config ────────────────────────────────────────────────────────────────
-const CHAT_URL    = 'http://192.168.1.111:3847';
+const CHAT_URL    = 'https://onde.surf';
 const MY_TOKEN    = '7973e11364c98de21e4e30597415810b'; // Bubble token
 const MY_NAME     = 'Bubble';
 const POLL_MS     = 30_000;
@@ -59,14 +59,14 @@ function request(method, url, headers = {}, body = null) {
 
 // ── Poll house chat ───────────────────────────────────────────────────────
 async function getNewMessages(afterId) {
-  const res = await request('GET', `${CHAT_URL}/api/house/messages?after_id=${afterId}&limit=50`);
+  const res = await request('GET', `${CHAT_URL}/api/house/chat?after_id=${afterId}&limit=50`);
   if (res.status === 200 && res.body.ok) return res.body.messages;
   return [];
 }
 
 // ── Post message to house chat ────────────────────────────────────────────
 async function postMessage(content) {
-  const res = await request('POST', `${CHAT_URL}/api/house/messages`,
+  const res = await request('POST', `${CHAT_URL}/api/house/chat`,
     { Authorization: `Bearer ${MY_TOKEN}` },
     { content }
   );
@@ -81,7 +81,7 @@ async function postMessage(content) {
 // ── Post heartbeat ────────────────────────────────────────────────────────
 async function sendHeartbeat() {
   try {
-    await request('POST', `${CHAT_URL}/api/house/heartbeat`,
+    await request('POST', `${CHAT_URL}/api/house/chat/status`,
       { Authorization: `Bearer ${MY_TOKEN}` }, {});
   } catch {}
 }
@@ -159,7 +159,7 @@ async function poll() {
   // Get full recent history for context
   let allMsgs;
   try {
-    const r = await request('GET', `${CHAT_URL}/api/house/messages?limit=30`);
+    const r = await request('GET', `${CHAT_URL}/api/house/chat?limit=30`);
     allMsgs = r.body.messages || [];
   } catch { allMsgs = msgs; }
 
@@ -188,7 +188,7 @@ async function main() {
   const state = loadState();
   if (state.lastId === 0) {
     try {
-      const r = await request('GET', `${CHAT_URL}/api/house/messages?limit=1`);
+      const r = await request('GET', `${CHAT_URL}/api/house/chat?limit=1`);
       const msgs = r.body.messages || [];
       if (msgs.length > 0) {
         state.lastId = msgs[msgs.length - 1].id;
