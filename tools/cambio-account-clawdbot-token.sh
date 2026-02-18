@@ -128,7 +128,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 KEYCHAIN_SERVICE="Claude Code-credentials"
-KEYCHAIN_ACCOUNT_CLI="mattiapetrucciani"
+KEYCHAIN_ACCOUNT_CLI="mattia"  # freeriverhouse@gmail.com (NON usare mattiapetrucciani = magmaticxr, è rate-limited!)
 KEYCHAIN_ACCOUNT_BOT="Claude Code"
 CRED_FILE="$HOME/.clawdbot/credentials/auth-profiles.json"
 AGENT_FILE="$HOME/.clawdbot/agents/main/agent/auth-profiles.json"
