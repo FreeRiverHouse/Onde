@@ -216,6 +216,23 @@ Migrato a Cloudflare D1 (SQLite) su prod:
 
 **PROC-002 Grok Feedback:** Rate limiting mancante, token rotation da migliorare, message retention/cleanup necessario, CORS/security headers da verificare.
 
+#### HOUSE-011: Auto-Response to ALL Mattia Messages ✅ DONE
+**Status:** ✅ DONE
+**Completed:** 2026-02-18 00:10 PST
+**Owner:** Clawdinho 🔵
+
+**Problema:** I bot rispondevano solo a @mention, non a tutti i messaggi di Mattia.
+**Fix:**
+- `shouldRespond()` aggiornato in tutti e 3 i listener: `if (msg.sender === 'Mattia') return true`
+- Bot-to-bot loop fix: risposta a bot solo su `@mention` esplicita (no casual name mentions)
+- Double-posting fix: `state.lastId` salvato PRIMA del response async (prevent race condition)
+- Startup announcement rimosso (causava chain reactions)
+- PM2 restart completato — tutti e 3 i listener online e watching
+
+**Test:** Messaggi da Mattia → risposta da tutti e 3 i bot ✅
+
+---
+
 #### HOUSE-007: Real-time Chat via SSE (GROK TASK — PROC-002 round 2)
 **Status:** TODO
 **Source:** Grok PROC-002 feedback 2026-02-17
