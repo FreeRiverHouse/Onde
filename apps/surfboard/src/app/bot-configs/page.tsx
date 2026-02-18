@@ -11,6 +11,14 @@ interface RateLimitStatus {
   sevenDSonnetStatus: string
 }
 
+interface NvidiaUsage {
+  todayTokens: number
+  todayCalls: number
+  totalTokens: number
+  totalCalls: number
+  lastUpdated: string | null
+}
+
 interface BotStatus {
   macId: string
   hostname: string
@@ -24,6 +32,7 @@ interface BotStatus {
   errorCount: number
   gatewayStatus: 'running' | 'stopped' | 'unknown'
   rateLimitStatus: RateLimitStatus
+  nvidiaUsage?: NvidiaUsage
   lastHeartbeat: string
 }
 
@@ -92,6 +101,12 @@ function PasswordGate({ onAuth }: { onAuth: () => void }) {
 }
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
+
+function fmtTokens(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`
+  return `${n}`
+}
 
 function modelShort(model: string) {
   if (model.includes('sonnet-4-6')) return 'Sonnet 4.6'
@@ -227,6 +242,25 @@ function BotCard({ bot, onSwitch }: { bot: BotStatus; onSwitch: (macId: string, 
           </div>
         </div>
       </div>
+
+      {/* Kimi / NVIDIA Token Usage */}
+      {bot.nvidiaUsage && (
+        <div className="mb-5 rounded-xl bg-orange-500/[0.04] border border-orange-500/[0.12] p-3 space-y-2">
+          <div className="text-[10px] uppercase tracking-widest text-orange-400/60 mb-1">Kimi Token Usage</div>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-white/30">Oggi</span>
+            <span className="text-xs font-mono text-orange-300">
+              {fmtTokens(bot.nvidiaUsage.todayTokens)} tok / {bot.nvidiaUsage.todayCalls} call
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-white/30">Totale</span>
+            <span className="text-xs font-mono text-white/50">
+              {fmtTokens(bot.nvidiaUsage.totalTokens)} tok / {bot.nvidiaUsage.totalCalls} call
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Switch Buttons */}
       <div className="space-y-2">

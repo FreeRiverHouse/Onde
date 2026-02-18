@@ -16,7 +16,7 @@ import re
 import subprocess
 import urllib.error
 import urllib.request
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 
 # ─── CONFIG ────────────────────────────────────────────────────────────────────
@@ -31,6 +31,7 @@ KEYCHAIN_ACCT  = "mattia"   # freeriverhouse@gmail.com - NON usare "Claude Code"
 CONFIG_FILE    = Path.home() / ".clawdbot/clawdbot.json"
 AGENT_AUTH     = Path.home() / ".clawdbot/agents/main/agent/auth-profiles.json"
 GATEWAY_LOG    = Path.home() / ".clawdbot/logs/gateway.log"
+NVIDIA_USAGE   = Path.home() / ".clawdbot/nvidia-usage.json"
 SWITCH_SCRIPT  = Path(__file__).parent.parent / "cambio-account-clawdbot-token.sh"
 # ───────────────────────────────────────────────────────────────────────────────
 
@@ -95,6 +96,32 @@ def read_keychain_account():
         return d.get("claudeAiOauth", {}).get("account", KEYCHAIN_ACCT)
     except Exception:
         return KEYCHAIN_ACCT
+
+
+def get_nvidia_usage() -> dict:
+    """Legge il file di usage NVIDIA generato dal proxy locale."""
+    try:
+        raw = json.loads(NVIDIA_USAGE.read_text())
+        today_str = date.today().isoformat()
+        today_data = raw.get("today", {})
+        # Se il dato è di ieri (proxy spento), today tokens = 0
+        today_tokens = today_data.get("tokens", 0) if today_data.get("date") == today_str else 0
+        today_calls  = today_data.get("calls", 0)  if today_data.get("date") == today_str else 0
+        return {
+            "todayTokens": today_tokens,
+            "todayCalls":  today_calls,
+            "totalTokens": raw.get("total", 0),
+            "totalCalls":  raw.get("totalCalls", 0),
+            "lastUpdated": raw.get("lastUpdated"),
+        }
+    except Exception:
+        return {
+            "todayTokens": 0,
+            "todayCalls":  0,
+            "totalTokens": 0,
+            "totalCalls":  0,
+            "lastUpdated": None,
+        }
 
 
 def get_gateway_status():
@@ -231,6 +258,7 @@ def main():
     primary, fallbacks          = get_clawdbot_config()
     auth                        = get_auth_status()
     gateway_status, agent_model = get_gateway_status()
+    nvidia_usage                = get_nvidia_usage()
 
     # Get fresh token for rate limit check
     token = get_fresh_token()
@@ -258,9 +286,11 @@ def main():
         "errorCount":      auth["errorCount"],
         "gatewayStatus":   gateway_status,
         "rateLimitStatus": rate,
+        "nvidiaUsage":     nvidia_usage,
     }
 
-    print(f"  primary={primary}  gw={gateway_status}  rl7d={rate['sevenD']} ({rate['sevenDUtilization']*100:.0f}%)")
+    nvidia_str = f"kimi today={nvidia_usage['todayTokens']}tok/{nvidia_usage['todayCalls']}calls  total={nvidia_usage['totalTokens']}tok"
+    print(f"  primary={primary}  gw={gateway_status}  rl7d={rate['sevenD']} ({rate['sevenDUtilization']*100:.0f}%)  {nvidia_str}")
 
     response = send_heartbeat(payload)
     if response:
