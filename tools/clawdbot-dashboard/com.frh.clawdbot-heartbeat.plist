@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.frh.clawdbot-heartbeat</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/bin/python3.11</string>
+        <string>/Users/mattia/Projects/Onde/tools/clawdbot-dashboard/send-heartbeat.py</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>CLAWDBOT_MAC_ID</key>
+        <string>m1</string>
+        <key>CLAWDBOT_HOSTNAME</key>
+        <string>FRH-M1-PRO</string>
+        <key>CLAWDBOT_BOT_NAME</key>
+        <string>@ClawdFRH_bot</string>
+    </dict>
+
+    <key>StartInterval</key>
+    <integer>60</integer>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/clawdbot-heartbeat.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/clawdbot-heartbeat.err</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
