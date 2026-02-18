@@ -252,6 +252,32 @@ def send_heartbeat(payload: dict):
         return None
 
 
+def auto_fix_token_if_wrong(auth: dict):
+    """
+    Se il token attivo è magmaticxr (rate limited), auto-esegue il fix script.
+    Root cause: il gateway re-sincronizza dal keychain macOS ogni 15 min (EXTERNAL_CLI_SYNC_TTL_MS).
+    Il keychain entry 'Claude Code' può contenere il token sbagliato se Claude Code CLI
+    è stato usato con l'account magmaticxr. Il fix script aggiorna sia auth-profiles.json
+    sia il keychain 'Claude Code', quindi il gateway terrà freeriverhouse anche dopo il restart.
+    """
+    BAD_TOKENS = {"DWw-pWTs5AAA"}  # magmaticxr = rate limited 100% 7d
+    if auth.get("tokenEnd") in BAD_TOKENS:
+        print(f"  [auto-fix] token sbagliato rilevato ({auth['tokenEnd']}), eseguo fix...")
+        if Path(str(SWITCH_SCRIPT)).exists():
+            result = subprocess.run(
+                ["bash", str(SWITCH_SCRIPT), "--model", "sonnet"],
+                capture_output=True, text=True, timeout=60
+            )
+            if result.returncode == 0:
+                print("  [auto-fix] OK - token ripristinato a freeriverhouse")
+                return True
+            else:
+                print(f"  [auto-fix] FAIL: {result.stderr[:100]}")
+        else:
+            print(f"  [auto-fix] script non trovato: {SWITCH_SCRIPT}")
+    return False
+
+
 def main():
     print(f"[{datetime.now().strftime('%H:%M:%S')}] heartbeat macId={MAC_ID}")
 
@@ -259,6 +285,10 @@ def main():
     auth                        = get_auth_status()
     gateway_status, agent_model = get_gateway_status()
     nvidia_usage                = get_nvidia_usage()
+
+    # Auto-fix se token sbagliato (magmaticxr invece di freeriverhouse)
+    if auto_fix_token_if_wrong(auth):
+        auth = get_auth_status()  # Rileggi dopo fix
 
     # Get fresh token for rate limit check
     token = get_fresh_token()

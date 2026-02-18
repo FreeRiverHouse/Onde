@@ -357,7 +357,7 @@ if 'defaults' not in data['agents']:
 agents = data['agents']['defaults']
 agents['model'] = {
     "primary": "$MODEL_FULL",
-    "fallbacks": ["$FALLBACK"]
+    "fallbacks": ["$FALLBACK", "nvidia/moonshotai/kimi-k2.5"]
 }
 agents['models'] = {
     "anthropic/claude-sonnet-4-6": {"alias": "sonnet"},
@@ -369,7 +369,7 @@ with open('$CONFIG_FILE', 'w') as f:
     json.dump(data, f, indent=2)
 
 print(f'  Primary:  $MODEL_FULL')
-print(f'  Fallback: $FALLBACK')
+print(f'  Fallback: $FALLBACK → nvidia/moonshotai/kimi-k2.5')
 PYEOF2
     fi
     echo ""
