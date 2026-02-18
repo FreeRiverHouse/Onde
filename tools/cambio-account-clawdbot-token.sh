@@ -128,7 +128,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 KEYCHAIN_SERVICE="Claude Code-credentials"
-KEYCHAIN_ACCOUNT_CLI="mattia"  # freeriverhouse@gmail.com (NON usare mattiapetrucciani = magmaticxr, è rate-limited!)
+KEYCHAIN_ACCOUNT_CLI="mattia"  # freeriverhouse@gmail.com (NON mattiapetrucciani = magmaticxr rate-limited!)
 KEYCHAIN_ACCOUNT_BOT="Claude Code"
 CRED_FILE="$HOME/.clawdbot/credentials/auth-profiles.json"
 AGENT_FILE="$HOME/.clawdbot/agents/main/agent/auth-profiles.json"
@@ -357,7 +357,7 @@ if 'defaults' not in data['agents']:
 agents = data['agents']['defaults']
 agents['model'] = {
     "primary": "$MODEL_FULL",
-    "fallbacks": ["$FALLBACK", "nvidia/moonshotai/kimi-k2.5"]
+    "fallbacks": ["$FALLBACK"]
 }
 agents['models'] = {
     "anthropic/claude-sonnet-4-6": {"alias": "sonnet"},
@@ -369,7 +369,7 @@ with open('$CONFIG_FILE', 'w') as f:
     json.dump(data, f, indent=2)
 
 print(f'  Primary:  $MODEL_FULL')
-print(f'  Fallback: $FALLBACK → nvidia/moonshotai/kimi-k2.5')
+print(f'  Fallback: $FALLBACK')
 PYEOF2
     fi
     echo ""
