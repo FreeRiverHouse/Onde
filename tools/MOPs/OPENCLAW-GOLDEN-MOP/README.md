@@ -336,5 +336,60 @@ grep -i "agent model" ~/.clawdbot/logs/gateway.log | tail -3
 
 ---
 
-*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#8)*
+## ⭐ LESSON #9 — Kimi K2.5 Rate Limit / Outage + Fallback Model (CRITICO)
+
+Kimi K2.5 su NVIDIA ha un **rate limit di ~40 RPM**. Se piu' bot + listener house-chat + cron job usano la stessa key, si supera facilmente.
+
+**Sintomi**: `TypeError: fetch failed`, timeout completo (HTTP 000), `typing TTL reached (2m)`. Il gateway NON triggera il fallback su timeout — il fetch resta appeso.
+
+**Cause comuni di rate limit**:
+- Conversazioni bot-to-bot nella house chat (loop a catena)
+- Cron job frequenti + Telegram + house-chat listener tutti su Kimi
+- M1 acceso che usa la stessa API key
+
+**Config corretta** (`clawdbot.json → agents.defaults.model`):
+```json
+{
+  "primary": "nvidia/moonshotai/kimi-k2.5",
+  "fallbacks": [
+    "nvidia/meta/llama-3.1-8b-instruct",
+    "anthropic/claude-sonnet-4-6"
+  ]
+}
+```
+
+**Llama 3.1 8B** (`nvidia/meta/llama-3.1-8b-instruct`) e' il backup gratuito su NVIDIA — risponde in <1s. Va aggiunto anche in `models.providers.nvidia.models[]`.
+
+**Se Kimi e' down**: switchare primary a Llama temporaneamente, restart gateway.
+
+**NVIDIA API Keys della fleet**:
+
+| Mac | NVIDIA API Key |
+|-----|---------------|
+| M4 (Ondinho) | `nvapi-dd8wjBpP...03ui` |
+| Bubble | `nvapi-5SVodz8o...By0K` |
+| M1 | verificare su M1 |
+
+---
+
+## ⭐ LESSON #10 — House Chat Listener: Modello e Rate Limit
+
+I listener house-chat (`ondinho-listener.js`, `bubble-listener.js`) fanno chiamate API attraverso il gateway locale. Devono usare lo **stesso modello** configurato nel gateway.
+
+**Bug trovato (2026-02-19)**: `ondinho-listener.js` riga 107 hardcodava `anthropic/claude-sonnet-4-6` → sprecava token Anthropic per la house chat. Fix: cambiato a `nvidia/meta/llama-3.1-8b-instruct`.
+
+**Regole**:
+1. Il modello nel listener DEVE essere allineato col modello primario del gateway
+2. MAI hardcodare `anthropic/claude-sonnet-4-6` nei listener — spreca token a pagamento
+3. I listener house-chat condividono il rate limit NVIDIA col gateway Telegram
+4. Se rate limit superato → ridurre frequenza polling o limitare risposte bot-to-bot
+
+| Listener | Mac | Path | Modello |
+|----------|-----|------|---------|
+| ondinho-listener.js | M4 | `~/ondinho-listener.js` | `nvidia/meta/llama-3.1-8b-instruct` |
+| bubble-listener.js | Bubble | `/Users/mattia/bubble-listener.js` | `nvidia/meta/llama-3.1-8b-instruct` |
+
+---
+
+*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#10)*
 *Maintainer: Mattia / FreeRiverHouse*
