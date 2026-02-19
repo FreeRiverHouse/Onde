@@ -1,6 +1,6 @@
 {
   "starting_balance_cents": 10000,
-  "current_balance_cents": 7439,
+  "current_balance_cents": 7739,
   "positions": [
     {
       "ticker": "KXETHD-26FEB2017-T2309.99",
@@ -87,18 +87,6 @@
       "status": "open"
     },
     {
-      "ticker": "KXBTCD-26FEB1817-T67999.99",
-      "action": "BUY_NO",
-      "price_cents": 59,
-      "contracts": 3,
-      "cost_cents": 177,
-      "opened_at": "2026-02-17T22:05:37.615810+00:00",
-      "title": "Bitcoin price  on Feb 18, 2026?",
-      "edge": 0.0929,
-      "expiry": "2026-02-18T22:00:00Z",
-      "status": "open"
-    },
-    {
       "ticker": "KXETHD-26FEB2017-T2149.99",
       "action": "BUY_YES",
       "price_cents": 9,
@@ -113,12 +101,12 @@
   ],
   "stats": {
     "total_trades": 30,
-    "wins": 9,
+    "wins": 10,
     "losses": 12,
-    "pending": 9,
-    "win_rate": 0.4286,
-    "pnl_cents": -956,
-    "gross_profit_cents": 1265,
+    "pending": 8,
+    "win_rate": 0.4545,
+    "pnl_cents": -833,
+    "gross_profit_cents": 1388,
     "gross_loss_cents": 2221,
     "peak_balance_cents": 10000,
     "max_drawdown_cents": 3786,
@@ -134,7 +122,8 @@
       "price_cents": 59,
       "contracts": 3,
       "cost_cents": 177,
-      "status": "open"
+      "status": "won",
+      "pnl_cents": 123
     },
     {
       "timestamp": "2026-02-17T22:05:38.694424+00:00",
@@ -146,9 +135,9 @@
       "status": "open"
     }
   ],
-  "updated_at": "2026-02-18T03:44:42.164562+00:00",
+  "updated_at": "2026-02-18T22:02:13.651659+00:00",
   "analysis": {
-    "last_tune": "2026-02-18T08:00:02.539234+00:00",
+    "last_tune": "2026-02-19T08:00:02.947555+00:00",
     "total_paper_trades": 306,
     "edge_stats": {
       "mean": 0.34163117252381964,
