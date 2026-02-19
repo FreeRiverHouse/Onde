@@ -434,5 +434,33 @@ bash ~/m1-safe-boot.sh
 
 ---
 
-*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#12)*
+## ⭐ LESSON #13 — Bubble Auth Anthropic (Token Sharing)
+
+Bubble (Catalina Mac) non ha `claude login` — non puo' fare OAuth autonomamente. Il token OAuth va **copiato da M4**.
+
+**Errore**: `FailoverError: No API key found for provider "anthropic"` → Bubble non ha token.
+
+**Fix** (da M4):
+```bash
+TOKEN=$(security find-generic-password -s "Claude Code-credentials" -a "mattiapetrucciani" -w | python3 -c "import sys,json; print(json.loads(sys.stdin.read())['claudeAiOauth']['accessToken'])")
+
+sshpass -p '420023' ssh Mattia@192.168.1.79 "python3 -c \"
+import json
+p = '/Users/Mattia/.clawdbot/agents/main/agent/auth-profiles.json'
+d = json.load(open(p))
+prof = d.setdefault('profiles',{}).setdefault('anthropic:claude-cli',{})
+prof['provider'] = 'anthropic'
+prof['mode'] = 'oauth'
+prof['oauthToken'] = '$TOKEN'
+d.setdefault('usageStats',{}).setdefault('anthropic:claude-cli',{}).update({'errorCount':0,'cooldownUntil':None})
+json.dump(d, open(p,'w'), indent=2)
+print('OK')
+\""
+```
+
+**NOTA**: Il token OAuth scade periodicamente. Quando Bubble smette di rispondere con errore auth → ricopiare il token fresco da M4.
+
+---
+
+*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#13)*
 *Maintainer: Mattia / FreeRiverHouse*
