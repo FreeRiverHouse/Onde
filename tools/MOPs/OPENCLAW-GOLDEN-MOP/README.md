@@ -213,7 +213,7 @@ Con molti cron jobs (es. ogni 2 min) il bot puo' sembrare lento o non rispondere
 Ogni Mac della fleet DEVE avere il proprio ClawdBot **completamente indipendente**:
 - Proprio `clawdbot.json` con il proprio bot token Telegram
 - Proprio gateway su porta 18789
-- Proprio modello primario (default: `nvidia/moonshotai/kimi-k2.5`)
+- Proprio modello primario (default: `anthropic/claude-sonnet-4-6`)
 - **Nessuna dipendenza da altri Mac** per funzionare
 
 **Incidente**: Sonnet creo' un sistema `frh-house-chat` che ruotava le risposte attraverso M1. Quando M1 era spento, tutti i bot smettevano di rispondere su Telegram.
@@ -350,17 +350,19 @@ Kimi K2.5 su NVIDIA ha un **rate limit di ~40 RPM**. Se piu' bot + listener hous
 **Config corretta** (`clawdbot.json → agents.defaults.model`):
 ```json
 {
-  "primary": "nvidia/moonshotai/kimi-k2.5",
+  "primary": "anthropic/claude-sonnet-4-6",
   "fallbacks": [
-    "nvidia/meta/llama-3.1-8b-instruct",
-    "anthropic/claude-sonnet-4-6"
+    "nvidia/mistralai/mistral-large-3-675b-instruct-2512",
+    "nvidia/meta/llama-3.3-70b-instruct"
   ]
 }
 ```
 
-**Llama 3.1 8B** (`nvidia/meta/llama-3.1-8b-instruct`) e' il backup gratuito su NVIDIA — risponde in <1s. Va aggiunto anche in `models.providers.nvidia.models[]`.
+**Sonnet 4.6 e' l'unico modello 100% compatibile** col tool-use framework di ClawdBot. I modelli NVIDIA hanno tutti problemi (vedi Lesson #11).
 
-**Se Kimi e' down**: switchare primary a Llama temporaneamente, restart gateway.
+**ATTENZIONE**: Llama 3.1 8B e' troppo stupido per il framework clawdbot — sbaglia i tool call (cron, read, etc.) e manda errori "500 status code" su Telegram. Usare MINIMO il 70B.
+
+**Se Anthropic auth scade**: switchare primary a `nvidia/mistralai/mistral-large-3-675b-instruct-2512` temporaneamente (funziona su M4, ha bug tool-call ID su Bubble).
 
 **NVIDIA API Keys della fleet**:
 
@@ -376,20 +378,61 @@ Kimi K2.5 su NVIDIA ha un **rate limit di ~40 RPM**. Se piu' bot + listener hous
 
 I listener house-chat (`ondinho-listener.js`, `bubble-listener.js`) fanno chiamate API attraverso il gateway locale. Devono usare lo **stesso modello** configurato nel gateway.
 
-**Bug trovato (2026-02-19)**: `ondinho-listener.js` riga 107 hardcodava `anthropic/claude-sonnet-4-6` → sprecava token Anthropic per la house chat. Fix: cambiato a `nvidia/meta/llama-3.1-8b-instruct`.
+**Regola**: Il modello nel listener DEVE essere allineato col modello primario del gateway.
+
+**Il rate limit NVIDIA e' per-modello, non per-key.** Kimi K2.5 e DeepSeek V3 possono essere down/overloaded mentre Llama 3.3 70B funziona perfettamente sulla stessa key.
 
 **Regole**:
 1. Il modello nel listener DEVE essere allineato col modello primario del gateway
-2. MAI hardcodare `anthropic/claude-sonnet-4-6` nei listener — spreca token a pagamento
-3. I listener house-chat condividono il rate limit NVIDIA col gateway Telegram
-4. Se rate limit superato → ridurre frequenza polling o limitare risposte bot-to-bot
+2. I listener house-chat condividono il rate limit col gateway Telegram
+3. Se rate limit superato → ridurre frequenza polling o limitare risposte bot-to-bot
 
 | Listener | Mac | Path | Modello |
 |----------|-----|------|---------|
-| ondinho-listener.js | M4 | `~/ondinho-listener.js` | `nvidia/meta/llama-3.1-8b-instruct` |
-| bubble-listener.js | Bubble | `/Users/mattia/bubble-listener.js` | `nvidia/meta/llama-3.1-8b-instruct` |
+| ondinho-listener.js | M4 | `~/ondinho-listener.js` | `anthropic/claude-sonnet-4-6` |
+| bubble-listener.js | Bubble | `/Users/mattia/bubble-listener.js` | `anthropic/claude-sonnet-4-6` |
 
 ---
 
-*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#10)*
+## ⭐ LESSON #11 — NVIDIA Tool-Calling Incompatibilità (CRITICO)
+
+Tutti i modelli NVIDIA testati hanno problemi di tool-calling col framework ClawdBot. **Sonnet 4.6 e' l'unico modello primario affidabile.**
+
+| Modello NVIDIA | Problema | Errore |
+|----------------|----------|--------|
+| Llama 3.1 8B | Troppo stupido per tool use | `500 status code`, parametri cron sbagliati |
+| Llama 3.3 70B | No parallel tool calls | `400 This model only supports single tool-calls at once!` |
+| Mistral Large 3 675B | Tool call ID formato sbagliato | `400 Tool call id was but must be a-z, A-Z, 0-9, with a length of 9` |
+| Kimi K2.5 | Instabile / outage frequenti | `HTTP 000`, `TypeError: fetch failed`, timeout |
+
+**Soluzione definitiva (2026-02-19)**: switchato TUTTA la fleet a `anthropic/claude-sonnet-4-6` come primario, con NVIDIA models come fallback.
+
+**Nota**: I modelli NVIDIA restano utili come **fallback gratuiti** per quando l'auth Anthropic scade. Mistral Large 3 funziona su M4 (qualche errore tool-call ma non blocca). Su Bubble ha bug piu' frequenti.
+
+**Quando tornare a NVIDIA come primario**: Solo se NVIDIA risolve i problemi di tool-call format, O se ClawdBot aggiunge adapter per normalizzare i tool call ID.
+
+---
+
+## ⭐ LESSON #12 — M1 Safe Boot (Protezione Fleet)
+
+Quando M1 si accende, puo' fare danni: Sonnet (su M1) ha creato script che prendevano controllo degli altri bot, sovrascrivevano config, e centralizzavano tutto su M1.
+
+**Script safe boot** (`~/m1-safe-boot.sh` su M4):
+1. Aspetta che M1 sia raggiungibile via ping
+2. Aspetta che SSH sia pronto
+3. **STOPPA il gateway M1 immediatamente** prima che faccia danni
+4. Mostra config M1 per ispezione manuale
+5. L'operatore decide se avviare il gateway o pulire prima
+
+**Uso**:
+```bash
+# Lanciare PRIMA o subito dopo aver acceso M1
+bash ~/m1-safe-boot.sh
+```
+
+**Regola**: MAI accendere M1 senza il safe-boot attivo su M4. M1 va considerato "untrusted" finche' la config non e' verificata.
+
+---
+
+*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#12)*
 *Maintainer: Mattia / FreeRiverHouse*
