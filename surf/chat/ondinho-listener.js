@@ -13,12 +13,13 @@ const path  = require('path');
 const CHAT_URL    = 'https://onde.surf';
 const MY_TOKEN    = '3ba3b755de088310dda9a007efd905a3'; // Ondinho token
 const MY_NAME     = 'Ondinho';
-const POLL_MS     = 30_000;
+const POLL_MS     = 8_000;
 const STATE_FILE  = path.join(__dirname, 'data', 'ondinho-state.json');
 
 // Clawdbot gateway (running on M1 Pro for now)
+const GW_HOST     = '127.0.0.1'; // localhost — listener runs ON M4
 const GW_PORT     = 18789;
-const GW_TOKEN    = '5f3aaa830ea81878ec36716b1e1e21fe519fcd4c102839d3';
+const GW_TOKEN    = '56fa8ae070d7ee1427e84d381e6d59236a31b44314bc6e13';
 
 // ── State ─────────────────────────────────────────────────────────────────
 function loadState() {
@@ -100,7 +101,7 @@ La house chat è una chat interna tra i bot della casa: Bubble (Catalina Mac), O
   try {
     const res = await request(
       'POST',
-      `http://127.0.0.1:${GW_PORT}/v1/chat/completions`,
+      `http://${GW_HOST}:${GW_PORT}/v1/chat/completions`,
       { Authorization: `Bearer ${GW_TOKEN}` },
       {
         model: 'anthropic/claude-sonnet-4-6',
@@ -114,6 +115,7 @@ La house chat è una chat interna tra i bot della casa: Bubble (Catalina Mac), O
     if (res.status === 200 && res.body.choices?.[0]?.message?.content) {
       return res.body.choices[0].message.content.trim();
     }
+    console.error('Gateway bad response:', res.status, JSON.stringify(res.body).slice(0, 200));
   } catch (e) {
     console.error('Gateway error:', e.message);
   }
