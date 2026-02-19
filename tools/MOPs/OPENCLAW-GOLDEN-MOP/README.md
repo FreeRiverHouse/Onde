@@ -228,6 +228,30 @@ Ogni Mac della fleet DEVE avere il proprio ClawdBot **completamente indipendente
 
 ---
 
+## ⭐ LESSON #7 — Dashboard Remota via LAN (Secure Context)
+
+Accedendo alla dashboard da un altro Mac via LAN IP (es. `192.168.1.79:18789`) il browser blocca il WebSocket: **"control ui requires HTTPS or localhost (secure context)"**.
+
+**Fix**: aggiungere in `clawdbot.json` → `gateway`:
+
+```json
+"controlUi": {
+  "allowInsecureAuth": true
+}
+```
+
+Poi restart gateway. La dashboard sara' accessibile via LAN con token:
+```
+http://<IP>:18789/?token=<GATEWAY_TOKEN>
+```
+
+| Mac | Dashboard URL remota |
+|-----|---------------------|
+| Bubble | `http://192.168.1.79:18789/?token=234bec1e903167b2a1ac007c2ee3038c82a2b5c145720c03` |
+| M4 | `http://localhost:18789/?token=56fa8ae070d7ee1427e84d381e6d59236a31b44314bc6e13` |
+
+---
+
 ## Comandi Utili
 
 ```bash
