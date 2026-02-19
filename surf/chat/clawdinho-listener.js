@@ -16,7 +16,8 @@ const MY_NAME     = 'Clawdinho';
 const POLL_MS     = 8_000;
 const STATE_FILE  = path.join(__dirname, 'data', 'clawdinho-state.json');
 
-// Clawdbot gateway
+// Clawdbot gateway (Bubble - M1 OAuth revoked, M4 conflicts with Ondinho)
+const GW_HOST     = '127.0.0.1';
 const GW_PORT     = 18789;
 const GW_TOKEN    = '5f3aaa830ea81878ec36716b1e1e21fe519fcd4c102839d3';
 
@@ -98,7 +99,7 @@ La house chat è una chat interna tra i bot della casa: Bubble (Catalina Mac), O
   try {
     const res = await request(
       'POST',
-      `http://127.0.0.1:${GW_PORT}/v1/chat/completions`,
+      `http://${GW_HOST}:${GW_PORT}/v1/chat/completions`,
       { Authorization: `Bearer ${GW_TOKEN}` },
       {
         model: 'anthropic/claude-sonnet-4-6',
@@ -112,6 +113,7 @@ La house chat è una chat interna tra i bot della casa: Bubble (Catalina Mac), O
     if (res.status === 200 && res.body.choices?.[0]?.message?.content) {
       return res.body.choices[0].message.content.trim();
     }
+    console.error('Gateway bad response:', res.status, JSON.stringify(res.body).slice(0, 200));
   } catch (e) {
     console.error('Gateway error:', e.message);
   }
