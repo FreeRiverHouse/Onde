@@ -7,13 +7,18 @@ Setup certificato FreeRiverHouse. Tutto quello che serve per configurare, fixare
 
 ## Fleet
 
-| Mac | IP | SSH User | Ruolo |
-|-----|----|----------|-------|
-| M1 (Clawdinho) | 192.168.1.111 | mattia | GPU-heavy, trading, ML |
-| Bubble | 192.168.1.79 | Mattia | Bot Bubble 🫧 |
-| M4 (Ondinho) | 192.168.1.234 | mattiapetrucciani | CPU/web/deploy |
+| Mac | IP | SSH User | SSH Password | Ruolo |
+|-----|----|----------|-------------|-------|
+| M1 (Clawdinho) | 192.168.1.111 | mattia | 420025 | GPU-heavy, trading, ML |
+| Bubble | 192.168.1.79 | Mattia | 420023 | Bot Bubble 🫧 |
+| M4 (Ondinho) | 192.168.1.234 | mattiapetrucciani | — (chiave SSH) | CPU/web/deploy |
 
 SSH key: `~/.ssh/id_ed25519`
+
+**Nota SSH M1**: Remote Login deve essere attivo (System Preferences → Sharing → Remote Login). Se la chiave non funziona, usare `sshpass`:
+```bash
+sshpass -p '420025' ssh -o StrictHostKeyChecking=no mattia@192.168.1.111
+```
 
 ---
 
@@ -222,9 +227,11 @@ Ogni Mac della fleet DEVE avere il proprio ClawdBot **completamente indipendente
 
 | Bot | Mac | Token Telegram |
 |-----|-----|----------------|
-| @ClawdFRH_bot | M1 (Clawdinho) | vedi config M1 |
+| @ClawdFRH_bot | M1 (Clawdinho) | `8533895759:AAGsmj479Bq9I_a4G0Bkh9LJFU_MBUYthBw` |
 | @Onde_clawd_bot | M4 (Ondinho) | `8590199535:AAE-i7eBsC81SBqg6Sr1Pd-DzJ4xu8x8EG0` |
 | @Bubble_FRH_bot | Bubble (Catalina) | `8293653812:AAEsN1-FJDXDwyn69zcnlej_xrTdUHDcL9k` |
+
+**Verificato 2026-02-19**: ogni Mac ha un token Telegram DIVERSO — nessun conflitto cross-Mac.
 
 ---
 
@@ -252,6 +259,60 @@ http://<IP>:18789/?token=<GATEWAY_TOKEN>
 
 ---
 
+## ⭐ LESSON #8 — Procedura Fix Completa (Checklist)
+
+Quando un bot non risponde su Telegram, seguire questa checklist nell'ordine:
+
+```
+1. VERIFICA GATEWAY
+   launchctl list | grep clawdbot          → deve avere PID
+   ps aux | grep clawdbot-gateway          → deve essere UN solo processo
+
+2. VERIFICA AUTH (Lesson #1)
+   python3 -c "
+   import json
+   d = json.load(open('$HOME/.clawdbot/agents/main/agent/auth-profiles.json'))
+   s = d.get('usageStats',{}).get('anthropic:claude-cli',{})
+   print('errorCount:', s.get('errorCount'))
+   print('cooldownUntil:', s.get('cooldownUntil'))
+   "
+
+3. RESET COOLDOWN se errorCount > 0
+   python3 -c "
+   import json
+   p = '$HOME/.clawdbot/agents/main/agent/auth-profiles.json'
+   d = json.load(open(p))
+   s = d.setdefault('usageStats',{}).setdefault('anthropic:claude-cli',{})
+   s.update({'errorCount':0,'cooldownUntil':None,'lastFailureAt':0})
+   open(p,'w').write(json.dumps(d,indent=2))
+   "
+
+4. RESTART PULITO (Lesson #4)
+   launchctl stop com.clawdbot.gateway
+   sleep 5
+   launchctl start com.clawdbot.gateway
+
+5. VERIFICA LOG
+   tail -10 ~/.clawdbot/logs/gateway.log
+   → Cercare: "[telegram] [default] starting provider (@NomeBot)"
+   → Se "getUpdates conflict" → aspettare, ri-restart
+
+6. TEST REALE
+   Mandare messaggio al bot su Telegram (NON usare curl getUpdates!)
+```
+
+---
+
+## Gateway Tokens (per dashboard e API)
+
+| Mac | Gateway Token |
+|-----|---------------|
+| M4 (Ondinho) | `56fa8ae070d7ee1427e84d381e6d59236a31b44314bc6e13` |
+| Bubble | `234bec1e903167b2a1ac007c2ee3038c82a2b5c145720c03` |
+| M1 (Clawdinho) | verificare `clawdbot.json → gateway.auth.token` su M1 |
+
+---
+
 ## Comandi Utili
 
 ```bash
@@ -275,5 +336,5 @@ grep -i "agent model" ~/.clawdbot/logs/gateway.log | tail -3
 
 ---
 
-*Ultimo aggiornamento: 2026-02-19*
+*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#8)*
 *Maintainer: Mattia / FreeRiverHouse*
