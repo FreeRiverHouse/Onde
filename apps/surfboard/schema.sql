@@ -74,3 +74,33 @@ CREATE INDEX IF NOT EXISTS idx_chat_msg_session ON agent_chat_messages(session_k
 CREATE INDEX IF NOT EXISTS idx_chat_msg_status ON agent_chat_messages(status);
 CREATE INDEX IF NOT EXISTS idx_chat_msg_created ON agent_chat_messages(created_at);
 CREATE INDEX IF NOT EXISTS idx_chat_sessions_agent ON agent_chat_sessions(agent_id);
+
+-- ── Metrics & Analytics ─────────────────────────────────────────
+
+-- Metrics table - stores historical metric values
+CREATE TABLE IF NOT EXISTS metrics (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  metric_key TEXT NOT NULL,
+  metric_value REAL NOT NULL,
+  metric_date TEXT NOT NULL,
+  source TEXT,
+  metadata TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(metric_key, metric_date)
+);
+
+CREATE INDEX IF NOT EXISTS idx_metrics_key ON metrics(metric_key);
+CREATE INDEX IF NOT EXISTS idx_metrics_date ON metrics(metric_date);
+CREATE INDEX IF NOT EXISTS idx_metrics_key_date ON metrics(metric_key, metric_date);
+
+-- Metric definitions - describes each metric
+CREATE TABLE IF NOT EXISTS metric_definitions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  metric_key TEXT UNIQUE NOT NULL,
+  display_name TEXT NOT NULL,
+  category TEXT NOT NULL,
+  unit TEXT,
+  description TEXT,
+  is_cumulative INTEGER DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
