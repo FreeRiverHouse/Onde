@@ -129,5 +129,43 @@ git push origin main
 
 ---
 
+## REGOLA CRITICA: DEPLOY CHIRURGICO
+
+**Il deploy DEVE essere chirurgico. Se cambi UNA pagina, non devi rompere il RESTO del sito.**
+
+### Prima di ogni deploy:
+```bash
+# 1. Verifica cosa stai cambiando
+git diff --name-only
+
+# 2. Controlla che NON hai modificato file che non dovevi toccare
+git diff --stat
+
+# 3. Se hai toccato file che non c'entrano col tuo task → RIPRISTINALI
+git checkout -- <file-che-non-dovevi-toccare>
+```
+
+### Regole di sicurezza pre-deploy:
+1. **VERIFICA OGNI FILE MODIFICATO** - Se il tuo task era "aggiungi chat page", NON devi aver toccato analytics, health, betting, ecc.
+2. **MAI fare `git add -A`** - Aggiungi SOLO i file del tuo task
+3. **Se un file e' cambiato e non sai perche'** → `git checkout -- <file>` per ripristinarlo
+4. **PRIMA di fare build** → controlla che `git diff` mostri SOLO le modifiche del tuo task
+
+### Cosa fare se hai sbagliato:
+```bash
+# Ripristina un file specifico dalla versione corrente in git
+git checkout HEAD -- apps/surfboard/src/app/analytics/page.tsx
+
+# Ripristina un file da un commit specifico
+git show <commit>:<file-path> > <file-path>
+```
+
+### MAI DIMENTICARE:
+- **`git log -- <file>`** per vedere la storia di un file prima di toccarlo
+- **`git show <commit>:<file>`** per recuperare una versione precedente
+- **Il deploy rideploya TUTTO il sito** → se hai rotto un file, va in produzione rotto
+
+---
+
 *Ultimo aggiornamento: 2026-02-19*
 *METODO: Wrangler CLI diretto su Cloudflare Pages.*
