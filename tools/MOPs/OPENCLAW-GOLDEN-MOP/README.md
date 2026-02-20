@@ -475,5 +475,29 @@ print('OK')
 
 ---
 
-*Ultimo aggiornamento: 2026-02-20 (Lesson #1-#14)*
+## ⭐ LESSON #15 — SEMPRE Testare via API, MAI Chiedere all'Utente
+
+Dopo ogni modifica al gateway, **testare SEMPRE via API** invece di chiedere all'utente di provare su Telegram.
+
+**Test rapido gateway** (da M4):
+```bash
+curl -s -m 30 -X POST http://127.0.0.1:18789/v1/chat/completions \
+  -H "Authorization: Bearer <GATEWAY_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"<MODELLO>","max_tokens":100,"messages":[{"role":"user","content":"ciao, funzioni?"}]}'
+```
+
+**Test remoto** (es. Bubble da M4):
+```bash
+curl -s -m 30 -X POST http://192.168.1.79:18789/v1/chat/completions \
+  -H "Authorization: Bearer 234bec1e903167b2a1ac007c2ee3038c82a2b5c145720c03" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"<MODELLO>","max_tokens":100,"messages":[{"role":"user","content":"ciao, funzioni?"}]}'
+```
+
+**Regola**: se c'e' un'API disponibile, usarla. Non scaricare mai il test sull'utente.
+
+---
+
+*Ultimo aggiornamento: 2026-02-20 (Lesson #1-#15)*
 *Maintainer: Mattia / FreeRiverHouse*
