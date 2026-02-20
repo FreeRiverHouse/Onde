@@ -11,6 +11,7 @@ import { GradientText } from '@/components/ui/AnimatedText'
 interface DailyPoint {
   date: string
   views: number
+  visits?: number
 }
 
 interface PageEntry { path: string; views: number }
@@ -21,7 +22,7 @@ interface CountryEntry { country: string; views: number }
 interface OSEntry { os: string; views: number }
 
 interface MetricsData {
-  summary: { pageViews30d: number; pageViews7d: number }
+  summary: { pageViews30d: number; pageViews7d: number; visits30d?: number; visits7d?: number }
   daily: DailyPoint[]
   topPages: PageEntry[]
   topReferrers: ReferrerEntry[]
@@ -103,11 +104,13 @@ export default function AnalyticsPage() {
     const peakDay = filteredDaily.length > 0
       ? filteredDaily.reduce((max, d) => d.views > max.views ? d : max, filteredDaily[0])
       : null
+    const totalVisits = timeRange === '7d' ? (metrics.summary.visits7d ?? 0) : (metrics.summary.visits30d ?? 0)
     const mobileViews = metrics.devices.find(d => d.type === 'mobile')?.views ?? 0
     const desktopViews = metrics.devices.find(d => d.type === 'desktop')?.views ?? 0
     const mobilePercent = totalViews > 0 ? Math.round((mobileViews / totalViews) * 100) : 0
+    const pagesPerVisit = totalVisits > 0 ? (totalViews / totalVisits).toFixed(1) : '0'
 
-    return { totalViews, avgPerDay, peakDay, mobileViews, desktopViews, mobilePercent }
+    return { totalViews, totalVisits, avgPerDay, peakDay, mobileViews, desktopViews, mobilePercent, pagesPerVisit }
   }, [metrics, timeRange, filteredDaily])
 
   const hasData = metrics?.hasData ?? false
@@ -181,12 +184,18 @@ export default function AnalyticsPage() {
       ) : (
         <div className="space-y-6">
           {/* Summary Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             <StatCard
               label="Total Views"
               value={summaryStats?.totalViews ?? 0}
               icon="👁️"
               color="cyan"
+            />
+            <StatCard
+              label="Unique Visitors"
+              value={summaryStats?.totalVisits ?? 0}
+              icon="👤"
+              color="emerald"
             />
             <StatCard
               label="Avg / Day"
@@ -195,10 +204,9 @@ export default function AnalyticsPage() {
               color="purple"
             />
             <StatCard
-              label="Peak Day"
-              value={summaryStats?.peakDay?.views ?? 0}
-              subtitle={summaryStats?.peakDay ? formatDate(summaryStats.peakDay.date) : undefined}
-              icon="🔥"
+              label="Pages / Visit"
+              value={parseFloat(summaryStats?.pagesPerVisit ?? '0')}
+              icon="📄"
               color="amber"
             />
             <StatCard
@@ -206,7 +214,7 @@ export default function AnalyticsPage() {
               value={summaryStats?.mobilePercent ?? 0}
               suffix="%"
               icon="📱"
-              color="emerald"
+              color="cyan"
             />
           </div>
 

@@ -44,8 +44,8 @@ export async function GET(request: NextRequest) {
     const filter7d = `AND: [{datetime_geq: "${start7d}T00:00:00Z", datetime_leq: "${today}T23:59:59Z"}, {siteTag: "${CF_SITE_TAG}"}]`
 
     const [totals, daily, pages, referrers, devices, browsers, countries, os] = await Promise.all([
-      gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { total30d: rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 1) { count } total7d: rumPageloadEventsAdaptiveGroups(filter: {${filter7d}}, limit: 1) { count } } } }`),
-      gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 60, orderBy: [date_ASC]) { count dimensions { date } } } } }`),
+      gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { total30d: rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 1) { count sum { visits } } total7d: rumPageloadEventsAdaptiveGroups(filter: {${filter7d}}, limit: 1) { count sum { visits } } } } }`),
+      gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 60, orderBy: [date_ASC]) { count sum { visits } dimensions { date } } } } }`),
       gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 25, orderBy: [count_DESC]) { count dimensions { requestPath } } } } }`),
       gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 25, orderBy: [count_DESC]) { count dimensions { refererHost } } } } }`),
       gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 10, orderBy: [count_DESC]) { count dimensions { deviceType } } } } }`),
@@ -54,15 +54,17 @@ export async function GET(request: NextRequest) {
       gql(token, `query { viewer { accounts(filter: {accountTag: "${CF_ACCOUNT_ID}"}) { rumPageloadEventsAdaptiveGroups(filter: {${filter30d}}, limit: 10, orderBy: [count_DESC]) { count dimensions { userAgentOS } } } } }`),
     ])
 
-    const dailyData = (acct(daily).rumPageloadEventsAdaptiveGroups || []).map((r: any) => ({ date: r.dimensions.date, views: r.count }))
+    const dailyData = (acct(daily).rumPageloadEventsAdaptiveGroups || []).map((r: any) => ({ date: r.dimensions.date, views: r.count, visits: r.sum?.visits || 0 }))
     const pv30d = acct(totals).total30d?.[0]?.count || 0
     const pv7d = acct(totals).total7d?.[0]?.count || 0
+    const visits30d = acct(totals).total30d?.[0]?.sum?.visits || 0
+    const visits7d = acct(totals).total7d?.[0]?.sum?.visits || 0
     const deviceList = (acct(devices).rumPageloadEventsAdaptiveGroups || []).filter((r: any) => r.dimensions.deviceType).map((r: any) => ({ type: r.dimensions.deviceType, views: r.count }))
     const mobileViews = deviceList.find((d: any) => d.type === 'mobile')?.views || 0
 
     const data = {
       // New CF analytics fields
-      summary: { pageViews30d: pv30d, pageViews7d: pv7d },
+      summary: { pageViews30d: pv30d, pageViews7d: pv7d, visits30d, visits7d },
       daily: dailyData,
       topPages: (acct(pages).rumPageloadEventsAdaptiveGroups || []).filter((r: any) => r.dimensions.requestPath).map((r: any) => ({ path: r.dimensions.requestPath, views: r.count })),
       topReferrers: (acct(referrers).rumPageloadEventsAdaptiveGroups || []).filter((r: any) => r.dimensions.refererHost).map((r: any) => ({ referrer: r.dimensions.refererHost, views: r.count })),
