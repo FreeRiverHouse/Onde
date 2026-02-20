@@ -588,3 +588,108 @@
 
 📄 Report saved: /Users/mattia/Projects/Onde/scripts/daily-test-report.json
 📤 Report uploaded to dashboard
+🧪 Running Daily Test Suite - 2026-02-17 17:00
+============================================================
+
+📚 Testing ONDE.LA...
+
+📖 Testing READER APPS...
+
+🎮 Testing GAMES...
+
+🏄 Testing ONDE.SURF...
+
+🎨 Testing SKIN STUDIO...
+
+⏭️ Skipping visual tests (only run at 12:00, current: 17:00)
+
+============================================================
+📊 Results: 20/20 passed
+✅ All tests passed!
+
+📄 Report saved: /Users/mattia/Projects/Onde/scripts/daily-test-report.json
+📤 Report uploaded to dashboard
+🧪 Running Daily Test Suite - 2026-02-18 05:00
+============================================================
+
+📚 Testing ONDE.LA...
+
+📖 Testing READER APPS...
+
+🎮 Testing GAMES...
+
+🏄 Testing ONDE.SURF...
+
+🎨 Testing SKIN STUDIO...
+
+⏭️ Skipping visual tests (only run at 12:00, current: 5:00)
+
+============================================================
+📊 Results: 20/20 passed
+✅ All tests passed!
+
+📄 Report saved: /Users/mattia/Projects/Onde/scripts/daily-test-report.json
+📤 Report uploaded to dashboard
+🧪 Running Daily Test Suite - 2026-02-18 17:00
+============================================================
+
+📚 Testing ONDE.LA...
+
+📖 Testing READER APPS...
+
+🎮 Testing GAMES...
+
+🏄 Testing ONDE.SURF...
+
+🎨 Testing SKIN STUDIO...
+
+⏭️ Skipping visual tests (only run at 12:00, current: 17:00)
+
+============================================================
+📊 Results: 20/20 passed
+✅ All tests passed!
+
+📄 Report saved: /Users/mattia/Projects/Onde/scripts/daily-test-report.json
+📤 Report uploaded to dashboard
+🧪 Running Daily Test Suite - 2026-02-19 05:00
+============================================================
+
+📚 Testing ONDE.LA...
+
+📖 Testing READER APPS...
+
+🎮 Testing GAMES...
+
+🏄 Testing ONDE.SURF...
+
+🎨 Testing SKIN STUDIO...
+
+⏭️ Skipping visual tests (only run at 12:00, current: 5:00)
+
+============================================================
+📊 Results: 20/20 passed
+✅ All tests passed!
+
+📄 Report saved: /Users/mattia/Projects/Onde/scripts/daily-test-report.json
+📤 Report uploaded to dashboard
+🧪 Running Daily Test Suite - 2026-02-19 17:00
+============================================================
+
+📚 Testing ONDE.LA...
+
+📖 Testing READER APPS...
+
+🎮 Testing GAMES...
+
+🏄 Testing ONDE.SURF...
+
+🎨 Testing SKIN STUDIO...
+
+⏭️ Skipping visual tests (only run at 12:00, current: 17:00)
+
+============================================================
+📊 Results: 20/20 passed
+✅ All tests passed!
+
+📄 Report saved: /Users/mattia/Projects/Onde/scripts/daily-test-report.json
+📤 Report uploaded to dashboard

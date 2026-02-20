@@ -265,3 +265,15 @@ To github.com:FreeRiverHouse/Onde.git
    e4f3fcd29..2e48513e7  main -> main
 [2026-02-17 08:05:03 UTC] Pushed backup to git
 ✅ Trade backup completed: 4098 trades
+[2026-02-19 08:05:01 UTC] Backed up 4219 trades to /Users/mattia/Projects/Onde/data/trading/kalshi-trades-2026-02-19.jsonl
+[push-clean bb61ecec59] backup: kalshi trades 2026-02-19 (4219 trades)
+ 17 files changed, 5846 insertions(+), 47 deletions(-)
+ create mode 100644 data/trading/kalshi-trades-2026-02-19.jsonl
+ create mode 100644 data/trading/snapshots/2026-02-19.jsonl
+To github.com:FreeRiverHouse/Onde.git
+ ! [rejected]              main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:FreeRiverHouse/Onde.git'
+hint: Updates were rejected because a pushed branch tip is behind its remote
+hint: counterpart. If you want to integrate the remote changes, use 'git pull'
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.

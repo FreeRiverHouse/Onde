@@ -358,3 +358,62 @@
    Crypto group limit: 30%
    Risk level: high
    Reason: Very high correlation (≥0.9) - BTC and ETH move together, reduce combined exposure
+📊 Calculating BTC/ETH correlation...
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770753602187&endTime=1771358402187: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8888 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $67,832.76 (-1.71% 7d)
+   ETH: $1,998.62 (-0.90% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8888
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770840001907&endTime=1771444801907: HTTP Error 451: 
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+   BTC data points: 169
+   ETH data points: 169
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+   📝 Logged to history: /Users/mattia/Projects/Onde/data/trading/correlation-history.jsonl
+
+📈 Results (7-day rolling):
+   Correlation: 0.8418 (high)
+   Data points: 169
+
+💰 Current prices:
+   BTC: $66,082.68 (-2.15% 7d)
+   ETH: $1,932.16 (-0.99% 7d)
+
+🎯 Concentration adjustment:
+   Crypto group limit: 40%
+   Risk level: medium
+   Reason: High correlation (0.7-0.9) - Some diversification benefit but still correlated
+📊 Calculating BTC/ETH correlation...
+   Previous correlation: 0.8418
+📡 Fetching historical prices...
+⚠️ Error fetching https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&startTime=1770926402092&endTime=1771531202092: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+⚠️ Failed to fetch BTCUSDT klines
+   Trying CoinGecko fallback...
+⚠️ Error fetching https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+⚠️ Failed to fetch bitcoin prices
+
+✅ Analysis saved to: /Users/mattia/Projects/Onde/data/trading/asset-correlation.json
+
+⚠️ Error: Failed to fetch price data

@@ -2824,7 +2824,7 @@ def run_cycle(dry_run: bool = True, max_markets: int = 30, max_trades: int = 10)
 
     # ── LLM status ──
     use_heuristic = True
-    if LLM_CONFIG and not LLM_CONFIG.get("api_key", "").startswith("sk-ant-oat"):
+    if LLM_CONFIG:
         print(f"✅ LLM: {LLM_CONFIG['provider']} / {LLM_CONFIG['model']}")
         use_heuristic = False
     else:

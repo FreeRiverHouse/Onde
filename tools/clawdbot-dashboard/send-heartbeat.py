@@ -16,7 +16,7 @@ import re
 import subprocess
 import urllib.error
 import urllib.request
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 
 # ─── CONFIG ────────────────────────────────────────────────────────────────────
@@ -31,6 +31,7 @@ KEYCHAIN_ACCT  = "mattia"   # freeriverhouse@gmail.com - NON usare "Claude Code"
 CONFIG_FILE    = Path.home() / ".clawdbot/clawdbot.json"
 AGENT_AUTH     = Path.home() / ".clawdbot/agents/main/agent/auth-profiles.json"
 GATEWAY_LOG    = Path.home() / ".clawdbot/logs/gateway.log"
+NVIDIA_USAGE   = Path.home() / ".clawdbot/nvidia-usage.json"
 SWITCH_SCRIPT  = Path(__file__).parent.parent / "cambio-account-clawdbot-token.sh"
 # ───────────────────────────────────────────────────────────────────────────────
 
@@ -53,28 +54,47 @@ def get_clawdbot_config():
     return primary, fallbacks
 
 
+def get_keychain_token(account: str) -> str:
+    """Read OAuth access token from macOS keychain for given account name."""
+    try:
+        raw = subprocess.check_output(
+            ["security", "find-generic-password", "-s", "Claude Code-credentials", "-a", account, "-w"],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        d = json.loads(raw)
+        return d.get("claudeAiOauth", {}).get("accessToken", "")
+    except Exception:
+        return ""
+
+
 def get_auth_status():
     auth = read_json(AGENT_AUTH)
     try:
         profile = auth["profiles"]["anthropic:claude-cli"]
-        token   = profile.get("token", "")
+        # Support both old "token" key and new "access" key (gateway updated structure)
+        token   = profile.get("access", profile.get("token", ""))
         stats   = auth.get("usageStats", {}).get("anthropic:claude-cli", {})
         cooldown     = stats.get("cooldownUntil")
         error_count  = stats.get("errorCount", 0)
     except (KeyError, TypeError):
         token, cooldown, error_count = "", None, 0
 
-    # Determine account from token suffix
     token_end = token[-12:] if len(token) >= 12 else token
-    if token_end == "hRg-PCbGEAAA":
-        account = "freeriverhouse@gmail.com"
-        tier    = "default_claude_max_5x"
-    elif token_end == "DWw-pWTs5AAA":
+
+    # Identify account by comparing active token against keychain tokens
+    # Magmaticxr is the "bad" account - if we detect it, report it
+    mgx_token = get_keychain_token("Claude Code")  # magmaticxr
+    frh_token = get_keychain_token(KEYCHAIN_ACCT)  # freeriverhouse (account "mattia")
+
+    if mgx_token and token == mgx_token:
         account = "magmaticxr@gmail.com"
         tier    = "default_claude_max_20x"
+    elif frh_token and token == frh_token:
+        account = "freeriverhouse@gmail.com"
+        tier    = "default_claude_max_5x"
     else:
-        account = read_keychain_account()
-        tier    = "unknown"
+        # Token refreshed independently - infer from keychain rateLimitTier
+        account, tier = read_keychain_account()
 
     return {
         "account":    account,
@@ -86,15 +106,50 @@ def get_auth_status():
 
 
 def read_keychain_account():
+    """Return (email, tier) from keychain for the primary account."""
     try:
         raw = subprocess.check_output(
             ["security", "find-generic-password", "-s", "Claude Code-credentials", "-a", KEYCHAIN_ACCT, "-w"],
             stderr=subprocess.DEVNULL
         ).decode().strip()
         d = json.loads(raw)
-        return d.get("claudeAiOauth", {}).get("account", KEYCHAIN_ACCT)
+        oauth = d.get("claudeAiOauth", {})
+        tier = oauth.get("rateLimitTier", "unknown")
+        # No 'account' email field in keychain - map KEYCHAIN_ACCT to known email
+        email_map = {
+            "mattia": "freeriverhouse@gmail.com",
+            "mattiapetrucciani": "freeriverhouse@gmail.com",
+        }
+        email = email_map.get(KEYCHAIN_ACCT, f"{KEYCHAIN_ACCT}@?")
+        return email, tier
     except Exception:
-        return KEYCHAIN_ACCT
+        return "freeriverhouse@gmail.com", "unknown"
+
+
+def get_nvidia_usage() -> dict:
+    """Legge il file di usage NVIDIA generato dal proxy locale."""
+    try:
+        raw = json.loads(NVIDIA_USAGE.read_text())
+        today_str = date.today().isoformat()
+        today_data = raw.get("today", {})
+        # Se il dato è di ieri (proxy spento), today tokens = 0
+        today_tokens = today_data.get("tokens", 0) if today_data.get("date") == today_str else 0
+        today_calls  = today_data.get("calls", 0)  if today_data.get("date") == today_str else 0
+        return {
+            "todayTokens": today_tokens,
+            "todayCalls":  today_calls,
+            "totalTokens": raw.get("total", 0),
+            "totalCalls":  raw.get("totalCalls", 0),
+            "lastUpdated": raw.get("lastUpdated"),
+        }
+    except Exception:
+        return {
+            "todayTokens": 0,
+            "todayCalls":  0,
+            "totalTokens": 0,
+            "totalCalls":  0,
+            "lastUpdated": None,
+        }
 
 
 def get_gateway_status():
@@ -225,12 +280,42 @@ def send_heartbeat(payload: dict):
         return None
 
 
+def auto_fix_token_if_wrong(auth: dict):
+    """
+    Se il token attivo è magmaticxr (rate limited), auto-esegue il fix script.
+    Root cause: il gateway re-sincronizza dal keychain macOS ogni 15 min (EXTERNAL_CLI_SYNC_TTL_MS).
+    Il keychain entry 'Claude Code' può contenere il token sbagliato se Claude Code CLI
+    è stato usato con l'account magmaticxr. Il fix script aggiorna sia auth-profiles.json
+    sia il keychain 'Claude Code', quindi il gateway terrà freeriverhouse anche dopo il restart.
+    """
+    if auth.get("account") == "magmaticxr@gmail.com":
+        print(f"  [auto-fix] token sbagliato rilevato ({auth['tokenEnd']}), eseguo fix...")
+        if Path(str(SWITCH_SCRIPT)).exists():
+            result = subprocess.run(
+                ["bash", str(SWITCH_SCRIPT), "--model", "sonnet"],
+                capture_output=True, text=True, timeout=60
+            )
+            if result.returncode == 0:
+                print("  [auto-fix] OK - token ripristinato a freeriverhouse")
+                return True
+            else:
+                print(f"  [auto-fix] FAIL: {result.stderr[:100]}")
+        else:
+            print(f"  [auto-fix] script non trovato: {SWITCH_SCRIPT}")
+    return False
+
+
 def main():
     print(f"[{datetime.now().strftime('%H:%M:%S')}] heartbeat macId={MAC_ID}")
 
     primary, fallbacks          = get_clawdbot_config()
     auth                        = get_auth_status()
     gateway_status, agent_model = get_gateway_status()
+    nvidia_usage                = get_nvidia_usage()
+
+    # Auto-fix se token sbagliato (magmaticxr invece di freeriverhouse)
+    if auto_fix_token_if_wrong(auth):
+        auth = get_auth_status()  # Rileggi dopo fix
 
     # Get fresh token for rate limit check
     token = get_fresh_token()
@@ -258,9 +343,11 @@ def main():
         "errorCount":      auth["errorCount"],
         "gatewayStatus":   gateway_status,
         "rateLimitStatus": rate,
+        "nvidiaUsage":     nvidia_usage,
     }
 
-    print(f"  primary={primary}  gw={gateway_status}  rl7d={rate['sevenD']} ({rate['sevenDUtilization']*100:.0f}%)")
+    nvidia_str = f"kimi today={nvidia_usage['todayTokens']}tok/{nvidia_usage['todayCalls']}calls  total={nvidia_usage['totalTokens']}tok"
+    print(f"  primary={primary}  gw={gateway_status}  rl7d={rate['sevenD']} ({rate['sevenDUtilization']*100:.0f}%)  {nvidia_str}")
 
     response = send_heartbeat(payload)
     if response:

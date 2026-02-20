@@ -82,6 +82,7 @@ I task devono AUMENTARE (ogni feedback → 2 nuovi task).
 - Chi usa web prototype = task RIFIUTATO
 
 ### PGR-001: Grafica HC2-Level — App Unity Standalone
+**Locked by:** @clawd
 **Owner:** Ondinho 🟢
 **QA:** Bubble 🫧 (PROC002B)
 **Status:** IN_PROGRESS
@@ -131,8 +132,8 @@ I task devono AUMENTARE (ogni feedback → 2 nuovi task).
 ## 🔵 OPS — Monitoring & Infrastructure
 
 ### OPS-001: Heartbeat Reliability
-**Owner:** Bubble 🫧
-**Status:** NEW
+**Owner:** Ondinho 🌊 (@clawd)
+**Status:** IN_PROGRESS
 **Priority:** P0
 
 **Obiettivo:** Nessun bot può "dormire" o sparire. Heartbeat ogni 10 min obbligatorio.
@@ -215,6 +216,23 @@ Migrato a Cloudflare D1 (SQLite) su prod:
 
 **PROC-002 Grok Feedback:** Rate limiting mancante, token rotation da migliorare, message retention/cleanup necessario, CORS/security headers da verificare.
 
+#### HOUSE-011: Auto-Response to ALL Mattia Messages ✅ DONE
+**Status:** ✅ DONE
+**Completed:** 2026-02-18 00:10 PST
+**Owner:** Clawdinho 🔵
+
+**Problema:** I bot rispondevano solo a @mention, non a tutti i messaggi di Mattia.
+**Fix:**
+- `shouldRespond()` aggiornato in tutti e 3 i listener: `if (msg.sender === 'Mattia') return true`
+- Bot-to-bot loop fix: risposta a bot solo su `@mention` esplicita (no casual name mentions)
+- Double-posting fix: `state.lastId` salvato PRIMA del response async (prevent race condition)
+- Startup announcement rimosso (causava chain reactions)
+- PM2 restart completato — tutti e 3 i listener online e watching
+
+**Test:** Messaggi da Mattia → risposta da tutti e 3 i bot ✅
+
+---
+
 #### HOUSE-007: Real-time Chat via SSE (GROK TASK — PROC-002 round 2)
 **Status:** TODO
 **Source:** Grok PROC-002 feedback 2026-02-17
@@ -267,12 +285,51 @@ Validazione rigorosa del body POST:
 **Effort:** 3-4 ore
 
 Mentions @user con highlight e storage:
-- [ ] Regex parsing @Mattia, @Clawdinho etc. su content
-- [ ] Salva mentions come colonna separata o JSON in DB
-- [ ] Campo mentions: string[] nel GET response
-- [ ] ?mentioning=Mattia continua a funzionare
-- [ ] Frontend highlight (CSS) per mentions
-- [ ] No regressioni performance GET
+- [x] Regex parsing @Mattia, @Clawdinho etc. su content
+- [x] Salva mentions come colonna separata o JSON in DB
+- [x] Campo mentions: string[] nel GET response
+- [x] ?mentioning=Mattia continua a funzionare
+- [x] Frontend highlight (CSS) per mentions
+- [x] No regressioni performance GET
+
+---
+
+### 🟢 HOUSE-011: Bot Heartbeat 10min — Task Bubble 🫧
+**Owner:** Bubble 🫧
+**Status:** TO_START
+**Priority:** P0
+**Obiettivo:** Heartbeat automatico ogni 10 minuti nella house chat da TUTTI i bot
+**Assegnato da:** Mattia — 2026-02-18 00:00 PST
+**TODO:**
+- [ ] Creare cron job Clawdbot per heartbeat ogni 10 min
+- [ ] Implementare logica: POST /api/house/chat con "<emoji> <botname> heartbeat — online! $(date)"
+- [ ] Notificare Ondinho/Clawdinho di implementare lo stesso sui loro agenti
+- [ ] Test: vedere heartbeats consecutivi in chat
+- [ ] PROC-002: Screenshot/Send to Grok dopo implementation
+
+---
+
+### 🟢 HOUSE-012: Reply on Mention — ALL BOTS 🫧🌊🦞
+**Owner:** Bubble 🫧 + Ondinho 🌊 + Clawdinho 🦞
+**Status:** TODO
+**Priority:** P0
+**Obiettivo:** Se uno scrive @bot in house chat, gli altri rispondono
+**Assegnato da:** Mattia — 2026-02-18 00:00 PST
+**Requirements:**
+- [ ] Poll house chat ogni X secondi per nuovi messaggi
+- [ ] Se messaggio contiene @<mio_nome> e sender != me → rispondi
+- [ ] Risposta intelligente: status attuale, task in corso, o "Presente!"
+- [ ] Anti-loop: se risposta recente da target bot < 5 min, skip
+- [ ] Tab Grok aperta in Chrome per aiuto (TUTTI)
+**Per Bot:**
+- [ ] Bubble: Implementare via Clawdbot scheduling
+- [ ] Ondinho: Implementare su M4 Mac (tab Grok open)
+- [ ] Clawdinho: Implementare su M1 Mac (tab Grok open)
+**PROC-002:**
+- [ ] Read repo onde.surf (tutti)
+- [ ] Screenshot house chat funzionante
+- [ ] Send to Grok x.com/i/grok → feedback
+- [ ] Generate 2 follow-up tasks
 
 ---
 

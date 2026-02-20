@@ -11,6 +11,14 @@ interface RateLimitStatus {
   sevenDSonnetStatus: string
 }
 
+interface NvidiaUsage {
+  todayTokens: number
+  todayCalls: number
+  totalTokens: number
+  totalCalls: number
+  lastUpdated: string | null
+}
+
 interface BotStatus {
   macId: string
   hostname: string
@@ -24,6 +32,7 @@ interface BotStatus {
   errorCount: number
   gatewayStatus: 'running' | 'stopped' | 'unknown'
   rateLimitStatus: RateLimitStatus
+  nvidiaUsage?: NvidiaUsage
   lastHeartbeat: string
 }
 
@@ -92,6 +101,65 @@ function PasswordGate({ onAuth }: { onAuth: () => void }) {
 }
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
+
+function fmtTokens(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`
+  return `${n}`
+}
+
+// Red Bull can — piena quando usage=0%, vuota quando usage=100%
+function RedBullCan({ utilization }: { utilization: number }) {
+  const fill = Math.max(0, Math.min(1, 1 - utilization)) // inverte: 0% uso = piena
+  const canH = 52   // altezza corpo can in px
+  const fillH = Math.round(canH * fill)
+  const fillY = 8 + (canH - fillH) // top del liquido dentro la lattina
+
+  // Colore del liquido: blu elettrico → giallo → rosso man mano che si svuota
+  const pct = utilization * 100
+  const liquidColor = pct < 40 ? '#00CFFF' : pct < 70 ? '#FFD600' : '#FF3A3A'
+  const glowColor   = pct < 40 ? 'rgba(0,207,255,0.35)' : pct < 70 ? 'rgba(255,214,0,0.35)' : 'rgba(255,58,58,0.35)'
+
+  return (
+    <div className="flex flex-col items-center gap-1" title={`Anthropic juice: ${((1-utilization)*100).toFixed(0)}% rimanente`}>
+      <svg width="28" height="72" viewBox="0 0 28 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="canClip">
+            <rect x="4" y="8" width="20" height={canH} rx="3" />
+          </clipPath>
+        </defs>
+        {/* Corpo lattina */}
+        <rect x="4" y="8" width="20" height={canH} rx="3" fill="#1a1a2e" stroke="#444" strokeWidth="1" />
+        {/* Liquido */}
+        {fillH > 0 && (
+          <rect x="4" y={fillY} width="20" height={fillH} rx="2"
+            fill={liquidColor} opacity="0.85" clipPath="url(#canClip)" />
+        )}
+        {/* Shine sul liquido */}
+        {fillH > 4 && (
+          <rect x="6" y={fillY + 2} width="3" height={fillH - 4} rx="1"
+            fill="white" opacity="0.15" clipPath="url(#canClip)" />
+        )}
+        {/* Collo lattina sopra */}
+        <path d="M8 8 L6 3 L22 3 L20 8 Z" fill="#333" stroke="#555" strokeWidth="0.5" />
+        {/* Apertura */}
+        <rect x="9" y="1" width="10" height="3" rx="1.5" fill="#555" />
+        {/* Fondo lattina */}
+        <path d="M4 60 L4 63 Q4 66 7 66 L21 66 Q24 66 24 63 L24 60 Z" fill="#222" stroke="#444" strokeWidth="0.5" />
+        {/* Glow esterno */}
+        {fillH > 0 && (
+          <rect x="2" y={fillY} width="24" height={fillH} rx="4"
+            fill={glowColor} filter="blur(4px)" clipPath="url(#canClip)" opacity="0.5" />
+        )}
+        {/* Label RB */}
+        <text x="14" y="38" textAnchor="middle" fill="white" fontSize="5" opacity="0.6" fontWeight="bold">RB</text>
+      </svg>
+      <span className="text-[9px] font-mono" style={{ color: liquidColor }}>
+        {((1-utilization)*100).toFixed(0)}%
+      </span>
+    </div>
+  )
+}
 
 function modelShort(model: string) {
   if (model.includes('sonnet-4-6')) return 'Sonnet 4.6'
@@ -204,29 +272,49 @@ function BotCard({ bot, onSwitch }: { bot: BotStatus; onSwitch: (macId: string, 
         )}
       </div>
 
-      {/* Rate Limit */}
-      <div className="mb-5 rounded-xl bg-white/[0.03] border border-white/[0.06] p-3 space-y-2">
-        <div className="flex items-center justify-between">
+      {/* Rate Limit — Anthropic juice */}
+      <div className="mb-5 rounded-xl bg-white/[0.03] border border-white/[0.06] p-3">
+        <div className="flex items-center justify-between mb-2">
           <span className="text-[10px] text-white/30">Rate 5h</span>
           <span className={`text-[10px] font-semibold ${bot.rateLimitStatus?.fiveH === 'allowed' ? 'text-emerald-400' : 'text-red-400'}`}>
             {bot.rateLimitStatus?.fiveH ?? '—'}
           </span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] text-white/30">Rate 7d</span>
-          <div className="flex items-center gap-2">
-            <div className="h-1.5 w-20 rounded-full bg-white/10">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex-1">
+            <div className="text-[10px] text-white/30 mb-1.5">Anthropic juice 7d</div>
+            <div className="h-1.5 w-full rounded-full bg-white/10">
               <div
                 className={`h-1.5 rounded-full transition-all ${rl7d > 0.8 ? 'bg-red-500' : rl7d > 0.5 ? 'bg-yellow-500' : 'bg-emerald-500'}`}
                 style={{ width: `${Math.min(rl7d * 100, 100)}%` }}
               />
             </div>
-            <span className={`text-[10px] font-mono ${rl7dOk ? 'text-emerald-400' : 'text-red-400'}`}>
-              {(rl7d * 100).toFixed(0)}%
+            <div className={`text-[10px] font-mono mt-1 ${rl7dOk ? 'text-emerald-400' : 'text-red-400'}`}>
+              {(rl7d * 100).toFixed(0)}% usato
+            </div>
+          </div>
+          <RedBullCan utilization={rl7d} />
+        </div>
+      </div>
+
+      {/* Kimi / NVIDIA Token Usage */}
+      {bot.nvidiaUsage && (
+        <div className="mb-5 rounded-xl bg-orange-500/[0.04] border border-orange-500/[0.12] p-3 space-y-2">
+          <div className="text-[10px] uppercase tracking-widest text-orange-400/60 mb-1">Kimi Token Usage</div>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-white/30">Oggi</span>
+            <span className="text-xs font-mono text-orange-300">
+              {fmtTokens(bot.nvidiaUsage.todayTokens)} tok / {bot.nvidiaUsage.todayCalls} call
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-white/30">Totale</span>
+            <span className="text-xs font-mono text-white/50">
+              {fmtTokens(bot.nvidiaUsage.totalTokens)} tok / {bot.nvidiaUsage.totalCalls} call
             </span>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Switch Buttons */}
       <div className="space-y-2">
@@ -303,13 +391,19 @@ function Dashboard() {
 
   const handleSwitch = async (macId: string, model: string) => {
     try {
+      // 'refresh-token' is a special action, not a model switch
+      const isRefresh = model === 'refresh-token'
+      const body = isRefresh
+        ? { macId, action: 'refresh-token' }
+        : { macId, action: 'switch', model }
       const res = await fetch('/api/bot-configs/command', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ macId, action: 'switch', model }),
+        body: JSON.stringify(body),
       })
       if (res.ok) {
-        showToast(`✅ Comando inviato a ${macId} — applicato al prossimo heartbeat`)
+        const label = isRefresh ? '🔑 Refresh token' : `switch → ${model.split('/').pop()}`
+        showToast(`✅ Comando inviato a ${macId} [${label}] — applicato al prossimo heartbeat`)
       } else {
         showToast('❌ Errore invio comando')
       }

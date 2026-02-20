@@ -13,6 +13,14 @@ export const runtime = 'edge'
 
 const SHARED_SECRET = 'FRH-BOTS-2026'
 
+export interface NvidiaUsage {
+  todayTokens: number
+  todayCalls: number
+  totalTokens: number
+  totalCalls: number
+  lastUpdated: string | null
+}
+
 export interface BotStatus {
   macId: string
   hostname: string
@@ -31,6 +39,7 @@ export interface BotStatus {
     sevenDUtilization: number
     sevenDSonnetStatus: string
   }
+  nvidiaUsage?: NvidiaUsage
   lastHeartbeat: string
 }
 

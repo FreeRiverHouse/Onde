@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-17T18:00:03.808377+00:00",
+  "timestamp": "2026-02-20T05:30:03.547927+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,214 +11,214 @@
   "article_count": 30,
   "results": [
     {
-      "title": "Satoshi\u2019s Exercise for the Reader",
-      "url": "https://bitcoinmagazine.com/print/satoshis-exercise-for-the-reader",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Satoshi\u2019s Exercise for the Reader The Bitcoin whitepaper is clear about Bitcoin\u2019s core feature: it is permissionless. Anyone in the world can pay anyone by joining the peer-to-peer network and broadcasting a transaction. Proof of Work consensus even empowers anybody to become a block producer, and means that the only way to reverse a payment is to overpower everyone else [&#8230;] This post Satoshi\u2019s Exercise for the Reader first appeared on Bitcoin Magazine and is written by Gl",
-      "published": "2026-02-17T17:50:41+00:00"
-    },
-    {
-      "title": "Top crypto treasury companies Strategy and Bitmine add to BTC, ETH stacks",
-      "url": "https://cointelegraph.com/news/top-crypto-treasury-companies-strategy-and-bitmine-add-to-btc-eth-stacks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "White House floats limited stablecoin rewards in 3rd crypto, bank meeting",
+      "url": "https://cointelegraph.com/news/crypto-banks-meet-white-house-stablecoin-rewards?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "The buys lift Strategy holdings to 717,131 BTC and Bitmine to 4.37 million ETH, expanding corporate crypto treasuries despite continued market weakness.",
-      "published": "2026-02-17T17:46:15+00:00"
+      "description": "White House crypto adviser Patrick Witt reportedly refocused crypto and bank lobby talks on a crypto bill to allow stablecoin rewards tied to transaction activity.",
+      "published": "2026-02-20T05:18:23+00:00"
     },
     {
-      "title": "Macro headwinds test Bitcoin price as $70K crumbles amid US market volatility",
-      "url": "https://cointelegraph.com/news/macro-headwinds-test-bitcoin-price-as-dollar70k-crumbles-amid-us-market-volatility?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Custodia CEO Says Trump Family Crypto Ties Are Part of Clarity Act Problem",
+      "url": "https://decrypt.co/358695/custodia-ceo-trump-family-crypto-ties-clarity-act-problem",
+      "source": "decrypt",
+      "description": "At ETH Denver, Caitlin Long said the ethics controversy around Trump-linked crypto projects has complicated Senate support.",
+      "published": "2026-02-20T04:36:25+00:00"
+    },
+    {
+      "title": "Crypto miner Bitdeer tanks 17% after $300M debt offering",
+      "url": "https://cointelegraph.com/news/bitdeer-stock-drops-17-after-convertible-senior-note-offering?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Bitcoin bulls\u2019 attempt to break above $70,000 stalled after a key US macroeconomic \u201cfear\u201d metric broke a critical threshold. Is a revisit to BTC's yearly lows back in play?",
-      "published": "2026-02-17T17:15:00+00:00"
+      "description": "Bitdeer has launched its second-ever convertible senior note offering, which has seen its shares tumble 29% so far this year.",
+      "published": "2026-02-20T04:30:29+00:00"
     },
     {
-      "title": "Tom Lee Expects 'Defining Year for Ethereum' as BitMine Buys ETH Amid 'Rock Bottom' Vibes",
-      "url": "https://decrypt.co/358322/tom-lee-defining-year-ethereum-bitmine-buys-eth-rock-bottom-vibes",
+      "title": "Risk-Off Capital Shifts Toward Tokenized Assets as DeFi Pulls Back",
+      "url": "https://decrypt.co/358693/risk-off-capital-shifts-toward-tokenized-assets-defi-pulls-back",
       "source": "decrypt",
-      "description": "BitMine Immersion Technologies is sitting on a nearly $8 billion unrealized loss, but Tom Lee remains optimistic about Ethereum.",
-      "published": "2026-02-17T16:54:18+00:00"
+      "description": "Capital is rotating out of DeFi into tokenized assets as experts say the shift reflects maturing markets, not capitulation.",
+      "published": "2026-02-20T04:16:22+00:00"
     },
     {
-      "title": "Nakamoto to acquire BTC Inc, UTXO in $107M all-stock deal",
-      "url": "https://cointelegraph.com/news/nakamoto-inc-btc-inc-utxo-acquisitions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Fed\u2019s Kashkari lashes crypto and stablecoins, praises AI",
+      "url": "https://cointelegraph.com/news/fed-neel-kashkari-lashes-crypto-and-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Nakamoto will acquire BTC Inc and UTXO in an all-stock deal, consolidating Bitcoin media, events and asset management under one Nasdaq-listed company.",
-      "published": "2026-02-17T16:53:20+00:00"
+      "description": "Minneapolis Fed President Neel Kashkari says crypto is \u201cutterly useless\u201d compared to AI, and that pro-stablecoin arguments are \u201ca buzzword salad.\u201d",
+      "published": "2026-02-20T04:13:29+00:00"
     },
     {
-      "title": "Gemini post-IPO shakeup sees exit of three top executives",
-      "url": "https://cointelegraph.com/news/gemini-space-station-executives-departing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Illicit stablecoin activity hit 5-year high of $141B in 2025: TRM Labs",
+      "url": "https://cointelegraph.com/news/illicit-stablecoin-activity-hits-five-year-high-at-141b-trm-labs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "The exchange's chief legal officer, chief operating officer and chief financial officer are out and Cameron Winkelvoss will take on more responsibilities.",
-      "published": "2026-02-17T16:43:53+00:00"
+      "description": "Sanctions evasion networks, guarantee marketplaces, and large-scale money laundering schemes dominated illicit stablecoin use, says TRM Labs.",
+      "published": "2026-02-20T03:30:38+00:00"
     },
     {
-      "title": "South Korea lifts 9-year corporate crypto ban: What the policy change means",
-      "url": "https://cointelegraph.com/news/south-korea-lifts-9-year-corporate-crypto-ban-what-the-policy-change-means?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Bitcoin selloff due to quantum fears doesn\u2019t add up with Ether flat, says dev",
+      "url": "https://cointelegraph.com/news/bitcoin-price-quantum-computing-fears-ethereum-developer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "South Korea reopens crypto to corporations with strict caps and asset limits. This is part of a broader strategy that includes stablecoin legislation and potential spot crypto ETFs.",
-      "published": "2026-02-17T16:27:57+00:00"
+      "description": "Bitcoin developer Matt Carallo says Bitcoiners are looking to \u201cblame something\u201d for the asset\u2019s sluggish price, dismissing quantum fears as the culprit.",
+      "published": "2026-02-20T02:58:43+00:00"
     },
     {
-      "title": "Is the Netherlands Taxing Unrealized Crypto Gains? It's Complicated",
-      "url": "https://decrypt.co/358312/is-the-netherlands-taxing-unrealized-crypto-gains-its-complicated",
+      "title": "Australian Executive Accused of Selling Cyber Secrets to Russia for Crypto",
+      "url": "https://decrypt.co/358690/australian-executive-cyber-secrets-russia-crypto",
       "source": "decrypt",
-      "description": "From 2028, the Netherlands will update how tax is calculated on unrealized gains. Crypto critics are in uproar\u2014but the reality is nuanced.",
-      "published": "2026-02-17T16:15:59+00:00"
+      "description": "U.S. prosecutors say the former defense contractor executive took about $1.26 million in crypto to transfer sensitive exploit tools tied to Five Eyes intelligence work.",
+      "published": "2026-02-20T02:52:25+00:00"
     },
     {
-      "title": "Strategy\u2019s Bitcoin Buying Accelerates as $48 Billion BTC Stash Sits Underwater",
-      "url": "https://decrypt.co/358313/strategys-bitcoin-buying-accelerates-48-billion-btc-stash-underwater",
-      "source": "decrypt",
-      "description": "Strategy reported its fourth-largest Bitcoin purchase of the year, a week after Michael Saylor's defense of the company's became a meme.",
-      "published": "2026-02-17T16:13:42+00:00"
-    },
-    {
-      "title": "Bitcoin price ignores $168M Strategy buy, and falls as Iran tensions escalate",
-      "url": "https://cointelegraph.com/news/bitcoin-price-ignores-dollar168m-strategy-buy-and-falls-as-iran-tensions-escalate?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "AI agents not worth the cost as humans still cheaper: Tech execs",
+      "url": "https://cointelegraph.com/news/ai-agents-wont-steal-jobs-if-theyre-too-expensive-to-run?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "BTC price fell below the key $70,000 level as tensions between the US and Iran ramped up and a broad risk-asset sell-off liquidated late BTC long positions.",
-      "published": "2026-02-17T16:13:21+00:00"
+      "description": "Tech investor Jason Calacanis says he\u2019s paying around $110,000 annualized to run an AI agent, more than most US salaries, and it\u2019s not running at full capacity.",
+      "published": "2026-02-20T01:45:30+00:00"
     },
     {
-      "title": "Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing",
-      "url": "https://bitcoinmagazine.com/news/ai-warda-raises-ibit-bitcoin-etf-stake",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing Abu Dhabi\u2019s Al Warda Investments increased its bitcoin exposure via BlackRock\u2019s IBIT to 8.2 million shares by the end of 2025. This post Abu Dhabi\u2019s Al Warda Raises Bitcoin ETF Stake to 8.2 Million IBIT Shares in Q4 Filing first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-17T15:58:51+00:00"
-    },
-    {
-      "title": "ZeroLend Latest DeFi Platform to Shut Down Amid Liquidity, Revenue Pressures",
-      "url": "https://decrypt.co/358304/zerolend-latest-defi-platform-to-shut-down-amid-liquidity-revenue-pressures",
+      "title": "White House, Banks and Crypto Groups Resume Talks on Stablecoin Rewards",
+      "url": "https://decrypt.co/358688/white-house-banks-crypto-groups-resume-talks-stablecoin",
       "source": "decrypt",
-      "description": "ZeroLend cited an inability to \"generate sustainable revenue\" as it became the latest DeFi platform to wind down amid the ongoing slump.",
-      "published": "2026-02-17T15:33:31+00:00"
+      "description": "Stablecoin incentives remain a key unresolved issue as lawmakers seek to advance digital-asset market-structure legislation.",
+      "published": "2026-02-20T01:01:28+00:00"
     },
     {
-      "title": "'See You in Court': CFTC Chair Defends Jurisdiction as States Fight Prediction Markets",
-      "url": "https://decrypt.co/358301/cftc-chair-exclusive-jurisdiction-prediction-markets",
-      "source": "decrypt",
-      "description": "CFTC Chairman Michael Selig hit back at states that have been challenging its authority to regulate prediction markets.",
-      "published": "2026-02-17T15:07:57+00:00"
-    },
-    {
-      "title": "Starknet adds EY Nightfall to enable private payments on Ethereum rails",
-      "url": "https://cointelegraph.com/news/starknet-taps-ey-nightfall-institutional-grade-privacy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Bitcoin options market structure leans toward $60K retest in February",
+      "url": "https://cointelegraph.com/news/bitcoin-options-market-structure-leans-toward-60k-retest-in-february?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "StarkWare is integrating EY\u2019s Nightfall privacy protocol into Starknet to give institutions private payments and DeFi access on public Ethereum-aligned rails, while preserving auditability.",
-      "published": "2026-02-17T15:00:00+00:00"
+      "description": "Bitcoin may stay capped under $70,000 as traders deploy bearish options strategies, and spot BTC ETF outflows point to a retest of the yearly low.",
+      "published": "2026-02-19T22:30:00+00:00"
     },
     {
-      "title": "Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC",
-      "url": "https://bitcoinmagazine.com/news/strategy-mstr-buys-168m-in-bitcoin",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC Strategy bought $168.4 million in Bitcoin last week, continuing its long-running accumulation strategy. This post Strategy ($MSTR) Buys $168M in Bitcoin, Expands Holdings to 717,131 BTC first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-17T14:39:23+00:00"
+      "title": "'Warhammer' Veteran Jervis Johnson Warns AI Could Become the 'Asbestos of the Internet'",
+      "url": "https://decrypt.co/358680/warhammer-veteran-jervis-johnson-warns-ai-asbestos-internet",
+      "source": "decrypt",
+      "description": "The longtime Warhammer designer backed Games Workshop\u2019s generative AI ban, arguing the technology undermines creative work.",
+      "published": "2026-02-19T21:56:11+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Kraken\u2019s xStocks tops $25B in volume with more than 80K onchain holders",
+      "url": "https://cointelegraph.com/news/kraken-xstocks-25b-tokenized-equities-volume?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-17T14:29:42+00:00"
+      "description": "Blockchain-based versions of US stocks are drawing growing investor activity, with onchain wallets and cross-venue trading expanding rapidly.",
+      "published": "2026-02-19T21:49:46+00:00"
     },
     {
-      "title": "Monad hires former FalconX, BVNK and Optimism executives",
-      "url": "https://cointelegraph.com/news/monad-hires-ex-falconx-bvnk-and-optimism-executives-to-drive-institutional-expansion-post-mainnet-embargo-feb-17?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "AI in Hollywood? 'Silicon Valley' Star T.J. Miller Isn't Worried",
+      "url": "https://decrypt.co/358660/ai-hollywood-silicon-valley-star-tj-miller-isnt-worried",
+      "source": "decrypt",
+      "description": "\u201cSilicon Valley\u201d actor T.J. Miller joked that an AI bot \u201creplaced\u201d him as this week\u2019s ETH Denver host, amid actual growing job fears.",
+      "published": "2026-02-19T21:36:47+00:00"
+    },
+    {
+      "title": "Bitcoin Lightning Network exceeds $1B in monthly volume: Report",
+      "url": "https://cointelegraph.com/news/bitcoin-lightning-network-1b-monthly-volume?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "The appointments add traditional finance and institutional crypto experience as the layer-1 blockchain scales its post-launch strategy.",
-      "published": "2026-02-17T14:00:00+00:00"
+      "description": "Analysis by Bitcoin services company River forecasts a transaction surge as individuals and businesses experiment with AI agentic payments.",
+      "published": "2026-02-19T21:32:02+00:00"
     },
     {
-      "title": "Binance holds 65% of CEX stablecoin reserves as outflows cool: CryptoQuant",
-      "url": "https://cointelegraph.com/news/stablecoin-outflows-slow-binance-65-cex-usdt-usdc-reserves?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Bitcoin\u2019s monthly losses break records, but history says a turnaround is brewing",
+      "url": "https://cointelegraph.com/news/bitcoin-s-monthly-losses-break-records-but-history-says-a-turnaround-is-brewing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Stablecoin outflows slow to $2 billion as Binance consolidates 65% of CEX liquidity, signaling capital concentration even amid the ongoing crypto bear market.",
-      "published": "2026-02-17T13:55:26+00:00"
+      "description": "Bitcoin is on course to lock in another negative month, but one analyst says major differences in the current market structure could be a sign of a pending trend reversal.",
+      "published": "2026-02-19T21:15:00+00:00"
     },
     {
-      "title": "Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management",
-      "url": "https://bitcoinmagazine.com/featured/nakamoto-to-acquire-btcinc-utxo-management",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management Nakamoto Inc. announced today that it has entered into merger agreements to acquire BTC Inc. and UTXO Management GP, LLC. This post Nakamoto Inc. ($NAKA) to Acquire BTC Inc and UTXO Management first appeared on Bitcoin Magazine and is written by Nik and Micah Zimmerman.",
-      "published": "2026-02-17T13:38:09+00:00"
-    },
-    {
-      "title": "Morning Minute: Harvard Sells Bitcoin for Ethereum",
-      "url": "https://decrypt.co/358291/morning-minute-harvard-sells-bitcoin-for-ethereum",
+      "title": "Google Brings AI Music Generation to Gemini\u2014We Tried It, and It's Too Little Too Late",
+      "url": "https://decrypt.co/358654/google-ai-music-gemini-lyria-3-review-suno-udio",
       "source": "decrypt",
-      "description": "Harvard's rotation from Bitcoin to ETH has raised the primary question\u2014what do they know?",
-      "published": "2026-02-17T13:32:31+00:00"
+      "description": "Google AI music generator Lyria 3 is now available on the Gemini app. It works\u2014mostly\u2014but the competition has a big head start.",
+      "published": "2026-02-19T21:13:13+00:00"
     },
     {
-      "title": "Congressman Calls for Review of Overseas Support for Autonomous Vehicles",
-      "url": "https://decrypt.co/358267/congressman-overseas-support-autonomous-vehicles",
+      "title": "Fed\u2019s Kashkari: Crypto \u201cUtterly Useless,\u201d Stablecoins No Match for Venmo",
+      "url": "https://bitcoinmagazine.com/news/feds-kashkari-crypto-utterly-useless",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Fed\u2019s Kashkari: Crypto \u201cUtterly Useless,\u201d Stablecoins No Match for Venmo Federal Reserve Bank of Minneapolis President Neel Kashkari delivered another pointed criticism of crypto today. This post Fed\u2019s Kashkari: Crypto \u201cUtterly Useless,\u201d Stablecoins No Match for Venmo first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T20:35:52+00:00"
+    },
+    {
+      "title": "Ethereum Treasury Sharplink Reports Growing ETH Holdings, Institutional Investment",
+      "url": "https://decrypt.co/358652/ethereum-treasury-sharplink-growing-eth-holdings-institutional-investment",
       "source": "decrypt",
-      "description": "The request marks a shift from Capitol Hill questioning to formal regulatory pressure, as lawmakers raise concerns about safety, accountability, and national security.",
-      "published": "2026-02-17T13:01:02+00:00"
+      "description": "Sharplink is shaking up its branding as it reports additional Ethereum holdings and a rising number of institutional investors.",
+      "published": "2026-02-19T20:02:50+00:00"
     },
     {
-      "title": "Hardware Wallet Owners Hit With Snail Mail Phishing Campaign",
-      "url": "https://decrypt.co/358290/hardware-wallet-owners-hit-with-snail-mail-phishing-campaign",
+      "title": "Senator Warren Urges Treasury and Fed Not to Bail Out Crypto Billionaires Saylor and CZ Amid Bitcoin Slide",
+      "url": "https://bitcoinmagazine.com/news/senator-warren-not-to-bail-out-crypto",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Senator Warren Urges Treasury and Fed Not to Bail Out Crypto Billionaires Saylor and CZ Amid Bitcoin Slide Sen. Elizabeth Warren urged the Treasury Department and the Federal Reserve to rule out any taxpayer-funded intervention to stabilize Bitcoin. This post Senator Warren Urges Treasury and Fed Not to Bail Out Crypto Billionaires Saylor and CZ Amid Bitcoin Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T19:43:54+00:00"
+    },
+    {
+      "title": "Bitcoin\u2019s Lightning Network Surpasses $1 Billion in Monthly Volume As Adoption Grows",
+      "url": "https://bitcoinmagazine.com/news/bitcoins-lightning-network-surpasses",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin\u2019s Lightning Network Surpasses $1 Billion in Monthly Volume As Adoption Grows Bitcoin\u2019s Lightning Network topped $1.17 billion in November monthly volume across 5.22 million transactions, according to River Financial, which says the milestone reflects growing adoption despite flat price action. This post Bitcoin\u2019s Lightning Network Surpasses $1 Billion in Monthly Volume As Adoption Grows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T19:37:48+00:00"
+    },
+    {
+      "title": "'The Sandbox' Adds Web-Based Games in Season 7 Accessibility Push",
+      "url": "https://decrypt.co/358594/sandbox-web-based-games-season-7-rollout-accessibility-push",
       "source": "decrypt",
-      "description": "The paper mailers mimic Ledger and Trezor branding and device update themes to push users toward malicious verification sites.",
-      "published": "2026-02-17T12:47:08+00:00"
+      "description": "Crypto gaming metaverse platform The Sandbox is rolling out its Season 7 content push, making it easier than ever for players to jump in.",
+      "published": "2026-02-19T19:01:02+00:00"
     },
     {
-      "title": "Ireland's Data Watchdog Joins Global Regulators Probing X Over AI Image Risks",
-      "url": "https://decrypt.co/358270/irelands-data-watchdog-joins-global-regulators-probing-x-over-ai-image-risks",
+      "title": "Accenture Is Tracking Whether Employees Use AI\u2014And Promotions Are on the Line",
+      "url": "https://decrypt.co/358616/accenture-tracking-employees-use-ai-promotions",
       "source": "decrypt",
-      "description": "The probe will examine Grok\u2019s AI image processing for lawful use, built-in safeguards, and impact assessments.",
-      "published": "2026-02-17T10:40:17+00:00"
+      "description": "Consulting giant Accenture is monitoring senior staff logins to AI tools and tying career advancement to adoption rates\u2014all while AI threatens to eliminate jobs.",
+      "published": "2026-02-19T18:48:04+00:00"
     },
     {
-      "title": "Steak 'n Shake Says Bitcoin Has Lifted Sales 'Dramatically' in 9 Months",
-      "url": "https://decrypt.co/358264/steak-n-shake-bitcoin-lifted-sales-dramatically-nine-months",
-      "source": "decrypt",
-      "description": "The fast-food chain says bitcoin payments have boosted sales, as it channels crypto receipts into a growing corporate reserve.",
-      "published": "2026-02-17T06:47:41+00:00"
-    },
-    {
-      "title": "Metaplanet Reports $619 Million Loss as Bitcoin Holdings Take Hit",
-      "url": "https://bitcoinmagazine.com/news/metaplanet-reports-619-million-loss",
+      "title": "Bitdeer Stock (BTDR) Crashes 18% on $300M Convertible Note Offering, Dilution Fears Mount",
+      "url": "https://bitcoinmagazine.com/news/bitdeer-stock-btdr-crashes-18",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Metaplanet Reports $619 Million Loss as Bitcoin Holdings Take Hit Tokyo-based bitcoin treasury firm Metaplanet reported a fiscal 2025 net loss of 95 billion yen ($619 million), largely due to a 102.2 billion yen ($666 million) drop in the value of its bitcoin holdings. This post Metaplanet Reports $619 Million Loss as Bitcoin Holdings Take Hit first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-16T18:49:54+00:00"
+      "description": "Bitcoin Magazine Bitdeer Stock (BTDR) Crashes 18% on $300M Convertible Note Offering, Dilution Fears Mount Bitdeer Technologies\u2019 shares slid sharply today after announcing plans to raise $300 million through a private sale of convertible senior notes. This post Bitdeer Stock (BTDR) Crashes 18% on $300M Convertible Note Offering, Dilution Fears Mount first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T17:02:43+00:00"
     },
     {
-      "title": "Bitcoin Bears Dominate: Failure to Break $71,800 Keeps Downside Risk Alive",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-bears-dominate-failure-to-break-71800-keeps-downside-risk-alive",
+      "title": "CME Plans 24/7 Crypto Futures Trading Starting May 29",
+      "url": "https://bitcoinmagazine.com/news/cme-plans-24-7-crypto-futures-trading",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Bears Dominate: Failure to Break $71,800 Keeps Downside Risk Alive Key levels in focus: $65,650 support holds for now, but break below opens $63,000 then Fibonacci $57,800; resistance caps upside at $71,800\u2013$74,500. This post Bitcoin Bears Dominate: Failure to Break $71,800 Keeps Downside Risk Alive first appeared on Bitcoin Magazine and is written by Ethan Greene - Feral Analysis and Juan Galt.",
-      "published": "2026-02-16T18:21:12+00:00"
+      "description": "Bitcoin Magazine CME Plans 24/7 Crypto Futures Trading Starting May 29 CME Group will begin offering 24/7 trading for its regulated cryptocurrency futures and options on May 29. This post CME Plans 24/7 Crypto Futures Trading Starting May 29 first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T15:35:58+00:00"
     },
     {
-      "title": "Payjoin Foundation Gains 501(c)(3) Status, Enabling Tax-Deductible Donations for Bitcoin Privacy Development",
-      "url": "https://bitcoinmagazine.com/business/payjoin-foundation-gains-501c3-status-enabling-tax-deductible-donations-for-bitcoin-privacy-development",
+      "title": "The UAE Has Quietly Built Up a $453 Million Bitcoin Reserve: Arkham\u00a0",
+      "url": "https://bitcoinmagazine.com/news/the-uae-453-million-bitcoin-reserve",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Payjoin Foundation Gains 501(c)(3) Status, Enabling Tax-Deductible Donations for Bitcoin Privacy Development Payjoin Foundation, the nonprofit behind the Payjoin Dev Kit, has secured 501(c)(3) status from the IRS, making U.S. donations tax-deductible and accelerating development of privacy-enhancing Bitcoin protocols. This post Payjoin Foundation Gains 501(c)(3) Status, Enabling Tax-Deductible Donations for Bitcoin Privacy Development first appeared on Bitcoin Magazine and is wr",
-      "published": "2026-02-16T16:49:49+00:00"
+      "description": "Bitcoin Magazine The UAE Has Quietly Built Up a $453 Million Bitcoin Reserve: Arkham Arkham says UAE royal-linked bitcoin miners are holding 6,782 BTC worth $453.6 million, sitting on an estimated $344 million unrealized profit while largely keeping their stash untouched. This post The UAE Has Quietly Built Up a $453 Million Bitcoin Reserve: Arkham first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T14:42:31+00:00"
     },
     {
-      "title": "Trump Family-Backed American Bitcoin Keeps Stacking Bitcoin, Holdings Pass 6,000 BTC",
-      "url": "https://bitcoinmagazine.com/news/american-bitcoin-keeps-stacking-bitcoin",
+      "title": "Voltage Introduces Revolving Credit Line for Bitcoin Settlement, With USD Repayment",
+      "url": "https://bitcoinmagazine.com/news/voltage-revolving-credit-line-bitcoin",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Trump Family-Backed American Bitcoin Keeps Stacking Bitcoin, Holdings Pass 6,000 BTC American Bitcoin (ABTC) has pushed its Bitcoin reserves past 6,000 BTC. This post Trump Family-Backed American Bitcoin Keeps Stacking Bitcoin, Holdings Pass 6,000 BTC first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-16T16:20:25+00:00"
+      "description": "Bitcoin Magazine Voltage Introduces Revolving Credit Line for Bitcoin Settlement, With USD Repayment Voltage, a Bitcoin infrastructure provider, launched Voltage Credit, a revolving line of credit that lets businesses send payments over Bitcoin rails with instant settlement in U.S. dollars. This post Voltage Introduces Revolving Credit Line for Bitcoin Settlement, With USD Repayment first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T14:00:00+00:00"
     },
     {
-      "title": "Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift",
-      "url": "https://bitcoinmagazine.com/news/harvard-trims-bitcoin-position",
+      "title": "Ledn Sells $188M Bitcoin-Backed Bonds in First-of-Its-Kind Deal",
+      "url": "https://bitcoinmagazine.com/news/ledn-sells-188m-bitcoin-backed-bonds",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift Harvard trimmed its Bitcoin holdings by 21% in the fourth quarter while establishing its first-ever position in Ethereum. This post Harvard Trims Bitcoin Position by 21% in Q4 Portfolio Shift first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-16T14:23:38+00:00"
+      "description": "Bitcoin Magazine Ledn Sells $188M Bitcoin-Backed Bonds in First-of-Its-Kind Deal Crypto lender Ledn Inc. has officially sold $188 million in securitized bonds backed by Bitcoin-linked loans. This post Ledn Sells $188M Bitcoin-Backed Bonds in First-of-Its-Kind Deal first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-18T21:50:25+00:00"
     },
     {
-      "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
+      "title": "FutureBit launches Apollo III, U.S.-Engineered Home Bitcoin Miner",
+      "url": "https://bitcoinmagazine.com/news/futurebit-apollo-iii-home-bitcoin-miner",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Reclaims $70,000 After Deep February Slide After a rough sell-off that dragged BTC near $60,000, the bitcoin price has rebounded above $70,000. This post Bitcoin Price Reclaims $70,000 After Deep February Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-15T05:00:44+00:00"
+      "description": "Bitcoin Magazine FutureBit launches Apollo III, U.S.-Engineered Home Bitcoin Miner FutureBit launched the Apollo III today, a new home Bitcoin mining system combining a high-performance miner and a full Bitcoin node in a single desktop device. This post FutureBit launches Apollo III, U.S.-Engineered Home Bitcoin Miner first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-18T19:00:00+00:00"
+    },
+    {
+      "title": "Trump Sons Tout a $1 Million Bitcoin Price as Goldman CEO Says He Owns BTC",
+      "url": "https://bitcoinmagazine.com/news/trump-sons-tout-a-1-million-bitcoin-price",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Trump Sons Tout a $1 Million Bitcoin Price as Goldman CEO Says He Owns BTC Eric Trump and Donald Trump Jr. predicted Bitcoin could reach $1 million as Goldman Sachs CEO David Solomon revealed a small personal BTC stake. This post Trump Sons Tout a $1 Million Bitcoin Price as Goldman CEO Says He Owns BTC first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-18T18:46:32+00:00"
     }
   ]
 }
