@@ -35,10 +35,11 @@ interface MetricsData {
 }
 
 type TimeRange = '7d' | '30d'
-type ChartMetric = 'pageviews' | 'visitors_device' | 'pages_per_day' | 'top_page_trend'
+type ChartMetric = 'pageviews' | 'unique_visitors' | 'visitors_device' | 'pages_per_day' | 'top_page_trend'
 
 const CHART_METRICS: { key: ChartMetric; label: string; description: string }[] = [
   { key: 'pageviews', label: 'Page Views', description: 'Total page loads per day' },
+  { key: 'unique_visitors', label: 'Visitors', description: 'Unique visitors per day' },
   { key: 'visitors_device', label: 'By Device', description: 'Mobile vs Desktop breakdown' },
   { key: 'pages_per_day', label: 'Pages / Day', description: 'Average pages viewed daily' },
   { key: 'top_page_trend', label: 'Top Pages', description: 'Most visited pages trend' },
@@ -235,6 +236,9 @@ export default function AnalyticsPage() {
               {selectedMetric === 'pageviews' && (
                 <DailyBarChart data={filteredDaily} />
               )}
+              {selectedMetric === 'unique_visitors' && (
+                <DailyBarChart data={filteredDaily.map(d => ({ ...d, views: d.visits ?? 0 }))} color="#10b981" />
+              )}
               {selectedMetric === 'visitors_device' && metrics && (
                 <DeviceBreakdownChart devices={metrics.devices} total={summaryStats?.totalViews ?? 0} />
               )}
@@ -385,7 +389,7 @@ export default function AnalyticsPage() {
 }
 
 /* ─── Daily Bar Chart (SVG) ─── */
-function DailyBarChart({ data }: { data: DailyPoint[] }) {
+function DailyBarChart({ data, color = '#06b6d4' }: { data: DailyPoint[]; color?: string }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -492,7 +496,7 @@ function DailyBarChart({ data }: { data: DailyPoint[] }) {
                 width={barWidth}
                 height={Math.max(barH, 1)}
                 rx={2}
-                fill={isHovered ? '#22d3ee' : '#06b6d4'}
+                fill={isHovered ? (color === '#10b981' ? '#34d399' : '#22d3ee') : color}
                 opacity={isHovered ? 1 : 0.7}
               >
                 <animate attributeName="height" from="0" to={Math.max(barH, 1)} dur="0.4s" fill="freeze" />
