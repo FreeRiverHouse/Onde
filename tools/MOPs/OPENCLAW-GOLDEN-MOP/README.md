@@ -350,15 +350,14 @@ Kimi K2.5 su NVIDIA ha un **rate limit di ~40 RPM**. Se piu' bot + listener hous
 **Config corretta** (`clawdbot.json → agents.defaults.model`):
 ```json
 {
-  "primary": "anthropic/claude-sonnet-4-6",
+  "primary": "nvidia/mistralai/mistral-large-3-675b-instruct-2512",
   "fallbacks": [
-    "nvidia/mistralai/mistral-large-3-675b-instruct-2512",
     "nvidia/meta/llama-3.3-70b-instruct"
   ]
 }
 ```
 
-**Sonnet 4.6 e' l'unico modello 100% compatibile** col tool-use framework di ClawdBot. I modelli NVIDIA hanno tutti problemi (vedi Lesson #11).
+**Mistral Large 3 675B e' il modello primario** — gratuito via NVIDIA, tool-calling funziona su M4 (errori occasionali non bloccanti).
 
 **ATTENZIONE**: Llama 3.1 8B e' troppo stupido per il framework clawdbot — sbaglia i tool call (cron, read, etc.) e manda errori "500 status code" su Telegram. Usare MINIMO il 70B.
 
@@ -389,27 +388,25 @@ I listener house-chat (`ondinho-listener.js`, `bubble-listener.js`) fanno chiama
 
 | Listener | Mac | Path | Modello |
 |----------|-----|------|---------|
-| ondinho-listener.js | M4 | `~/ondinho-listener.js` | `anthropic/claude-sonnet-4-6` |
-| bubble-listener.js | Bubble | `/Users/mattia/bubble-listener.js` | `anthropic/claude-sonnet-4-6` |
+| ondinho-listener.js | M4 | `~/ondinho-listener.js` | `nvidia/mistralai/mistral-large-3-675b-instruct-2512` |
+| bubble-listener.js | Bubble | `/Users/mattia/bubble-listener.js` | `nvidia/mistralai/mistral-large-3-675b-instruct-2512` |
 
 ---
 
-## ⭐ LESSON #11 — NVIDIA Tool-Calling Incompatibilità (CRITICO)
+## ⭐ LESSON #11 — NVIDIA Tool-Calling: Problemi Noti ma Usabili
 
-Tutti i modelli NVIDIA testati hanno problemi di tool-calling col framework ClawdBot. **Sonnet 4.6 e' l'unico modello primario affidabile.**
+I modelli NVIDIA hanno problemi di tool-calling col framework ClawdBot, ma **Mistral Large 3 675B funziona abbastanza bene su M4** (errori occasionali non bloccanti).
 
-| Modello NVIDIA | Problema | Errore |
-|----------------|----------|--------|
-| Llama 3.1 8B | Troppo stupido per tool use | `500 status code`, parametri cron sbagliati |
-| Llama 3.3 70B | No parallel tool calls | `400 This model only supports single tool-calls at once!` |
-| Mistral Large 3 675B | Tool call ID formato sbagliato | `400 Tool call id was but must be a-z, A-Z, 0-9, with a length of 9` |
-| Kimi K2.5 | Instabile / outage frequenti | `HTTP 000`, `TypeError: fetch failed`, timeout |
+| Modello NVIDIA | Problema | Gravita' |
+|----------------|----------|----------|
+| Llama 3.1 8B | Troppo stupido per tool use | **INUTILIZZABILE** |
+| Llama 3.3 70B | No parallel tool calls | **BLOCCANTE** |
+| Mistral Large 3 675B | Tool call ID formato sbagliato (occasionale) | **USABILE su M4** |
+| Kimi K2.5 | Instabile / outage frequenti su NVIDIA | **INAFFIDABILE** |
 
-**Soluzione definitiva (2026-02-19)**: switchato TUTTA la fleet a `anthropic/claude-sonnet-4-6` come primario, con NVIDIA models come fallback.
+**Modello primario attuale della fleet: `nvidia/mistralai/mistral-large-3-675b-instruct-2512`** — gratuito, funziona, nessun problema di auth/scadenza token.
 
-**Nota**: I modelli NVIDIA restano utili come **fallback gratuiti** per quando l'auth Anthropic scade. Mistral Large 3 funziona su M4 (qualche errore tool-call ma non blocca). Su Bubble ha bug piu' frequenti.
-
-**Quando tornare a NVIDIA come primario**: Solo se NVIDIA risolve i problemi di tool-call format, O se ClawdBot aggiunge adapter per normalizzare i tool call ID.
+**⚠️ NON usare `anthropic/claude-sonnet-4-6` come primario** — il token OAuth scade ogni ~12h e senza keychain refresh (che solo il Mac con `claude login` ha) il bot muore. Vedi Lesson #14.
 
 ---
 
@@ -462,5 +459,21 @@ print('OK')
 
 ---
 
-*Ultimo aggiornamento: 2026-02-19 (Lesson #1-#13)*
+## ⭐ LESSON #14 — MAI Usare Anthropic OAuth Come Primary (CRITICO)
+
+**Il token OAuth Anthropic scade ogni ~12 ore.** Il gateway fa refresh automatico SOLO se:
+1. Il Mac ha fatto `claude login` (ha il refresh token nel keychain macOS)
+2. Il keychain sync e' attivo (Lesson #2)
+
+**Bubble (Catalina) NON PUO' fare `claude login`** → nessun keychain → token scade → `FailoverError: No API key found`.
+
+**Anche su M4**: se il keychain sync fallisce o il token refresh scade, il bot muore silenziosamente (solo heartbeat, nessuna risposta Telegram).
+
+**Regola**: usare SEMPRE `nvidia/mistralai/mistral-large-3-675b-instruct-2512` come modello primario. E' gratuito, non scade, e funziona.
+
+**Incidente 2026-02-19/20**: switch a Sonnet come primary → dopo ~8 ore token scaduto → M4 e Bubble morti, solo heartbeat. Rollback a Mistral ha fixato tutto.
+
+---
+
+*Ultimo aggiornamento: 2026-02-20 (Lesson #1-#14)*
 *Maintainer: Mattia / FreeRiverHouse*
