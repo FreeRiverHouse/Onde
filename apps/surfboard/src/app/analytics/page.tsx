@@ -237,7 +237,7 @@ export default function AnalyticsPage() {
                 <DailyBarChart data={filteredDaily} />
               )}
               {selectedMetric === 'unique_visitors' && (
-                <DailyBarChart data={filteredDaily.map(d => ({ ...d, views: d.visits ?? 0 }))} color="#10b981" />
+                <DailyBarChart data={filteredDaily.map(d => ({ ...d, views: d.visits ?? 0 }))} color="#10b981" label="visitors" />
               )}
               {selectedMetric === 'visitors_device' && metrics && (
                 <DeviceBreakdownChart devices={metrics.devices} total={summaryStats?.totalViews ?? 0} />
@@ -389,7 +389,7 @@ export default function AnalyticsPage() {
 }
 
 /* ─── Daily Bar Chart (SVG) ─── */
-function DailyBarChart({ data, color = '#06b6d4' }: { data: DailyPoint[]; color?: string }) {
+function DailyBarChart({ data, color = '#06b6d4', label = 'views' }: { data: DailyPoint[]; color?: string; label?: string }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -434,7 +434,7 @@ function DailyBarChart({ data, color = '#06b6d4' }: { data: DailyPoint[]; color?
             transform: 'translateX(-50%)',
           }}
         >
-          <div className="text-white font-semibold">{data[hoveredIndex].views} views</div>
+          <div className="text-white font-semibold">{data[hoveredIndex].views} {label}</div>
           <div className="text-white/50">{formatDate(data[hoveredIndex].date)}</div>
         </div>
       )}
