@@ -1,1002 +1,1002 @@
-[2026-02-17 16:30:05] 
-
-[2026-02-17 16:30:05] --- ONDE.SURF ---
---- ONDE.SURF ---
-[2026-02-17 16:30:05] ✅ onde.surf auth redirect: HTTP 307
-✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 16:30:05] 
-
-[2026-02-17 16:30:05] --- EXTERNAL ---
---- EXTERNAL ---
-[2026-02-17 16:30:05] Skipping external links (Twitter/YouTube may redirect)
-Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 16:30:05] 
-
-[2026-02-17 16:30:05] ==========================================
-==========================================
-[2026-02-17 16:30:05] SUMMARY
-SUMMARY
-[2026-02-17 16:30:05] ==========================================
-==========================================
-[2026-02-17 16:30:05] Successes: 17
-Successes: 17
-[2026-02-17 16:30:05] Failures: 0
-Failures: 0
-[2026-02-17 16:30:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 16:30:05] Done.
-[2026-02-17 16:45:01] ==========================================
-==========================================
-[2026-02-17 16:45:01] Starting comprehensive services check...
-Starting comprehensive services check...
-[2026-02-17 16:45:01] ==========================================
-==========================================
-[2026-02-17 16:45:01] 
-
-[2026-02-17 16:45:01] --- ONDE.LA ---
---- ONDE.LA ---
-[2026-02-17 16:45:01] ✅ onde.la homepage: HTTP 200
-✅ onde.la homepage: HTTP 200
-[2026-02-17 16:45:01] ✅ onde.la /libri: HTTP 200
-✅ onde.la /libri: HTTP 200
-[2026-02-17 16:45:02] ✅ onde.la /giochi: HTTP 200
-✅ onde.la /giochi: HTTP 200
-[2026-02-17 16:45:02] ✅ onde.la /about: HTTP 200
-✅ onde.la /about: HTTP 200
-[2026-02-17 16:45:02] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 16:45:02] ✅ onde.la /app: HTTP 200
+[2026-02-19 17:00:03] PASS: onde.la content - Content contains 'Onde'
+[2026-02-19 17:00:03] PASS: onde.surf (dashboard) - HTTP 200
+[2026-02-19 17:00:03] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 16:45:02] 
+[2026-02-19 17:00:03] 
 
-[2026-02-17 16:45:02] --- GAMES ---
+[2026-02-19 17:00:03] --- GAMES ---
 --- GAMES ---
-[2026-02-17 16:45:03] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 17:00:03] PASS: Games page - HTTP 200
+[2026-02-19 17:00:03] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 16:45:03] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 17:00:03] PASS: Giochi page (IT) - HTTP 200
+[2026-02-19 17:00:03] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 16:45:03] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 17:00:04] PASS: Moonlight House - HTTP 200
+[2026-02-19 17:00:04] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 16:45:03] 
+[2026-02-19 17:00:04] 
 
-[2026-02-17 16:45:03] --- BOOKS/PDFs ---
+[2026-02-19 17:00:04] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 16:45:03] ✅ Meditations PDF: HTTP 200
+[2026-02-19 17:00:04] PASS: Moonlight House content - Content contains 'Moonlight'
+[2026-02-19 17:00:04] PASS: onde.la /health - HTTP 200
+[2026-02-19 17:00:04] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 16:45:04] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 17:00:04] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 16:45:04] 
+[2026-02-19 17:00:04] 
 
-[2026-02-17 16:45:04] --- STATIC ASSETS ---
+[2026-02-19 17:00:04] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 16:45:04] ✅ Logo: HTTP 200
+[2026-02-19 17:00:05] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 16:45:05] ✅ Icon SVG: HTTP 200
+[2026-02-19 17:00:05] PASS: onde.la / - HTTP 200
+[2026-02-19 17:00:05] ✅ Icon SVG: HTTP 200
+[2026-02-19 17:00:05] PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 16:45:05] ✅ Apple Icon: HTTP 200
+[2026-02-19 17:00:05] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 16:45:05] ✅ RSS Feed: HTTP 200
+[2026-02-19 17:00:05] PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+[2026-02-19 17:00:05] PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+[2026-02-19 17:00:05] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 16:45:05] ✅ Atom Feed: HTTP 200
+[2026-02-19 17:00:05] PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+[2026-02-19 17:00:05] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 16:45:05] 
+[2026-02-19 17:00:05] 
 
-[2026-02-17 16:45:05] --- ONDE.SURF ---
+[2026-02-19 17:00:05] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 16:45:05] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 17:00:05] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 16:45:05] 
+[2026-02-19 17:00:05] 
 
-[2026-02-17 16:45:05] --- EXTERNAL ---
+[2026-02-19 17:00:05] PASS: onde.la /about/ - HTTP 200
+[2026-02-19 17:00:05] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 16:45:05] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 17:00:05] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 16:45:05] 
+[2026-02-19 17:00:05] 
 
-[2026-02-17 16:45:05] ==========================================
+[2026-02-19 17:00:05] ==========================================
 ==========================================
-[2026-02-17 16:45:05] SUMMARY
+[2026-02-19 17:00:05] SUMMARY
 SUMMARY
-[2026-02-17 16:45:05] ==========================================
+[2026-02-19 17:00:05] ==========================================
 ==========================================
-[2026-02-17 16:45:05] Successes: 17
+[2026-02-19 17:00:05] Successes: 17
 Successes: 17
-[2026-02-17 16:45:05] Failures: 0
+[2026-02-19 17:00:05] Failures: 0
 Failures: 0
-[2026-02-17 16:45:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 16:45:05] Done.
-[2026-02-17 17:00:00] ========== WATCHDOG START ==========
-[2026-02-17 17:00:00] ==========================================
+[2026-02-19 17:00:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 17:00:05] Done.
+[2026-02-19 17:00:05] PASS: onde.la /apple-icon.svg - HTTP 200
+[2026-02-19 17:00:06] PASS: onde.la /blog/ - HTTP 200
+[2026-02-19 17:00:06] PASS: onde.la /books/meditations-cover.webp - HTTP 200
+[2026-02-19 17:00:06] PASS: onde.la /favicon-16.png - HTTP 200
+[2026-02-19 17:00:06] PASS: onde.la /favicon-32.png - HTTP 200
+[2026-02-19 17:00:06] PASS: onde.la /favicon.ico - HTTP 200
+[2026-02-19 17:00:06] PASS: onde.la /feed.atom - HTTP 200
+[2026-02-19 17:00:07] PASS: onde.la /feed.xml - HTTP 200
+[2026-02-19 17:00:07] PASS: onde.la /games/ - HTTP 200
+[2026-02-19 17:00:07] PASS: onde.la /games/skin-creator/ - HTTP 200
+[2026-02-19 17:00:07] PASS: onde.la /icon.svg - HTTP 200
+[2026-02-19 17:00:07] PASS: onde.la /libri/ - HTTP 200
+[2026-02-19 17:00:07] PASS: onde.la /manifest.json - HTTP 200
+[2026-02-19 17:00:08] PASS: onde.la /privacy/ - HTTP 200
+[2026-02-19 17:15:00] ==========================================
 ==========================================
-[2026-02-17 17:00:01] Starting comprehensive services check...
+[2026-02-19 17:15:00] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 17:00:01] ==========================================
+[2026-02-19 17:15:00] ==========================================
 ==========================================
-[2026-02-17 17:00:01] 
+[2026-02-19 17:15:00] 
 
-[2026-02-17 17:00:01] --- ONDE.LA ---
+[2026-02-19 17:15:00] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 17:00:01] PASS: onde.la (main) - HTTP 200
-[2026-02-17 17:00:01] ✅ onde.la homepage: HTTP 200
+[2026-02-19 17:15:00] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 17:00:01] PASS: onde.la /libri - HTTP 200
-[2026-02-17 17:00:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 17:15:00] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 17:00:02] PASS: onde.la /catalogo - HTTP 200
-[2026-02-17 17:00:02] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 17:15:01] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 17:00:02] ✅ onde.la /about: HTTP 200
+[2026-02-19 17:15:01] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 17:00:02] PASS: onde.la /about - HTTP 200
-[2026-02-17 17:00:02] PASS: onde.la content - Content contains 'Onde'
-[2026-02-17 17:00:02] ✅ onde.la /games: HTTP 200
+[2026-02-19 17:15:01] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 17:00:03] PASS: onde.surf (dashboard) - HTTP 200
-[2026-02-17 17:00:03] ✅ onde.la /app: HTTP 200
+[2026-02-19 17:15:01] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 17:00:03] 
+[2026-02-19 17:15:01] 
 
-[2026-02-17 17:00:03] --- GAMES ---
+[2026-02-19 17:15:01] --- GAMES ---
 --- GAMES ---
-[2026-02-17 17:00:03] PASS: Games page - HTTP 200
-[2026-02-17 17:00:03] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 17:15:02] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 17:00:03] PASS: Giochi page (IT) - HTTP 200
-[2026-02-17 17:00:03] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 17:15:02] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 17:00:04] PASS: Moonlight House - HTTP 200
-[2026-02-17 17:00:04] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 17:15:02] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 17:00:04] 
+[2026-02-19 17:15:02] 
 
-[2026-02-17 17:00:04] --- BOOKS/PDFs ---
+[2026-02-19 17:15:02] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 17:00:04] PASS: Moonlight House content - Content contains 'Moonlight'
-[2026-02-17 17:00:04] ✅ Meditations PDF: HTTP 200
+[2026-02-19 17:15:02] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 17:00:04] PASS: onde.la /health - HTTP 200
-[2026-02-17 17:00:04] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 17:15:03] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 17:00:04] 
+[2026-02-19 17:15:03] 
 
-[2026-02-17 17:00:04] --- STATIC ASSETS ---
+[2026-02-19 17:15:03] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 17:00:04] ✅ Logo: HTTP 200
+[2026-02-19 17:15:03] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 17:00:05] PASS: onde.la / - HTTP 200
-[2026-02-17 17:00:05] ✅ Icon SVG: HTTP 200
+[2026-02-19 17:15:03] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 17:00:05] PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
-[2026-02-17 17:00:05] ✅ Apple Icon: HTTP 200
+[2026-02-19 17:15:03] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 17:00:05] PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
-[2026-02-17 17:00:05] PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
-[2026-02-17 17:00:05] ✅ RSS Feed: HTTP 200
+[2026-02-19 17:15:03] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 17:00:05] PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
-[2026-02-17 17:00:05] ✅ Atom Feed: HTTP 200
+[2026-02-19 17:15:03] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 17:00:05] 
+[2026-02-19 17:15:03] 
 
-[2026-02-17 17:00:05] --- ONDE.SURF ---
+[2026-02-19 17:15:03] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 17:00:05] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 17:15:04] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 17:00:05] PASS: onde.la /about/ - HTTP 200
-[2026-02-17 17:00:05] 
+[2026-02-19 17:15:04] 
 
-[2026-02-17 17:00:05] --- EXTERNAL ---
+[2026-02-19 17:15:04] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 17:00:05] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 17:15:04] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 17:00:05] 
+[2026-02-19 17:15:04] 
 
-[2026-02-17 17:00:05] ==========================================
+[2026-02-19 17:15:04] ==========================================
 ==========================================
-[2026-02-17 17:00:05] SUMMARY
+[2026-02-19 17:15:04] SUMMARY
 SUMMARY
-[2026-02-17 17:00:05] ==========================================
+[2026-02-19 17:15:04] ==========================================
 ==========================================
-[2026-02-17 17:00:05] Successes: 17
+[2026-02-19 17:15:04] Successes: 17
 Successes: 17
-[2026-02-17 17:00:05] Failures: 0
+[2026-02-19 17:15:04] Failures: 0
 Failures: 0
-[2026-02-17 17:00:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 17:00:05] Done.
-[2026-02-17 17:00:05] PASS: onde.la /apple-icon.svg - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /blog/ - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /books/meditations-cover.webp - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /favicon-16.png - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /favicon-32.png - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /favicon.ico - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /feed.atom - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /feed.xml - HTTP 200
-[2026-02-17 17:00:06] PASS: onde.la /games/ - HTTP 200
-[2026-02-17 17:00:07] PASS: onde.la /games/skin-creator/ - HTTP 200
-[2026-02-17 17:00:07] PASS: onde.la /icon.svg - HTTP 200
-[2026-02-17 17:00:07] PASS: onde.la /libri/ - HTTP 200
-[2026-02-17 17:00:07] PASS: onde.la /manifest.json - HTTP 200
-[2026-02-17 17:00:07] PASS: onde.la /privacy/ - HTTP 200
-[2026-02-17 17:15:00] ==========================================
+[2026-02-19 17:15:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 17:15:04] Done.
+[2026-02-19 17:30:00] ==========================================
 ==========================================
-[2026-02-17 17:15:00] Starting comprehensive services check...
+[2026-02-19 17:30:00] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 17:15:00] ==========================================
+[2026-02-19 17:30:00] ==========================================
 ==========================================
-[2026-02-17 17:15:00] 
+[2026-02-19 17:30:00] 
 
-[2026-02-17 17:15:00] --- ONDE.LA ---
+[2026-02-19 17:30:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 17:15:00] ✅ onde.la homepage: HTTP 200
+[2026-02-19 17:30:01] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 17:15:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 17:30:01] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 17:15:01] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 17:30:01] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 17:15:01] ✅ onde.la /about: HTTP 200
+[2026-02-19 17:30:02] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 17:15:01] ✅ onde.la /games: HTTP 200
+[2026-02-19 17:30:02] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 17:15:01] ✅ onde.la /app: HTTP 200
+[2026-02-19 17:30:02] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 17:15:01] 
+[2026-02-19 17:30:02] 
 
-[2026-02-17 17:15:01] --- GAMES ---
+[2026-02-19 17:30:02] --- GAMES ---
 --- GAMES ---
-[2026-02-17 17:15:02] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 17:30:03] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 17:15:02] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 17:30:03] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 17:15:02] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 17:30:03] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 17:15:02] 
+[2026-02-19 17:30:03] 
 
-[2026-02-17 17:15:02] --- BOOKS/PDFs ---
+[2026-02-19 17:30:03] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 17:15:02] ✅ Meditations PDF: HTTP 200
+[2026-02-19 17:30:03] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 17:15:03] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 17:30:04] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 17:15:03] 
+[2026-02-19 17:30:04] 
 
-[2026-02-17 17:15:03] --- STATIC ASSETS ---
+[2026-02-19 17:30:04] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 17:15:03] ✅ Logo: HTTP 200
+[2026-02-19 17:30:04] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 17:15:03] ✅ Icon SVG: HTTP 200
+[2026-02-19 17:30:04] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 17:15:03] ✅ Apple Icon: HTTP 200
+[2026-02-19 17:30:04] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 17:15:03] ✅ RSS Feed: HTTP 200
+[2026-02-19 17:30:04] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 17:15:03] ✅ Atom Feed: HTTP 200
+[2026-02-19 17:30:04] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 17:15:03] 
+[2026-02-19 17:30:05] 
 
-[2026-02-17 17:15:03] --- ONDE.SURF ---
+[2026-02-19 17:30:05] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 17:15:04] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 17:30:05] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 17:15:04] 
+[2026-02-19 17:30:05] 
 
-[2026-02-17 17:15:04] --- EXTERNAL ---
+[2026-02-19 17:30:05] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 17:15:04] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 17:30:05] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 17:15:04] 
+[2026-02-19 17:30:05] 
 
-[2026-02-17 17:15:04] ==========================================
+[2026-02-19 17:30:05] ==========================================
 ==========================================
-[2026-02-17 17:15:04] SUMMARY
+[2026-02-19 17:30:05] SUMMARY
 SUMMARY
-[2026-02-17 17:15:04] ==========================================
+[2026-02-19 17:30:05] ==========================================
 ==========================================
-[2026-02-17 17:15:04] Successes: 17
+[2026-02-19 17:30:05] Successes: 17
 Successes: 17
-[2026-02-17 17:15:04] Failures: 0
+[2026-02-19 17:30:05] Failures: 0
 Failures: 0
-[2026-02-17 17:15:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 17:15:04] Done.
-[2026-02-17 17:30:00] ==========================================
+[2026-02-19 17:30:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 17:30:05] Done.
+[2026-02-19 17:45:00] ==========================================
 ==========================================
-[2026-02-17 17:30:00] Starting comprehensive services check...
+[2026-02-19 17:45:00] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 17:30:00] ==========================================
+[2026-02-19 17:45:00] ==========================================
 ==========================================
-[2026-02-17 17:30:00] 
+[2026-02-19 17:45:00] 
 
-[2026-02-17 17:30:01] --- ONDE.LA ---
+[2026-02-19 17:45:00] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 17:30:01] ✅ onde.la homepage: HTTP 200
+[2026-02-19 17:45:00] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 17:30:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 17:45:01] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 17:30:01] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 17:45:01] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 17:30:02] ✅ onde.la /about: HTTP 200
+[2026-02-19 17:45:01] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 17:30:02] ✅ onde.la /games: HTTP 200
+[2026-02-19 17:45:01] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 17:30:02] ✅ onde.la /app: HTTP 200
+[2026-02-19 17:45:01] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 17:30:02] 
+[2026-02-19 17:45:01] 
 
-[2026-02-17 17:30:02] --- GAMES ---
+[2026-02-19 17:45:01] --- GAMES ---
 --- GAMES ---
-[2026-02-17 17:30:03] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 17:45:02] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 17:30:03] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 17:45:02] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 17:30:03] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 17:45:02] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 17:30:03] 
+[2026-02-19 17:45:02] 
 
-[2026-02-17 17:30:03] --- BOOKS/PDFs ---
+[2026-02-19 17:45:02] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 17:30:04] ✅ Meditations PDF: HTTP 200
+[2026-02-19 17:45:02] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 17:30:04] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 17:45:03] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 17:30:04] 
+[2026-02-19 17:45:03] 
 
-[2026-02-17 17:30:04] --- STATIC ASSETS ---
+[2026-02-19 17:45:03] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 17:30:04] ✅ Logo: HTTP 200
+[2026-02-19 17:45:03] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 17:30:04] ✅ Icon SVG: HTTP 200
+[2026-02-19 17:45:03] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 17:30:04] ✅ Apple Icon: HTTP 200
+[2026-02-19 17:45:03] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 17:30:04] ✅ RSS Feed: HTTP 200
+[2026-02-19 17:45:03] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 17:30:05] ✅ Atom Feed: HTTP 200
+[2026-02-19 17:45:03] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 17:30:05] 
+[2026-02-19 17:45:03] 
 
-[2026-02-17 17:30:05] --- ONDE.SURF ---
+[2026-02-19 17:45:03] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 17:30:05] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 17:45:04] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 17:30:05] 
+[2026-02-19 17:45:04] 
 
-[2026-02-17 17:30:05] --- EXTERNAL ---
+[2026-02-19 17:45:04] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 17:30:05] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 17:45:04] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 17:30:05] 
+[2026-02-19 17:45:04] 
 
-[2026-02-17 17:30:05] ==========================================
+[2026-02-19 17:45:04] ==========================================
 ==========================================
-[2026-02-17 17:30:05] SUMMARY
+[2026-02-19 17:45:04] SUMMARY
 SUMMARY
-[2026-02-17 17:30:05] ==========================================
+[2026-02-19 17:45:04] ==========================================
 ==========================================
-[2026-02-17 17:30:05] Successes: 17
+[2026-02-19 17:45:04] Successes: 17
 Successes: 17
-[2026-02-17 17:30:05] Failures: 0
+[2026-02-19 17:45:04] Failures: 0
 Failures: 0
-[2026-02-17 17:30:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 17:30:05] Done.
-[2026-02-17 17:45:00] ==========================================
+[2026-02-19 17:45:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 17:45:04] Done.
+[2026-02-19 18:00:01] ========== WATCHDOG START ==========
+[2026-02-19 18:00:01] ==========================================
 ==========================================
-[2026-02-17 17:45:00] Starting comprehensive services check...
+[2026-02-19 18:00:01] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 17:45:00] ==========================================
+[2026-02-19 18:00:01] ==========================================
 ==========================================
-[2026-02-17 17:45:00] 
+[2026-02-19 18:00:01] 
 
-[2026-02-17 17:45:00] --- ONDE.LA ---
+[2026-02-19 18:00:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 17:45:00] ✅ onde.la homepage: HTTP 200
+[2026-02-19 18:00:01] PASS: onde.la (main) - HTTP 200
+[2026-02-19 18:00:01] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 17:45:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 18:00:01] PASS: onde.la /libri - HTTP 200
+[2026-02-19 18:00:02] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 17:45:01] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 18:00:02] PASS: onde.la /catalogo - HTTP 200
+[2026-02-19 18:00:02] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 17:45:01] ✅ onde.la /about: HTTP 200
+[2026-02-19 18:00:02] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 17:45:01] ✅ onde.la /games: HTTP 200
+[2026-02-19 18:00:02] PASS: onde.la /about - HTTP 200
+[2026-02-19 18:00:02] PASS: onde.la content - Content contains 'Onde'
+[2026-02-19 18:00:02] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 17:45:02] ✅ onde.la /app: HTTP 200
+[2026-02-19 18:00:03] PASS: onde.surf (dashboard) - HTTP 200
+[2026-02-19 18:00:03] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 17:45:02] 
+[2026-02-19 18:00:03] 
 
-[2026-02-17 17:45:02] --- GAMES ---
+[2026-02-19 18:00:03] --- GAMES ---
 --- GAMES ---
-[2026-02-17 17:45:02] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 18:00:03] PASS: Games page - HTTP 200
+[2026-02-19 18:00:03] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 17:45:02] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 18:00:03] PASS: Giochi page (IT) - HTTP 200
+[2026-02-19 18:00:03] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 17:45:02] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 18:00:03] PASS: Moonlight House - HTTP 200
+[2026-02-19 18:00:03] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 17:45:02] 
+[2026-02-19 18:00:03] 
 
-[2026-02-17 17:45:02] --- BOOKS/PDFs ---
+[2026-02-19 18:00:03] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 17:45:03] ✅ Meditations PDF: HTTP 200
+[2026-02-19 18:00:04] PASS: Moonlight House content - Content contains 'Moonlight'
+[2026-02-19 18:00:04] PASS: onde.la /health - HTTP 200
+[2026-02-19 18:00:04] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 17:45:03] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 18:00:04] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 17:45:03] 
+[2026-02-19 18:00:04] 
 
-[2026-02-17 17:45:03] --- STATIC ASSETS ---
+[2026-02-19 18:00:04] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 17:45:03] ✅ Logo: HTTP 200
+[2026-02-19 18:00:04] PASS: onde.la / - HTTP 200
+[2026-02-19 18:00:04] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 17:45:03] ✅ Icon SVG: HTTP 200
+[2026-02-19 18:00:04] PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
+[2026-02-19 18:00:04] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 17:45:03] ✅ Apple Icon: HTTP 200
+[2026-02-19 18:00:05] PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
+[2026-02-19 18:00:05] PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
+[2026-02-19 18:00:05] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 17:45:04] ✅ RSS Feed: HTTP 200
+[2026-02-19 18:00:05] PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
+[2026-02-19 18:00:05] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 17:45:04] ✅ Atom Feed: HTTP 200
+[2026-02-19 18:00:05] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 17:45:04] 
+[2026-02-19 18:00:05] 
 
-[2026-02-17 17:45:04] --- ONDE.SURF ---
+[2026-02-19 18:00:05] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 17:45:04] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 18:00:05] PASS: onde.la /about/ - HTTP 200
+[2026-02-19 18:00:05] PASS: onde.la /apple-icon.svg - HTTP 200
+[2026-02-19 18:00:05] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 17:45:04] 
+[2026-02-19 18:00:05] 
 
-[2026-02-17 17:45:04] --- EXTERNAL ---
+[2026-02-19 18:00:05] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 17:45:04] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 18:00:05] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 17:45:04] 
+[2026-02-19 18:00:05] 
 
-[2026-02-17 17:45:04] ==========================================
+[2026-02-19 18:00:05] ==========================================
 ==========================================
-[2026-02-17 17:45:04] SUMMARY
+[2026-02-19 18:00:05] SUMMARY
 SUMMARY
-[2026-02-17 17:45:04] ==========================================
+[2026-02-19 18:00:05] ==========================================
 ==========================================
-[2026-02-17 17:45:04] Successes: 17
+[2026-02-19 18:00:05] Successes: 17
 Successes: 17
-[2026-02-17 17:45:04] Failures: 0
+[2026-02-19 18:00:05] Failures: 0
 Failures: 0
-[2026-02-17 17:45:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 17:45:04] Done.
-[2026-02-17 18:00:01] ========== WATCHDOG START ==========
-[2026-02-17 18:00:01] ==========================================
+[2026-02-19 18:00:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 18:00:05] Done.
+[2026-02-19 18:00:05] PASS: onde.la /blog/ - HTTP 200
+[2026-02-19 18:00:05] PASS: onde.la /books/meditations-cover.webp - HTTP 200
+[2026-02-19 18:00:06] PASS: onde.la /favicon-16.png - HTTP 200
+[2026-02-19 18:00:06] PASS: onde.la /favicon-32.png - HTTP 200
+[2026-02-19 18:00:06] PASS: onde.la /favicon.ico - HTTP 200
+[2026-02-19 18:00:06] PASS: onde.la /feed.atom - HTTP 200
+[2026-02-19 18:00:06] PASS: onde.la /feed.xml - HTTP 200
+[2026-02-19 18:00:06] PASS: onde.la /games/ - HTTP 200
+[2026-02-19 18:00:07] PASS: onde.la /games/skin-creator/ - HTTP 200
+[2026-02-19 18:00:07] PASS: onde.la /icon.svg - HTTP 200
+[2026-02-19 18:00:07] PASS: onde.la /libri/ - HTTP 200
+[2026-02-19 18:00:07] PASS: onde.la /manifest.json - HTTP 200
+[2026-02-19 18:00:07] PASS: onde.la /privacy/ - HTTP 200
+[2026-02-19 18:15:00] ==========================================
 ==========================================
-[2026-02-17 18:00:01] Starting comprehensive services check...
+[2026-02-19 18:15:00] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 18:00:01] ==========================================
+[2026-02-19 18:15:00] ==========================================
 ==========================================
-[2026-02-17 18:00:01] 
+[2026-02-19 18:15:00] 
 
-[2026-02-17 18:00:01] --- ONDE.LA ---
+[2026-02-19 18:15:00] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 18:00:02] PASS: onde.la (main) - HTTP 200
-[2026-02-17 18:00:02] ✅ onde.la homepage: HTTP 200
+[2026-02-19 18:15:01] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 18:00:02] PASS: onde.la /libri - HTTP 200
-[2026-02-17 18:00:02] ✅ onde.la /libri: HTTP 200
+[2026-02-19 18:15:01] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 18:00:02] PASS: onde.la /catalogo - HTTP 200
-[2026-02-17 18:00:03] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 18:15:01] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 18:00:03] ✅ onde.la /about: HTTP 200
+[2026-02-19 18:15:01] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 18:00:03] PASS: onde.la /about - HTTP 200
-[2026-02-17 18:00:03] PASS: onde.la content - Content contains 'Onde'
-[2026-02-17 18:00:03] ✅ onde.la /games: HTTP 200
+[2026-02-19 18:15:02] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 18:00:04] PASS: onde.surf (dashboard) - HTTP 200
-[2026-02-17 18:00:04] ✅ onde.la /app: HTTP 200
+[2026-02-19 18:15:02] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 18:00:04] 
+[2026-02-19 18:15:02] 
 
-[2026-02-17 18:00:04] --- GAMES ---
+[2026-02-19 18:15:02] --- GAMES ---
 --- GAMES ---
-[2026-02-17 18:00:04] PASS: Games page - HTTP 200
-[2026-02-17 18:00:04] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 18:15:02] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 18:00:04] PASS: Giochi page (IT) - HTTP 200
-[2026-02-17 18:00:04] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 18:15:02] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 18:00:04] PASS: Moonlight House - HTTP 200
-[2026-02-17 18:00:05] PASS: Moonlight House content - Content contains 'Moonlight'
-[2026-02-17 18:00:05] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 18:15:03] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 18:00:05] 
+[2026-02-19 18:15:03] 
 
-[2026-02-17 18:00:05] --- BOOKS/PDFs ---
+[2026-02-19 18:15:03] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 18:00:05] PASS: onde.la /health - HTTP 200
-[2026-02-17 18:00:05] ✅ Meditations PDF: HTTP 200
+[2026-02-19 18:15:03] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 18:00:05] PASS: onde.la / - HTTP 200
-[2026-02-17 18:00:06] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 18:15:03] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 18:00:06] 
+[2026-02-19 18:15:03] 
 
-[2026-02-17 18:00:06] --- STATIC ASSETS ---
+[2026-02-19 18:15:03] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 18:00:06] PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
-[2026-02-17 18:00:06] ✅ Logo: HTTP 200
+[2026-02-19 18:15:04] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 18:00:06] PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
-[2026-02-17 18:00:06] ✅ Icon SVG: HTTP 200
+[2026-02-19 18:15:04] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 18:00:06] PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
-[2026-02-17 18:00:06] ✅ Apple Icon: HTTP 200
+[2026-02-19 18:15:04] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 18:00:06] PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
-[2026-02-17 18:00:06] ✅ RSS Feed: HTTP 200
+[2026-02-19 18:15:04] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 18:00:07] PASS: onde.la /about/ - HTTP 200
-[2026-02-17 18:00:07] ✅ Atom Feed: HTTP 200
+[2026-02-19 18:15:04] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 18:00:07] 
+[2026-02-19 18:15:04] 
 
-[2026-02-17 18:00:07] PASS: onde.la /apple-icon.svg - HTTP 200
-[2026-02-17 18:00:07] --- ONDE.SURF ---
+[2026-02-19 18:15:04] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 18:00:07] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 18:15:04] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 18:00:07] 
+[2026-02-19 18:15:04] 
 
-[2026-02-17 18:00:07] --- EXTERNAL ---
+[2026-02-19 18:15:04] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 18:00:07] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 18:15:04] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 18:00:07] 
+[2026-02-19 18:15:04] 
 
-[2026-02-17 18:00:07] PASS: onde.la /blog/ - HTTP 200
-[2026-02-17 18:00:07] ==========================================
+[2026-02-19 18:15:04] ==========================================
 ==========================================
-[2026-02-17 18:00:07] SUMMARY
+[2026-02-19 18:15:04] SUMMARY
 SUMMARY
-[2026-02-17 18:00:07] ==========================================
+[2026-02-19 18:15:04] ==========================================
 ==========================================
-[2026-02-17 18:00:07] Successes: 17
+[2026-02-19 18:15:04] Successes: 17
 Successes: 17
-[2026-02-17 18:00:07] Failures: 0
+[2026-02-19 18:15:04] Failures: 0
 Failures: 0
-[2026-02-17 18:00:07] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 18:00:07] Done.
-[2026-02-17 18:00:07] PASS: onde.la /books/meditations-cover.webp - HTTP 200
-[2026-02-17 18:00:07] PASS: onde.la /favicon-16.png - HTTP 200
-[2026-02-17 18:00:07] PASS: onde.la /favicon-32.png - HTTP 200
-[2026-02-17 18:00:07] PASS: onde.la /favicon.ico - HTTP 200
-[2026-02-17 18:00:08] PASS: onde.la /feed.atom - HTTP 200
-[2026-02-17 18:00:08] PASS: onde.la /feed.xml - HTTP 200
-[2026-02-17 18:00:08] PASS: onde.la /games/ - HTTP 200
-[2026-02-17 18:00:08] PASS: onde.la /games/skin-creator/ - HTTP 200
-[2026-02-17 18:00:08] PASS: onde.la /icon.svg - HTTP 200
-[2026-02-17 18:00:09] PASS: onde.la /libri/ - HTTP 200
-[2026-02-17 18:00:09] PASS: onde.la /manifest.json - HTTP 200
-[2026-02-17 18:00:09] PASS: onde.la /privacy/ - HTTP 200
-[2026-02-17 18:15:00] ==========================================
+[2026-02-19 18:15:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 18:15:04] Done.
+[2026-02-19 18:30:01] ==========================================
 ==========================================
-[2026-02-17 18:15:00] Starting comprehensive services check...
+[2026-02-19 18:30:01] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 18:15:00] ==========================================
+[2026-02-19 18:30:01] ==========================================
 ==========================================
-[2026-02-17 18:15:00] 
+[2026-02-19 18:30:01] 
 
-[2026-02-17 18:15:00] --- ONDE.LA ---
+[2026-02-19 18:30:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 18:15:01] ✅ onde.la homepage: HTTP 200
+[2026-02-19 18:30:01] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 18:15:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 18:30:02] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 18:15:01] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 18:30:02] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 18:15:02] ✅ onde.la /about: HTTP 200
+[2026-02-19 18:30:02] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 18:15:02] ✅ onde.la /games: HTTP 200
+[2026-02-19 18:30:03] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 18:15:02] ✅ onde.la /app: HTTP 200
+[2026-02-19 18:30:03] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 18:15:02] 
+[2026-02-19 18:30:03] 
 
-[2026-02-17 18:15:02] --- GAMES ---
+[2026-02-19 18:30:03] --- GAMES ---
 --- GAMES ---
-[2026-02-17 18:15:02] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 18:30:03] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 18:15:03] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 18:30:03] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 18:15:03] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 18:30:04] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 18:15:03] 
+[2026-02-19 18:30:04] 
 
-[2026-02-17 18:15:03] --- BOOKS/PDFs ---
+[2026-02-19 18:30:04] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 18:15:03] ✅ Meditations PDF: HTTP 200
+[2026-02-19 18:30:04] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 18:15:03] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 18:30:04] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 18:15:03] 
+[2026-02-19 18:30:04] 
 
-[2026-02-17 18:15:03] --- STATIC ASSETS ---
+[2026-02-19 18:30:04] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 18:15:04] ✅ Logo: HTTP 200
+[2026-02-19 18:30:04] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 18:15:04] ✅ Icon SVG: HTTP 200
+[2026-02-19 18:30:05] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 18:15:04] ✅ Apple Icon: HTTP 200
+[2026-02-19 18:30:05] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 18:15:04] ✅ RSS Feed: HTTP 200
+[2026-02-19 18:30:05] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 18:15:04] ✅ Atom Feed: HTTP 200
+[2026-02-19 18:30:05] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 18:15:04] 
+[2026-02-19 18:30:05] 
 
-[2026-02-17 18:15:04] --- ONDE.SURF ---
+[2026-02-19 18:30:05] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 18:15:04] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 18:30:05] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 18:15:04] 
+[2026-02-19 18:30:05] 
 
-[2026-02-17 18:15:04] --- EXTERNAL ---
+[2026-02-19 18:30:05] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 18:15:04] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 18:30:05] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 18:15:04] 
+[2026-02-19 18:30:05] 
 
-[2026-02-17 18:15:04] ==========================================
+[2026-02-19 18:30:05] ==========================================
 ==========================================
-[2026-02-17 18:15:04] SUMMARY
+[2026-02-19 18:30:05] SUMMARY
 SUMMARY
-[2026-02-17 18:15:04] ==========================================
+[2026-02-19 18:30:05] ==========================================
 ==========================================
-[2026-02-17 18:15:04] Successes: 17
+[2026-02-19 18:30:05] Successes: 17
 Successes: 17
-[2026-02-17 18:15:04] Failures: 0
+[2026-02-19 18:30:05] Failures: 0
 Failures: 0
-[2026-02-17 18:15:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 18:15:04] Done.
-[2026-02-17 18:30:00] ==========================================
+[2026-02-19 18:30:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 18:30:05] Done.
+[2026-02-19 18:45:00] ==========================================
 ==========================================
-[2026-02-17 18:30:00] Starting comprehensive services check...
+[2026-02-19 18:45:00] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 18:30:00] ==========================================
+[2026-02-19 18:45:00] ==========================================
 ==========================================
-[2026-02-17 18:30:00] 
+[2026-02-19 18:45:00] 
 
-[2026-02-17 18:30:00] --- ONDE.LA ---
+[2026-02-19 18:45:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 18:30:01] ✅ onde.la homepage: HTTP 200
+[2026-02-19 18:45:01] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 18:30:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 18:45:01] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 18:30:01] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 18:45:01] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 18:30:01] ✅ onde.la /about: HTTP 200
+[2026-02-19 18:45:01] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 18:30:02] ✅ onde.la /games: HTTP 200
+[2026-02-19 18:45:02] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 18:30:02] ✅ onde.la /app: HTTP 200
+[2026-02-19 18:45:02] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 18:30:02] 
+[2026-02-19 18:45:02] 
 
-[2026-02-17 18:30:02] --- GAMES ---
+[2026-02-19 18:45:02] --- GAMES ---
 --- GAMES ---
-[2026-02-17 18:30:02] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 18:45:02] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 18:30:03] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 18:45:02] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 18:30:03] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 18:45:03] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 18:30:03] 
+[2026-02-19 18:45:03] 
 
-[2026-02-17 18:30:03] --- BOOKS/PDFs ---
+[2026-02-19 18:45:03] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 18:30:03] ✅ Meditations PDF: HTTP 200
+[2026-02-19 18:45:03] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 18:30:04] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 18:45:03] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 18:30:04] 
+[2026-02-19 18:45:03] 
 
-[2026-02-17 18:30:04] --- STATIC ASSETS ---
+[2026-02-19 18:45:03] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 18:30:04] ✅ Logo: HTTP 200
+[2026-02-19 18:45:03] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 18:30:04] ✅ Icon SVG: HTTP 200
+[2026-02-19 18:45:03] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 18:30:04] ✅ Apple Icon: HTTP 200
+[2026-02-19 18:45:04] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 18:30:05] ✅ RSS Feed: HTTP 200
+[2026-02-19 18:45:04] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 18:30:05] ✅ Atom Feed: HTTP 200
+[2026-02-19 18:45:04] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 18:30:05] 
+[2026-02-19 18:45:04] 
 
-[2026-02-17 18:30:05] --- ONDE.SURF ---
+[2026-02-19 18:45:04] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 18:30:05] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 18:45:04] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 18:30:05] 
+[2026-02-19 18:45:04] 
 
-[2026-02-17 18:30:05] --- EXTERNAL ---
+[2026-02-19 18:45:04] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 18:30:05] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 18:45:04] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 18:30:05] 
+[2026-02-19 18:45:04] 
 
-[2026-02-17 18:30:05] ==========================================
+[2026-02-19 18:45:04] ==========================================
 ==========================================
-[2026-02-17 18:30:05] SUMMARY
+[2026-02-19 18:45:04] SUMMARY
 SUMMARY
-[2026-02-17 18:30:05] ==========================================
+[2026-02-19 18:45:04] ==========================================
 ==========================================
-[2026-02-17 18:30:05] Successes: 17
+[2026-02-19 18:45:04] Successes: 17
 Successes: 17
-[2026-02-17 18:30:05] Failures: 0
+[2026-02-19 18:45:04] Failures: 0
 Failures: 0
-[2026-02-17 18:30:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 18:30:05] Done.
-[2026-02-17 18:45:00] ==========================================
+[2026-02-19 18:45:04] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 18:45:04] Done.
+[2026-02-19 19:00:00] ========== WATCHDOG START ==========
+[2026-02-19 19:00:01] FAIL: onde.la (main) - Expected 200, got 000
+[2026-02-19 19:00:01] ==========================================
 ==========================================
-[2026-02-17 18:45:00] Starting comprehensive services check...
+[2026-02-19 19:00:01] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 18:45:00] ==========================================
+[2026-02-19 19:00:01] ==========================================
 ==========================================
-[2026-02-17 18:45:00] 
+[2026-02-19 19:00:01] 
 
-[2026-02-17 18:45:00] --- ONDE.LA ---
+[2026-02-19 19:00:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 18:45:01] ✅ onde.la homepage: HTTP 200
-✅ onde.la homepage: HTTP 200
-[2026-02-17 18:45:01] ✅ onde.la /libri: HTTP 200
-✅ onde.la /libri: HTTP 200
-[2026-02-17 18:45:01] ✅ onde.la /giochi: HTTP 200
-✅ onde.la /giochi: HTTP 200
-[2026-02-17 18:45:02] ✅ onde.la /about: HTTP 200
-✅ onde.la /about: HTTP 200
-[2026-02-17 18:45:02] ✅ onde.la /games: HTTP 200
-✅ onde.la /games: HTTP 200
-[2026-02-17 18:45:02] ✅ onde.la /app: HTTP 200
-✅ onde.la /app: HTTP 200
-[2026-02-17 18:45:02] 
-
-[2026-02-17 18:45:02] --- GAMES ---
---- GAMES ---
-[2026-02-17 18:45:02] ✅ Moonlight Magic House: HTTP 200
-✅ Moonlight Magic House: HTTP 200
-[2026-02-17 18:45:02] ✅ Moonlight Magic House (static): HTTP 200
-✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 18:45:03] ✅ Moonlight Magic House assets: HTTP 200
-✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 18:45:03] 
-
-[2026-02-17 18:45:03] --- BOOKS/PDFs ---
---- BOOKS/PDFs ---
-[2026-02-17 18:45:03] ✅ Meditations PDF: HTTP 200
-✅ Meditations PDF: HTTP 200
-[2026-02-17 18:45:03] ✅ Shepherd's Promise PDF: HTTP 200
-✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 18:45:03] 
-
-[2026-02-17 18:45:03] --- STATIC ASSETS ---
---- STATIC ASSETS ---
-[2026-02-17 18:45:04] ✅ Logo: HTTP 200
-✅ Logo: HTTP 200
-[2026-02-17 18:45:04] ✅ Icon SVG: HTTP 200
-✅ Icon SVG: HTTP 200
-[2026-02-17 18:45:04] ✅ Apple Icon: HTTP 200
-✅ Apple Icon: HTTP 200
-[2026-02-17 18:45:04] ✅ RSS Feed: HTTP 200
-✅ RSS Feed: HTTP 200
-[2026-02-17 18:45:04] ✅ Atom Feed: HTTP 200
-✅ Atom Feed: HTTP 200
-[2026-02-17 18:45:04] 
-
-[2026-02-17 18:45:04] --- ONDE.SURF ---
---- ONDE.SURF ---
-[2026-02-17 18:45:05] ✅ onde.surf auth redirect: HTTP 307
-✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 18:45:05] 
-
-[2026-02-17 18:45:05] --- EXTERNAL ---
---- EXTERNAL ---
-[2026-02-17 18:45:05] Skipping external links (Twitter/YouTube may redirect)
-Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 18:45:05] 
-
-[2026-02-17 18:45:05] ==========================================
+[2026-02-19 19:00:01] FAIL: onde.la /libri - Expected 200, got 000
+[2026-02-19 19:00:01] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 19:00:01] FAIL: onde.la /catalogo - Expected 200, got 000
+[2026-02-19 19:00:01] FAIL: onde.la /about - Expected 200, got 000
+[2026-02-19 19:00:01] FAIL: onde.la content - Missing content 'Onde'
+[2026-02-19 19:00:01] FAIL: onde.surf (dashboard) - Expected 200, got 000
+[2026-02-19 19:00:01] FAIL: Games page - Expected 200, got 000
+[2026-02-19 19:00:01] FAIL: Giochi page (IT) - Expected 200, got 000
+[2026-02-19 19:00:01] FAIL: Moonlight House - Expected 200, got 000
+[2026-02-19 19:00:02] FAIL: Moonlight House content - Missing content 'Moonlight'
+[2026-02-19 19:00:02] FAIL: onde.la /health - Expected 200, got 000
+[2026-02-19 19:00:02] FAIL: onde.la /api/health - Expected 200, got 000
+[2026-02-19 19:00:02] Alert created: /Users/mattia/Projects/Onde/scripts/services-health.alert
+[2026-02-19 19:15:01] ==========================================
 ==========================================
-[2026-02-17 18:45:05] SUMMARY
-SUMMARY
-[2026-02-17 18:45:05] ==========================================
-==========================================
-[2026-02-17 18:45:05] Successes: 17
-Successes: 17
-[2026-02-17 18:45:05] Failures: 0
-Failures: 0
-[2026-02-17 18:45:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 18:45:05] Done.
-[2026-02-17 19:00:00] ========== WATCHDOG START ==========
-[2026-02-17 19:00:00] ==========================================
-==========================================
-[2026-02-17 19:00:00] Starting comprehensive services check...
+[2026-02-19 19:15:01] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 19:00:00] ==========================================
+[2026-02-19 19:15:01] ==========================================
 ==========================================
-[2026-02-17 19:00:01] 
+[2026-02-19 19:15:01] 
 
-[2026-02-17 19:00:01] --- ONDE.LA ---
+[2026-02-19 19:15:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 19:00:01] PASS: onde.la (main) - HTTP 200
-[2026-02-17 19:00:01] ✅ onde.la homepage: HTTP 200
-✅ onde.la homepage: HTTP 200
-[2026-02-17 19:00:01] PASS: onde.la /libri - HTTP 200
-[2026-02-17 19:00:01] ✅ onde.la /libri: HTTP 200
-✅ onde.la /libri: HTTP 200
-[2026-02-17 19:00:02] PASS: onde.la /catalogo - HTTP 200
-[2026-02-17 19:00:02] ✅ onde.la /giochi: HTTP 200
-✅ onde.la /giochi: HTTP 200
-[2026-02-17 19:00:02] PASS: onde.la /about - HTTP 200
-[2026-02-17 19:00:02] ✅ onde.la /about: HTTP 200
-✅ onde.la /about: HTTP 200
-[2026-02-17 19:00:02] PASS: onde.la content - Content contains 'Onde'
-[2026-02-17 19:00:03] ✅ onde.la /games: HTTP 200
-✅ onde.la /games: HTTP 200
-[2026-02-17 19:00:03] PASS: onde.surf (dashboard) - HTTP 200
-[2026-02-17 19:00:03] PASS: Games page - HTTP 200
-[2026-02-17 19:00:03] ✅ onde.la /app: HTTP 200
-✅ onde.la /app: HTTP 200
-[2026-02-17 19:00:03] 
-
-[2026-02-17 19:00:03] --- GAMES ---
---- GAMES ---
-[2026-02-17 19:00:03] PASS: Giochi page (IT) - HTTP 200
-[2026-02-17 19:00:03] ✅ Moonlight Magic House: HTTP 200
-✅ Moonlight Magic House: HTTP 200
-[2026-02-17 19:00:03] PASS: Moonlight House - HTTP 200
-[2026-02-17 19:00:04] ✅ Moonlight Magic House (static): HTTP 200
-✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 19:00:04] PASS: Moonlight House content - Content contains 'Moonlight'
-[2026-02-17 19:00:04] ✅ Moonlight Magic House assets: HTTP 200
-✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 19:00:04] 
-
-[2026-02-17 19:00:04] --- BOOKS/PDFs ---
---- BOOKS/PDFs ---
-[2026-02-17 19:00:04] PASS: onde.la /health - HTTP 200
-[2026-02-17 19:00:04] ✅ Meditations PDF: HTTP 200
-✅ Meditations PDF: HTTP 200
-[2026-02-17 19:00:04] PASS: onde.la / - HTTP 200
-[2026-02-17 19:00:05] PASS: onde.la /_next/static/chunks/webpack-7b54091e1037b28e.js - HTTP 200
-[2026-02-17 19:00:05] ✅ Shepherd's Promise PDF: HTTP 200
-✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 19:00:05] 
-
-[2026-02-17 19:00:05] --- STATIC ASSETS ---
---- STATIC ASSETS ---
-[2026-02-17 19:00:05] PASS: onde.la /_next/static/css/50e339ad9c6172e7.css - HTTP 200
-[2026-02-17 19:00:05] ✅ Logo: HTTP 200
-✅ Logo: HTTP 200
-[2026-02-17 19:00:05] PASS: onde.la /_next/static/css/a655e6fb87977356.css - HTTP 200
-[2026-02-17 19:00:05] ✅ Icon SVG: HTTP 200
-✅ Icon SVG: HTTP 200
-[2026-02-17 19:00:05] PASS: onde.la /_next/static/media/eaead17c7dbfcd5d-s.p.woff2 - HTTP 200
-[2026-02-17 19:00:05] ✅ Apple Icon: HTTP 200
-✅ Apple Icon: HTTP 200
-[2026-02-17 19:00:05] ✅ RSS Feed: HTTP 200
-✅ RSS Feed: HTTP 200
-[2026-02-17 19:00:05] PASS: onde.la /about/ - HTTP 200
-[2026-02-17 19:00:06] PASS: onde.la /apple-icon.svg - HTTP 200
-[2026-02-17 19:00:06] ✅ Atom Feed: HTTP 200
-✅ Atom Feed: HTTP 200
-[2026-02-17 19:00:06] 
-
-[2026-02-17 19:00:06] --- ONDE.SURF ---
---- ONDE.SURF ---
-[2026-02-17 19:00:06] ✅ onde.surf auth redirect: HTTP 307
-✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 19:00:06] PASS: onde.la /blog/ - HTTP 200
-[2026-02-17 19:00:06] 
-
-[2026-02-17 19:00:06] --- EXTERNAL ---
---- EXTERNAL ---
-[2026-02-17 19:00:06] Skipping external links (Twitter/YouTube may redirect)
-Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 19:00:06] 
-
-[2026-02-17 19:00:06] ==========================================
+[2026-02-19 19:15:01] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 19:30:01] ==========================================
 ==========================================
-[2026-02-17 19:00:06] SUMMARY
-SUMMARY
-[2026-02-17 19:00:06] ==========================================
-==========================================
-[2026-02-17 19:00:06] Successes: 17
-Successes: 17
-[2026-02-17 19:00:06] Failures: 0
-Failures: 0
-[2026-02-17 19:00:06] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 19:00:06] Done.
-[2026-02-17 19:00:06] PASS: onde.la /books/meditations-cover.webp - HTTP 200
-[2026-02-17 19:00:06] PASS: onde.la /favicon-16.png - HTTP 200
-[2026-02-17 19:00:06] PASS: onde.la /favicon-32.png - HTTP 200
-[2026-02-17 19:00:06] PASS: onde.la /favicon.ico - HTTP 200
-[2026-02-17 19:00:07] PASS: onde.la /feed.atom - HTTP 200
-[2026-02-17 19:00:07] PASS: onde.la /feed.xml - HTTP 200
-[2026-02-17 19:00:07] PASS: onde.la /games/ - HTTP 200
-[2026-02-17 19:00:07] PASS: onde.la /games/skin-creator/ - HTTP 200
-[2026-02-17 19:00:07] PASS: onde.la /icon.svg - HTTP 200
-[2026-02-17 19:00:07] PASS: onde.la /libri/ - HTTP 200
-[2026-02-17 19:00:08] PASS: onde.la /manifest.json - HTTP 200
-[2026-02-17 19:00:08] PASS: onde.la /privacy/ - HTTP 200
-[2026-02-17 19:15:00] ==========================================
-==========================================
-[2026-02-17 19:15:01] Starting comprehensive services check...
+[2026-02-19 19:30:01] Starting comprehensive services check...
 Starting comprehensive services check...
-[2026-02-17 19:15:01] ==========================================
+[2026-02-19 19:30:01] ==========================================
 ==========================================
-[2026-02-17 19:15:01] 
+[2026-02-19 19:30:01] 
 
-[2026-02-17 19:15:01] --- ONDE.LA ---
+[2026-02-19 19:30:01] --- ONDE.LA ---
 --- ONDE.LA ---
-[2026-02-17 19:15:01] ✅ onde.la homepage: HTTP 200
+[2026-02-19 19:30:01] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 19:45:00] ==========================================
+==========================================
+[2026-02-19 19:45:00] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 19:45:00] ==========================================
+==========================================
+[2026-02-19 19:45:00] 
+
+[2026-02-19 19:45:00] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 19:45:00] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 20:00:00] ========== WATCHDOG START ==========
+[2026-02-19 20:00:00] FAIL: onde.la (main) - Expected 200, got 000
+[2026-02-19 20:00:00] ==========================================
+==========================================
+[2026-02-19 20:00:00] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 20:00:00] ==========================================
+==========================================
+[2026-02-19 20:00:00] 
+
+[2026-02-19 20:00:00] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 20:00:00] FAIL: onde.la /libri - Expected 200, got 000
+[2026-02-19 20:00:00] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 20:00:00] FAIL: onde.la /catalogo - Expected 200, got 000
+[2026-02-19 20:00:00] FAIL: onde.la /about - Expected 200, got 000
+[2026-02-19 20:00:01] FAIL: onde.la content - Missing content 'Onde'
+[2026-02-19 20:00:01] FAIL: onde.surf (dashboard) - Expected 200, got 000
+[2026-02-19 20:00:01] FAIL: Games page - Expected 200, got 000
+[2026-02-19 20:00:01] FAIL: Giochi page (IT) - Expected 200, got 000
+[2026-02-19 20:00:01] FAIL: Moonlight House - Expected 200, got 000
+[2026-02-19 20:00:01] FAIL: Moonlight House content - Missing content 'Moonlight'
+[2026-02-19 20:00:01] FAIL: onde.la /health - Expected 200, got 000
+[2026-02-19 20:00:01] FAIL: onde.la /api/health - Expected 200, got 000
+[2026-02-19 20:00:01] Alert created: /Users/mattia/Projects/Onde/scripts/services-health.alert
+[2026-02-19 20:15:00] ==========================================
+==========================================
+[2026-02-19 20:15:00] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 20:15:00] ==========================================
+==========================================
+[2026-02-19 20:15:00] 
+
+[2026-02-19 20:15:00] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 20:15:00] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 20:30:01] ==========================================
+==========================================
+[2026-02-19 20:30:01] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 20:30:01] ==========================================
+==========================================
+[2026-02-19 20:30:01] 
+
+[2026-02-19 20:30:01] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 20:30:01] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 20:45:00] ==========================================
+==========================================
+[2026-02-19 20:45:00] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 20:45:00] ==========================================
+==========================================
+[2026-02-19 20:45:00] 
+
+[2026-02-19 20:45:00] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 20:45:00] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 21:00:01] ========== WATCHDOG START ==========
+[2026-02-19 21:00:01] ==========================================
+==========================================
+[2026-02-19 21:00:01] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 21:00:01] ==========================================
+==========================================
+[2026-02-19 21:00:01] FAIL: onde.la (main) - Expected 200, got 000
+[2026-02-19 21:00:01] 
+
+[2026-02-19 21:00:01] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 21:00:01] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 21:00:01] FAIL: onde.la /libri - Expected 200, got 000
+[2026-02-19 21:00:01] FAIL: onde.la /catalogo - Expected 200, got 000
+[2026-02-19 21:00:01] FAIL: onde.la /about - Expected 200, got 000
+[2026-02-19 21:00:01] FAIL: onde.la content - Missing content 'Onde'
+[2026-02-19 21:00:01] FAIL: onde.surf (dashboard) - Expected 200, got 000
+[2026-02-19 21:00:01] FAIL: Games page - Expected 200, got 000
+[2026-02-19 21:00:01] FAIL: Giochi page (IT) - Expected 200, got 000
+[2026-02-19 21:00:01] FAIL: Moonlight House - Expected 200, got 000
+[2026-02-19 21:00:02] FAIL: Moonlight House content - Missing content 'Moonlight'
+[2026-02-19 21:00:02] FAIL: onde.la /health - Expected 200, got 000
+[2026-02-19 21:00:02] FAIL: onde.la /api/health - Expected 200, got 000
+[2026-02-19 21:00:02] Alert created: /Users/mattia/Projects/Onde/scripts/services-health.alert
+[2026-02-19 21:15:00] ==========================================
+==========================================
+[2026-02-19 21:15:00] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 21:15:00] ==========================================
+==========================================
+[2026-02-19 21:15:00] 
+
+[2026-02-19 21:15:00] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 21:15:00] ❌ onde.la homepage: HTTP 000000 (expected 200)
+❌ onde.la homepage: HTTP 000000 (expected 200)
+[2026-02-19 21:30:01] ==========================================
+==========================================
+[2026-02-19 21:30:01] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 21:30:01] ==========================================
+==========================================
+[2026-02-19 21:30:01] 
+
+[2026-02-19 21:30:01] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 21:30:02] ✅ onde.la homepage: HTTP 200
 ✅ onde.la homepage: HTTP 200
-[2026-02-17 19:15:01] ✅ onde.la /libri: HTTP 200
+[2026-02-19 21:30:02] ✅ onde.la /libri: HTTP 200
 ✅ onde.la /libri: HTTP 200
-[2026-02-17 19:15:01] ✅ onde.la /giochi: HTTP 200
+[2026-02-19 21:30:02] ✅ onde.la /giochi: HTTP 200
 ✅ onde.la /giochi: HTTP 200
-[2026-02-17 19:15:02] ✅ onde.la /about: HTTP 200
+[2026-02-19 21:30:03] ✅ onde.la /about: HTTP 200
 ✅ onde.la /about: HTTP 200
-[2026-02-17 19:15:02] ✅ onde.la /games: HTTP 200
+[2026-02-19 21:30:03] ✅ onde.la /games: HTTP 200
 ✅ onde.la /games: HTTP 200
-[2026-02-17 19:15:02] ✅ onde.la /app: HTTP 200
+[2026-02-19 21:30:03] ✅ onde.la /app: HTTP 200
 ✅ onde.la /app: HTTP 200
-[2026-02-17 19:15:02] 
+[2026-02-19 21:30:03] 
 
-[2026-02-17 19:15:02] --- GAMES ---
+[2026-02-19 21:30:03] --- GAMES ---
 --- GAMES ---
-[2026-02-17 19:15:03] ✅ Moonlight Magic House: HTTP 200
+[2026-02-19 21:30:04] ✅ Moonlight Magic House: HTTP 200
 ✅ Moonlight Magic House: HTTP 200
-[2026-02-17 19:15:03] ✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 21:30:04] ✅ Moonlight Magic House (static): HTTP 200
 ✅ Moonlight Magic House (static): HTTP 200
-[2026-02-17 19:15:03] ✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 21:30:04] ✅ Moonlight Magic House assets: HTTP 200
 ✅ Moonlight Magic House assets: HTTP 200
-[2026-02-17 19:15:03] 
+[2026-02-19 21:30:04] 
 
-[2026-02-17 19:15:03] --- BOOKS/PDFs ---
+[2026-02-19 21:30:04] --- BOOKS/PDFs ---
 --- BOOKS/PDFs ---
-[2026-02-17 19:15:03] ✅ Meditations PDF: HTTP 200
+[2026-02-19 21:30:04] ✅ Meditations PDF: HTTP 200
 ✅ Meditations PDF: HTTP 200
-[2026-02-17 19:15:04] ✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 21:30:05] ✅ Shepherd's Promise PDF: HTTP 200
 ✅ Shepherd's Promise PDF: HTTP 200
-[2026-02-17 19:15:04] 
+[2026-02-19 21:30:05] 
 
-[2026-02-17 19:15:04] --- STATIC ASSETS ---
+[2026-02-19 21:30:05] --- STATIC ASSETS ---
 --- STATIC ASSETS ---
-[2026-02-17 19:15:04] ✅ Logo: HTTP 200
+[2026-02-19 21:30:05] ✅ Logo: HTTP 200
 ✅ Logo: HTTP 200
-[2026-02-17 19:15:04] ✅ Icon SVG: HTTP 200
+[2026-02-19 21:30:05] ✅ Icon SVG: HTTP 200
 ✅ Icon SVG: HTTP 200
-[2026-02-17 19:15:04] ✅ Apple Icon: HTTP 200
+[2026-02-19 21:30:05] ✅ Apple Icon: HTTP 200
 ✅ Apple Icon: HTTP 200
-[2026-02-17 19:15:04] ✅ RSS Feed: HTTP 200
+[2026-02-19 21:30:05] ✅ RSS Feed: HTTP 200
 ✅ RSS Feed: HTTP 200
-[2026-02-17 19:15:05] ✅ Atom Feed: HTTP 200
+[2026-02-19 21:30:06] ✅ Atom Feed: HTTP 200
 ✅ Atom Feed: HTTP 200
-[2026-02-17 19:15:05] 
+[2026-02-19 21:30:06] 
 
-[2026-02-17 19:15:05] --- ONDE.SURF ---
+[2026-02-19 21:30:06] --- ONDE.SURF ---
 --- ONDE.SURF ---
-[2026-02-17 19:15:05] ✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 21:30:06] ✅ onde.surf auth redirect: HTTP 307
 ✅ onde.surf auth redirect: HTTP 307
-[2026-02-17 19:15:05] 
+[2026-02-19 21:30:06] 
 
-[2026-02-17 19:15:05] --- EXTERNAL ---
+[2026-02-19 21:30:06] --- EXTERNAL ---
 --- EXTERNAL ---
-[2026-02-17 19:15:05] Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 21:30:06] Skipping external links (Twitter/YouTube may redirect)
 Skipping external links (Twitter/YouTube may redirect)
-[2026-02-17 19:15:05] 
+[2026-02-19 21:30:06] 
 
-[2026-02-17 19:15:05] ==========================================
+[2026-02-19 21:30:06] ==========================================
 ==========================================
-[2026-02-17 19:15:05] SUMMARY
+[2026-02-19 21:30:06] SUMMARY
 SUMMARY
-[2026-02-17 19:15:05] ==========================================
+[2026-02-19 21:30:06] ==========================================
 ==========================================
-[2026-02-17 19:15:05] Successes: 17
+[2026-02-19 21:30:06] Successes: 17
 Successes: 17
-[2026-02-17 19:15:05] Failures: 0
+[2026-02-19 21:30:06] Failures: 0
 Failures: 0
-[2026-02-17 19:15:05] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
-[2026-02-17 19:15:05] Done.
+[2026-02-19 21:30:06] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 21:30:06] Done.
+[2026-02-19 21:45:00] ==========================================
+==========================================
+[2026-02-19 21:45:00] Starting comprehensive services check...
+Starting comprehensive services check...
+[2026-02-19 21:45:00] ==========================================
+==========================================
+[2026-02-19 21:45:00] 
+
+[2026-02-19 21:45:00] --- ONDE.LA ---
+--- ONDE.LA ---
+[2026-02-19 21:45:01] ✅ onde.la homepage: HTTP 200
+✅ onde.la homepage: HTTP 200
+[2026-02-19 21:45:01] ✅ onde.la /libri: HTTP 200
+✅ onde.la /libri: HTTP 200
+[2026-02-19 21:45:01] ✅ onde.la /giochi: HTTP 200
+✅ onde.la /giochi: HTTP 200
+[2026-02-19 21:45:02] ✅ onde.la /about: HTTP 200
+✅ onde.la /about: HTTP 200
+[2026-02-19 21:45:02] ✅ onde.la /games: HTTP 200
+✅ onde.la /games: HTTP 200
+[2026-02-19 21:45:02] ✅ onde.la /app: HTTP 200
+✅ onde.la /app: HTTP 200
+[2026-02-19 21:45:02] 
+
+[2026-02-19 21:45:02] --- GAMES ---
+--- GAMES ---
+[2026-02-19 21:45:03] ✅ Moonlight Magic House: HTTP 200
+✅ Moonlight Magic House: HTTP 200
+[2026-02-19 21:45:03] ✅ Moonlight Magic House (static): HTTP 200
+✅ Moonlight Magic House (static): HTTP 200
+[2026-02-19 21:45:03] ✅ Moonlight Magic House assets: HTTP 200
+✅ Moonlight Magic House assets: HTTP 200
+[2026-02-19 21:45:03] 
+
+[2026-02-19 21:45:03] --- BOOKS/PDFs ---
+--- BOOKS/PDFs ---
+[2026-02-19 21:45:04] ✅ Meditations PDF: HTTP 200
+✅ Meditations PDF: HTTP 200
+[2026-02-19 21:45:04] ✅ Shepherd's Promise PDF: HTTP 200
+✅ Shepherd's Promise PDF: HTTP 200
+[2026-02-19 21:45:04] 
+
+[2026-02-19 21:45:04] --- STATIC ASSETS ---
+--- STATIC ASSETS ---
+[2026-02-19 21:45:05] ✅ Logo: HTTP 200
+✅ Logo: HTTP 200
+[2026-02-19 21:45:05] ✅ Icon SVG: HTTP 200
+✅ Icon SVG: HTTP 200
+[2026-02-19 21:45:05] ✅ Apple Icon: HTTP 200
+✅ Apple Icon: HTTP 200
+[2026-02-19 21:45:05] ✅ RSS Feed: HTTP 200
+✅ RSS Feed: HTTP 200
+[2026-02-19 21:45:05] ✅ Atom Feed: HTTP 200
+✅ Atom Feed: HTTP 200
+[2026-02-19 21:45:05] 
+
+[2026-02-19 21:45:05] --- ONDE.SURF ---
+--- ONDE.SURF ---
+[2026-02-19 21:45:06] ✅ onde.surf auth redirect: HTTP 307
+✅ onde.surf auth redirect: HTTP 307
+[2026-02-19 21:45:06] 
+
+[2026-02-19 21:45:06] --- EXTERNAL ---
+--- EXTERNAL ---
+[2026-02-19 21:45:06] Skipping external links (Twitter/YouTube may redirect)
+Skipping external links (Twitter/YouTube may redirect)
+[2026-02-19 21:45:06] 
+
+[2026-02-19 21:45:06] ==========================================
+==========================================
+[2026-02-19 21:45:06] SUMMARY
+SUMMARY
+[2026-02-19 21:45:06] ==========================================
+==========================================
+[2026-02-19 21:45:06] Successes: 17
+Successes: 17
+[2026-02-19 21:45:06] Failures: 0
+Failures: 0
+[2026-02-19 21:45:06] Report saved to /Users/mattia/Projects/Onde/scripts/services-status.json
+[2026-02-19 21:45:06] Done.

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T07:47:44.900709+00:00",
+  "timestamp": "2026-02-20T05:28:43.623065+00:00",
   "sources": [
     "coindesk",
     "cointelegraph",
@@ -10,214 +10,214 @@
   "article_count": 40,
   "results": [
     {
-      "title": "Animoca Brands secures Dubai crypto license to expand services in Middle East",
-      "url": "https://cointelegraph.com/news/animoca-brands-dubai-vara-vasp-license-middle-east?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Dubai\u2019s regulator approved the license on Feb. 5, allowing Animoca Brands to target institutional and qualified investors under the oversight of Dubai\u2019s VARA.",
-      "published": "2026-02-16T07:22:14+00:00"
-    },
-    {
-      "title": "Crypto market drowns in red as bitcoin falls to $68,000",
-      "url": "https://www.coindesk.com/markets/2026/02/16/crypto-market-drowns-in-red-as-bitcoin-falls-to-usd68-000",
+      "title": "Metaplanet CEO rebuts critics over bitcoin strategy and transparency",
+      "url": "https://www.coindesk.com/markets/2026/02/20/metaplanet-ceo-rebuts-critics-over-bitcoin-strategy-and-transparency",
       "source": "coindesk",
-      "description": "Traders are bracing for a heavy week of macroeconomic events, including Fed minutes and the core PCE inflation report.",
-      "published": "2026-02-16T06:48:34+00:00"
+      "description": "Simon Gerovich defends disclosure standards, options trading model, and hotel operations.",
+      "published": "2026-02-20T05:27:10+00:00"
     },
     {
-      "title": "Bitcoin down 22%, could it be the worst Q1 since 2018?",
-      "url": "https://cointelegraph.com/news/bitcoin-track-for-worst-q1-since-2018-first-ever-red-jan-and-feb?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "White House floats limited stablecoin rewards in 3rd crypto, bank meeting",
+      "url": "https://cointelegraph.com/news/crypto-banks-meet-white-house-stablecoin-rewards?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "If Bitcoin posts a loss at the end of this month, it will also mark Bitcoin\u2019s first time ending both January and February in the red.",
-      "published": "2026-02-16T06:18:03+00:00"
+      "description": "White House crypto adviser Patrick Witt reportedly refocused crypto and bank lobby talks on a crypto bill to allow stablecoin rewards tied to transaction activity.",
+      "published": "2026-02-20T05:18:23+00:00"
     },
     {
-      "title": "Russians move $129B in crypto yearly \u2018outside our attention\u2019: Official",
-      "url": "https://cointelegraph.com/news/russian-finance-ministry-reveals-648m-daily-crypto-volume-amid-regulatory-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Russia\u2019s deputy finance minister says around 50 billion rubles worth of crypto changes hands daily, calling for crypto market regulation.",
-      "published": "2026-02-16T06:14:41+00:00"
-    },
-    {
-      "title": "Kevin O\u2019Leary wins $2.8M defamation suit against Ben Armstrong",
-      "url": "https://cointelegraph.com/news/kevin-o-leary-wins-defamation-suit-against-bitboy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "A Miami federal judge has entered a default judgment against Ben Armstrong, who failed to respond to Kevin O\u2019Leary\u2019s complaint accusing him of defamation.",
-      "published": "2026-02-16T06:07:14+00:00"
-    },
-    {
-      "title": "OpenAI Taps OpenClaw Founder to Lead Push Into Personal AI Agents",
-      "url": "https://decrypt.co/358141/openai-openclaw-founder-lead-push-personal-ai-agents",
+      "title": "Custodia CEO Says Trump Family Crypto Ties Are Part of Clarity Act Problem",
+      "url": "https://decrypt.co/358695/custodia-ceo-trump-family-crypto-ties-clarity-act-problem",
       "source": "decrypt",
-      "description": "The founder said he is turning OpenClaw into a foundation, calling OpenAI the fastest way to bring open agents to everyone.",
-      "published": "2026-02-16T05:33:38+00:00"
+      "description": "At ETH Denver, Caitlin Long said the ethics controversy around Trump-linked crypto projects has complicated Senate support.",
+      "published": "2026-02-20T04:36:25+00:00"
     },
     {
-      "title": "UK Prime Minister Seeks New Powers to Regulate AI Chatbots as Child Safety Concerns Mount",
-      "url": "https://decrypt.co/358138/uk-prime-minister-seeks-new-powers-regulate-ai-chatbots",
+      "title": "Crypto miner Bitdeer tanks 17% after $300M debt offering",
+      "url": "https://cointelegraph.com/news/bitdeer-stock-drops-17-after-convertible-senior-note-offering?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitdeer has launched its second-ever convertible senior note offering, which has seen its shares tumble 29% so far this year.",
+      "published": "2026-02-20T04:30:29+00:00"
+    },
+    {
+      "title": "Risk-Off Capital Shifts Toward Tokenized Assets as DeFi Pulls Back",
+      "url": "https://decrypt.co/358693/risk-off-capital-shifts-toward-tokenized-assets-defi-pulls-back",
       "source": "decrypt",
-      "description": "The move would bring AI chatbots under UK online safety laws, enabling rapid age limits and feature curbs to protect children.",
-      "published": "2026-02-16T05:13:09+00:00"
+      "description": "Capital is rotating out of DeFi into tokenized assets as experts say the shift reflects maturing markets, not capitulation.",
+      "published": "2026-02-20T04:16:22+00:00"
     },
     {
-      "title": "Aave founder pitches $50T \u2018abundance asset\u2019 boom to drive DeFi",
-      "url": "https://cointelegraph.com/news/aave-founder-defi-tokenize-50t-abundance-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Fed\u2019s Kashkari lashes crypto and stablecoins, praises AI",
+      "url": "https://cointelegraph.com/news/fed-neel-kashkari-lashes-crypto-and-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Aave Labs CEO Stani Kulechov said onchain lending could help accelerate the development of solar, energy storage and robotics by putting money behind \u201cfuture-proof\u201d assets.",
-      "published": "2026-02-16T05:04:07+00:00"
+      "description": "Minneapolis Fed President Neel Kashkari says crypto is \u201cutterly useless\u201d compared to AI, and that pro-stablecoin arguments are \u201ca buzzword salad.\u201d",
+      "published": "2026-02-20T04:13:29+00:00"
     },
     {
-      "title": "Bitcoin Leverage Heats Up as Traders Bet on Price Rebound",
-      "url": "https://decrypt.co/358134/bitcoin-leverage-heats-up-as-traders-bet-on-price-rebound",
+      "title": "Illicit stablecoin activity hit 5-year high of $141B in 2025: TRM Labs",
+      "url": "https://cointelegraph.com/news/illicit-stablecoin-activity-hits-five-year-high-at-141b-trm-labs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Sanctions evasion networks, guarantee marketplaces, and large-scale money laundering schemes dominated illicit stablecoin use, says TRM Labs.",
+      "published": "2026-02-20T03:30:38+00:00"
+    },
+    {
+      "title": "Bitcoin selloff due to quantum fears doesn\u2019t add up with Ether flat, says dev",
+      "url": "https://cointelegraph.com/news/bitcoin-price-quantum-computing-fears-ethereum-developer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin developer Matt Carallo says Bitcoiners are looking to \u201cblame something\u201d for the asset\u2019s sluggish price, dismissing quantum fears as the culprit.",
+      "published": "2026-02-20T02:58:43+00:00"
+    },
+    {
+      "title": "Australian Executive Accused of Selling Cyber Secrets to Russia for Crypto",
+      "url": "https://decrypt.co/358690/australian-executive-cyber-secrets-russia-crypto",
       "source": "decrypt",
-      "description": "Bitcoin's futures basis has widened amid retail dip buying surges, but one expert warns the setup may end in an \"over-leveraged shakeout.\"",
-      "published": "2026-02-16T04:24:00+00:00"
+      "description": "U.S. prosecutors say the former defense contractor executive took about $1.26 million in crypto to transfer sensitive exploit tools tied to Five Eyes intelligence work.",
+      "published": "2026-02-20T02:52:25+00:00"
     },
     {
-      "title": "Strategy to equitize convertible debt over 3-6 years: Saylor",
-      "url": "https://cointelegraph.com/news/strategy-plans-equitize-convertible-debt-over-next-3-6-years-saylor?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "AI agents not worth the cost as humans still cheaper: Tech execs",
+      "url": "https://cointelegraph.com/news/ai-agents-wont-steal-jobs-if-theyre-too-expensive-to-run?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "The world\u2019s largest digital asset treasury plans to convert $6 billion in bond debt to equity, claiming that it could survive an 88% Bitcoin crash.",
-      "published": "2026-02-16T04:14:47+00:00"
+      "description": "Tech investor Jason Calacanis says he\u2019s paying around $110,000 annualized to run an AI agent, more than most US salaries, and it\u2019s not running at full capacity.",
+      "published": "2026-02-20T01:45:30+00:00"
     },
     {
-      "title": "Hollywood\u2019s AI Crackdown Opens Door for Copyright Detection Startups",
-      "url": "https://decrypt.co/358131/hollywoods-ai-crackdown-copyright-detection-startups",
+      "title": "White House, Banks and Crypto Groups Resume Talks on Stablecoin Rewards",
+      "url": "https://decrypt.co/358688/white-house-banks-crypto-groups-resume-talks-stablecoin",
       "source": "decrypt",
-      "description": "Studios are escalating pressure on AI developers, as new tools aim to document whether generative models are trained on copyrighted material.",
-      "published": "2026-02-16T02:49:10+00:00"
+      "description": "Stablecoin incentives remain a key unresolved issue as lawmakers seek to advance digital-asset market-structure legislation.",
+      "published": "2026-02-20T01:01:28+00:00"
     },
     {
-      "title": "Grayscale seeks to convert Aave trust into ETF on NYSE Arca",
-      "url": "https://cointelegraph.com/news/grayscale-files-convert-aave-trust-etf-launch-nyse-arca?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Grayscale joins Bitwise in filing to launch a standalone Aave product in the US, betting that Wall Street has retained its appetite for altcoins.",
-      "published": "2026-02-16T02:44:26+00:00"
-    },
-    {
-      "title": "TradFi giant Apollo enters crypto lending  arena via Morpho deal",
-      "url": "https://cointelegraph.com/news/apollo-deepens-blockchain-play-enters-crypto-lending-via-morpho-partnership?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The $940 billion asset manager will collaborate on DeFi lending infrastructure and could acquire up to 90 million MORPHO tokens.",
-      "published": "2026-02-16T02:28:01+00:00"
-    },
-    {
-      "title": "Solution worse than problem? Adam Back opposes BIP-110 Ordinals fix",
-      "url": "https://cointelegraph.com/news/adam-back-opposes-bip110-fixing-arbitrary-data-spam?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Blockstream\u2019s Adam Back said BIP-110 could be used to freeze user funds, but the proposal\u2019s creator argues that safeguards are in place to prevent that.",
-      "published": "2026-02-16T01:57:35+00:00"
-    },
-    {
-      "title": "CZ says lack of onchain privacy is holding back crypto payments",
-      "url": "https://cointelegraph.com/news/cz-privacy-holding-back-crypto-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Transparency, which is a hallmark feature of most cryptocurrencies, is likely one of the biggest hurdles to mass adoption, the Binance founder said.",
-      "published": "2026-02-15T21:33:36+00:00"
-    },
-    {
-      "title": "Wall Street giant Apollo deepens crypto push with Morpho token deal",
-      "url": "https://www.coindesk.com/business/2026/02/15/wall-street-giant-apollo-deepens-crypto-push-with-morpho-token-deal",
+      "title": "Inside the meeting: White House favors some stablecoin rewards, tells banks it's time to move",
+      "url": "https://www.coindesk.com/policy/2026/02/19/inside-the-meeting-white-house-favors-some-stablecoin-rewards-tells-banks-it-s-time-to-move",
       "source": "coindesk",
-      "description": "The asset manager overseeing more than $900 billion assets may buy up to 90 million MORPHO tokens as part of a partnership to support DeFi credit market, it said.",
-      "published": "2026-02-15T20:59:12+00:00"
+      "description": "Sources familiar with the talks on stablecoin yields say the White House urged bankers to get on board with a deal that lets the market structure bill advance.",
+      "published": "2026-02-19T22:36:57+00:00"
     },
     {
-      "title": "OpenClaw Creator Gets Big Offers to Acquire AI Sensation\u2014Will It Stay Open Source?",
-      "url": "https://decrypt.co/358129/openclaw-creator-offers-acquire-ai-sensation-stay-open-source",
+      "title": "Bitcoin options market structure leans toward $60K retest in February",
+      "url": "https://cointelegraph.com/news/bitcoin-options-market-structure-leans-toward-60k-retest-in-february?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin may stay capped under $70,000 as traders deploy bearish options strategies, and spot BTC ETF outflows point to a retest of the yearly low.",
+      "published": "2026-02-19T22:30:00+00:00"
+    },
+    {
+      "title": "'Warhammer' Veteran Jervis Johnson Warns AI Could Become the 'Asbestos of the Internet'",
+      "url": "https://decrypt.co/358680/warhammer-veteran-jervis-johnson-warns-ai-asbestos-internet",
       "source": "decrypt",
-      "description": "Peter Steinberger's open-source AI agent OpenClaw hit 180,000 GitHub stars and spawned MoltBook chaos. Now Meta and OpenAI want to buy it, but he's determined to keep it free.",
-      "published": "2026-02-15T20:01:03+00:00"
+      "description": "The longtime Warhammer designer backed Games Workshop\u2019s generative AI ban, arguing the technology undermines creative work.",
+      "published": "2026-02-19T21:56:11+00:00"
     },
     {
-      "title": "Hong Kong is trying to build up its crypto regulations: State of Crypto",
-      "url": "https://www.coindesk.com/policy/2026/02/16/hong-kong-is-trying-to-build-up-its-crypto-regulations-state-of-crypto",
-      "source": "coindesk",
-      "description": "Several leaders in Hong Kong announced efforts to advance the region's regulatory environment.",
-      "published": "2026-02-15T19:00:00+00:00"
+      "title": "Kraken\u2019s xStocks tops $25B in volume with more than 80K onchain holders",
+      "url": "https://cointelegraph.com/news/kraken-xstocks-25b-tokenized-equities-volume?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Blockchain-based versions of US stocks are drawing growing investor activity, with onchain wallets and cross-venue trading expanding rapidly.",
+      "published": "2026-02-19T21:49:46+00:00"
     },
     {
-      "title": "Her Divorce Was Ugly. Crypto Became a Lifeline",
-      "url": "https://decrypt.co/358087/her-divorce-ugly-crypto-lifeline",
+      "title": "AI in Hollywood? 'Silicon Valley' Star T.J. Miller Isn't Worried",
+      "url": "https://decrypt.co/358660/ai-hollywood-silicon-valley-star-tj-miller-isnt-worried",
       "source": "decrypt",
-      "description": "A mother in Texas said that crypto helped her overcome financial abuse.",
-      "published": "2026-02-15T18:01:02+00:00"
+      "description": "\u201cSilicon Valley\u201d actor T.J. Miller joked that an AI bot \u201creplaced\u201d him as this week\u2019s ETH Denver host, amid actual growing job fears.",
+      "published": "2026-02-19T21:36:47+00:00"
     },
     {
-      "title": "Prediction markets vs. insider trading: Founders admit blockchain transparency is the only defense",
-      "url": "https://www.coindesk.com/business/2026/02/13/prediction-markets-vs-insider-trading-founders-admit-blockchain-transparency-is-the-only-defense",
+      "title": "Bitcoin Lightning Network exceeds $1B in monthly volume: Report",
+      "url": "https://cointelegraph.com/news/bitcoin-lightning-network-1b-monthly-volume?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Analysis by Bitcoin services company River forecasts a transaction surge as individuals and businesses experiment with AI agentic payments.",
+      "published": "2026-02-19T21:32:02+00:00"
+    },
+    {
+      "title": "Bitcoin\u2019s monthly losses break records, but history says a turnaround is brewing",
+      "url": "https://cointelegraph.com/news/bitcoin-s-monthly-losses-break-records-but-history-says-a-turnaround-is-brewing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin is on course to lock in another negative month, but one analyst says major differences in the current market structure could be a sign of a pending trend reversal.",
+      "published": "2026-02-19T21:15:00+00:00"
+    },
+    {
+      "title": "Bitcoin steadies near $67,000 as traders pay for crash protection",
+      "url": "https://www.coindesk.com/markets/2026/02/19/bitcoin-steadies-near-usd67-000-as-traders-pay-for-crash-protection",
       "source": "coindesk",
-      "description": "Prediction markets are increasingly being framed not as gambling platforms but as vehicles for monetizing information, though founders acknowledged the line can blur.",
-      "published": "2026-02-15T18:00:00+00:00"
+      "description": "The average bitcoin ETF investor now sits on a 20% paper loss, leaving the market vulnerable to capitulation selling if prices slide further, a Wintermute trader said.",
+      "published": "2026-02-19T21:13:30+00:00"
     },
     {
-      "title": "Bitcoin Takes Step Towards Quantum Fix as Experts Diverge on Urgency of Threat",
-      "url": "https://decrypt.co/358068/bitcoin-quantum-fix-experts-diverge-urgency-threat",
+      "title": "Google Brings AI Music Generation to Gemini\u2014We Tried It, and It's Too Little Too Late",
+      "url": "https://decrypt.co/358654/google-ai-music-gemini-lyria-3-review-suno-udio",
       "source": "decrypt",
-      "description": "Bitcoin developers lay the groundwork for post-quantum upgrades, but experts vary on whether the threat is years or decades away.",
-      "published": "2026-02-15T16:17:16+00:00"
+      "description": "Google AI music generator Lyria 3 is now available on the Gemini app. It works\u2014mostly\u2014but the competition has a big head start.",
+      "published": "2026-02-19T21:13:13+00:00"
     },
     {
-      "title": "BlackRock's digital assets head: Leverage-driven volatility threatens bitcoin\u2019s narrative",
-      "url": "https://www.coindesk.com/markets/2026/02/13/blackrock-s-head-of-digital-assets-warns-leverage-driven-volatility-risks-undermine-bitcoin-s-institutional-narrative",
-      "source": "coindesk",
-      "description": "Rampant speculation on crypto derivatives platforms is fueling volatility and risking bitcoin\u2019s image as a stable hedge, says BlackRock\u2019s digital assets chief.",
-      "published": "2026-02-15T14:00:00+00:00"
-    },
-    {
-      "title": "XRP outruns bitcoin, ether after investors piled into the recent crash",
-      "url": "https://www.coindesk.com/markets/2026/02/15/xrp-is-outrunning-bitcoin-and-ether-after-investors-piled-into-the-recent-crash",
-      "source": "coindesk",
-      "description": "XRP is outperforming bitcoin and ether following signs of dip buying during recent crash.",
-      "published": "2026-02-15T13:39:18+00:00"
-    },
-    {
-      "title": "Wall Street remains bullish on bitcoin while offshore traders retreat",
-      "url": "https://www.coindesk.com/markets/2026/02/15/wall-street-remains-bullish-on-bitcoin-while-offshore-traders-retreat",
-      "source": "coindesk",
-      "description": "The difference in futures basis between CME and Deribit reflects varying risk appetite across regions.",
-      "published": "2026-02-15T12:00:00+00:00"
-    },
-    {
-      "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
+      "title": "Fed\u2019s Kashkari: Crypto \u201cUtterly Useless,\u201d Stablecoins No Match for Venmo",
+      "url": "https://bitcoinmagazine.com/news/feds-kashkari-crypto-utterly-useless",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Reclaims $70,000 After Deep February Slide After a rough sell-off that dragged BTC near $60,000, the bitcoin price has rebounded above $70,000. This post Bitcoin Price Reclaims $70,000 After Deep February Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-15T05:00:44+00:00"
+      "description": "Bitcoin Magazine Fed\u2019s Kashkari: Crypto \u201cUtterly Useless,\u201d Stablecoins No Match for Venmo Federal Reserve Bank of Minneapolis President Neel Kashkari delivered another pointed criticism of crypto today. This post Fed\u2019s Kashkari: Crypto \u201cUtterly Useless,\u201d Stablecoins No Match for Venmo first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T20:35:52+00:00"
     },
     {
-      "title": "Can Meme Coins Power a Senate Bid? Virginia\u2019s Mark Moran Says Yes",
-      "url": "https://decrypt.co/358070/can-meme-coins-power-senate-bid-virginia-mark-moran-says-yes",
+      "title": "Ethereum Treasury Sharplink Reports Growing ETH Holdings, Institutional Investment",
+      "url": "https://decrypt.co/358652/ethereum-treasury-sharplink-growing-eth-holdings-institutional-investment",
       "source": "decrypt",
-      "description": "Mark Moran is using a meme coin on Solana to elevate his U.S. Senate bid, rallying degens against a pro-crypto Democrat in Virginia.",
-      "published": "2026-02-14T18:14:46+00:00"
+      "description": "Sharplink is shaking up its branding as it reports additional Ethereum holdings and a rising number of institutional investors.",
+      "published": "2026-02-19T20:02:50+00:00"
     },
     {
-      "title": "The Genius Act ripple effect: Sui executives say institutional demand has never been higher",
-      "url": "https://www.coindesk.com/business/2026/02/13/the-genius-act-ripple-effect-sui-executives-say-institutional-demand-has-never-been-higher",
-      "source": "coindesk",
-      "description": "Evan Cheng and Stephen Mackintosh said 2025 marked a turning point for institutional adoption, with tokenization and agentic commerce emerging as the next frontier.",
-      "published": "2026-02-14T18:00:00+00:00"
+      "title": "Senator Warren Urges Treasury and Fed Not to Bail Out Crypto Billionaires Saylor and CZ Amid Bitcoin Slide",
+      "url": "https://bitcoinmagazine.com/news/senator-warren-not-to-bail-out-crypto",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Senator Warren Urges Treasury and Fed Not to Bail Out Crypto Billionaires Saylor and CZ Amid Bitcoin Slide Sen. Elizabeth Warren urged the Treasury Department and the Federal Reserve to rule out any taxpayer-funded intervention to stabilize Bitcoin. This post Senator Warren Urges Treasury and Fed Not to Bail Out Crypto Billionaires Saylor and CZ Amid Bitcoin Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T19:43:54+00:00"
     },
     {
-      "title": "Elon Musk's X to launch crypto and stock trading in \u2018couple weeks\u2019",
-      "url": "https://www.coindesk.com/business/2026/02/14/elon-musk-s-x-to-launch-crypto-and-stock-trading-in-couple-weeks",
-      "source": "coindesk",
-      "description": "Users will be able to interact with ticker symbols in posts and execute trades within the app, the company's head of product said.",
-      "published": "2026-02-14T17:33:54+00:00"
+      "title": "Bitcoin\u2019s Lightning Network Surpasses $1 Billion in Monthly Volume As Adoption Grows",
+      "url": "https://bitcoinmagazine.com/news/bitcoins-lightning-network-surpasses",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin\u2019s Lightning Network Surpasses $1 Billion in Monthly Volume As Adoption Grows Bitcoin\u2019s Lightning Network topped $1.17 billion in November monthly volume across 5.22 million transactions, according to River Financial, which says the milestone reflects growing adoption despite flat price action. This post Bitcoin\u2019s Lightning Network Surpasses $1 Billion in Monthly Volume As Adoption Grows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T19:37:48+00:00"
     },
     {
-      "title": "Bitcoin Is Down Bad, But Hasn't Yet Hit Its 'Ultimate Bear Market Bottom': Analysts",
-      "url": "https://decrypt.co/358083/bitcoin-down-bad-hasnt-hit-ultimate-bear-market-bottom",
+      "title": "'The Sandbox' Adds Web-Based Games in Season 7 Accessibility Push",
+      "url": "https://decrypt.co/358594/sandbox-web-based-games-season-7-rollout-accessibility-push",
       "source": "decrypt",
-      "description": "Despite its 45% fall since its October peak, Bitcoin has not yet found its bear market bottom, according to a new report from CryptoQuant.",
-      "published": "2026-02-14T16:11:05+00:00"
+      "description": "Crypto gaming metaverse platform The Sandbox is rolling out its Season 7 content push, making it easier than ever for players to jump in.",
+      "published": "2026-02-19T19:01:02+00:00"
     },
     {
-      "title": "Galaxy\u2019s Steve Kurz sees \u2018great convergence\u2019 driving crypto\u2019s long-term outlook",
-      "url": "https://www.coindesk.com/business/2026/02/14/galaxy-s-steve-kurz-sees-great-convergence-driving-crypto-s-long-term-outlook",
+      "title": "Latest White House talks on stablecoin yield make 'progress' with banks, no deal yet",
+      "url": "https://www.coindesk.com/policy/2026/02/19/latest-white-house-talks-on-stablecoin-yield-make-progress-with-banks-no-deal-yet",
       "source": "coindesk",
-      "description": "The firm's asset-management chief says the recent crypto selloff reflects healthy deleveraging, while infrastructure growth and institutional adoption support a bullish outlook.",
-      "published": "2026-02-14T16:00:00+00:00"
+      "description": "In the latest of a series of meetings hosted at the White House, bankers and crypto policy experts met to break down the wall halting the market structure bill.",
+      "published": "2026-02-19T19:00:35+00:00"
+    },
+    {
+      "title": "Accenture Is Tracking Whether Employees Use AI\u2014And Promotions Are on the Line",
+      "url": "https://decrypt.co/358616/accenture-tracking-employees-use-ai-promotions",
+      "source": "decrypt",
+      "description": "Consulting giant Accenture is monitoring senior staff logins to AI tools and tying career advancement to adoption rates\u2014all while AI threatens to eliminate jobs.",
+      "published": "2026-02-19T18:48:04+00:00"
+    },
+    {
+      "title": "Eric Trump reitrates claim bitcoin is just getting started on its road to $1 million",
+      "url": "https://www.coindesk.com/markets/2026/02/19/eric-trump-double-downs-on-usd1-million-bitcoin-prediction-during-world-financial-forum",
+      "source": "coindesk",
+      "description": "U.S. President Donald Trump\u2019s son Eric Trump acknowledged bitcoin\u2019s volatility but said its upside potential outweighs the risks as prices hover below $70,000.",
+      "published": "2026-02-19T18:00:27+00:00"
+    },
+    {
+      "title": "Susquehanna-backed Blockfills up for sale after $75 million lending loss",
+      "url": "https://www.coindesk.com/business/2026/02/19/susquehanna-backed-blockfills-up-for-sale-after-usd75-million-lending-loss",
+      "source": "coindesk",
+      "description": "The Chicago-based company said it was temporarily suspending client deposits and withdrawals last week due to recent market and financial conditions.",
+      "published": "2026-02-19T17:39:07+00:00"
+    },
+    {
+      "title": "Bitdeer Stock (BTDR) Crashes 18% on $300M Convertible Note Offering, Dilution Fears Mount",
+      "url": "https://bitcoinmagazine.com/news/bitdeer-stock-btdr-crashes-18",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitdeer Stock (BTDR) Crashes 18% on $300M Convertible Note Offering, Dilution Fears Mount Bitdeer Technologies\u2019 shares slid sharply today after announcing plans to raise $300 million through a private sale of convertible senior notes. This post Bitdeer Stock (BTDR) Crashes 18% on $300M Convertible Note Offering, Dilution Fears Mount first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-19T17:02:43+00:00"
     }
   ]
 }

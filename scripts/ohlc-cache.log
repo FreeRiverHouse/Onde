@@ -162,3 +162,25 @@ ETH:
   Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
 
 ✅ Cache update complete
+=== OHLC Cache Update - 2026-02-18T08:30:01.685428+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Cache is fresh, skipping
+
+ETH:
+  Cache is fresh, skipping
+
+✅ Cache update complete
+=== OHLC Cache Update - 2026-02-19T08:30:01.817710+00:00 ===
+Caching 90 days of data
+
+BTC:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/btc-ohlc.json
+
+ETH:
+  Fetching 90 days from CoinGecko...
+  Saved 23 candles to /Users/mattia/Projects/Onde/data/ohlc/eth-ohlc.json
+
+✅ Cache update complete
