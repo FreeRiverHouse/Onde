@@ -71,6 +71,24 @@ Il gateway risincronizza dal keychain macOS ogni 15 min (`EXTERNAL_CLI_SYNC_TTL_
 |---------|-------|------------|----------|-----|
 | claude-sonnet-4-6 | 5x economico | ~80 req/min | 3-4s | ✅ Bot con cron, default |
 | claude-opus-4-6 | Costoso | ~20 req/min | 8-15s | Task complessi only |
+| nvidia/moonshotai/kimi-k2.5 | **Gratis** | Rate-limited | 2-5s | ✅ House chat default |
+| nvidia/mistralai/mistral-large-3-675b | **Gratis** | Rate-limited | 3-6s | Fallback #1 |
+| nvidia/meta/llama-3.3-70b-instruct | **Gratis** | Rate-limited | 2-4s | Fallback #2 |
+
+---
+
+## ⭐ NVIDIA API Keys (Kimi / modelli gratuiti)
+
+Due account NVIDIA, ciascuno con la propria API key. Se una key è rate-limited (429), switchare all'altra.
+
+| Account | API Key | Scadenza |
+|---------|---------|----------|
+| MagmaticXR | `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` | 08/2026 |
+| FreeRiverHouse | `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` | 08/2026 |
+
+**Fallback chain**: Kimi K2.5 → Mistral L3 → Llama 70B. Se il modello ritorna `content: null` o 429, prova il prossimo.
+
+**Gestione key**: Ogni Mac gestisce `.clawdbot/clawdbot.json` → `providers.nvidia.apiKey`. I listener house chat usano la key direttamente (non passano dal gateway).
 
 ---
 
