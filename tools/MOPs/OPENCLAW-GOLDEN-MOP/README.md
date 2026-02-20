@@ -213,7 +213,7 @@ Con molti cron jobs (es. ogni 2 min) il bot puo' sembrare lento o non rispondere
 Ogni Mac della fleet DEVE avere il proprio ClawdBot **completamente indipendente**:
 - Proprio `clawdbot.json` con il proprio bot token Telegram
 - Proprio gateway su porta 18789
-- Proprio modello primario (default: `anthropic/claude-sonnet-4-6`)
+- Proprio modello primario (vedi tabella sotto)
 - **Nessuna dipendenza da altri Mac** per funzionare
 
 **Incidente**: Sonnet creo' un sistema `frh-house-chat` che ruotava le risposte attraverso M1. Quando M1 era spento, tutti i bot smettevano di rispondere su Telegram.
@@ -231,7 +231,15 @@ Ogni Mac della fleet DEVE avere il proprio ClawdBot **completamente indipendente
 | @Onde_clawd_bot | M4 (Ondinho) | `8590199535:AAE-i7eBsC81SBqg6Sr1Pd-DzJ4xu8x8EG0` |
 | @Bubble_FRH_bot | Bubble (Catalina) | `8293653812:AAEsN1-FJDXDwyn69zcnlej_xrTdUHDcL9k` |
 
-**Verificato 2026-02-19**: ogni Mac ha un token Telegram DIVERSO — nessun conflitto cross-Mac.
+**Stato fleet verificato 2026-02-20** (testato via API, Lesson #15):
+
+| Mac | Modello Primario | Fallback | Stato |
+|-----|-----------------|----------|-------|
+| M1 (Clawdinho) | `anthropic/claude-sonnet-4-6` | Kimi K2.5 | ✅ (ha keychain refresh) |
+| M4 (Ondinho) | `nvidia/moonshotai/kimi-k2.5` | Mistral Large 3, Llama 70B | ✅ |
+| Bubble | `nvidia/moonshotai/kimi-k2.5` | Mistral Large 3, Llama 70B | ✅ |
+
+**NOTA**: Solo M1 puo' usare Anthropic come primary (ha keychain). M4 e Bubble usano NVIDIA (Lesson #14).
 
 ---
 
