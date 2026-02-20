@@ -165,6 +165,8 @@ function modelShort(model: string) {
   if (model.includes('sonnet-4-6')) return 'Sonnet 4.6'
   if (model.includes('opus-4-6')) return 'Opus 4.6'
   if (model.includes('kimi')) return 'Kimi K2.5'
+  if (model.includes('mistral-large-3')) return 'Mistral L3'
+  if (model.includes('llama-3.3-70b')) return 'Llama 70B'
   if (model.includes('qwen')) return 'Qwen'
   return model.split('/').pop() || model
 }
@@ -319,13 +321,38 @@ function BotCard({ bot, onSwitch }: { bot: BotStatus; onSwitch: (macId: string, 
       {/* Switch Buttons */}
       <div className="space-y-2">
         <div className="text-[10px] uppercase tracking-widest text-white/25 mb-2">Switch Primary</div>
-        <div className="grid grid-cols-2 gap-2">
+        {/* NVIDIA models - free, no token expiry (MOP Lesson #14) */}
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            onClick={() => handleSwitch('nvidia/moonshotai/kimi-k2.5')}
+            disabled={!!switching || bot.primaryModel === 'nvidia/moonshotai/kimi-k2.5'}
+            className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2 px-3 text-xs text-orange-300 hover:bg-orange-500/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            {switching === 'nvidia/moonshotai/kimi-k2.5' ? '⏳' : ''} Kimi K2.5
+          </button>
+          <button
+            onClick={() => handleSwitch('nvidia/mistralai/mistral-large-3-675b-instruct-2512')}
+            disabled={!!switching || bot.primaryModel === 'nvidia/mistralai/mistral-large-3-675b-instruct-2512'}
+            className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2 px-3 text-xs text-orange-300 hover:bg-orange-500/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            {switching === 'nvidia/mistralai/mistral-large-3-675b-instruct-2512' ? '⏳' : ''} Mistral L3
+          </button>
+          <button
+            onClick={() => handleSwitch('nvidia/meta/llama-3.3-70b-instruct')}
+            disabled={!!switching || bot.primaryModel === 'nvidia/meta/llama-3.3-70b-instruct'}
+            className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2 px-3 text-xs text-orange-300 hover:bg-orange-500/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            {switching === 'nvidia/meta/llama-3.3-70b-instruct' ? '⏳' : ''} Llama 70B
+          </button>
+        </div>
+        {/* Anthropic models - only M1 has keychain (MOP Lesson #14) */}
+        <div className="grid grid-cols-3 gap-2">
           <button
             onClick={() => handleSwitch('anthropic/claude-sonnet-4-6')}
             disabled={!!switching || bot.primaryModel === 'anthropic/claude-sonnet-4-6'}
             className="rounded-lg bg-cyan-500/10 border border-cyan-500/20 py-2 px-3 text-xs text-cyan-300 hover:bg-cyan-500/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
           >
-            {switching === 'anthropic/claude-sonnet-4-6' ? '⏳' : ''}  Sonnet 4.6
+            {switching === 'anthropic/claude-sonnet-4-6' ? '⏳' : ''} Sonnet 4.6
           </button>
           <button
             onClick={() => handleSwitch('anthropic/claude-opus-4-6')}
@@ -335,18 +362,11 @@ function BotCard({ bot, onSwitch }: { bot: BotStatus; onSwitch: (macId: string, 
             {switching === 'anthropic/claude-opus-4-6' ? '⏳' : ''} Opus 4.6
           </button>
           <button
-            onClick={() => handleSwitch('nvidia/moonshotai/kimi-k2.5')}
-            disabled={!!switching || bot.primaryModel === 'nvidia/moonshotai/kimi-k2.5'}
-            className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2 px-3 text-xs text-orange-300 hover:bg-orange-500/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-          >
-            {switching === 'nvidia/moonshotai/kimi-k2.5' ? '⏳' : ''} Kimi K2.5
-          </button>
-          <button
             onClick={() => handleSwitch('refresh-token')}
             disabled={!!switching}
             className="rounded-lg bg-white/5 border border-white/10 py-2 px-3 text-xs text-white/50 hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
           >
-            {switching === 'refresh-token' ? '⏳' : '🔑'} Refresh Token
+            {switching === 'refresh-token' ? '⏳' : '🔑'} Refresh
           </button>
         </div>
         <p className="text-[10px] text-white/20 text-center mt-1">Il Mac applica al prossimo heartbeat (~1 min)</p>

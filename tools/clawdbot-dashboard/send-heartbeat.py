@@ -229,6 +229,22 @@ def get_fresh_token():
         return ""
 
 
+def switch_model_direct(model: str, fallbacks: list[str] | None = None):
+    """Switch primary model by editing clawdbot.json directly + restart gateway.
+    Used for NVIDIA models (no token management needed)."""
+    import time
+    cfg = json.loads(CONFIG_FILE.read_text())
+    cfg["agents"]["defaults"]["model"]["primary"] = model
+    if fallbacks is not None:
+        cfg["agents"]["defaults"]["model"]["fallbacks"] = fallbacks
+    CONFIG_FILE.write_text(json.dumps(cfg, indent=2))
+    print(f"  [switch] clawdbot.json updated: primary={model}")
+    subprocess.run(["launchctl", "stop", "com.clawdbot.gateway"], timeout=10)
+    time.sleep(4)
+    subprocess.run(["launchctl", "start", "com.clawdbot.gateway"], timeout=10)
+    print("  [switch] gateway restarted")
+
+
 def execute_command(cmd: dict):
     """Execute a command received from onde.surf."""
     action = cmd.get("action")
@@ -236,18 +252,31 @@ def execute_command(cmd: dict):
     print(f"[cmd] action={action} model={model}")
 
     if action == "switch":
-        # Determine --model flag
-        if "sonnet" in model:
-            flag = "sonnet"
-        elif "opus" in model:
-            flag = "opus"
+        if model.startswith("nvidia/"):
+            # NVIDIA models: edit config directly (no token needed, MOP Lesson #14)
+            # Set sensible fallbacks based on primary
+            if "kimi" in model:
+                fallbacks = ["nvidia/mistralai/mistral-large-3-675b-instruct-2512", "nvidia/meta/llama-3.3-70b-instruct"]
+            elif "mistral" in model:
+                fallbacks = ["nvidia/moonshotai/kimi-k2.5", "nvidia/meta/llama-3.3-70b-instruct"]
+            elif "llama" in model:
+                fallbacks = ["nvidia/moonshotai/kimi-k2.5", "nvidia/mistralai/mistral-large-3-675b-instruct-2512"]
+            else:
+                fallbacks = None
+            switch_model_direct(model, fallbacks)
         else:
-            flag = "sonnet"
-        script = str(SWITCH_SCRIPT)
-        if Path(script).exists():
-            subprocess.run(["bash", script, "--model", flag], timeout=60)
-        else:
-            print(f"[cmd] script not found: {script}")
+            # Anthropic models: use the token management script
+            if "sonnet" in model:
+                flag = "sonnet"
+            elif "opus" in model:
+                flag = "opus"
+            else:
+                flag = "sonnet"
+            script = str(SWITCH_SCRIPT)
+            if Path(script).exists():
+                subprocess.run(["bash", script, "--model", flag], timeout=60)
+            else:
+                print(f"[cmd] script not found: {script}")
 
     elif action == "refresh-token":
         script = str(SWITCH_SCRIPT)
