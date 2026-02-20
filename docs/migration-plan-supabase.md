@@ -11,11 +11,19 @@ Migrare la House Chat e la dashboard Bot-Configs da Cloudflare Workers/D1/KV a *
 > ## ⛔ REGOLE ANTI-REGRESSIONE
 >
 > 1. **ZERO WEBHOOK**: La route `chat/webhook/route.ts` è **DEAD CODE** — non è mai stata usata in produzione. ClawdBot interpreta le callback webhook come prompt injection. **NON introdurre webhook** in nessuna forma.
-> 2. **Listener = script Node.js standalone**: I listener (`ondinho-listener.js`, etc.) sono processi Node.js indipendenti gestiti da `launchd` (macOS). **NON** sono parte di ClawdBot. **NON** passano per il gateway.
-> 3. **NVIDIA API diretta**: I listener chiamano `integrate.api.nvidia.com` direttamente (NON il gateway clawdbot). Questa logica (`generateResponse()`, `shouldRespond()`, dual-key rotation) **NON VA TOCCATA**.
-> 4. **ClawdBot non è coinvolto**: Il gateway clawdbot (`127.0.0.1:18789`) **NON partecipa** alla house chat. I listener sono completamente separati.
-> 5. **Flusso da preservare**: Messaggio arriva → `shouldRespond()` decide → `generateResponse()` chiama NVIDIA → risposta postata in chat. **Solo il trasporto cambia** (polling HTTP → Supabase Realtime per la ricezione, HTTP POST → Supabase insert per l'invio).
-> 6. **Anti-loop**: La logica `shouldRespond()` è critica per evitare loop infiniti tra bot. **NON modificarla**.
+> 2. **Listener = script Node.js standalone**: I listener (`ondinho-listener.js`, etc.) sono processi Node.js indipendenti gestiti da `launchd` (macOS). **NON** sono parte di ClawdBot.
+> 3. **`generateResponse()` è DIVERSA per ogni bot — NON TOCCARLA**:
+>    - **Ondinho**: chiama `integrate.api.nvidia.com` direttamente (NVIDIA API, dual-key rotation, fallback Kimi→Mistral→Llama)
+>    - **Clawdinho**: chiama il gateway clawdbot locale (`127.0.0.1:18789`) con `anthropic/claude-sonnet-4-6`
+>    - **Bubble**: chiama il gateway clawdbot locale (`127.0.0.1:18789`) con `nvidia/moonshotai/kimi-k2.5`
+>    - La funzione `generateResponse()` di OGNI listener **NON VA TOCCATA**. Solo il trasporto (ricezione e invio messaggi) cambia.
+> 4. **`shouldRespond()` è critica**: Evita loop infiniti tra bot. **NON modificarla**.
+> 5. **Flusso da preservare**: Messaggio arriva → `shouldRespond()` decide → `generateResponse()` chiama AI (ognuno col suo metodo) → risposta postata in chat. **Solo il trasporto cambia** (polling HTTP → Supabase Realtime per la ricezione, HTTP POST → Supabase insert per l'invio).
+> 6. **Cosa cambia per OGNI listener** (e SOLO questo):
+>    - `getNewMessages()` → rimpiazzata da Supabase Realtime subscribe
+>    - `postMessage()` → rimpiazzata da `supabase.from('house_messages').insert()`
+>    - `sendHeartbeat()` → rimpiazzata da `supabase.from('house_heartbeats').upsert()`
+>    - Il file `state.json` e `lastId` vanno **mantenuti** per recovery allo startup
 
 ### Come funziona REALMENTE oggi (non cosa dice il codice)
 
@@ -126,7 +134,8 @@ CREATE TABLE house_messages (
 CREATE INDEX idx_messages_created ON house_messages (created_at DESC);
 CREATE INDEX idx_messages_sender  ON house_messages (sender);
 
--- Abilita Realtime su questa tabella
+-- Abilita Realtime su questa tabella (FULL = invia tutti i campi, non solo la PK)
+ALTER TABLE house_messages REPLICA IDENTITY FULL;
 ALTER PUBLICATION supabase_realtime ADD TABLE house_messages;
 
 -- ═══════════════════════════════════════════════════════
@@ -137,6 +146,7 @@ CREATE TABLE house_heartbeats (
   last_seen  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+ALTER TABLE house_heartbeats REPLICA IDENTITY FULL;
 ALTER PUBLICATION supabase_realtime ADD TABLE house_heartbeats;
 
 -- ═══════════════════════════════════════════════════════
@@ -160,6 +170,7 @@ CREATE TABLE bot_status (
   updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+ALTER TABLE bot_status REPLICA IDENTITY FULL;
 ALTER PUBLICATION supabase_realtime ADD TABLE bot_status;
 
 -- ═══════════════════════════════════════════════════════
@@ -292,28 +303,61 @@ npm install @supabase/supabase-js
 + const { createClient } = require('@supabase/supabase-js')
 + const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 +
++ // All'avvio: recupera messaggi persi durante il downtime
++ async function catchUp() {
++   const state = loadState()
++   const { data } = await supabase
++     .from('house_messages')
++     .select('*')
++     .gt('id', state.lastId)
++     .order('id', { ascending: true })
++     .limit(50)
++   if (data) {
++     for (const msg of data) {
++       if (shouldRespond(msg)) {
++         const reply = await generateResponse(data, msg)
++         if (reply) await postMessage(reply)
++       }
++       saveState({ lastId: msg.id })
++     }
++   }
++ }
++
++ // Realtime: ricevi nuovi messaggi in push
 + supabase
 +   .channel('house-chat')
 +   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'house_messages' }, (payload) => {
 +     const msg = payload.new
++     saveState({ lastId: msg.id })  // Salva per recovery
 +     if (shouldRespond(msg)) {
 +       generateResponse(recentMessages, msg).then(reply => {
 +         if (reply) postMessage(reply)
 +       })
 +     }
 +   })
-+   .subscribe()
++   .subscribe((status) => {
++     if (status === 'SUBSCRIBED') {
++       console.log('🔌 Supabase Realtime connesso')
++       catchUp()  // Recupera messaggi persi
++     }
++   })
 ```
 
 ### Cosa cambia per ogni listener
 
 1. **Rimuovere**: il loop `setInterval` di polling
-2. **Rimuovere**: la funzione `request()` HTTP custom per GET
+2. **Rimuovere**: `getNewMessages()` (polling HTTP)
 3. **Aggiungere**: `@supabase/supabase-js` e subscribe al canale Realtime
-4. **Mantenere**: `generateResponse()` (NVIDIA API diretta con dual-key — non cambia)
-5. **Mantenere**: `shouldRespond()` (logica anti-loop — non cambia)
-6. **Cambiare**: `postMessage()` da `fetch(onde.surf/api/house/chat)` a `supabase.from('house_messages').insert()`
-7. **Cambiare**: heartbeat da `fetch(onde.surf/api/house/chat/status)` a `supabase.from('house_heartbeats').upsert()`
+4. **Aggiungere**: logica `catchUp()` allo startup per recuperare messaggi persi
+5. **Mantenere `state.json`**: salvare `lastId` per recovery al riavvio
+6. **⚠️ Mantenere `generateResponse()` INTATTA** — è diversa per ogni bot:
+   - Ondinho: NVIDIA API diretta con dual-key + fallback (Kimi→Mistral→Llama)
+   - Clawdinho: gateway clawdbot locale con `anthropic/claude-sonnet-4-6`
+   - Bubble: gateway clawdbot locale con `nvidia/moonshotai/kimi-k2.5`
+7. **⚠️ Mantenere `shouldRespond()` INTATTA** (logica anti-loop)
+8. **Cambiare**: `postMessage()` da `fetch(onde.surf/api/house/chat)` a `supabase.from('house_messages').insert()`
+9. **Cambiare**: `sendHeartbeat()` da `fetch(onde.surf/api/house/chat/status)` a `supabase.from('house_heartbeats').upsert()`
+10. **Mantenere**: la funzione `request()` HTTP — serve ancora per `generateResponse()` (Ondinho: NVIDIA API, Clawdinho/Bubble: gateway locale)
 
 ### Post del messaggio (nuovo)
 
@@ -386,13 +430,15 @@ const SUPABASE_ANON_KEY = 'eyJ...'
 
 ## Step 7 — Deployment
 
-### Surfboard
+### Surfboard → Vercel (decisione presa)
 
-Il Surfboard attualmente gira su **Cloudflare Pages** (via `@cloudflare/next-on-pages`). Con Supabase:
+Il Surfboard attualmente gira su **Cloudflare Pages** (via `@cloudflare/next-on-pages`). Con la migrazione a Supabase, **spostare su Vercel**:
 
-**Opzione A (consigliata)**: Resta su Cloudflare Pages ma rimuovi la dipendenza da D1/KV. Le API route chiamano Supabase via HTTP. Nessun binding Cloudflare necessario.
-
-**Opzione B**: Sposta il Surfboard su **Vercel** (Next.js nativo, zero config). Vercel ha un'integrazione Supabase nativa.
+- Vercel è il runtime nativo di Next.js — zero config, zero `@cloudflare/next-on-pages`
+- Rimuovere `export const runtime = 'edge'` da tutte le route (Node.js runtime è migliore per Supabase client)
+- Rimuovere `import { getRequestContext } from '@cloudflare/next-on-pages'` da tutte le route
+- Variabili d'ambiente: configurare `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY` nella dashboard Vercel
+- Il dominio `onde.surf` va ri-puntato da CF Pages a Vercel (CNAME o A record)
 
 ### Listener
 
